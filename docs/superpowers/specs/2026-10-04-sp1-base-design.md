@@ -1,7 +1,7 @@
 ---
 proyecto: app-ingles
 subproyecto: SP1 — Base
-estado: borrador para revisión
+estado: aprobado (2026-10-04); ajustes en el plan docs/superpowers/plans/2026-10-04-sp1-base.md
 fecha: 2026-10-04
 fuentes: docs/requisitos.md · _cerebro/10-proyectos/app-ingles/decisiones.md
 ---
@@ -28,7 +28,7 @@ Dejar publicada en Vercel una app privada y segura donde un usuario invitado se 
 |---|---|---|
 | Framework | Next.js (App Router) + TypeScript estricto | Nativo de Vercel; UI y API en un solo proyecto, sin servidor propio. |
 | Estilos | Tailwind CSS + tokens de la skill `disenador-ui-accesible` | Mobile-first, accesible y consistente. |
-| Base de datos | Neon Postgres (`@neondatabase/serverless`) | Gratis y con integración nativa en Vercel. |
+| Base de datos | Neon Postgres vía `pg` (URL pooled) | Gratis; un solo driver para local, CI y producción. |
 | ORM y migraciones | Drizzle ORM + drizzle-kit | Tipado, migraciones SQL versionadas en el repo y sin runtime pesado. |
 | Hash | argon2id (`@node-rs/argon2`) | Estándar OWASP para contraseñas. |
 | Validación | zod | Validación de entrada en el servidor en todas las acciones. |
@@ -40,7 +40,7 @@ Las versiones exactas se fijan en el plan, a partir de `docs/investigacion/stack
 
 ```
 Navegador ──HTTPS──> Vercel (Next.js)
-                       ├─ middleware.ts      → exige sesión en todo salvo /login, /registro, /api/salud
+                       ├─ proxy.ts           → exige sesión en todo salvo /login, /registro, /api/salud
                        ├─ app/(publico)      → login, registro con invitación
                        ├─ app/(app)          → inicio, mapa de niveles, ajustes
                        ├─ app/api/...        → route handlers (contenido protegido en SP2)
@@ -61,7 +61,7 @@ Unidades con una sola responsabilidad:
 |---|---|---|
 | `users` | id (uuid), alias (único, 3-20 chars), password_hash, rol (`admin`/`aprendiz`), nivel_inicial, created_at | Sin email ni datos personales (RNF-PRI-03). |
 | `invites` | id, code_hash, creado_por, expira_at, usado_por, usado_at, revocado_at | Se guarda solo el **hash** del código. Un solo uso; caduca en 7 días. |
-| `sessions` | id_hash, user_id, expira_at, created_at | Token aleatorio de 256 bits en la cookie; en la BD solo su hash. Caduca en 30 días con renovación deslizante. |
+| `sessions` | id_hash, user_id, expira_at, created_at | Token aleatorio de 256 bits en la cookie; en la BD solo su hash. Caduca a los 30 días (duración fija). |
 | `login_attempts` | alias, ip_hash, at | Rate limit: 5 fallos por 15 min por alias y 20 por IP. |
 | `progress` | user_id, nivel, leccion_id, completada_at | Las lecciones vienen de YAML (SP2); en SP1, solo el estado de nivel. |
 
@@ -90,7 +90,7 @@ Historias cubiertas:
 - **Secretos:**
   - Solo en las variables de entorno de Vercel (por entorno) y en GitHub Environments.
   - `.env*` en `.gitignore`; solo se versiona `.env.example`, sin valores.
-  - gitleaks bloqueante en el CI y en un hook de pre-commit.
+  - gitleaks bloqueante en el CI.
 - **Sesión:** cookie `__Host-sesion` con `HttpOnly`, `Secure`, `SameSite=Lax` y `Path=/`. Protección CSRF con la verificación de origen de las Server Actions + SameSite.
 - **Cabeceras** (en `next.config`): CSP con nonce, `frame-ancestors 'none'`, HSTS, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` restrictiva y `X-Content-Type-Options: nosniff`. En SP2 se añadirá `frame-src` para youtube-nocookie.
 - **Previews de Vercel** protegidas (Vercel Authentication) y conectadas a una rama de Neon aparte, no a producción.
