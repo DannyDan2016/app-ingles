@@ -26,6 +26,8 @@ export async function clearFailures(db: Db, alias: string): Promise<void> {
   await db.delete(loginAttempts).where(eq(loginAttempts.alias, alias));
 }
 
+// Centinela de alias para los fallos de registro: '#' no cumple ^[a-z0-9_]{3,20}$, así que nunca coincide con un usuario real.
+const REGISTRO_ALIAS = '#registro';
 // Registro: límite por IP (nunca por alias). Hash de IP con prefijo propio para no mezclarlo con el de login.
 const MAX_REGISTRO_IP = 20;
 const registroKey = (ip: string) => hashToken(`registro:${ip}`);
@@ -40,5 +42,5 @@ export async function isRegistrationBlocked(db: Db, ip: string, now: Date): Prom
 }
 
 export async function recordRegistrationFailure(db: Db, ip: string, now: Date): Promise<void> {
-  await db.insert(loginAttempts).values({ alias: 'registro', ipHash: registroKey(ip), at: now });
+  await db.insert(loginAttempts).values({ alias: REGISTRO_ALIAS, ipHash: registroKey(ip), at: now });
 }
