@@ -88,3 +88,24 @@ describe('findViolations: self-hosted en workflows', () => {
     expect(findViolations([{ path, content }])[0].line).toBe(2);
   });
 });
+
+describe('findViolations: next dev/start en package.json', () => {
+  const pkg = (scripts: string) => [{ path: 'package.json', content: scripts }];
+  it('exige -H 127.0.0.1 en dev y start', () => {
+    expect(findViolations(pkg('"dev": "next dev",')).map((v) => v.line)).toEqual([1]);
+    expect(findViolations(pkg('"start": "next start"')).length).toBe(1);
+    expect(findViolations(pkg('"dev": "next dev --turbopack"')).length).toBe(1);
+  });
+  it('acepta exactamente -H 127.0.0.1', () => {
+    expect(findViolations(pkg('"dev": "next dev -H 127.0.0.1",\n"start": "next start -H 127.0.0.1"'))).toEqual([]);
+  });
+  it('la excepción es estrecha: otras IPs o hosts siguen fallando', () => {
+    expect(findViolations(pkg('"dev": "next dev -H 127.0.0.2"')).length).toBeGreaterThan(0);
+    expect(findViolations(pkg('"dev": "next dev -H 0.0.0.0"')).length).toBeGreaterThan(0);
+    expect(findViolations(pkg('"dev": "next dev -H 127.0.0.1 -H 127.1"')).length).toBeGreaterThan(0);
+    expect(findViolations(pkg('"x": "curl 127.0.0.1"')).length).toBeGreaterThan(0);
+  });
+  it('el literal -H 127.0.0.1 no se tolera fuera de package.json', () => {
+    expect(findViolations([{ path: 'src/x.ts', content: 'next dev -H 127.0.0.1' }]).length).toBeGreaterThan(0);
+  });
+});

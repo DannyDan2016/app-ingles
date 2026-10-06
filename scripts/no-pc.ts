@@ -50,13 +50,24 @@ const DOCS = /^docs\/.+\.md$/;
 /** runs-on con self-hosted, también como lista YAML multilínea (se busca en todo el contenido). */
 const SELF_HOSTED = /runs-on:[\s\S]{0,80}?self-hosted/gi;
 
+/** package.json: único sitio donde se tolera el literal `-H 127.0.0.1` (excepción estrecha, no allowlist). */
+const PACKAGE_JSON = /^package\.json$/;
+const LOOPBACK_FLAG = /-H 127\.0\.0\.1(?![\w.])/g;
+/** `next dev` / `next start` escuchan en 0.0.0.0 por defecto: en package.json deben fijar el host a loopback. */
+const NEXT_SERVER = /\bnext (dev|start)\b/;
+
 export function findViolations(files: Array<{ path: string; content: string }>) {
   const out: Array<{ path: string; line: number; match: string }> = [];
   for (const f of files) {
     if (SELF.test(f.path)) continue;
     const isDocs = DOCS.test(f.path);
     const patterns = isDocs ? [] : ALLOWLIST.some((re) => re.test(f.path)) ? TUNNEL_PATTERNS : [...LOCAL_PATTERNS, ...TUNNEL_PATTERNS];
+    const pkg = PACKAGE_JSON.test(f.path);
     f.content.split(/\r?\n/).forEach((text, i) => {
+      if (pkg && NEXT_SERVER.test(text) && !/-H 127\.0\.0\.1(?![\w.])/.test(text)) {
+        out.push({ path: f.path, line: i + 1, match: 'next dev/start sin -H 127.0.0.1 (escucha en 0.0.0.0 por defecto)' });
+      }
+      if (pkg) text = text.replace(LOOPBACK_FLAG, '');
       for (const re of patterns) {
         const m = text.match(re);
         if (m) out.push({ path: f.path, line: i + 1, match: m[0] });
