@@ -64,3 +64,27 @@ describe('findViolations: docs', () => {
     expect(findViolations([{ path: 'docs/x.md', content: 'prohibido: ngrok, runs-on: self-hosted' }])).toEqual([]);
   });
 });
+
+describe('findViolations: exención de docs solo para Markdown', () => {
+  it.each([['ngrok http 3000'], ['runs-on: self-hosted'], ['http://localhost:3000']])(
+    'marca %j en archivos no Markdown de docs/',
+    (content) => {
+      for (const path of ['docs/run.sh', 'docs/x.yml', 'docs/x.md.txt']) {
+        expect(findViolations([{ path, content }]).length, path).toBeGreaterThan(0);
+      }
+    },
+  );
+  it.each([['ngrok http 3000'], ['runs-on: self-hosted'], ['http://localhost:3000']])(
+    'no marca %j en docs/**/*.md',
+    (content) => {
+      expect(findViolations([{ path: 'docs/a/b.md', content }])).toEqual([]);
+    },
+  );
+});
+
+describe('findViolations: self-hosted en workflows', () => {
+  it.each(['.github/workflows/ci.yml', '.github/workflows/x.yaml'])('marca cualquier self-hosted en %s (matrix)', (path) => {
+    const content = 'matrix:\n  os: [ubuntu-latest, self-hosted]\njobs:\n  a:\n    runs-on: ${{ matrix.os }}';
+    expect(findViolations([{ path, content }])[0].line).toBe(2);
+  });
+});

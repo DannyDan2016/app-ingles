@@ -6,7 +6,7 @@ export const ALLOWLIST: RegExp[] = [
   /^tests\/\.env\.example$/,
   /^Dockerfile$/,
   /^tests\/Dockerfile$/,
-  /^docs\//,
+  /^docs\/.+\.md$/,
   /^tests\/data\/local\//,
   /^\.github\/workflows\/ci\.yml$/, // servicios de CI en el propio runner de GitHub
 ];
@@ -29,6 +29,10 @@ const LOCAL_PATTERNS = [
   /\b[a-z0-9-]+\.local\b/i,
 ];
 
+/** Cualquier `self-hosted` en un workflow (cubre runners en matrix). */
+const WORKFLOW = /^\.github\/workflows\/.+\.ya?ml$/;
+const SELF_HOSTED_TOKEN = /self-hosted/i;
+
 /** Túneles: se vigilan en TODOS los archivos, sin excepción. */
 const TUNNEL_PATTERNS = [
   /\bngrok\b/i,
@@ -41,7 +45,7 @@ const TUNNEL_PATTERNS = [
 ];
 
 /** La documentación describe la regla (menciona ngrok, self-hosted…) y no se ejecuta: solo se exenta docs/. */
-const DOCS = /^docs\//;
+const DOCS = /^docs\/.+\.md$/;
 
 /** runs-on con self-hosted, también como lista YAML multilínea (se busca en todo el contenido). */
 const SELF_HOSTED = /runs-on:[\s\S]{0,80}?self-hosted/gi;
@@ -62,6 +66,12 @@ export function findViolations(files: Array<{ path: string; content: string }>) 
     for (const m of f.content.matchAll(SELF_HOSTED)) {
       const line = f.content.slice(0, m.index).split(/\r?\n/).length;
       out.push({ path: f.path, line, match: 'runs-on: self-hosted' });
+    }
+    if (WORKFLOW.test(f.path)) {
+      f.content.split(/\r?\n/).forEach((text, i) => {
+        const dup = out.some((x) => x.path === f.path && x.line === i + 1 && x.match === 'runs-on: self-hosted');
+        if (!dup && SELF_HOSTED_TOKEN.test(text)) out.push({ path: f.path, line: i + 1, match: 'self-hosted' });
+      });
     }
   }
   return out;
