@@ -1,6 +1,7 @@
 import { and, eq, gt, count } from 'drizzle-orm';
 import type { Db } from '@/lib/db/client';
 import { loginAttempts } from '@/lib/db/schema';
+import { hashToken } from './tokens';
 
 export const WINDOW_MINUTES = 15;
 const MAX_ALIAS = 5;
@@ -23,4 +24,21 @@ export async function recordFailure(db: Db, alias: string, ipHash: string, now: 
 
 export async function clearFailures(db: Db, alias: string): Promise<void> {
   await db.delete(loginAttempts).where(eq(loginAttempts.alias, alias));
+}
+
+// Registro: límite por IP (nunca por alias). Hash de IP con prefijo propio para no mezclarlo con el de login.
+const MAX_REGISTRO_IP = 20;
+const registroKey = (ip: string) => hashToken(`registro:${ip}`);
+
+export async function isRegistrationBlocked(db: Db, ip: string, now: Date): Promise<boolean> {
+  const since = new Date(now.getTime() - WINDOW_MINUTES * 60_000);
+  const [r] = await db
+    .select({ n: count() })
+    .from(loginAttempts)
+    .where(and(eq(loginAttempts.ipHash, registroKey(ip)), gt(loginAttempts.at, since)));
+  return r.n >= MAX_REGISTRO_IP;
+}
+
+export async function recordRegistrationFailure(db: Db, ip: string, now: Date): Promise<void> {
+  await db.insert(loginAttempts).values({ alias: 'registro', ipHash: registroKey(ip), at: now });
 }

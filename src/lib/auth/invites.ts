@@ -61,8 +61,12 @@ export async function registerWithInvite(
   if (!a.ok) return { ok: false, error: a.error };
   const p = validatePasswordPolicy(input.password);
   if (!p.ok) return { ok: false, error: p.error };
+  // Comprobación barata ANTES del hash: sin un código válido no se gasta CPU/memoria de argon2 (DoS anónimo).
+  const pre = await checkInviteCode(db, input.code, now);
+  if (pre !== 'valida') return { ok: false, error: pre };
   const passwordHash = await hashPassword(input.password); // fuera de la transacción: es lento
 
+  // Se repite con FOR UPDATE: entre el SELECT de arriba y aquí otra petición pudo gastar la invitación.
   return db.transaction(async (tx) => {
     const [inv] = await tx.select().from(invites).where(eq(invites.codeHash, hashToken(input.code))).for('update');
     const state = evaluateInvite(inv ?? null, now);
