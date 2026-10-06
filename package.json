@@ -2,6 +2,9 @@
   "name": "app-ingles",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=24.7"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -17,7 +20,6 @@
     "check:no-pc": "node scripts/check-no-pc.mjs"
   },
   "dependencies": {
-    "@node-rs/argon2": "2.2.1",
     "drizzle-orm": "0.45.3",
     "next": "16.3.8",
     "pg": "8.23.1",
