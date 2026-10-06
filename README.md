@@ -10,7 +10,7 @@ Lo que hay que configurar a mano antes del primer despliegue. Nada de esto vive 
 
 ### Vercel
 
-- Integración Git de Vercel **desactivada**: el despliegue lo hará el workflow de GitHub (`vercel.json` y `deploy.yml` llegan en la Task 12).
+- Integración Git de Vercel **desactivada**: el despliegue lo hace el workflow `.github/workflows/deploy.yml` (`vercel.json` lo refuerza con `git.deploymentEnabled: false`).
 - **Deployment Protection** activada también en los previews. El bypass de protección se guarda solo como secret de GitHub y nunca en el código ni en variables públicas.
 - Nunca definir `COOKIE_INSECURE` ni variables `NEXT_PUBLIC_*` con secretos en Vercel.
 
@@ -26,12 +26,27 @@ Lo que hay que configurar a mano antes del primer despliegue. Nada de esto vive 
 - Activar secret scanning con push protection y las alertas de Dependabot.
 - En Actions, "Require approval for all outside collaborators".
 
+### Flujo de deploy y GitHub Environments
+
+Se publica con `push` a `main`. Cuando `ci` termina en verde, `deploy.yml` ejecuta `preview` (migra Neon preview, despliega) → `puerta-seguridad` (E2E/API + ZAP baseline sobre `/login`) → `produccion` (migra Neon main, despliega con `--prod`).
+
+Crear en GitHub → Settings → Environments:
+
+| Environment | Secrets (solo nombres) |
+| --- | --- |
+| `preview` | `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `DATABASE_URL_UNPOOLED` (Neon preview, URL directa), `VERCEL_BYPASS`, `E2E_ADMIN_PASSWORD` |
+| `production` | `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `DATABASE_URL_UNPOOLED` (Neon main, URL directa) |
+
+- **`production` debe tener un revisor obligatorio** (Required reviewers): sin él, el job de producción se ejecutaría sin aprobación manual.
+- **URL de Neon directa vs. con pooler**: `DATABASE_URL_UNPOOLED` es la URL **directa** (host sin `-pooler`) y solo sirve para migrar desde Actions. La app en Vercel usa `DATABASE_URL` **con pooler** (variable de entorno de Vercel, no secret de GitHub). Las migraciones no funcionan bien a través del pooler.
+- Usar `sslmode=verify-full` en las URLs de Neon.
+
 ### Variables de entorno por entorno
 
 | Variable | Producción | Preview | Notas |
 | --- | --- | --- | --- |
 | `DATABASE_URL` | Neon `main`, con pooler | Neon `preview`, con pooler | Solo en Vercel; nunca en el repo |
-| `DATABASE_URL` para migraciones | Neon `main`, directa | Neon `preview`, directa | Solo como secret de GitHub |
+| `DATABASE_URL_UNPOOLED` (migraciones) | Neon `main`, directa | Neon `preview`, directa | Solo como secret de GitHub (por environment) |
 | Bypass de protección | no aplica | secret de GitHub | Solo lo usa el E2E contra el preview |
 
 ### Crear el administrador
