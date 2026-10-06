@@ -17,7 +17,7 @@
     "db:migrate": "drizzle-kit migrate",
     "admin:crear": "tsx scripts/crear-admin.ts",
     "admin:reset": "tsx scripts/reset-password.ts",
-    "check:no-pc": "node scripts/check-no-pc.mjs"
+    "check:no-pc": "tsx scripts/check-no-pc.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.3",

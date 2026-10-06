@@ -7,15 +7,15 @@ describe('testDatabaseUrl', () => {
   });
 
   it('falla si la BD no acaba en _test', () => {
-    expect(() => testDatabaseUrl({ DATABASE_URL_TEST: 'postgres://app:x@localhost:5432/app_ingles' })).toThrow(/_test/);
+    expect(() => testDatabaseUrl({ DATABASE_URL_TEST: 'postgres://app:x@db.example.test:5432/app_ingles' })).toThrow(/_test/);
   });
 
   it('falla si el nombre tiene caracteres no permitidos', () => {
-    expect(() => testDatabaseUrl({ DATABASE_URL_TEST: 'postgres://app:x@localhost:5432/a-b";x_test' })).toThrow();
+    expect(() => testDatabaseUrl({ DATABASE_URL_TEST: 'postgres://app:x@db.example.test:5432/a-b";x_test' })).toThrow();
   });
 
   it('devuelve la URL válida', () => {
-    const url = 'postgres://app:x@localhost:5432/app_ingles_test';
+    const url = 'postgres://app:x@db.example.test:5432/app_ingles_test';
     expect(testDatabaseUrl({ DATABASE_URL_TEST: url })).toBe(url);
   });
 });
