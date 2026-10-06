@@ -2,12 +2,12 @@ import 'dotenv/config';
 import { Client } from 'pg';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { createDb } from './client';
+import { testDatabaseUrl, testDatabaseName } from './test-url';
 
 export default async function setup() {
-  const url = process.env.DATABASE_URL_TEST;
-  if (!url) throw new Error('DATABASE_URL_TEST no está definida');
+  const url = testDatabaseUrl();
   const admin = new URL(url);
-  const dbName = admin.pathname.slice(1);
+  const dbName = testDatabaseName(url);
   admin.pathname = '/postgres';
   const c = new Client({ connectionString: admin.toString() });
   await c.connect();
