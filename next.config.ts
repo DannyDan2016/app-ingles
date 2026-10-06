@@ -1,7 +1,12 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
+import { STATIC_SECURITY_HEADERS } from './src/lib/security/csp';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'standalone',
+  poweredByHeader: false,
+  async headers() {
+    return [{ source: '/:path*', headers: STATIC_SECURITY_HEADERS }];
+  },
 };
 
 export default nextConfig;
