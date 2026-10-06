@@ -59,7 +59,22 @@ describe('invitaciones', () => {
       registerWithInvite(testDb, { code, alias: 'dos', password: 'una-clave-larga' }, now),
     ]);
     expect([a.ok, b.ok].filter(Boolean)).toHaveLength(1);
+    expect([a, b].find((r) => !r.ok)).toEqual({ ok: false, error: 'usada' });
     expect(await testDb.select().from(users)).toHaveLength(2); // admin + 1
+  });
+
+  it('dos invitaciones distintas con el mismo alias a la vez: una gana y la otra queda sin usar', async () => {
+    const i1 = await createInvite(testDb, adminId, now);
+    const i2 = await createInvite(testDb, adminId, now);
+    const results = await Promise.all([
+      registerWithInvite(testDb, { code: i1.code, alias: 'Mismo', password: 'una-clave-larga' }, now),
+      registerWithInvite(testDb, { code: i2.code, alias: 'mismo', password: 'una-clave-larga' }, now),
+    ]);
+    expect(results.filter((r) => r.ok)).toHaveLength(1);
+    expect(results.find((r) => !r.ok)).toEqual({ ok: false, error: 'alias_ocupado' });
+    const states = [await checkInviteCode(testDb, i1.code, now), await checkInviteCode(testDb, i2.code, now)];
+    expect(states.sort()).toEqual(['usada', 'valida']);
+    expect(await testDb.select().from(users)).toHaveLength(2);
   });
 
   it('lista invitaciones sin exponer el hash', async () => {

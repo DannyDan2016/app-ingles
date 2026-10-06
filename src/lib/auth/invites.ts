@@ -67,9 +67,13 @@ export async function registerWithInvite(
     const [inv] = await tx.select().from(invites).where(eq(invites.codeHash, hashToken(input.code))).for('update');
     const state = evaluateInvite(inv ?? null, now);
     if (state !== 'valida') return { ok: false as const, error: state };
-    const [taken] = await tx.select({ id: users.id }).from(users).where(eq(users.alias, a.alias));
-    if (taken) return { ok: false as const, error: 'alias_ocupado' as const };
-    const [u] = await tx.insert(users).values({ alias: a.alias, passwordHash }).returning({ id: users.id });
+    // ON CONFLICT cubre la carrera entre dos invitaciones distintas con el mismo alias (sin excepción 23505).
+    const [u] = await tx
+      .insert(users)
+      .values({ alias: a.alias, passwordHash })
+      .onConflictDoNothing({ target: users.alias })
+      .returning({ id: users.id });
+    if (!u) return { ok: false as const, error: 'alias_ocupado' as const }; // la invitación queda sin usar
     await tx.update(invites).set({ usadoPor: u.id, usadoAt: now }).where(eq(invites.id, inv!.id));
     return { ok: true as const, userId: u.id };
   });
