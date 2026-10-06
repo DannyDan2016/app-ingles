@@ -1,0 +1,6 @@
+# Reglas por defecto de gitleaks. El escaneo del historial completo (24 commits) sale limpio
+# sin allowlist: las credenciales efímeras de Docker/CI (app_local_only, app_ci_only) no se
+# marcan. La contraseña del admin E2E se genera aleatoria en cada ejecución y no está en el repo.
+# Si en el futuro alguna salta, allowlistear solo ese valor aquí con un comentario.
+[extend]
+useDefault = true
