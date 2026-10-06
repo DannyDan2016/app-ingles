@@ -40,6 +40,10 @@ Crear en GitHub → Settings → Environments:
 - **`production` debe tener un revisor obligatorio** (Required reviewers): sin él, el job de producción se ejecutaría sin aprobación manual.
 - **URL de Neon directa vs. con pooler**: `DATABASE_URL_UNPOOLED` es la URL **directa** (host sin `-pooler`) y solo sirve para migrar desde Actions. La app en Vercel usa `DATABASE_URL` **con pooler** (variable de entorno de Vercel, no secret de GitHub). Las migraciones no funcionan bien a través del pooler.
 - Usar `sslmode=verify-full` en las URLs de Neon.
+- **Usuario `admin_e2e` del preview**: debe crearse en la rama Neon `preview` (con la receta de PowerShell 5.1 de "Crear el administrador", `ADMIN_ALIAS=admin_e2e` y la URL **directa** de `preview`) con **la misma contraseña** que el secret `E2E_ADMIN_PASSWORD` del environment `preview`. Si no coinciden, `puerta-seguridad` falla en el login.
+- **Deployment branches**: en ambos environments, Settings → Deployment branches → *Selected branches* → `main`.
+- **Concurrencia**: el grupo `deploy` no cancela ejecuciones; un run que espera la aprobación de `production` bloquea los siguientes deploys hasta que se apruebe o se rechace.
+- **Migraciones y rollback**: las migraciones se aplican **antes** del deploy, así que la versión anterior de la app corre un rato sobre el esquema nuevo. Regla expand/contract: migraciones compatibles hacia atrás, sin `DROP` ni `RENAME` en la misma release que cambia el código que los usa (primero se añade, en una release posterior se elimina). Como rollback de datos se usa la ventana de restauración (restore) de Neon.
 
 ### Variables de entorno por entorno
 

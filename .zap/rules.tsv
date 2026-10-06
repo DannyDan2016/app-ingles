@@ -1,30 +1,50 @@
-# Reglas del escaneo ZAP baseline (zap-baseline.py -c rules.tsv). Se escanea /login del preview.
+# Reglas del escaneo ZAP baseline (zap-baseline.py -c rules.tsv -I) sobre /login del preview.
 # Formato: <id de regla> TAB <IGNORE|WARN|FAIL> TAB (nombre informativo); columnas separadas por TAB.
-# Política: toda regla pasiva de riesgo medio o alto es FAIL (rompe el job puerta-seguridad).
-# Solo se pone IGNORE con una justificación en un comentario encima.
-# El script se ejecuta con -I (los WARN no rompen el job); por eso lo importante es FAIL explícito.
-# Referencia de IDs: https://www.zaproxy.org/docs/alerts/
+# Qué se aplica exactamente:
+#  - Con -I los WARN no rompen el job; solo rompen las reglas FAIL. Una regla NO listada es WARN (no bloquea).
+#  - Por eso se listan como FAIL todas las reglas pasivas del baseline de ZAP 2.17 (pscanrules release 75) de riesgo
+#    medio o alto, más las de cabeceras/cookies de riesgo bajo que la app cumple hoy. IDs: https://www.zaproxy.org/docs/alerts/
+#  - IGNORE solo con justificación en el comentario inmediatamente superior.
+#  - Los hallazgos informativos y el resto de riesgo bajo quedan en WARN: visibles en el log, no bloquean.
 
 # --- Riesgo medio/alto: FAIL ---
-10038	FAIL	(Content Security Policy (CSP) Header Not Set)
-10055	FAIL	(CSP: directivas ausentes o inseguras, incluye style-src/script-src inseguros)
-10020	FAIL	(Anti-clickjacking Header ausente)
-10035	FAIL	(Strict-Transport-Security Header ausente)
-10021	FAIL	(X-Content-Type-Options Header ausente)
-10054	FAIL	(Cookie sin atributo SameSite)
-10010	FAIL	(Cookie sin HttpOnly)
-10011	FAIL	(Cookie sin Secure)
-90033	FAIL	(Loosely Scoped Cookie)
-10098	FAIL	(Cross-Domain Misconfiguration)
-10063	FAIL	(Permissions Policy Header ausente)
+10003	FAIL	(Vulnerable JS Library (Medium))
+10020	FAIL	(Anti-clickjacking Header (Medium))
+10025	FAIL	(Session ID in URL Rewrite (Medium))
+10028	FAIL	(Off-site Redirect (Medium))
+10034	FAIL	(Heartbleed (High))
+10038	FAIL	(CSP Header Not Set (Medium))
+10040	FAIL	(Secure Pages Include Mixed Content (Medium))
+10041	FAIL	(HTTP to HTTPS Insecure Transition in Form Post (Medium))
+10042	FAIL	(HTTPS to HTTP Insecure Transition in Form Post (Medium))
+10055	FAIL	(CSP directivas inseguras (Medium))
+10062	FAIL	(PII Disclosure (High))
+10097	FAIL	(Hash Disclosure (High))
+10098	FAIL	(Cross-Domain Misconfiguration (Medium))
+10099	FAIL	(Source Code Disclosure (Medium))
+10105	FAIL	(Weak Authentication Method (Medium))
+10108	FAIL	(Reverse Tabnabbing (Medium))
+10115	FAIL	(Script Served From Malicious Domain (High))
+90001	FAIL	(Insecure JSF ViewState (Medium))
+90002	FAIL	(Java Serialization Object (Medium))
+90003	FAIL	(Sub Resource Integrity Attribute Missing (Medium))
+90022	FAIL	(Application Error Disclosure (Medium))
+
+# --- Cabeceras y cookies de riesgo bajo que se exigen: FAIL ---
+10010	FAIL	(Cookie sin HttpOnly (Low))
+10011	FAIL	(Cookie sin Secure (Low))
+10021	FAIL	(X-Content-Type-Options ausente (Low))
+10035	FAIL	(Strict-Transport-Security ausente (Low))
+10054	FAIL	(Cookie sin SameSite (Low))
+10063	FAIL	(Permissions Policy ausente (Low))
+90033	FAIL	(Loosely Scoped Cookie (Low))
 
 # --- Excepciones justificadas ---
-# 10202 Anti-CSRF Tokens: los formularios usan Server Actions de Next, que validan Origin/Host
-# y llevan un identificador de acción; no hay token CSRF clásico en el HTML. La cookie es SameSite=Lax.
+# 10202 Absence of Anti-CSRF Tokens (Medium): los formularios usan Server Actions de Next, que validan Origin/Host
+# y llevan un identificador de acción; no hay token CSRF clásico en el HTML. La cookie de sesión es SameSite=Lax.
 10202	IGNORE	(Absence of Anti-CSRF Tokens)
-# 10049 Storable and Cacheable Content: /login es una página pública y estática, sin datos de usuario;
-# el contenido privado va tras sesión con Cache-Control propio.
+# 10049 Storable and Cacheable Content: alerta informativa (no medio/alto); /login es dinámico y no contiene datos de usuario.
 10049	IGNORE	(Storable and Cacheable Content)
-# 10096 Timestamp Disclosure: aparecen timestamps de Unix en los bundles estáticos de Next
-# (hashes y constantes), no revelan información del servidor.
+# 10096 Timestamp Disclosure (Low): aparecen valores tipo timestamp Unix en los bundles estáticos de Next (hashes y
+# constantes); no revelan información del servidor.
 10096	IGNORE	(Timestamp Disclosure)

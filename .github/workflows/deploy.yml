@@ -1,8 +1,11 @@
 name: deploy
 # Se dispara cuando termina `ci`. Solo se publica si ci fue verde en un PUSH a main
 # del propio repositorio (nunca forks ni PRs). Flujo: preview -> puerta-seguridad -> produccion.
-# Secrets por GitHub Environment: ver README ("Despliegue"). Todos entran por `env:`,
-# nunca interpolados dentro de `run:`. Acciones fijadas por SHA; solo runners de GitHub.
+# Secrets por GitHub Environment: ver README ("Despliegue"). Cada secret entra por `env:` solo en el
+# paso que lo usa (nunca a nivel de job, para que no lo vean los scripts de dependencias de npm ci),
+# y nunca interpolado dentro de `run:`. `npm ci --ignore-scripts`: ningún paquete ejecuta código de
+# instalación en el runner (probado: build, drizzle-kit y playwright funcionan igual).
+# Acciones fijadas por SHA; solo runners de GitHub.
 on:
   workflow_run:
     workflows: [ci]
@@ -26,10 +29,8 @@ jobs:
     outputs:
       url: ${{ steps.dep.outputs.url }}
     env:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-      DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -39,19 +40,34 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Migraciones (URL directa de Neon preview)
+        env:
+          DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
         run: |
           if [ -z "$DATABASE_URL_UNPOOLED" ]; then
             echo "::error::Falta el secret DATABASE_URL_UNPOOLED en el environment 'preview' (URL directa de Neon, sin pooler)."
             exit 1
           fi
           DATABASE_URL="$DATABASE_URL_UNPOOLED" npx drizzle-kit migrate
-      - run: npx --yes vercel@62.5.0 pull --yes --environment=preview --token "$VERCEL_TOKEN"
-      - run: npx --yes vercel@62.5.0 build --token "$VERCEL_TOKEN"
-      - id: dep
+      - name: vercel pull
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@62.5.0 pull --yes --environment=preview --token "$VERCEL_TOKEN"
+      - name: vercel build
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@62.5.0 build --token "$VERCEL_TOKEN"
+      - name: vercel deploy
+        id: dep
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
-          url="$(npx --yes vercel@62.5.0 deploy --prebuilt --token "$VERCEL_TOKEN")"
+          url="$(npx --yes vercel@62.5.0 deploy --prebuilt --token "$VERCEL_TOKEN" | tail -n1)"
+          if ! printf '%s' "$url" | grep -Eq '^https://[a-z0-9-]+\.vercel\.app$'; then
+            echo "::error::La URL del preview no tiene el formato esperado."
+            exit 1
+          fi
           echo "url=$url" >> "$GITHUB_OUTPUT"
 
   puerta-seguridad:
@@ -64,8 +80,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     environment: preview
-    env:
-      PREVIEW_URL: ${{ needs.preview.outputs.url }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -75,6 +89,12 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
+      # Instalación sin secrets en el entorno.
+      - name: Instalar dependencias de tests
+        working-directory: tests
+        run: |
+          npm ci --ignore-scripts
+          npx playwright install --with-deps chromium firefox webkit
       # Sin trazas (playwright.config) y sin subir informe: podría contener la cabecera de bypass.
       - name: E2E + API contra el preview
         working-directory: tests
@@ -84,29 +104,19 @@ jobs:
           VERCEL_BYPASS: ${{ secrets.VERCEL_BYPASS }}
           E2E_ADMIN_PASSWORD: ${{ secrets.E2E_ADMIN_PASSWORD }}
           CI: "true"
-        run: |
-          npm ci
-          npx playwright install --with-deps chromium firefox webkit
-          npm run test:preview
-      # La cabecera de bypass se inyecta con el Replacer de ZAP. El secret va como variable de
-      # entorno del contenedor (-e VERCEL_BYPASS, sin valor en la línea de docker) y se expande
-      # dentro del contenedor con sh -c.
+        run: npm run test:preview
+      # La cabecera de bypass se inyecta con las variables documentadas de ZAP
+      # (ZAP_AUTH_HEADER*), limitadas al host del preview. El valor pasa por -e (sin valor en la línea de docker).
+      # Imagen fijada por digest (2.17.0).
       - name: ZAP baseline sobre /login
         env:
-          VERCEL_BYPASS: ${{ secrets.VERCEL_BYPASS }}
+          PREVIEW_URL: ${{ needs.preview.outputs.url }}
+          ZAP_AUTH_HEADER_VALUE: ${{ secrets.VERCEL_BYPASS }}
         run: |
           chmod a+w .zap
-          docker run --rm -v "$PWD/.zap:/zap/wrk:rw" -e VERCEL_BYPASS -e PREVIEW_URL \
-            ghcr.io/zaproxy/zaproxy:2.17.0 sh -c '
-              zap-baseline.py -t "$PREVIEW_URL/login" -c rules.tsv -I \
-                -z "-config replacer.full_list(0).description=bypass \
-                    -config replacer.full_list(0).enabled=true \
-                    -config replacer.full_list(0).matchtype=REQ_HEADER \
-                    -config replacer.full_list(0).matchstr=x-vercel-protection-bypass \
-                    -config replacer.full_list(0).regex=false \
-                    -config replacer.full_list(0).replacement=$VERCEL_BYPASS"
-            '
-          # -I: los WARN no rompen el job; las FAIL de .zap/rules.tsv sí.
+          host="${PREVIEW_URL#https://}"
+          docker run --rm -v "$PWD/.zap:/zap/wrk:rw"             -e ZAP_AUTH_HEADER=x-vercel-protection-bypass             -e ZAP_AUTH_HEADER_VALUE             -e ZAP_AUTH_HEADER_SITE="$host"             ghcr.io/zaproxy/zaproxy:2.17.0@sha256:781a2bdaea47324e7bab583e2263f21d257b0aee61ed51521a5be45f5f5081ef             zap-baseline.py -t "$PREVIEW_URL/login" -c rules.tsv -I
+          # -I: los WARN no rompen el job; las FAIL de .zap/rules.tsv sí (ver su cabecera).
 
   produccion:
     needs: [puerta-seguridad]
@@ -120,10 +130,8 @@ jobs:
     # El environment 'production' debe tener revisor obligatorio (configurado a mano en GitHub).
     environment: production
     env:
-      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-      DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -133,14 +141,25 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
+      - run: npm ci --ignore-scripts
       - name: Migraciones (URL directa de Neon main)
+        env:
+          DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
         run: |
           if [ -z "$DATABASE_URL_UNPOOLED" ]; then
             echo "::error::Falta el secret DATABASE_URL_UNPOOLED en el environment 'production' (URL directa de Neon, sin pooler)."
             exit 1
           fi
           DATABASE_URL="$DATABASE_URL_UNPOOLED" npx drizzle-kit migrate
-      - run: npx --yes vercel@62.5.0 pull --yes --environment=production --token "$VERCEL_TOKEN"
-      - run: npx --yes vercel@62.5.0 build --prod --token "$VERCEL_TOKEN"
-      - run: npx --yes vercel@62.5.0 deploy --prebuilt --prod --token "$VERCEL_TOKEN"
+      - name: vercel pull
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@62.5.0 pull --yes --environment=production --token "$VERCEL_TOKEN"
+      - name: vercel build
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@62.5.0 build --prod --token "$VERCEL_TOKEN"
+      - name: vercel deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx --yes vercel@62.5.0 deploy --prebuilt --prod --token "$VERCEL_TOKEN"
