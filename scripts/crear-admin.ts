@@ -4,8 +4,17 @@ import { users } from '../src/lib/db/schema';
 import { hashPassword, validatePasswordPolicy } from '../src/lib/auth/password';
 import { normalizeAlias } from '../src/lib/auth/alias';
 
-// Uso (PowerShell): $env:ADMIN_ALIAS='<tu_alias>'; $env:ADMIN_PASSWORD=Read-Host -MaskInput; npm run admin:crear
-// Contra Neon: define DATABASE_URL solo en esa sesión; nunca se imprime ni se guarda.
+// Uso (Windows PowerShell 5.1; `Read-Host -MaskInput` solo existe desde PS 7.1). Los secretos se leen sin eco:
+//   $s = Read-Host 'Contraseña' -AsSecureString
+//   $env:ADMIN_PASSWORD = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($s))
+//   $s = Read-Host 'DATABASE_URL (Neon, URL directa)' -AsSecureString
+//   $env:DATABASE_URL = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($s))
+//   $env:ADMIN_ALIAS = '<tu_alias>'
+//   npm run admin:crear
+//   Remove-Item Env:ADMIN_PASSWORD, Env:DATABASE_URL
+// Nunca pegues la contraseña ni la URL de la base de datos en la línea de comandos: PSReadLine las guarda
+// en ConsoleHost_history.txt, en disco y en texto plano. Usa un alias de producción que no figure en el repo.
+// DATABASE_URL solo vive en esa sesión; nunca se imprime ni se guarda.
 async function main() {
   const a = normalizeAlias(process.env.ADMIN_ALIAS ?? '');
   const pwd = process.env.ADMIN_PASSWORD ?? '';

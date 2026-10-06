@@ -5,7 +5,16 @@ import { users, sessions } from '../src/lib/db/schema';
 import { hashPassword, validatePasswordPolicy } from '../src/lib/auth/password';
 import { normalizeAlias } from '../src/lib/auth/alias';
 
-// Uso: $env:ALIAS='ana'; $env:NEW_PASSWORD=Read-Host -MaskInput; npm run admin:reset
+// Uso (Windows PowerShell 5.1; `Read-Host -MaskInput` solo existe desde PS 7.1). Los secretos se leen sin eco:
+//   $s = Read-Host 'Contraseña' -AsSecureString
+//   $env:NEW_PASSWORD = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($s))
+//   $s = Read-Host 'DATABASE_URL (Neon, URL directa)' -AsSecureString
+//   $env:DATABASE_URL = [Runtime.InteropServices.Marshal]::PtrToStringBSTR([Runtime.InteropServices.Marshal]::SecureStringToBSTR($s))
+//   $env:ALIAS = '<tu_alias>'
+//   npm run admin:reset
+//   Remove-Item Env:NEW_PASSWORD, Env:DATABASE_URL
+// Nunca pegues la contraseña ni la URL de la base de datos en la línea de comandos: PSReadLine las guarda
+// en ConsoleHost_history.txt, en disco y en texto plano. Usa un alias de producción que no figure en el repo.
 async function main() {
   const a = normalizeAlias(process.env.ALIAS ?? '');
   const pwd = process.env.NEW_PASSWORD ?? '';
