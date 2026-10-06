@@ -1,0 +1,12 @@
+.git
+node_modules
+.next
+.env*
+!.env.example
+tests/node_modules
+tests/playwright-report
+tests/test-results
+tests/.auth
+tests/.features-gen
+.superpowers
+coverage

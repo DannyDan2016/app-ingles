@@ -1,3 +1,5 @@
+# Stack base: BD + migración + app. Para desarrollo basta `docker compose up -d db`.
+# Para E2E se combina con tests/docker-compose.yml (ver tests/README.md).
 services:
   db:
     image: postgres:17-alpine
@@ -12,3 +14,24 @@ services:
       interval: 2s
       timeout: 3s
       retries: 20
+  migrate:
+    build: .
+    command: ["sh", "-c", "npx drizzle-kit migrate && npx tsx scripts/crear-admin.ts"]
+    environment:
+      DATABASE_URL: postgres://app:app_local_only@db:5432/app_ingles
+      ADMIN_ALIAS: ${E2E_ADMIN_ALIAS:-admin_e2e}
+      # Sin valor por defecto real: crear-admin.ts valida la política y falla si no es válida.
+      ADMIN_PASSWORD: ${E2E_ADMIN_PASSWORD:-}
+    depends_on:
+      db: { condition: service_healthy }
+  web:
+    build: .
+    environment:
+      DATABASE_URL: postgres://app:app_local_only@db:5432/app_ingles
+      COOKIE_INSECURE: "true"
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/api/salud || exit 1"]
+      interval: 2s
+      retries: 30
