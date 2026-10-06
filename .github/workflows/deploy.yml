@@ -1,0 +1,146 @@
+name: deploy
+# Se dispara cuando termina `ci`. Solo se publica si ci fue verde en un PUSH a main
+# del propio repositorio (nunca forks ni PRs). Flujo: preview -> puerta-seguridad -> produccion.
+# Secrets por GitHub Environment: ver README ("Despliegue"). Todos entran por `env:`,
+# nunca interpolados dentro de `run:`. Acciones fijadas por SHA; solo runners de GitHub.
+on:
+  workflow_run:
+    workflows: [ci]
+    types: [completed]
+permissions:
+  contents: read
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: preview
+    outputs:
+      url: ${{ steps.dep.outputs.url }}
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Migraciones (URL directa de Neon preview)
+        run: |
+          if [ -z "$DATABASE_URL_UNPOOLED" ]; then
+            echo "::error::Falta el secret DATABASE_URL_UNPOOLED en el environment 'preview' (URL directa de Neon, sin pooler)."
+            exit 1
+          fi
+          DATABASE_URL="$DATABASE_URL_UNPOOLED" npx drizzle-kit migrate
+      - run: npx --yes vercel@62.5.0 pull --yes --environment=preview --token "$VERCEL_TOKEN"
+      - run: npx --yes vercel@62.5.0 build --token "$VERCEL_TOKEN"
+      - id: dep
+        run: |
+          url="$(npx --yes vercel@62.5.0 deploy --prebuilt --token "$VERCEL_TOKEN")"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+  puerta-seguridad:
+    needs: [preview]
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: preview
+    env:
+      PREVIEW_URL: ${{ needs.preview.outputs.url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      # Sin trazas (playwright.config) y sin subir informe: podría contener la cabecera de bypass.
+      - name: E2E + API contra el preview
+        working-directory: tests
+        env:
+          TEST_ENV: preview
+          BASE_URL: ${{ needs.preview.outputs.url }}
+          VERCEL_BYPASS: ${{ secrets.VERCEL_BYPASS }}
+          E2E_ADMIN_PASSWORD: ${{ secrets.E2E_ADMIN_PASSWORD }}
+          CI: "true"
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium firefox webkit
+          npm run test:preview
+      # La cabecera de bypass se inyecta con el Replacer de ZAP. El secret va como variable de
+      # entorno del contenedor (-e VERCEL_BYPASS, sin valor en la línea de docker) y se expande
+      # dentro del contenedor con sh -c.
+      - name: ZAP baseline sobre /login
+        env:
+          VERCEL_BYPASS: ${{ secrets.VERCEL_BYPASS }}
+        run: |
+          chmod a+w .zap
+          docker run --rm -v "$PWD/.zap:/zap/wrk:rw" -e VERCEL_BYPASS -e PREVIEW_URL \
+            ghcr.io/zaproxy/zaproxy:2.17.0 sh -c '
+              zap-baseline.py -t "$PREVIEW_URL/login" -c rules.tsv -I \
+                -z "-config replacer.full_list(0).description=bypass \
+                    -config replacer.full_list(0).enabled=true \
+                    -config replacer.full_list(0).matchtype=REQ_HEADER \
+                    -config replacer.full_list(0).matchstr=x-vercel-protection-bypass \
+                    -config replacer.full_list(0).regex=false \
+                    -config replacer.full_list(0).replacement=$VERCEL_BYPASS"
+            '
+          # -I: los WARN no rompen el job; las FAIL de .zap/rules.tsv sí.
+
+  produccion:
+    needs: [puerta-seguridad]
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # El environment 'production' debe tener revisor obligatorio (configurado a mano en GitHub).
+    environment: production
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Migraciones (URL directa de Neon main)
+        run: |
+          if [ -z "$DATABASE_URL_UNPOOLED" ]; then
+            echo "::error::Falta el secret DATABASE_URL_UNPOOLED en el environment 'production' (URL directa de Neon, sin pooler)."
+            exit 1
+          fi
+          DATABASE_URL="$DATABASE_URL_UNPOOLED" npx drizzle-kit migrate
+      - run: npx --yes vercel@62.5.0 pull --yes --environment=production --token "$VERCEL_TOKEN"
+      - run: npx --yes vercel@62.5.0 build --prod --token "$VERCEL_TOKEN"
+      - run: npx --yes vercel@62.5.0 deploy --prebuilt --prod --token "$VERCEL_TOKEN"

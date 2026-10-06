@@ -1,0 +1,30 @@
+# Reglas del escaneo ZAP baseline (zap-baseline.py -c rules.tsv). Se escanea /login del preview.
+# Formato: <id de regla> TAB <IGNORE|WARN|FAIL> TAB (nombre informativo); columnas separadas por TAB.
+# Política: toda regla pasiva de riesgo medio o alto es FAIL (rompe el job puerta-seguridad).
+# Solo se pone IGNORE con una justificación en un comentario encima.
+# El script se ejecuta con -I (los WARN no rompen el job); por eso lo importante es FAIL explícito.
+# Referencia de IDs: https://www.zaproxy.org/docs/alerts/
+
+# --- Riesgo medio/alto: FAIL ---
+10038	FAIL	(Content Security Policy (CSP) Header Not Set)
+10055	FAIL	(CSP: directivas ausentes o inseguras, incluye style-src/script-src inseguros)
+10020	FAIL	(Anti-clickjacking Header ausente)
+10035	FAIL	(Strict-Transport-Security Header ausente)
+10021	FAIL	(X-Content-Type-Options Header ausente)
+10054	FAIL	(Cookie sin atributo SameSite)
+10010	FAIL	(Cookie sin HttpOnly)
+10011	FAIL	(Cookie sin Secure)
+90033	FAIL	(Loosely Scoped Cookie)
+10098	FAIL	(Cross-Domain Misconfiguration)
+10063	FAIL	(Permissions Policy Header ausente)
+
+# --- Excepciones justificadas ---
+# 10202 Anti-CSRF Tokens: los formularios usan Server Actions de Next, que validan Origin/Host
+# y llevan un identificador de acción; no hay token CSRF clásico en el HTML. La cookie es SameSite=Lax.
+10202	IGNORE	(Absence of Anti-CSRF Tokens)
+# 10049 Storable and Cacheable Content: /login es una página pública y estática, sin datos de usuario;
+# el contenido privado va tras sesión con Cache-Control propio.
+10049	IGNORE	(Storable and Cacheable Content)
+# 10096 Timestamp Disclosure: aparecen timestamps de Unix en los bundles estáticos de Next
+# (hashes y constantes), no revelan información del servidor.
+10096	IGNORE	(Timestamp Disclosure)
