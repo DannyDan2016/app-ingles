@@ -3,6 +3,9 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule: { interval: weekly }
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: npm
     directory: /tests
     schedule: { interval: weekly }
@@ -12,6 +15,10 @@ updates:
   - package-ecosystem: docker
     directory: /
     schedule: { interval: weekly }
+    # Nos quedamos en Node 24 LTS (crypto.argon2, .nvmrc): sin saltos de versión mayor.
+    ignore:
+      - dependency-name: node
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: docker
     directory: /tests
     schedule: { interval: weekly }
