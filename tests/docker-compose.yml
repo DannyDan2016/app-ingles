@@ -1,0 +1,20 @@
+# Override del stack base: se usa SIEMPRE junto a ../docker-compose.yml (ver README).
+#   docker compose -f docker-compose.yml -f tests/docker-compose.yml ...
+# Proyecto propio y sin puertos publicados: no choca con la BD de desarrollo.
+name: app-ingles-e2e
+services:
+  db:
+    ports: !reset []
+  tests:
+    build: ./tests
+    profiles: ["e2e"]
+    environment:
+      TEST_ENV: local
+      BASE_URL: http://web:3000
+      E2E_ADMIN_ALIAS: ${E2E_ADMIN_ALIAS:-admin_e2e}
+      E2E_ADMIN_PASSWORD: ${E2E_ADMIN_PASSWORD:?define E2E_ADMIN_PASSWORD}
+      CI: ${CI:-}
+    volumes:
+      - ./tests/playwright-report:/tests/playwright-report
+    depends_on:
+      web: { condition: service_healthy }

@@ -1,0 +1,24 @@
+{
+  "name": "app-ingles-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bddgen": "bddgen",
+    "typecheck": "tsc --noEmit",
+    "test": "bddgen && playwright test",
+    "test:local": "cross-env TEST_ENV=local npm test",
+    "test:preview": "cross-env TEST_ENV=preview npm test -- --grep-invert @local-only",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.19.1",
+    "cross-env": "10.1.0",
+    "dotenv": "18.0.5",
+    "playwright-bdd": "9.2.1",
+    "typescript": "~6.0.3",
+    "yaml": "2.9.1",
+    "zod": "4.6.5"
+  }
+}

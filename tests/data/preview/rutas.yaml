@@ -1,0 +1,9 @@
+protegidas:
+  - { ruta: /, tipo: pagina }
+  - { ruta: /niveles, tipo: pagina }
+  - { ruta: /nivel-inicial, tipo: pagina }
+  - { ruta: /admin/invitaciones, tipo: pagina }
+  - { ruta: /api/no-existe, tipo: api }
+publicas:
+  - /login
+  - /api/salud
