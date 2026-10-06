@@ -1,26 +1,46 @@
 @import "tailwindcss";
 
+/* Tokens de ~/.claude/skills/disenador-ui-accesible/tokens.md (contrastes WCAG calculados allí). */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light dark;
+  --bg: #f8fafc; --surface: #fff; --text: #0f172a; --text-muted: #475569;
+  --primary: #4338ca; --on-primary: #fff;
+  --success: #15803d; --danger: #b91c1c; --warning: #b45309;
+  --border-ui: #64748b; --focus: #4338ca;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1120; --surface: #111a2e; --text: #e2e8f0; --text-muted: #94a3b8;
+    --primary: #a5b4fc; --on-primary: #0b1120;
+    --success: #4ade80; --danger: #f87171; --warning: #fbbf24;
+    --border-ui: #64748b; --focus: #a5b4fc;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1120; --surface: #111a2e; --text: #e2e8f0; --text-muted: #94a3b8;
+  --primary: #a5b4fc; --on-primary: #0b1120;
+  --success: #4ade80; --danger: #f87171; --warning: #fbbf24;
+  --border-ui: #64748b; --focus: #a5b4fc;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-fondo: var(--bg);
+  --color-superficie: var(--surface);
+  --color-texto: var(--text);
+  --color-texto-suave: var(--text-muted);
+  --color-primario: var(--primary);
+  --color-sobre-primario: var(--on-primary);
+  --color-exito: var(--success);
+  --color-error: var(--danger);
+  --color-aviso: var(--warning);
+  --color-borde: var(--border-ui);
+  --color-enfoque: var(--focus);
+  --font-sans: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", Menlo, monospace;
+  --breakpoint-xs: 360px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+html { font-family: var(--font-sans); }
+body { background: var(--bg); color: var(--text); line-height: 1.5; }
+h1, h2, h3 { line-height: 1.2; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
