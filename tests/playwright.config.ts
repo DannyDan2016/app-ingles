@@ -28,8 +28,13 @@ export default defineConfig({
   projects: [
     { name: 'setup', testMatch: /auth\.setup\.ts/, testDir: '.' },
     { name: 'api', testDir: 'api', dependencies: ['setup'] },
-    { name: 'chromium', testDir, use: { ...devices['Desktop Chrome'], viewport: { width: 1366, height: 768 } }, dependencies: ['setup'] },
-    { name: 'firefox', testDir, grep: /@responsive|@smoke/, use: { ...devices['Desktop Firefox'] }, dependencies: ['setup'] },
-    { name: 'webkit-movil', testDir, grep: /@responsive|@smoke/, use: { ...devices['Desktop Safari'], viewport: { width: 360, height: 800 }, hasTouch: true }, dependencies: ['setup'] },
+    { name: 'chromium', testDir, grepInvert: /@responsive/, use: { ...devices['Desktop Chrome'], viewport: { width: 1366, height: 768 } }, dependencies: ['setup'] },
+    // Humo multinavegador (sin @responsive).
+    { name: 'firefox', testDir, grep: /@smoke/, use: { ...devices['Desktop Firefox'], viewport: { width: 1366, height: 768 } }, dependencies: ['setup'] },
+    { name: 'webkit-movil', testDir, grep: /@smoke/, use: { ...devices['Desktop Safari'], viewport: { width: 360, height: 800 }, hasTouch: true }, dependencies: ['setup'] },
+    // Flujo @responsive: una ejecución por tamaño de pantalla (el viewport lo define el proyecto).
+    { name: 'responsive-360', testDir, grep: /@responsive/, use: { ...devices['Desktop Safari'], viewport: { width: 360, height: 800 }, hasTouch: true }, dependencies: ['setup'] },
+    { name: 'responsive-768', testDir, grep: /@responsive/, use: { ...devices['Desktop Chrome'], viewport: { width: 768, height: 1024 } }, dependencies: ['setup'] },
+    { name: 'responsive-1366', testDir, grep: /@responsive/, use: { ...devices['Desktop Firefox'], viewport: { width: 1366, height: 768 } }, dependencies: ['setup'] },
   ],
 });
