@@ -17,7 +17,7 @@
     "cross-env": "10.1.0",
     "dotenv": "18.0.5",
     "playwright-bdd": "9.2.1",
-    "typescript": "~6.0.3",
+    "typescript": "~7.0.2",
     "yaml": "2.9.1",
     "zod": "4.6.5"
   }
