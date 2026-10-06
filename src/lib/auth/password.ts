@@ -16,15 +16,18 @@ const MAX_MEMORY = 65536;
 const MAX_PASSES = 10;
 const MAX_PARALLELISM = 4;
 
+// Única fuente de normalización: iOS/macOS suelen enviar NFD y Windows NFC.
+const normalizePassword = (plain: string) => plain.normalize('NFC');
+
 export function validatePasswordPolicy(plain: string): { ok: true } | { ok: false; error: 'muy_corta' | 'muy_larga' } {
-  const len = [...plain].length;
+  const len = [...normalizePassword(plain)].length;
   if (len < MIN) return { ok: false, error: 'muy_corta' };
   if (len > MAX) return { ok: false, error: 'muy_larga' };
   return { ok: true };
 }
 
 function derive(plain: string, nonce: Buffer, memory: number, passes: number, parallelism: number, tagLength: number): Promise<Buffer> {
-  return argon2Async('argon2id', { message: plain, nonce, parallelism, tagLength, memory, passes });
+  return argon2Async('argon2id', { message: normalizePassword(plain), nonce, parallelism, tagLength, memory, passes });
 }
 
 const b64 = (b: Buffer) => b.toString('base64').replace(/=+$/, '');

@@ -16,6 +16,37 @@ describe('validatePasswordPolicy', () => {
   });
 });
 
+describe('normalización Unicode NFC', () => {
+  const nfc = 'contraseña-segura';
+  const nfd = 'contraseña-segura';
+  it('NFC y NFD son strings distintos antes de normalizar', () => {
+    expect(nfc).toBe('contraseña-segura');
+    expect(nfc).not.toBe(nfd);
+  });
+  it('un hash de la forma NFC verifica con NFD y viceversa', async () => {
+    const hNfc = await hashPassword(nfc);
+    const hNfd = await hashPassword(nfd);
+    expect(await verifyPassword(hNfc, nfd)).toBe(true);
+    expect(await verifyPassword(hNfd, nfc)).toBe(true);
+  });
+  it('la política da el mismo resultado para NFC y NFD (12 caracteres NFC)', () => {
+    const a = 'ñ' + 'a'.repeat(11);
+    const b = a.normalize('NFD');
+    expect(a.length).toBe(12);
+    expect(b.length).toBe(13);
+    expect(validatePasswordPolicy(b)).toEqual(validatePasswordPolicy(a));
+    expect(validatePasswordPolicy(b)).toEqual({ ok: true });
+  });
+  it('el máximo se cuenta sobre NFC: 128 NFC válidos aunque NFD tenga 129', () => {
+    const a = 'ñ' + 'a'.repeat(127);
+    const b = a.normalize('NFD');
+    expect(a.length).toBe(128);
+    expect(b.length).toBe(129);
+    expect(validatePasswordPolicy(a)).toEqual({ ok: true });
+    expect(validatePasswordPolicy(b)).toEqual({ ok: true });
+  });
+});
+
 describe('hash argon2id', () => {
   it('verifica la contraseña correcta y rechaza otra', async () => {
     const hash = await hashPassword('contraseña-larga-1');
