@@ -1,0 +1,25 @@
+tipo: leccion
+id: a2-ia-01
+nivel: A2
+tema: ia
+orden: 1
+titulo: My Assistant Is Working Now
+objetivo: Puedo explicar qué hace normalmente una herramienta de IA y qué está haciendo ahora mismo.
+gramatica: Present simple vs present continuous
+lectura: |
+  Sara is a junior developer. She uses a [[chatbot]] every day. Usually, she asks the [[assistant]] a [[question]] about an error message. The chatbot always gives her an [[answer]], and she often finds it [[useful]]. Sometimes the answer is [[wrong]], so she never uses it without a check.
+
+  Right now, Sara is working on a login bug. She is asking the chatbot to explain a new error. The assistant is [[writing|write]] the answer on her screen. Sara is reading it slowly. She doesn't [[understand]] one line, so she is typing another question.
+
+  Sara knows that an [[AI]] [[tool]] is not a person. It doesn't think like a human. It uses [[data]] to [[learns|learn]] patterns. Every day Sara learns something new with it, but she is also learning to check the work.
+video: { youtubeId: R44aOvXeKaU, start: 10, end: 80, titulo: "What Is Machine Learning? Beginner-Friendly Explanation", canal: "LearnFree" }
+terminos: [ai, assistant, chatbot, question, answer, data, learn, understand, write, useful, wrong, tool]
+ejercicios:
+  - { id: a2-ia-01-e1, tipo: opcion_multiple, enunciado: "Right now, Sara ___ a question to the chatbot.", opciones: ["asks", "is asking", "ask"], correcta: 1, explicacion: "«Right now» indica una acción que ocurre en este momento: usa el present continuous (is + verbo con -ing). El present simple («asks») es para rutinas.", terminos: [question, chatbot] }
+  - { id: a2-ia-01-e2, tipo: completar, enunciado: "Completa con el verbo en present continuous.", texto: "The assistant ___ the answer on her screen now.", respuesta: "is writing", aceptadas: ["is typing"], explicacion: "«Now» pide present continuous: is + writing. Fíjate en que «write» pierde la -e final antes de -ing.", terminos: [write, answer] }
+  - { id: a2-ia-01-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Sara uses a chatbot every day.", correcta: true, explicacion: "«Every day» marca una rutina, por eso la lectura usa present simple: «She uses a chatbot every day».", terminos: [chatbot] }
+  - { id: a2-ia-01-e4, tipo: emparejar, enunciado: "Empareja cada término con su traducción.", pares: [{ a: assistant, b: asistente }, { a: answer, b: respuesta }, { a: useful, b: útil }, { a: wrong, b: incorrecto }], explicacion: "Son palabras que usarás cada vez que revises lo que responde una IA.", terminos: [assistant, answer, useful, wrong] }
+  - { id: a2-ia-01-e5, tipo: ordenar, enunciado: "Ordena la frase (present continuous).", piezas: ["Sara", "is", "reading", "the", "answer"], explicacion: "Estructura: sujeto + is/are + verbo con -ing + complemento.", terminos: [answer] }
+  - { id: a2-ia-01-e6, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Sara always trusts the answer without a check.", correcta: false, explicacion: "La lectura dice que a veces la respuesta es incorrecta, así que Sara nunca la usa sin comprobarla.", terminos: [answer, wrong] }
+  - { id: a2-ia-01-e7, tipo: opcion_multiple, enunciado: "Which word shows a habit (a routine)?", opciones: ["usually", "right now", "at the moment"], correcta: 0, explicacion: "Los adverbios de frecuencia (usually, always, often, sometimes, never) acompañan al present simple y marcan hábitos. «Right now» y «at the moment» son del present continuous." }
+revisado: false
