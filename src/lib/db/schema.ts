@@ -1,7 +1,9 @@
-import { pgTable, uuid, text, timestamp, pgEnum, index, primaryKey } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, timestamp, pgEnum, index, primaryKey, smallint, integer, boolean, date, check } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 
 export const rolEnum = pgEnum('rol', ['admin', 'aprendiz']);
 export const nivelEnum = pgEnum('nivel', ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']);
+export const origenEnum = pgEnum('origen_respuesta', ['leccion', 'tramo', 'repaso']);
 
 const ts = (name: string) => timestamp(name, { withTimezone: true, mode: 'date' });
 
@@ -12,7 +14,8 @@ export const users = pgTable('users', {
   rol: rolEnum('rol').notNull().default('aprendiz'),
   nivelInicial: nivelEnum('nivel_inicial'),
   createdAt: ts('created_at').notNull().defaultNow(),
-});
+  metaDiariaMin: smallint('meta_diaria_min').notNull().default(10),
+}, (t) => [check('users_meta_diaria', sql`${t.metaDiariaMin} in (5, 10, 15)`)]);
 
 export const invites = pgTable('invites', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -56,4 +59,48 @@ export const progress = pgTable(
     completadaAt: ts('completada_at').notNull().defaultNow(),
   },
   (t) => [primaryKey({ columns: [t.userId, t.leccionId] })],
+);
+
+export const respuestas = pgTable(
+  'respuestas',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    itemId: text('item_id').notNull(),
+    correcta: boolean('correcta').notNull(),
+    origen: origenEnum('origen').notNull(),
+    /** Solo repaso: caja ANTES de responder (1-5). */
+    caja: smallint('caja'),
+    at: ts('at').notNull().defaultNow(),
+  },
+  (t) => [index('respuestas_user_at').on(t.userId, t.at)],
+);
+
+export const tarjetas = pgTable(
+  'tarjetas',
+  {
+    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    termino: text('termino').notNull(),
+    nivel: nivelEnum('nivel').notNull(),
+    caja: smallint('caja').notNull().default(1),
+    proximaAt: ts('proxima_at').notNull(),
+    ultimaAt: ts('ultima_at'),
+    aciertos: integer('aciertos').notNull().default(0),
+    fallos: integer('fallos').notNull().default(0),
+  },
+  (t) => [
+    primaryKey({ columns: [t.userId, t.termino, t.nivel] }),
+    index('tarjetas_user_proxima').on(t.userId, t.proximaAt),
+    check('tarjetas_caja', sql`${t.caja} between 1 and 5`),
+  ],
+);
+
+export const actividadDiaria = pgTable(
+  'actividad_diaria',
+  {
+    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    fecha: date('fecha', { mode: 'string' }).notNull(),
+    segundos: integer('segundos').notNull().default(0),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.fecha] }), check('actividad_segundos', sql`${t.segundos} between 0 and 14400`)],
 );

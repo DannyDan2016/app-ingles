@@ -15,6 +15,13 @@
       "when": 1791346965892,
       "tag": "0001_romantic_skrulls",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791396368012,
+      "tag": "0002_big_photon",
+      "breakpoints": true
     }
   ]
 }
