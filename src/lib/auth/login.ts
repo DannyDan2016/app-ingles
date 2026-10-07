@@ -5,12 +5,14 @@ import { verifyPassword, DUMMY_HASH } from './password';
 import { hashToken } from './tokens';
 import { normalizeAlias } from './alias';
 import { createSession } from './sessions';
+import { maybePurgeStale } from './purge';
 import { countRecentFailures, isBlocked, recordFailure, clearFailures } from './rate-limit';
 
 export async function login(
   db: Db,
   input: { alias: string; password: string; ip: string },
   now: Date,
+  opts: { purgeEvery?: number } = {},
 ): Promise<{ ok: true; token: string; expiraAt: Date } | { ok: false; error: 'credenciales' | 'bloqueado' }> {
   const parsed = normalizeAlias(input.alias);
   // Alias inválido: no se consulta el usuario; la clave de rate limit es el texto normalizado y acotado.
@@ -26,5 +28,6 @@ export async function login(
   }
   await clearFailures(db, key);
   const s = await createSession(db, u.id, now);
+  await maybePurgeStale(db, now, { every: opts.purgeEvery });
   return { ok: true, ...s };
 }

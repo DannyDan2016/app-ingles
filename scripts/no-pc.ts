@@ -9,6 +9,7 @@ export const ALLOWLIST: RegExp[] = [
   /^docs\/.+\.md$/,
   /^tests\/data\/local\//,
   /^src\/lib\/db\/ssl-url(\.test)?\.ts$/, // distingue hosts locales de remotos para forzar TLS
+  /^src\/lib\/auth\/invite-link(\.test)?\.ts$/, // validación de APP_URL: http solo en loopback
   /^\.github\/workflows\/ci\.yml$/, // servicios de CI en el propio runner de GitHub
 ];
 
