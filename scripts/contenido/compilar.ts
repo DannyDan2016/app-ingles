@@ -1,21 +1,12 @@
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { parse } from 'yaml';
-import { validarCatalogo, type ArchivoCargado } from '../../src/lib/contenido/reglas';
+import { validarCatalogo } from '../../src/lib/contenido/reglas';
 import { opcionesCompilacion } from '../../src/lib/contenido/opciones';
+import { cargarArchivos } from './cargar';
 
 const RAIZ = process.cwd();
 const opts = opcionesCompilacion(process.env);
-const dirs = readdirSync(join(RAIZ, 'content'), { withFileTypes: true })
-  .filter((d) => d.isDirectory() && (d.name !== '_demo' || opts.incluirDemo))
-  .map((d) => d.name);
-
-const archivos: ArchivoCargado[] = dirs.flatMap((dir) =>
-  readdirSync(join(RAIZ, 'content', dir)).filter((f) => f.endsWith('.yaml')).map((f) => {
-    const ruta = `content/${dir}/${f}`;
-    return { ruta, demo: dir === '_demo', datos: parse(readFileSync(join(RAIZ, ruta), 'utf8')) };
-  }),
-);
+const archivos = cargarArchivos({ incluirDemo: opts.incluirDemo });
 
 const { errores, avisos, catalogo } = validarCatalogo(archivos, { estricto: opts.estricto });
 for (const a of avisos) console.warn(`aviso: ${a}`);

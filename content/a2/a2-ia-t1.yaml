@@ -1,0 +1,14 @@
+tipo: tramo
+id: a2-ia-t1
+nivel: A2
+tema: ia
+orden: 3
+fuente: { podcast: "Rocio Carreon", youtubeId: 90TEhlBgL5U, start: 20, end: 110, titulo: "What Is Artificial Intelligence? | Explained for Beginners", canal: "Rocio Carreon" }
+preguntaGuia: What is artificial intelligence?
+palabrasClave: [ai, intelligence, human, task]
+preguntas:
+  - { id: a2-ia-t1-e1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The video explains what artificial intelligence is.", correcta: true, explicacion: "La pregunta guía y el título del video («What Is Artificial Intelligence?») lo dicen: el fragmento explica qué es la IA.", terminos: [ai] }
+  - { id: a2-ia-t1-e2, tipo: opcion_multiple, enunciado: "AI helps computers do tasks that usually need...", opciones: ["human intelligence", "a bigger screen", "more electricity"], correcta: 0, explicacion: "Es la definición básica de IA: sistemas informáticos que hacen tareas que normalmente necesitan inteligencia humana (entender, aprender, decidir).", terminos: [ai, task, human, intelligence] }
+  - { id: a2-ia-t1-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "AI is a person who works inside the computer.", correcta: false, explicacion: "La IA no es una persona: es tecnología (programas) que imita algunas tareas de la inteligencia humana.", terminos: [ai, human] }
+  - { id: a2-ia-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "AI systems learn from data.", correcta: true, explicacion: "Las herramientas de IA aprenden patrones a partir de muchos datos; es una idea básica en cualquier explicación de IA para principiantes.", terminos: [ai, data, learn] }
+revisado: false

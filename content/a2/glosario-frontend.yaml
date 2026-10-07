@@ -1,0 +1,29 @@
+tipo: glosario
+nivel: A2
+tema: frontend
+entradas:
+  - { termino: layout, categoria: noun, traduccion_es: diseño / maquetación, definicion_en: The way things are placed on a page., ejemplo_en: The new layout is clean and simple., nivel: A2, tema: frontend }
+  - { termino: screen, categoria: noun, traduccion_es: pantalla, definicion_en: The flat part of a phone or computer where you see things., ejemplo_en: The button is too small on a small screen., nivel: A2, tema: frontend }
+  - { termino: color, categoria: noun, traduccion_es: color, definicion_en: Red, blue or green are examples., ejemplo_en: The main color of our site is blue., nivel: A2, tema: frontend }
+  - { termino: font, categoria: noun, traduccion_es: tipografía / fuente, definicion_en: The style of the letters on a page., ejemplo_en: This font is easy to read., nivel: A2, tema: frontend }
+  - { termino: image, categoria: noun, traduccion_es: imagen, definicion_en: A picture on a web page., ejemplo_en: The image is too big and the page is slow., nivel: A2, tema: frontend }
+  - { termino: menu, categoria: noun, traduccion_es: menú, definicion_en: A list of links or options on a page., ejemplo_en: The menu has four links., nivel: A2, tema: frontend }
+  - { termino: responsive, categoria: adjective, traduccion_es: adaptable (responsive), definicion_en: Changing to fit the size of the screen., ejemplo_en: Our site is responsive, so it works on phones., nivel: A2, tema: frontend }
+  - { termino: fast, categoria: adjective, traduccion_es: rápido, definicion_en: Taking a short time., ejemplo_en: The new page is fast., nivel: A2, tema: frontend }
+  - { termino: large, categoria: adjective, traduccion_es: grande, definicion_en: Big in size., ejemplo_en: We use a large image at the top., nivel: A2, tema: frontend }
+  - { termino: simple, categoria: adjective, traduccion_es: sencillo / simple, definicion_en: Easy to understand or use., ejemplo_en: A simple menu is better for users., nivel: A2, tema: frontend }
+  - { termino: mobile phone, categoria: noun, traduccion_es: teléfono móvil (celular), definicion_en: A small phone that you carry with you., ejemplo_en: Most users open our site on a mobile phone., nivel: A2, tema: frontend }
+  - { termino: header, categoria: noun, traduccion_es: cabecera (encabezado), definicion_en: The top part of a web page., ejemplo_en: The logo is in the header., nivel: A2, tema: frontend }
+  - { termino: device, categoria: noun, traduccion_es: dispositivo, definicion_en: A phone, tablet or computer., ejemplo_en: The page works on every device., nivel: A2, tema: frontend }
+  - { termino: form, categoria: noun, traduccion_es: formulario, definicion_en: A part of a page where users write and send information., ejemplo_en: Fill in the form with your name and email., nivel: A2, tema: frontend }
+  - { termino: field, categoria: noun, traduccion_es: campo, definicion_en: A space in a form where the user writes., ejemplo_en: The email field is empty., nivel: A2, tema: frontend }
+  - { termino: html, categoria: noun, traduccion_es: HTML (lenguaje de estructura web), definicion_en: The code that gives a web page its structure., ejemplo_en: I write the page in HTML., nivel: A2, tema: frontend }
+  - { termino: css, categoria: noun, traduccion_es: CSS (hojas de estilo), definicion_en: The code that gives a web page its style., ejemplo_en: I change the colors in CSS., nivel: A2, tema: frontend }
+  - { termino: style, categoria: verb, traduccion_es: dar estilo, definicion_en: To change how something looks., ejemplo_en: First we style the button., nivel: A2, tema: frontend }
+  - { termino: add, categoria: verb, traduccion_es: añadir, definicion_en: To put something new in., ejemplo_en: I add a new field to the form., nivel: A2, tema: frontend }
+  - { termino: change, categoria: verb, traduccion_es: cambiar, definicion_en: To make something different., ejemplo_en: Please change the font size., nivel: A2, tema: frontend }
+  - { termino: link, categoria: noun, traduccion_es: enlace, definicion_en: Text you click to go to another page., ejemplo_en: Click the link in the menu., nivel: A2, tema: frontend }
+  - { termino: input, categoria: noun, traduccion_es: entrada (campo de entrada), definicion_en: The information a user types into a form., ejemplo_en: The input must be an email address., nivel: A2, tema: frontend }
+  - { termino: submit, categoria: verb, traduccion_es: enviar (un formulario), definicion_en: To send a form to a server., ejemplo_en: Click the button to submit the form., nivel: A2, tema: frontend }
+  - { termino: design, categoria: noun, traduccion_es: diseño, definicion_en: A plan for how something looks., ejemplo_en: The design has a big header., nivel: A2, tema: frontend }
+  - { termino: browser, categoria: noun, traduccion_es: navegador, definicion_en: A program you use to open web pages., ejemplo_en: Test the page in two browsers., nivel: A2, tema: frontend }

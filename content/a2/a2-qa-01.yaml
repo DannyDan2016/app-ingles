@@ -1,0 +1,71 @@
+tipo: leccion
+id: a2-qa-01
+nivel: A2
+tema: qa
+orden: 4
+titulo: A Bug in the Login Page
+objetivo: Puedo contar qué pasó cuando encontré un error en una página.
+gramatica: Past simple (verbos regulares e irregulares), yesterday, last week, there was/were
+lectura: |
+  Yesterday, Ana, a [[tester]], opened the [[login]] [[page]] of our app. She typed her username and her [[password]]. Then she [[clicked|click]] the [[button]]. Nothing happened. The [[screen]] stayed white and there was no [[message]]. Ana tried again, but she got the same result. She [[found|find]] a [[bug]].
+
+  She wanted to help the team, so she wrote a [[report]]. She added the steps and a [[screenshot]]. There were three steps in her list. Last week, another tester had a similar problem, so she wrote that in the report too.
+
+  In the afternoon, the developer read the report. It was clear, so he didn't need to ask any questions. He [[fixed|fix]] the problem in one hour, and Ana [[tested|test]] the page again. This time, the login worked.
+video: { youtubeId: Ecu_7juyU0Q, start: 20, end: 80, titulo: "QA bug reporting basics: How to write clear and effective bug reports?", canal: "QA Unlocked" }
+terminos: [tester, bug, login, report, fix, password, find, click]
+ejercicios:
+  - id: a2-qa-01-e1
+    tipo: completar
+    enunciado: Completa con el past simple de «find».
+    texto: "Yesterday, Ana ___ a bug on the login page."
+    respuesta: found
+    explicacion: "«Find» es irregular: su pasado es «found», no «finded». Los verbos irregulares hay que memorizarlos."
+    terminos: [find, bug]
+  - id: a2-qa-01-e2
+    tipo: completar
+    enunciado: Completa con el past simple de «click».
+    texto: "She ___ the button, but nothing happened."
+    respuesta: clicked
+    explicacion: "Los verbos regulares añaden -ed en pasado: click → clicked."
+    terminos: [click, button]
+  - id: a2-qa-01-e3
+    tipo: ordenar
+    enunciado: Ordena las palabras para formar la frase.
+    piezas: ["Ana", "wrote", "a clear", "bug report"]
+    explicacion: "Orden básico en inglés: sujeto + verbo en pasado + complemento. El adjetivo (clear) va antes del nombre (bug report)."
+    terminos: [report, bug report, clear]
+  - id: a2-qa-01-e4
+    tipo: ordenar
+    enunciado: Ordena los pasos de la historia de Ana.
+    piezas: ["She typed her password.", "She clicked the button.", "Nothing happened.", "She wrote a report."]
+    explicacion: "La historia sigue el orden cronológico: primero escribe la contraseña, luego hace clic, no pasa nada y al final escribe el informe."
+    terminos: [password, click, report]
+  - id: a2-qa-01-e5
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "There was an error message on the screen."
+    correcta: false
+    explicacion: "La lectura dice «there was no message». «There was» + «no» expresa que algo no existía."
+    terminos: [message, screen]
+  - id: a2-qa-01-e6
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "The developer fixed the problem."
+    correcta: true
+    explicacion: "«He fixed the problem in one hour». «Fixed» es el past simple regular de «fix»."
+    terminos: [fix]
+  - id: a2-qa-01-e7
+    tipo: opcion_multiple
+    enunciado: "Which sentence is correct?"
+    opciones: ["Last week, I finded a bug.", "Last week, I found a bug.", "Last week, I find a bug."]
+    correcta: 1
+    explicacion: "«Last week» indica pasado, así que usamos el pasado irregular «found». «Finded» no existe y «find» es presente."
+    terminos: [find, bug]
+  - id: a2-qa-01-e8
+    tipo: emparejar
+    enunciado: Empareja cada término con su traducción.
+    pares: [{ a: tester, b: probador }, { a: login, b: inicio de sesión }, { a: password, b: contraseña }, { a: screen, b: pantalla }]
+    explicacion: "Vocabulario clave de la historia. «Login» es el paso de entrar con usuario y contraseña."
+    terminos: [tester, login, password, screen]
+revisado: false

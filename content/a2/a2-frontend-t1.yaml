@@ -1,0 +1,14 @@
+tipo: tramo
+id: a2-frontend-t1
+nivel: A2
+tema: frontend
+orden: 12
+fuente: { podcast: "Roberto Blake", youtubeId: GicRMTSelys, start: 30, end: 110, titulo: "Responsive Web Design Explained in 3 Minutes", canal: "Roberto Blake" }
+preguntaGuia: How does a responsive website change on a small screen?
+palabrasClave: [responsive, screen, layout, device]
+preguntas:
+  - { id: a2-frontend-t1-e1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The video explains what responsive web design is.", correcta: true, explicacion: "El título del video es «Responsive Web Design Explained», así que explica qué es el diseño responsive.", terminos: [responsive] }
+  - { id: a2-frontend-t1-e2, tipo: opcion_multiple, enunciado: "A responsive website changes to fit different...", opciones: ["screens", "passwords", "servers"], correcta: 0, explicacion: "Responsive significa que la página se adapta al tamaño de la pantalla.", terminos: [screen, responsive] }
+  - { id: a2-frontend-t1-e3, tipo: opcion_multiple, enunciado: "On which devices should a responsive page work well?", opciones: ["Only on large computers", "On phones, tablets and computers", "Only on phones"], correcta: 1, explicacion: "La idea del diseño responsive es que una misma página funcione bien en distintos dispositivos.", terminos: [device] }
+  - { id: a2-frontend-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "In a responsive design, the layout stays exactly the same on every screen.", correcta: false, explicacion: "Al contrario: el diseño (layout) cambia según el tamaño de la pantalla.", terminos: [layout] }
+revisado: false

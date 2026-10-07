@@ -1,0 +1,28 @@
+tipo: leccion
+id: a2-backend-02
+nivel: A2
+tema: backend
+orden: 8
+titulo: When the API Answers
+objetivo: Puedo explicar cuándo y dónde ocurre algo en un servidor usando at, on, in y from...to.
+gramatica: "Prepositions of time and place (at, on, in, from...to)"
+lectura: |
+  Omar works in a small team in Bogotá. On Tuesday at 10 a.m., the team [[deploys|deploy]] a new [[update]]. The [[API]] runs on a [[server]] in the [[cloud]]. Before the update, they make a [[backup]] from 8 to 9 a.m.
+
+  Every morning, a mobile app calls an [[endpoint]] of the API. The endpoint [[returns|return]] a code and some data. Code 200 means everything is OK. Code 500 means there is a problem on the server. This [[status]] [[code]] is also in the [[logs|log]].
+
+  Yesterday at 9 a.m., the app waited for a long time. Omar saw a [[timeout]] in the log: the server did not answer in time. In the afternoon, he fixed the problem.
+
+  The team [[schedules|schedule]] the next maintenance for Sunday, from 2 to 3 a.m. Very few people use the app at that time.
+video: { youtubeId: "-0MmWEYR2a8", start: 30, end: 100, titulo: "What is an API? (explained in 3 minutes)", canal: Postman }
+terminos: [api, endpoint, return, code, status, timeout, deploy, cloud, log, schedule, update, backup, server]
+ejercicios:
+  - { id: a2-backend-02-e1, tipo: completar, enunciado: "Completa con una preposición de tiempo.", texto: "The team deploys the update ___ Tuesday.", respuesta: on, explicacion: "Con días de la semana usamos «on» (on Tuesday, on Sunday).", terminos: [deploy, update] }
+  - { id: a2-backend-02-e2, tipo: completar, enunciado: "Completa con una preposición de tiempo.", texto: "The backup starts ___ 8 a.m.", respuesta: at, explicacion: "Con horas exactas usamos «at» (at 8 a.m., at 9 a.m.).", terminos: [backup] }
+  - { id: a2-backend-02-e3, tipo: completar, enunciado: "Completa con una preposición de lugar.", texto: "The API runs ___ a server.", respuesta: on, explicacion: "Decimos «on a server» (en un servidor) y «in the cloud» (en la nube). Son usos fijos en inglés técnico.", terminos: [api, server] }
+  - { id: a2-backend-02-e4, tipo: opcion_multiple, enunciado: "Elige la preposición: We check the logs ___ the morning.", opciones: ["on", "at", "in", "to"], correcta: 2, explicacion: "Con partes del día usamos «in»: in the morning, in the afternoon, in the evening. (Excepción: at night.)", terminos: [log] }
+  - { id: a2-backend-02-e5, tipo: emparejar, enunciado: "Empareja cada término con su significado.", pares: [{ a: endpoint, b: "a place in an API where an app sends a request" }, { a: timeout, b: "the server does not answer in time" }, { a: backup, b: "a copy of data for safety" }, { a: log, b: "a file with a list of things that happened" }, { a: deploy, b: "to put a new version online" }], explicacion: "Estos cinco términos aparecen en la lectura. Fíjate en que un «timeout» es un error por demora: el servidor tarda demasiado en responder.", terminos: [endpoint, timeout, backup, log, deploy] }
+  - { id: a2-backend-02-e6, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["The", "server", "is", "in", "the", "cloud"], explicacion: "Estructura: sujeto + is + preposición de lugar + lugar. «In the cloud» va al final.", terminos: [server, cloud] }
+  - { id: a2-backend-02-e7, tipo: verdadero_falso, enunciado: "Según la lectura, ¿verdadero o falso?", afirmacion: "Code 500 means everything is OK.", correcta: false, explicacion: "El código 200 significa que todo va bien. El código 500 indica un problema en el servidor.", terminos: [code, status] }
+  - { id: a2-backend-02-e8, tipo: verdadero_falso, enunciado: "Según la lectura, ¿verdadero o falso?", afirmacion: "The next maintenance is from 2 to 3 a.m. on Sunday.", correcta: true, explicacion: "La lectura dice «for Sunday, from 2 to 3 a.m.». Con «from ... to» marcamos el inicio y el fin de un periodo.", terminos: [schedule] }
+revisado: false

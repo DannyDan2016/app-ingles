@@ -1,0 +1,28 @@
+tipo: leccion
+id: a2-backend-01
+nivel: A2
+tema: backend
+orden: 7
+titulo: Data on the Server
+objetivo: Puedo describir qué datos guarda y devuelve un servidor, usando much, many, some y any.
+gramatica: "Countable and uncountable nouns (some, any, much, many, a lot of, a/an)"
+lectura: |
+  Mia works for an online shop. The shop has a lot of [[data]]. A [[database]] [[stores|store]] the [[information]] about [[users|user]] and products. It has one [[table]] for users and one table for products.
+
+  When a customer opens the shop, the browser [[sends|send]] a [[request]] to the [[server]]. The server looks in the database and sends a [[response]] with some products.
+
+  Mia checks the numbers every morning. "How many users are online now?" she asks. There are two hundred. "Is there much traffic?" "No, not much. There is more traffic in the evening."
+
+  Today the server is [[slow]]. Mia sees an [[error]] in the response. There isn't much information about the new products. There are a lot of old products in the table, but there aren't many new ones. She needs to add more data to the database.
+video: { youtubeId: iuL69sAyuxQ, start: 20, end: 90, titulo: "What Is a Database? (Simple Explanation for Beginners)", canal: Baserow }
+terminos: [server, database, request, response, user, table, store, send, information, data, error, slow]
+ejercicios:
+  - { id: a2-backend-01-e1, tipo: opcion_multiple, enunciado: "Elige la palabra correcta: How ___ users are online now?", opciones: ["many", "much", "a", "any"], correcta: 0, explicacion: "«User» es contable (one user, two users), así que en preguntas usamos «how many». «How much» se usa con incontables como «data» o «traffic».", terminos: [user] }
+  - { id: a2-backend-01-e2, tipo: opcion_multiple, enunciado: "Elige la palabra correcta: There isn't ___ information about the new products.", opciones: ["many", "much", "a", "two"], correcta: 1, explicacion: "«Information» es incontable (no tiene plural ni lleva «a»). En frases negativas usamos «much» con incontables; «many» es para contables en plural.", terminos: [information] }
+  - { id: a2-backend-01-e3, tipo: completar, enunciado: "Completa la pregunta con some o any.", texto: "Are there ___ errors in the response?", respuesta: any, explicacion: "En preguntas y frases negativas usamos «any»; en frases afirmativas, «some» (There are some errors).", terminos: [error, response] }
+  - { id: a2-backend-01-e4, tipo: completar, enunciado: "Completa con un nombre incontable de la lectura.", texto: "The database stores a lot of ___ about users.", respuesta: data, aceptadas: [information], explicacion: "«A lot of» funciona con contables y con incontables. «Data» e «information» son incontables: no decimos «an information» ni «informations».", terminos: [database, data, information, store] }
+  - { id: a2-backend-01-e5, tipo: emparejar, enunciado: "Empareja cada hueco con la palabra correcta.", pares: [{ a: "How ___ users?", b: many }, { a: "How ___ data?", b: much }, { a: "___ error", b: an }, { a: "___ database", b: a }], explicacion: "Contable plural: «many». Incontable: «much». Delante de sonido vocal usamos «an» (an error); delante de sonido consonante, «a» (a database)." }
+  - { id: a2-backend-01-e6, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["There", "isn't", "much", "information", "about", "the new products"], explicacion: "Con un incontable (information) en negativo usamos «There isn't much» + nombre. Orden: There + isn't + much + nombre + complemento.", terminos: [information] }
+  - { id: a2-backend-01-e7, tipo: verdadero_falso, enunciado: "Según la lectura, ¿verdadero o falso?", afirmacion: "There are many new products in the table.", correcta: false, explicacion: "La lectura dice «there aren't many new ones»: hay pocos productos nuevos. «Many» va con contables en plural (products)." }
+  - { id: a2-backend-01-e8, tipo: opcion_multiple, enunciado: "What does a database do?", opciones: ["It stores information.", "It draws the colors of the page.", "It opens web pages for the user."], correcta: 0, explicacion: "Una base de datos guarda (stores) información de forma ordenada, por ejemplo en tablas. Los colores los define el CSS y las páginas las abre el navegador.", terminos: [database, store] }
+revisado: false

@@ -1,0 +1,27 @@
+tipo: leccion
+id: a2-ia-02
+nivel: A2
+tema: ia
+orden: 2
+titulo: Ask the AI Clearly
+objetivo: Puedo dar instrucciones claras y ordenadas a una IA, paso a paso.
+gramatica: Imperatives (please, don't, first/then)
+lectura: |
+  Marta is a senior developer. She gives Leo four [[steps|step]] to ask an AI for help.
+
+  First, write a [[short]] and [[clear]] [[prompt]]. Please don't write a long text. Then, give an [[example]] of the answer you want. After that, ask for a [[list]]. For instance: "[[Explain]] this error in simple words and list three possible causes." Finally, [[check]] the [[result]]. Don't [[copy]] the code before you read it, because the AI can make a [[mistake]].
+
+  Leo is a little nervous. Marta smiles: "A good prompt is like a good message to a teammate." Sometimes Leo uses the AI to [[translate]] English documentation into Spanish. Marta says: "Please translate one paragraph at a time, and read each one carefully."
+
+  Leo writes the four steps on a sticky note. Now he can ask the AI for help with a clear plan, and he is ready to try it today.
+video: { youtubeId: T_-2M_1pgoE, start: 15, end: 85, titulo: "Prompt Engineering for Beginners: System Prompts, Examples & AI Safety", canal: "LearnFree" }
+terminos: [prompt, example, short, clear, explain, list, translate, check, copy, result, step, mistake]
+ejercicios:
+  - { id: a2-ia-02-e1, tipo: ordenar, enunciado: "Ordena el imperativo.", piezas: ["Write", "a", "short", "prompt"], explicacion: "El imperativo empieza con el verbo base, sin sujeto: «Write a short prompt». El adjetivo (short) va antes del nombre (prompt).", terminos: [prompt, short] }
+  - { id: a2-ia-02-e2, tipo: emparejar, enunciado: "Empareja cada término con su definición.", pares: [{ a: prompt, b: "the text you send to an AI" }, { a: example, b: "a sample that shows what you want" }, { a: result, b: "what the AI gives you back" }, { a: mistake, b: "something that is not correct" }], explicacion: "Conocer estas definiciones en inglés te ayuda a leer la documentación de las herramientas de IA.", terminos: [prompt, example, result, mistake] }
+  - { id: a2-ia-02-e3, tipo: opcion_multiple, enunciado: "Which prompt is the clearest?", opciones: ["Help me with code.", "Explain this error in two simple sentences.", "Error? Why? Fix."], correcta: 1, explicacion: "Un buen prompt es corto pero concreto: dice qué hacer (explain), sobre qué (this error) y cómo (two simple sentences). Los otros dos no dicen qué necesitas exactamente.", terminos: [prompt, clear, explain] }
+  - { id: a2-ia-02-e4, tipo: completar, enunciado: "Completa con el verbo de la lectura que significa «comprobar», en imperativo.", texto: "___ the result before you copy it.", respuesta: Check, explicacion: "El imperativo es el verbo base sin sujeto: «Check the result». Marta lo recomienda porque la IA puede equivocarse.", terminos: [check, result, copy] }
+  - { id: a2-ia-02-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Marta says: write a very long prompt.", correcta: false, explicacion: "Marta dice «Please don't write a long text»: un prompt corto y claro funciona mejor.", terminos: [prompt, short] }
+  - { id: a2-ia-02-e6, tipo: opcion_multiple, enunciado: "Which sentence is a negative imperative?", opciones: ["Copy the code.", "Don't copy the code.", "You don't copy the code."], correcta: 1, explicacion: "El imperativo negativo se forma con don't + verbo base y no lleva sujeto: «Don't copy the code». «You don't copy the code» es una afirmación en present simple, no una orden.", terminos: [copy] }
+  - { id: a2-ia-02-e7, tipo: ordenar, enunciado: "Ordena las instrucciones con secuenciadores.", piezas: ["First,", "write", "a short prompt.", "Then", "check", "the result."], explicacion: "«First» abre la secuencia y «then» introduce el paso siguiente. Cada paso es un imperativo: write…, check…", terminos: [prompt, check, result] }
+revisado: false
