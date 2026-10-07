@@ -1,0 +1,28 @@
+tipo: glosario
+nivel: A2
+tema: backend
+entradas:
+  - { termino: server, categoria: noun, traduccion_es: servidor, definicion_en: A computer that gives data and pages to other computers., ejemplo_en: The server answers every request., nivel: A2, tema: backend }
+  - { termino: database, categoria: noun, traduccion_es: base de datos, definicion_en: A place where a program keeps its information in order., ejemplo_en: The database has a table for users., nivel: A2, tema: backend }
+  - { termino: request, categoria: noun, traduccion_es: petición, definicion_en: A message that asks a server for something., ejemplo_en: The app sends a request to the server., nivel: A2, tema: backend }
+  - { termino: response, categoria: noun, traduccion_es: respuesta, definicion_en: The message a server sends back after a request., ejemplo_en: The response has the product list., nivel: A2, tema: backend }
+  - { termino: user, categoria: noun, traduccion_es: usuario, definicion_en: A person who uses an app or a website., ejemplo_en: Every user has a password., nivel: A2, tema: backend }
+  - { termino: table, categoria: noun, traduccion_es: tabla, definicion_en: A part of a database with rows and columns., ejemplo_en: The users table has two hundred rows., nivel: A2, tema: backend }
+  - { termino: store, categoria: verb, traduccion_es: guardar / almacenar, definicion_en: To keep data in a place for later., ejemplo_en: The database stores all the orders., nivel: A2, tema: backend }
+  - { termino: send, categoria: verb, traduccion_es: enviar, definicion_en: To make data go from one place to another., ejemplo_en: The server sends the data to the app., nivel: A2, tema: backend }
+  - { termino: information, categoria: noun, traduccion_es: información (incontable), definicion_en: Facts or details about something. You cannot count it., ejemplo_en: There is a lot of information in the table., nivel: A2, tema: backend }
+  - { termino: data, categoria: noun, traduccion_es: datos (incontable), definicion_en: Facts and numbers that a computer keeps and uses., ejemplo_en: We do not have much data yet., nivel: A2, tema: backend }
+  - { termino: error, categoria: noun, traduccion_es: error, definicion_en: A problem that stops a program from working well., ejemplo_en: The server shows an error., nivel: A2, tema: backend }
+  - { termino: slow, categoria: adjective, traduccion_es: lento, definicion_en: Not fast. It takes a long time., ejemplo_en: The page is slow today., nivel: A2, tema: backend }
+  - { termino: api, categoria: noun, traduccion_es: API (interfaz para que los programas se comuniquen), definicion_en: A way for two programs to talk to each other., ejemplo_en: The app uses an API to get the weather., nivel: A2, tema: backend }
+  - { termino: endpoint, categoria: noun, traduccion_es: endpoint (punto de acceso de una API), definicion_en: A web address in an API where you send requests., ejemplo_en: This endpoint returns a list of users., nivel: A2, tema: backend }
+  - { termino: return, categoria: verb, traduccion_es: devolver, definicion_en: To give something back after a request., ejemplo_en: The API returns some data., nivel: A2, tema: backend }
+  - { termino: code, categoria: noun, traduccion_es: código, definicion_en: A number or text that has a special meaning., ejemplo_en: Code 404 means page not found., nivel: A2, tema: backend }
+  - { termino: status, categoria: noun, traduccion_es: estado, definicion_en: The situation of something at this moment., ejemplo_en: The status of the server is OK., nivel: A2, tema: backend }
+  - { termino: timeout, categoria: noun, traduccion_es: tiempo agotado (timeout), definicion_en: An error when a server takes too long to answer., ejemplo_en: We got a timeout after ten seconds., nivel: A2, tema: backend }
+  - { termino: deploy, categoria: verb, traduccion_es: desplegar, definicion_en: To put a new version of an app online., ejemplo_en: We deploy the app on Friday., nivel: A2, tema: backend }
+  - { termino: cloud, categoria: noun, traduccion_es: nube, definicion_en: Computers on the internet that you use from far away., ejemplo_en: Our server is in the cloud., nivel: A2, tema: backend }
+  - { termino: log, categoria: noun, traduccion_es: registro (log), definicion_en: A file with a list of things that happened., ejemplo_en: I read the log to find the problem., nivel: A2, tema: backend }
+  - { termino: schedule, categoria: verb, traduccion_es: programar, definicion_en: To decide the day and time for something., ejemplo_en: Let us schedule the backup for Sunday., nivel: A2, tema: backend }
+  - { termino: update, categoria: noun, traduccion_es: actualización, definicion_en: A new version that makes a program better., ejemplo_en: The update is ready for the server., nivel: A2, tema: backend }
+  - { termino: backup, categoria: noun, traduccion_es: copia de seguridad, definicion_en: A copy of data that you keep for safety., ejemplo_en: We make a backup every night., nivel: A2, tema: backend }
