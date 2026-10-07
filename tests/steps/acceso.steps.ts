@@ -44,7 +44,7 @@ Then('no veo el formulario de registro', async ({ registro }) => {
   await expect(registro.botonCrearCuenta()).toHaveCount(0);
 });
 
-When('abro directamente la página de niveles', async ({ page }) => page.goto('/niveles'));
+When('abro directamente una página privada', async ({ page }) => page.goto('/hoy'));
 
 When('abro la pantalla de acceso', async ({ login }) => login.abrir());
 
@@ -63,7 +63,7 @@ When('entro con mi usuario y mi contraseña', async ({ login, ctx }) => {
   await login.entrar(ctx.alias!, ctx.clave!);
 });
 
-Then('veo mis niveles', async ({ niveles }) => {
+Then('veo mi pantalla de inicio', async ({ niveles }) => {
   await expect(niveles.titulo()).toBeVisible();
 });
 

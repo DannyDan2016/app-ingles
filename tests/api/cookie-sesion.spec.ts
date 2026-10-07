@@ -7,7 +7,7 @@ test.describe('@api @seguridad cookie de sesión', () => {
     const login = new LoginPage(page);
     await login.abrir();
     await login.entrar(env.E2E_ADMIN_ALIAS, env.E2E_ADMIN_PASSWORD);
-    await page.waitForURL(/\/niveles$/);
+    await page.waitForURL(/\/hoy$/);
 
     // Stack local por http (COOKIE_INSECURE=true): la app usa el nombre `sesion` y sin Secure,
     // porque el prefijo __Host- y Secure exigen https. En preview la cookie es __Host-sesion + Secure.

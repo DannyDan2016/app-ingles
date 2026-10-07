@@ -47,6 +47,8 @@ const COOKIE_INVENTADA = 'sesion=x; __Host-sesion=x';
 // (El layout sí se sirve: la nav estática «Inglés técnico» / «Salir» no es un dato protegido.)
 const MARCADORES = [
   'Tus niveles',
+  'Meta de hoy',
+  'Mi vocabulario',
   'Elige tu nivel',
   'Generar invitación',
   'data-testid="enlace-invitacion"',
@@ -76,7 +78,7 @@ test.describe('@api @seguridad cookie de sesión inventada', () => {
 });
 
 test.describe('@api @seguridad enlace de administración', () => {
-  test('el admin ve el enlace «Invitaciones» en la navegación', async ({ browser, baseURL }) => {
+  test('el admin ve el enlace «Invitaciones» en su perfil', async ({ browser, baseURL }) => {
     // Contexto del admin (storageState del setup) con las mismas cabeceras de bypass que el resto.
     const ctx = await browser.newContext({
       storageState: '.auth/admin.json',
@@ -84,8 +86,8 @@ test.describe('@api @seguridad enlace de administración', () => {
       extraHTTPHeaders: env.VERCEL_BYPASS ? { 'x-vercel-protection-bypass': env.VERCEL_BYPASS } : undefined,
     });
     const page = await ctx.newPage();
-    await page.goto('/niveles');
-    const enlace = page.getByRole('navigation', { name: 'Principal' }).getByRole('link', { name: 'Invitaciones' });
+    await page.goto('/perfil');
+    const enlace = page.getByRole('main').getByRole('link', { name: 'Invitaciones' });
     await expect(enlace).toBeVisible();
     await expect(enlace).toHaveAttribute('href', '/admin/invitaciones');
     await ctx.close();

@@ -4,7 +4,7 @@ Característica: Acceso con usuario y contraseña
 
   Escenario: Página interna sin sesión
     Dado que no tengo sesión
-    Cuando abro directamente la página de niveles
+    Cuando abro directamente una página privada
     Entonces me redirige a la pantalla de acceso
 
   @smoke-local
@@ -12,7 +12,7 @@ Característica: Acceso con usuario y contraseña
     Dado que tengo una cuenta con nivel elegido
     Y que cierro mi sesión
     Cuando entro con mi usuario y mi contraseña
-    Entonces veo mis niveles
+    Entonces veo mi pantalla de inicio
 
   @a11y
   Escenario: Pantalla de acceso accesible

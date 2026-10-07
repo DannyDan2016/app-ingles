@@ -1,9 +1,16 @@
 protegidas:
   - { ruta: /, tipo: pagina }
-  - { ruta: /niveles, tipo: pagina }
+  - { ruta: /hoy, tipo: pagina }
+  - { ruta: /camino, tipo: pagina }
+  - { ruta: /camino/A2, tipo: pagina }
+  - { ruta: /leccion/demo-01, tipo: pagina }
+  - { ruta: /repaso, tipo: pagina }
+  - { ruta: /escuchar, tipo: pagina }
+  - { ruta: /perfil, tipo: pagina }
   - { ruta: /nivel-inicial, tipo: pagina }
   - { ruta: /admin/invitaciones, tipo: pagina }
   - { ruta: /api/no-existe, tipo: api }
+  - { ruta: /api/actividad, tipo: api }
 publicas:
   - /login
   - /api/salud

@@ -1,6 +1,6 @@
 # language: es
 @niveles @regresion
-Característica: Mapa de niveles
+Característica: Mapa de niveles (Camino)
 
   @a11y
   Escenario: Empezar en A2

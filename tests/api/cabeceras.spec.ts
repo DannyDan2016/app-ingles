@@ -10,6 +10,9 @@ test.describe('@api @seguridad cabeceras de seguridad', () => {
       const csp = h['content-security-policy'] ?? '';
       expect(csp, `CSP ausente en ${ruta}`).toContain("frame-ancestors 'none'");
       expect(csp).toContain("object-src 'none'");
+      // YouTube solo en modo privacidad ampliada y miniaturas de i.ytimg.com (nunca COEP).
+      expect(csp).toContain('frame-src https://www.youtube-nocookie.com');
+      expect(csp).toContain("img-src 'self' data: https://i.ytimg.com");
       expect(h['strict-transport-security'], ruta).toContain('max-age=');
       expect(h['x-content-type-options']).toBe('nosniff');
       expect(h['referrer-policy']).toBe('strict-origin-when-cross-origin');
