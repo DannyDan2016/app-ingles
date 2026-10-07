@@ -15,16 +15,34 @@ function appOrigin(appUrl: string): string | null {
   return u.origin;
 }
 
+type Base = { appUrl: string | undefined; host: string | null; proto: string | null; vercelEnv?: string | undefined };
+
+/** Primer valor de x-forwarded-proto si es http/https; en cualquier otro caso, https. */
+function safeProto(proto: string | null): 'http' | 'https' {
+  const first = proto?.split(',')[0]?.trim().toLowerCase();
+  return first === 'http' ? 'http' : 'https';
+}
+
+/** Mensaje para el admin cuando, en producción, APP_URL falta o no es válida (nunca incluye su valor). */
+export const MENSAJE_APP_URL = 'Falta configurar APP_URL';
+
+export function inviteLinkProblem(p: Base): string | null {
+  if (p.vercelEnv !== 'production') return null;
+  return p.appUrl && appOrigin(p.appUrl) ? null : MENSAJE_APP_URL;
+}
+
 /**
  * Enlace de invitación. Con APP_URL (no vacía) se usa siempre y, si es inválida, devuelve null (no se cae al Host).
- * Sin APP_URL se mantiene el comportamiento anterior basado en Host / x-forwarded-proto.
+ * En producción (VERCEL_ENV) APP_URL es obligatoria. Sin APP_URL (solo fuera de producción) se usa Host y
+ * el primer valor http/https de x-forwarded-proto.
  */
-export function buildInviteLink(p: { appUrl: string | undefined; host: string | null; proto: string | null; code: string }): string | null {
+export function buildInviteLink(p: Base & { code: string }): string | null {
   const path = `/registro?c=${p.code}`;
+  if (inviteLinkProblem(p)) return null;
   if (p.appUrl) {
     const origin = appOrigin(p.appUrl);
     return origin ? `${origin}${path}` : null;
   }
   if (!p.host) return null;
-  return `${p.proto ?? 'https'}://${p.host}${path}`;
+  return `${safeProto(p.proto)}://${p.host}${path}`;
 }
