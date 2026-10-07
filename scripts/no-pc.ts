@@ -8,6 +8,7 @@ export const ALLOWLIST: RegExp[] = [
   /^tests\/Dockerfile$/,
   /^docs\/.+\.md$/,
   /^tests\/data\/local\//,
+  /^src\/lib\/auth\/invite-link(\.test)?\.ts$/, // validación de APP_URL: http solo en loopback
   /^\.github\/workflows\/ci\.yml$/, // servicios de CI en el propio runner de GitHub
 ];
 
