@@ -73,6 +73,7 @@ Máximo 4-5 subagentes a la vez (límite de sesión). Un worktree por tarea en `
 
 ```bash
 npm install --save-dev --save-exact yaml@2.9.1
+npm install --save-exact lucide-react@latest   # lo usan A3 y A4 en paralelo: se instala aquí una sola vez
 ```
 `src/test/server-only-vacio.ts`:
 ```ts
@@ -1156,11 +1157,8 @@ export default async function RootLayout({ children }: LayoutProps<'/'>) {
 }
 ```
 
-- [ ] **Step 5: `lucide-react` y componentes base**
+- [ ] **Step 5: Componentes base** (`lucide-react` ya lo instaló A1)
 
-```bash
-npm install --save-exact lucide-react@latest
-```
 `src/components/boton.tsx`:
 ```tsx
 import type { ButtonHTMLAttributes } from 'react';
@@ -1459,10 +1457,10 @@ export function VideoFacade({ video, api = false, onPlayer, onError }: { video: 
 
 - [ ] **Step 6: Spike en navegador real (obligatorio, ≤ 30 min)**
 
-Crear temporalmente `src/app/(app)/hoy/page.tsx` con `<VideoFacade api video={{ youtubeId: 'Ecu_7juyU0Q', start: 20, end: 80, titulo: 't', canal: 'c' }} onPlayer={(p) => p.setPlaybackRate(0.75)} />` (envolver en un componente cliente), ejecutar `npm run build && npm start` (CSP de producción, sin `unsafe-eval`) y comprobar en Chrome y Firefox:
+Crear temporalmente `src/app/(app)/spike-video/page.tsx` (con `requireUser()`; se borra antes del commit) con `<VideoFacade api video={{ youtubeId: 'Ecu_7juyU0Q', start: 20, end: 80, titulo: 't', canal: 'c' }} onPlayer={(p) => p.setPlaybackRate(0.75)} />` (envolver en un componente cliente), ejecutar `npm run build && npm start` (CSP de producción, sin `unsafe-eval`) y comprobar en Chrome y Firefox:
 1. Antes de pulsar: ningún `<iframe>` en el DOM y ninguna petición a `youtube*.com` en la pestaña Red.
 2. Tras pulsar: el video reproduce el tramo, la consola **no** muestra violaciones CSP y la velocidad pasa a 0,75x.
-3. Resultado al informe: si la IFrame API choca con la CSP, **no** abrir `script-src` a hosts: dejar `api` desactivado (0,75x con el control nativo del reproductor) y anotarlo en `docs/seguridad.md`. Revertir el cambio temporal de `/hoy`.
+3. Resultado al informe: si la IFrame API choca con la CSP, **no** abrir `script-src` a hosts: dejar `api` desactivado (0,75x con el control nativo del reproductor) y anotarlo en `docs/seguridad.md`. Borrar `spike-video/`.
 
 - [ ] **Step 7: Documentar** en `docs/seguridad.md` (sección CSP): `frame-src` solo `youtube-nocookie`, `img-src` añade `i.ytimg.com`, `script-src` sin cambios (la IFrame API entra por `strict-dynamic` solo tras el clic), sin COEP, resultado del spike.
 
@@ -2070,7 +2068,7 @@ describe('resumenSemana', () => {
   it('día activo con ≥ 60 s; minutos de la semana y de hoy', () => {
     const r = resumenSemana({ ...base, actividad: [{ fecha: '2026-10-05', segundos: 59 }, { fecha: '2026-10-06', segundos: 60 }, { fecha: '2026-10-07', segundos: 300 }] });
     expect(r.diasActivos).toBe(2);
-    expect(r.minutosSemana).toBe(7);
+    expect(r.minutosSemana).toBe(6); // 419 s → floor = 6 min
     expect(r.minutosHoy).toBe(5);
     expect(r.metaHoyPct).toBe(50);
   });
