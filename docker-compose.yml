@@ -15,7 +15,10 @@ services:
       timeout: 3s
       retries: 20
   migrate:
-    build: .
+    build:
+      context: .
+      args:
+        CONTENT_DEMO: "${CONTENT_DEMO:-}"
     command: ["sh", "-c", "npx drizzle-kit migrate && npx tsx scripts/crear-admin.ts"]
     environment:
       DATABASE_URL: postgres://app:app_local_only@db:5432/app_ingles
@@ -25,7 +28,10 @@ services:
     depends_on:
       db: { condition: service_healthy }
   web:
-    build: .
+    build:
+      context: .
+      args:
+        CONTENT_DEMO: "${CONTENT_DEMO:-}"
     environment:
       DATABASE_URL: postgres://app:app_local_only@db:5432/app_ingles
       COOKIE_INSECURE: "true"

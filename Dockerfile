@@ -8,6 +8,9 @@ FROM node:24-alpine AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+# "1" compila content/_demo (solo stack E2E; Vercel nunca lo define).
+ARG CONTENT_DEMO=
+ENV CONTENT_DEMO=$CONTENT_DEMO
 RUN npm run build
 
 FROM node:24-alpine AS run
