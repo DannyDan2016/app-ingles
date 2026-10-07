@@ -10,5 +10,5 @@ export async function nivelInicialAction(form: FormData) {
   const nivel = nivelSchema.safeParse(form.get('nivel'));
   if (!nivel.success) redirect('/nivel-inicial');
   await setNivelInicial(getDb(), u.userId, nivel.data);
-  redirect('/niveles');
+  redirect('/hoy');
 }
