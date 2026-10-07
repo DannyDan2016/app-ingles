@@ -9,15 +9,17 @@ import { VideoFacade } from '@/components/video-facade';
 import { SecuenciaEjercicios } from '@/components/ejercicios/secuencia-ejercicios';
 import { Boton } from '@/components/boton';
 import { Tarjeta } from '@/components/tarjeta';
+import { TuFrase, type PalabraFrase } from './tu-frase';
 
-type Paso = 'lectura' | 'video' | 'ejercicios' | 'resumen';
-const TITULOS: Record<Paso, string> = { lectura: 'Lectura', video: 'Video', ejercicios: 'Ejercicios', resumen: 'Resumen' };
+type Paso = 'lectura' | 'video' | 'ejercicios' | 'frase' | 'resumen';
+const TITULOS: Record<Paso, string> = { lectura: 'Lectura', video: 'Video', ejercicios: 'Ejercicios', frase: 'Tu frase', resumen: 'Resumen' };
 const ENLACE = 'inline-flex min-h-11 items-center justify-center rounded-md px-4 font-semibold';
 
-export function FlujoLeccion({ leccion, glosario, yaCompletada }: { leccion: Leccion; glosario: Record<string, EntradaGlosario>; yaCompletada: boolean }) {
-  const pasos: Paso[] = leccion.video ? ['lectura', 'video', 'ejercicios', 'resumen'] : ['lectura', 'ejercicios', 'resumen'];
+export function FlujoLeccion({ leccion, glosario, yaCompletada, palabrasFrase }: { leccion: Leccion; glosario: Record<string, EntradaGlosario>; yaCompletada: boolean; palabrasFrase: PalabraFrase[] }) {
+  const pasos: Paso[] = leccion.video ? ['lectura', 'video', 'ejercicios', 'frase', 'resumen'] : ['lectura', 'ejercicios', 'frase', 'resumen'];
   const [n, setN] = useState(0);
   const [guardado, setGuardado] = useState<'pendiente' | 'ok' | 'error'>('pendiente');
+  const [frases, setFrases] = useState(0);
   const encabezado = useRef<HTMLHeadingElement>(null);
   const primera = useRef(true);
   const paso = pasos[n];
@@ -71,6 +73,8 @@ export function FlujoLeccion({ leccion, glosario, yaCompletada }: { leccion: Lec
 
       {paso === 'ejercicios' && <SecuenciaEjercicios ejercicios={leccion.ejercicios} etiqueta="Ejercicio" onCompletada={alTerminarEjercicios} />}
 
+      {paso === 'frase' && <TuFrase palabras={palabrasFrase} onTerminar={(k) => { setFrases(k); avanzar(); }} />}
+
       {paso === 'resumen' && (
         <Tarjeta className="flex flex-col gap-3">
           {guardado === 'error' ? (
@@ -87,6 +91,7 @@ export function FlujoLeccion({ leccion, glosario, yaCompletada }: { leccion: Lec
               <div role="status">
                 {guardado === 'pendiente' ? <p className="text-texto-suave">Guardando tu progreso…</p> : <p>Tu progreso está guardado.</p>}
               </div>
+              {frases > 0 && <p>Escribiste {frases} {frases === 1 ? 'frase propia' : 'frases propias'}.</p>}
               {guardado === 'ok' && (
                 <div>
                   <p className="font-semibold">Palabras añadidas a tu repaso</p>
