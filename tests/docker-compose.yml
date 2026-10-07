@@ -5,6 +5,14 @@ name: app-ingles-e2e
 services:
   db:
     ports: !reset []
+  migrate:
+    build:
+      args:
+        CONTENT_DEMO: "1"
+  web:
+    build:
+      args:
+        CONTENT_DEMO: "1"
   tests:
     build: ./tests
     profiles: ["e2e"]

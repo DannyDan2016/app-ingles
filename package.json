@@ -19,6 +19,7 @@
     "admin:reset": "tsx scripts/reset-password.ts",
     "check:no-pc": "tsx scripts/check-no-pc.mjs",
     "content:build": "tsx scripts/contenido/compilar.ts",
+    "content:check-videos": "tsx scripts/contenido/videos.ts",
     "predev": "npm run content:build",
     "prebuild": "npm run content:build",
     "pretypecheck": "npm run content:build",

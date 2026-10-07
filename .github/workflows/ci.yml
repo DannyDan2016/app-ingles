@@ -15,6 +15,9 @@ jobs:
   calidad:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # En main, un contenido con `revisado: false` rompe el build.
+      CONTENIDO_ESTRICTO: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && '1' || '' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -25,6 +28,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - run: npm run content:check-videos
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test

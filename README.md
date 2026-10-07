@@ -139,3 +139,13 @@ Remove-Item Env:ADMIN_PASSWORD, Env:DATABASE_URL
 ```
 
 Usa un alias de producción que no aparezca en el repositorio. Para restablecer una contraseña, `npm run admin:reset` con `ALIAS` y `NEW_PASSWORD` (receta en `scripts/reset-password.ts`).
+
+## Contenido
+
+El contenido de aprendizaje vive en YAML bajo `content/<nivel>/` (hoy `content/a2`); `content/_demo` es solo para pruebas y nunca va a producción.
+
+- `npm run content:build` valida el YAML y genera `src/content/generado/catalogo.ts` (server-only). Se ejecuta solo antes de `dev`, `build`, `typecheck` y los tests. Si hay errores, el build se detiene.
+- Reglas: ids y referencias válidos, `termino` único por (nivel, tema), `orden` coherente con el camino. Cada pieza lleva `revisado: true|false`.
+- `revisado: false` solo da aviso en local y en PR; con `CONTENIDO_ESTRICTO=1` (CI en `main`) o en Vercel rompe el build, así nada sin revisar llega a producción.
+- Demo: `CONTENT_DEMO=1` incluye `content/_demo`. Solo lo activa el stack E2E (`tests/docker-compose.yml`); con `VERCEL=1` el build lo rechaza.
+- `npm run content:check-videos` comprueba con oEmbed de YouTube que los videos siguen disponibles. Corre en CI y cada lunes en `contenido-semanal.yml`, que abre un issue si alguno cae.
