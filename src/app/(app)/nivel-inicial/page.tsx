@@ -2,7 +2,10 @@ import { redirect } from 'next/navigation';
 import { requireUser } from '@/lib/auth/current-user';
 import { NIVELES, NIVEL_POR_DEFECTO } from '@/lib/progreso/niveles';
 import { Boton } from '@/components/boton';
+import { salirAction } from '../salir/actions';
 import { nivelInicialAction } from './actions';
+
+const METAS = [5, 10, 15] as const;
 
 export default async function NivelInicialPage() {
   const u = await requireUser();
@@ -20,7 +23,19 @@ export default async function NivelInicialPage() {
             </label>
           ))}
         </fieldset>
-        <Boton type="submit" className="self-start">Guardar nivel</Boton>
+        <fieldset className="flex flex-col gap-2">
+          <legend className="mb-2">¿Cuánto tiempo al día?</legend>
+          {METAS.map((m) => (
+            <label key={m} className="flex min-h-11 items-center gap-3">
+              <input type="radio" name="meta" value={m} defaultChecked={m === 10} className="size-5" />
+              {m} minutos
+            </label>
+          ))}
+        </fieldset>
+        <Boton type="submit" className="self-start">Guardar y empezar</Boton>
+      </form>
+      <form action={salirAction} className="mt-8">
+        <Boton type="submit" variante="secundario">Salir</Boton>
       </form>
     </>
   );
