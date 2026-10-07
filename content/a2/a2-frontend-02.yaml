@@ -9,7 +9,7 @@ gramatica: Going to (plans) and will (quick decisions)
 lectura: |
   Luis is a junior developer. This week he is going to build a contact [[form]] for a small company website.
 
-  First, he is going to add three [[fields|field]]: name, email and message. He is going to use [[html]] for the structure of the page. Then he is going to [[style]] the form with [[css]]. The form is going to have a [[submit]] button, and he is going to test it in the [[browser]] on Friday.
+  First, he is going to [[add]] three [[fields|field]]: name, email and message. He is going to use [[HTML]] for the structure of the page. Then he is going to [[style]] the form with [[CSS]]. The form is going to have a [[submit]] button, and he is going to test it in the [[browser]] on Friday.
 
   His manager, Eva, asks about the [[input]] for the email. "Will the form show an error if the email is wrong?" she asks. Luis thinks for a second. "Good idea! I will add an error message," he says. "I think the form will be ready tomorrow."
 
@@ -19,10 +19,10 @@ terminos: [form, field, html, css, style, submit, browser, input]
 ejercicios:
   - { id: a2-frontend-02-e1, tipo: opcion_multiple, enunciado: "Luis ___ build a contact form this week.", opciones: ["is going to", "going to", "are going to"], correcta: 0, explicacion: "Para planes ya decididos usamos be + going to + verbo. Con «Luis» (he) el verbo be es «is»." }
   - { id: a2-frontend-02-e2, tipo: completar, enunciado: "Completa la frase sobre un plan.", texto: "Luis is ___ to style the form with CSS.", respuesta: going, explicacion: "La estructura es be + going + to + verbo. Aquí falta «going».", terminos: [css, style] }
-  - { id: a2-frontend-02-e3, tipo: completar, enunciado: "Completa con el verbo be correcto.", texto: "We ___ going to test the form in the browser.", respuesta: are, aceptadas: ["we're"], explicacion: "Con «we» el verbo be es «are»: we are going to.", terminos: [form, browser] }
+  - { id: a2-frontend-02-e3, tipo: completar, enunciado: "Completa con el verbo be correcto.", texto: "We ___ going to test the form in the browser.", respuesta: are, explicacion: "Con «we» el verbo be es «are»: we are going to.", terminos: [form, browser] }
   - { id: a2-frontend-02-e4, tipo: opcion_multiple, enunciado: "Luis decide ahora mismo: «Good idea! I ___ add an error message.»", opciones: ["will", "am going", "going to"], correcta: 0, explicacion: "Una decisión tomada en el momento de hablar usa «will». «Going to» es para planes que ya existían antes." }
   - { id: a2-frontend-02-e5, tipo: emparejar, enunciado: "Empareja cada término con su definición.", pares: [{ a: html, b: "the structure of a web page" }, { a: css, b: "the style of a web page" }, { a: field, b: "a space where the user writes" }, { a: submit, b: "to send the form" }], explicacion: "HTML define qué hay en la página, CSS cómo se ve, el campo recibe datos y submit los envía.", terminos: [html, css, field, submit] }
-  - { id: a2-frontend-02-e6, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["Luis", "is", "going", "to", "build", "a", "form"], explicacion: "Sujeto + be + going to + verbo base + complemento." }
+  - { id: a2-frontend-02-e6, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["He", "is", "going", "to", "test", "the form", "in the browser"], explicacion: "Sujeto + be + going to + verbo base + complemento. Es un plan ya decidido, por eso usamos going to.", terminos: [form, browser] }
   - { id: a2-frontend-02-e7, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Luis is going to use HTML for the structure of the page.", correcta: true, explicacion: "La lectura lo dice casi igual: «He is going to use HTML for the structure of the page».", terminos: [html] }
   - { id: a2-frontend-02-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Luis thinks the form will be ready today.", correcta: false, explicacion: "Luis dice que el formulario estará listo mañana (tomorrow). «Will» también sirve para predicciones." }
 revisado: false
