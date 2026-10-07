@@ -31,9 +31,9 @@ Requisitos: Node 24 y Docker.
 ```powershell
 npm ci
 Copy-Item .env.example .env        # y ajusta DATABASE_URL a la BD local
-docker compose up -d db            # Postgres 17 en 127.0.0.1:5432
+docker compose up -d db            # Postgres 17, solo en loopback, puerto 5432
 npm run db:migrate                 # aplica las migraciones
-npm run dev                        # http://127.0.0.1:3000
+npm run dev                        # solo loopback, puerto 3000
 ```
 
 Como el desarrollo es por http, define `COOKIE_INSECURE=true` solo en tu `.env` local. Para crear el administrador usa `npm run admin:crear` (receta en "Crear el administrador", más abajo).
