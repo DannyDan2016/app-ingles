@@ -18,7 +18,8 @@ Modelo de amenazas y controles de app-ingles (SP1). La app es privada, de acceso
 - **Autenticación**: contraseñas con argon2id (`crypto.argon2` de Node 24). Login con mensaje genérico y hash señuelo cuando el alias no existe.
 - **Invitaciones**: enlace de un solo uso que caduca a los 7 días y puede revocarse. El registro exige invitación válida.
 - **Cookies**: en producción la sesión es `__Host-sesion` (`Secure`, `HttpOnly`, `SameSite=Lax`, `Path=/`). Solo en el stack local sobre http se usa `sesion` sin `Secure`.
-- **CSP con nonce**: `src/proxy.ts` genera un nonce por petición; `script-src 'self' 'nonce-…' 'strict-dynamic'`, `object-src 'none'`, `frame-ancestors 'none'`, `frame-src 'none'`, `base-uri 'self'`, `form-action 'self'`.
+- **CSP con nonce**: `src/proxy.ts` genera un nonce por petición; `script-src 'self' 'nonce-…' 'strict-dynamic'`, `object-src 'none'`, `frame-ancestors 'none'`, `frame-src https://www.youtube-nocookie.com`, `base-uri 'self'`, `form-action 'self'`.
+- **YouTube (SP2)**: `frame-src` solo `https://www.youtube-nocookie.com`; `img-src` añade `https://i.ytimg.com` (miniaturas). `script-src` no cambia: no hay hosts nuevos; la IFrame API (`https://www.youtube.com/iframe_api`) entra por `strict-dynamic` porque la inyecta un script con nonce, y solo tras pulsar «Reproducir» (`VideoFacade`, `cargarApiYouTube`). Sin COEP. Antes del clic no hay `<iframe>` ni peticiones a YouTube. Resultado del spike en navegador: pendiente (ver informe de A4); si la IFrame API chocara con la CSP se dejaría `api` desactivado (0,75x con el control nativo), sin abrir `script-src`.
 - **Cabeceras** (desde `next.config.ts`, definidas en `src/lib/security/csp.ts`): HSTS con preload, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options: DENY`, `Cross-Origin-Opener-Policy: same-origin` y `Cross-Origin-Resource-Policy: same-origin`. Verificadas en `tests/api/cabeceras.spec.ts`.
 - **Rate limit**: por IP y por alias en el login (lockout de 5 fallos en 15 minutos).
 - **Purga de `login_attempts` y `sessions`**: oportunista (probabilidad 1/20) tras un login correcto, un fallo de login o un fallo de registro (los fallos anónimos son quienes generan las filas). Corre con `after()` de `next/server`, tras responder, y borra como máximo 1000 filas por tabla y ejecución, apoyada en los índices `login_attempts(at)` y `sessions(expira_at)`. Si falla, solo registra el error.
@@ -40,8 +41,8 @@ Modelo de amenazas y controles de app-ingles (SP1). La app es privada, de acceso
 ### Cabeceras y rutas
 
 - **`/favicon.ico`, `/_next/static` y `/_next/image` sin CSP**: están excluidos del matcher del proxy. Son ficheros públicos que no son HTML; el resto de cabeceras sí llegan desde `next.config`.
-- **`Permissions-Policy microphone=()` y `frame-src 'none'`**: se abrirán más adelante (micrófono solo para `self` en SP4; `frame-src` a `youtube-nocookie` en SP2).
-- **Para el SP2** (vídeo de YouTube): abrir `frame-src` a `https://www.youtube-nocookie.com` e `img-src` a `https://i.ytimg.com` (miniaturas de la facade), solo con esos orígenes. No añadir nunca COEP (`Cross-Origin-Embedder-Policy`): bloquearía el iframe y las miniaturas.
+- **`Permissions-Policy microphone=()`**: se abrirá más adelante (micrófono solo para `self` en SP4).
+- **YouTube (SP2), ya abierto**: `frame-src https://www.youtube-nocookie.com` e `img-src https://i.ytimg.com` (miniaturas de la facade), solo con esos orígenes; `script-src` no cambia (la IFrame API entra por `strict-dynamic` solo tras el clic). Nunca añadir COEP (`Cross-Origin-Embedder-Policy`): bloquearía el iframe y las miniaturas. Spike de navegador pendiente de verificación por el controlador.
 
 ### Autenticación y rate limit
 

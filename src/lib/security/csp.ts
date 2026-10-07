@@ -3,14 +3,14 @@ export function buildCsp(nonce: string, { dev, https }: { dev: boolean; https: b
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${dev ? " 'unsafe-eval'" : ''}`,
     `style-src 'self'${dev ? " 'unsafe-inline'" : ` 'nonce-${nonce}'`}`,
-    "img-src 'self' data:",
+    "img-src 'self' data: https://i.ytimg.com",
     "font-src 'self'",
     "connect-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",
     "frame-ancestors 'none'",
-    "frame-src 'none'",
+    'frame-src https://www.youtube-nocookie.com',
   ];
   if (https) directives.push('upgrade-insecure-requests');
   return directives.join('; ');

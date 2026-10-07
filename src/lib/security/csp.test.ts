@@ -10,7 +10,14 @@ describe('buildCsp', () => {
   it('bloquea framing y objetos', () => {
     expect(prod).toContain("frame-ancestors 'none'");
     expect(prod).toContain("object-src 'none'");
-    expect(prod).toContain("frame-src 'none'");
+  });
+  it('permite solo el iframe de youtube-nocookie y las miniaturas de i.ytimg.com', () => {
+    expect(prod).toContain('frame-src https://www.youtube-nocookie.com');
+    expect(prod).not.toContain("frame-src 'none'");
+    expect(prod).toContain("img-src 'self' data: https://i.ytimg.com");
+  });
+  it('script-src sigue sin hosts (strict-dynamic propaga la confianza al script de la IFrame API cargado tras el clic)', () => {
+    expect(prod).toMatch(/script-src 'self' 'nonce-abc' 'strict-dynamic'(;|$)/);
   });
   it('upgrade-insecure-requests solo con https', () => {
     expect(prod).toContain('upgrade-insecure-requests');
