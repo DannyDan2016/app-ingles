@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direcciones visuales — app-ingles SP2</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; background: #e5e7eb; color: #111827; }
+  header.page { padding: 24px 16px 8px; max-width: 1400px; margin: 0 auto; }
+  header.page h1 { margin: 0 0 4px; font-size: 22px; }
+  header.page p { margin: 0; color: #4b5563; font-size: 14px; }
+  .toolbar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .toolbar button { border: 1px solid #9ca3af; background: #fff; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+  .toolbar button[aria-pressed="true"] { background: #111827; color: #fff; border-color: #111827; }
+  section.dir { max-width: 1400px; margin: 16px auto 32px; padding: 0 16px; }
+  section.dir > h2 { margin: 8px 0 2px; font-size: 18px; }
+  section.dir > p.desc { margin: 0 0 12px; color: #4b5563; font-size: 14px; max-width: 900px; }
+  .phones { display: flex; gap: 20px; flex-wrap: wrap; }
+  .phone { width: 300px; height: 620px; border-radius: 28px; border: 8px solid #1f2937; overflow: hidden; display: flex; flex-direction: column; background: var(--bg); color: var(--text); font-family: var(--font); position: relative; }
+  .phone .cap { position: absolute; top: -26px; left: 0; font-size: 12px; color: #374151; font-family: ui-sans-serif, system-ui; }
+  .wrap { position: relative; padding-top: 26px; }
+  .scr { flex: 1; overflow: hidden; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .top { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); }
+  .h { font-size: 18px; font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+  .sub { font-size: 12px; color: var(--muted); margin: 0; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; }
+  .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--chip); color: var(--chip-text); font-weight: 600; }
+  .btn { display: block; width: 100%; text-align: center; padding: 11px; border-radius: var(--radius); background: var(--primary); color: var(--on-primary); font-weight: 700; font-size: 14px; border: 0; }
+  .btn.ghost { background: transparent; color: var(--text); border: 1px solid var(--border); font-weight: 600; }
+  .bar { height: 8px; background: var(--track); border-radius: 999px; overflow: hidden; }
+  .bar > i { display: block; height: 100%; background: var(--primary-solid); border-radius: 999px; }
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; font-size: 10px; color: var(--muted); }
+  .week b { display: block; height: 22px; border-radius: 6px; background: var(--track); margin-bottom: 2px; }
+  .week b.on { background: var(--primary-solid); }
+  .week b.grace { background: transparent; border: 2px dashed var(--accent); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 8px; }
+  .stat strong { display: block; font-size: 16px; }
+  .stat span { font-size: 10px; color: var(--muted); }
+  .mono { font-family: var(--mono); }
+  nav.tabs { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--border); background: var(--surface); }
+  nav.tabs a { text-align: center; font-size: 10px; padding: 8px 0 10px; color: var(--muted); text-decoration: none; }
+  nav.tabs a .ico { display: block; font-size: 17px; line-height: 1.2; }
+  nav.tabs a.act { color: var(--primary-text); font-weight: 700; }
+  .path { display: flex; flex-direction: column; gap: 8px; }
+  .node { display: flex; gap: 10px; align-items: center; }
+  .dot { width: 38px; height: 38px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 15px; font-weight: 700; border: 2px solid var(--border); background: var(--surface); color: var(--muted); }
+  .dot.done { background: var(--success); border-color: var(--success); color: #fff; }
+  .dot.cur { background: var(--primary-solid); border-color: var(--primary-solid); color: var(--on-primary); box-shadow: 0 0 0 4px var(--ring); }
+  .node .t { font-size: 13px; font-weight: 600; }
+  .node .m { font-size: 11px; color: var(--muted); }
+  .opt { padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 13px; background: var(--surface); }
+  .opt.ok { border-color: var(--success); background: var(--success-bg); }
+  .opt.ko { border-color: var(--danger); background: var(--danger-bg); text-decoration: line-through; }
+  .fb { border-radius: var(--radius); padding: 10px 12px; background: var(--success-bg); border: 1px solid var(--success); font-size: 12px; }
+  .fb strong { color: var(--success-text); }
+  .code { font-family: var(--mono); font-size: 11px; background: var(--code-bg); color: var(--code-text); border-radius: 8px; padding: 8px; line-height: 1.5; }
+  .w { border-bottom: 2px dotted var(--accent); }
+
+  /* ---------- Direcciones (claro / oscuro) ---------- */
+  .A { --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace; --radius: 12px;
+       --bg:#FFFFFF; --surface:#F1F5F9; --text:#0F172A; --muted:#475569; --border:#CBD5E1; --track:#E2E8F0;
+       --primary:#0F766E; --primary-solid:#0F766E; --on-primary:#FFFFFF; --primary-text:#0F766E; --ring:#99F6E4;
+       --accent:#0F766E; --chip:#CCFBF1; --chip-text:#134E4A;
+       --success:#15803D; --success-bg:#DCFCE7; --success-text:#14532D; --danger:#B91C1C; --danger-bg:#FEE2E2;
+       --code-bg:#0F172A; --code-text:#E2E8F0; }
+  .dark .A { --bg:#0B1220; --surface:#131C2E; --text:#E2E8F0; --muted:#94A3B8; --border:#334155; --track:#1E293B;
+       --primary:#2DD4BF; --primary-solid:#2DD4BF; --on-primary:#04201D; --primary-text:#2DD4BF; --ring:#134E4A;
+       --accent:#2DD4BF; --chip:#134E4A; --chip-text:#CCFBF1;
+       --success:#4ADE80; --success-bg:#052E16; --success-text:#86EFAC; --danger:#F87171; --danger-bg:#450A0A;
+       --code-bg:#020617; --code-text:#99F6E4; }
+
+  .B { --font: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif; --mono: ui-monospace, "Cascadia Code", monospace; --radius: 16px;
+       --bg:#FAFAF7; --surface:#FFFFFF; --text:#1F2937; --muted:#57534E; --border:#E7E5E4; --track:#EDE9E3;
+       --primary:#4338CA; --primary-solid:#4338CA; --on-primary:#FFFFFF; --primary-text:#4338CA; --ring:#C7D2FE;
+       --accent:#B45309; --chip:#FEF3C7; --chip-text:#78350F;
+       --success:#15803D; --success-bg:#DCFCE7; --success-text:#14532D; --danger:#B91C1C; --danger-bg:#FEE2E2;
+       --code-bg:#F5F5F0; --code-text:#1F2937; }
+  .dark .B { --bg:#141418; --surface:#1C1C22; --text:#ECECF1; --muted:#A8A29E; --border:#2E2E36; --track:#2A2A31;
+       --primary:#A5B4FC; --primary-solid:#A5B4FC; --on-primary:#141418; --primary-text:#A5B4FC; --ring:#312E81;
+       --accent:#FBBF24; --chip:#422006; --chip-text:#FDE68A;
+       --success:#4ADE80; --success-bg:#052E16; --success-text:#86EFAC; --danger:#F87171; --danger-bg:#450A0A;
+       --code-bg:#0E0E12; --code-text:#ECECF1; }
+
+  .C { --font: "Inter", ui-sans-serif, system-ui, "Segoe UI", sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace; --radius: 8px;
+       --bg:#FFFFFF; --surface:#FAFAFA; --text:#111827; --muted:#52525B; --border:#E4E4E7; --track:#F4F4F5;
+       --primary:#1D4ED8; --primary-solid:#1D4ED8; --on-primary:#FFFFFF; --primary-text:#1D4ED8; --ring:#BFDBFE;
+       --accent:#1D4ED8; --chip:#F4F4F5; --chip-text:#18181B;
+       --success:#15803D; --success-bg:#F0FDF4; --success-text:#14532D; --danger:#B91C1C; --danger-bg:#FEF2F2;
+       --code-bg:#18181B; --code-text:#E4E4E7; }
+  .dark .C { --bg:#09090B; --surface:#111113; --text:#F4F4F5; --muted:#A1A1AA; --border:#27272A; --track:#1C1C1F;
+       --primary:#60A5FA; --primary-solid:#60A5FA; --on-primary:#09090B; --primary-text:#60A5FA; --ring:#1E3A8A;
+       --accent:#60A5FA; --chip:#1C1C1F; --chip-text:#E4E4E7;
+       --success:#4ADE80; --success-bg:#052E16; --success-text:#86EFAC; --danger:#F87171; --danger-bg:#2A0A0A;
+       --code-bg:#000000; --code-text:#A1A1AA; }
+  .dark body, body.dark { background: #030712; color: #e5e7eb; }
+  body.dark header.page p, body.dark section.dir > p.desc, body.dark .phone .cap { color: #9ca3af; }
+  body.dark .toolbar button { background:#111827; color:#e5e7eb; border-color:#374151; }
+  body.dark .toolbar button[aria-pressed="true"] { background:#e5e7eb; color:#111827; }
+</style>
+</head>
+<body>
+<header class="page">
+  <h1>SP2 · Direcciones visuales — «Duolingo para devs»</h1>
+  <p>3 pantallas por dirección: <b>Hoy</b> (avance semanal + repaso), <b>Camino</b> A2 y <b>Ejercicio</b> con feedback. Cambia claro/oscuro para comparar. Responde en la terminal: A, B, C o una mezcla.</p>
+  <div class="toolbar">
+    <button id="bl" aria-pressed="true">☀️ Claro</button>
+    <button id="bd" aria-pressed="false">🌙 Oscuro</button>
+  </div>
+</header>
+
+<template id="screens">
+  <div class="phones">
+    <div class="wrap"><span class="cap">1 · Hoy</span>
+    <div class="phone"><div class="scr">
+      <div class="top"><span>Martes</span><span class="pill">🔥 4/7 días</span></div>
+      <p class="h">Hola, Danny</p>
+      <p class="sub">Meta: 15 min · llevas 9</p>
+      <div class="bar"><i style="width:60%"></i></div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b style="font-size:13px">Esta semana</b><span class="sub">2 días de gracia</span></div>
+        <div class="week"><span><b class="on"></b>L</span><span><b class="on"></b>M</span><span><b class="on"></b>X</span><span><b class="grace"></b>J</span><span><b class="on"></b>V</span><span><b></b>S</span><span><b></b>D</span></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>87%</strong><span>aciertos en repasos +7 días</span></div>
+        <div class="stat"><strong>46</strong><span>palabras consolidadas</span></div>
+        <div class="stat"><strong>72'</strong><span>minutos de práctica</span></div>
+      </div>
+      <div class="card">
+        <span class="pill">Repaso · 12 tarjetas</span>
+        <p style="margin:6px 0 8px;font-size:13px">«flaky», «deploy», «endpoint»… toca repasarlas hoy.</p>
+        <span class="btn">Repasar (4 min)</span>
+      </div>
+      <div class="card">
+        <span class="pill">Siguiente lección · QA</span>
+        <p style="margin:6px 0 0;font-size:13px;font-weight:600">Reporting a bug in the login page</p>
+        <p class="sub">Past simple · 8 min</p>
+      </div>
+    </div>
+    <nav class="tabs"><a class="act"><span class="ico">⌂</span>Hoy</a><a><span class="ico">⟟</span>Camino</a><a><span class="ico">🎙</span>Entrevista</a><a><span class="ico">🎧</span>Escuchar</a><a><span class="ico">◔</span>Perfil</a></nav>
+    </div></div>
+
+    <div class="wrap"><span class="cap">2 · Camino A2</span>
+    <div class="phone"><div class="scr">
+      <div class="top"><span>Nivel A2</span><span class="pill">3/8 lecciones</span></div>
+      <p class="h">Camino A2 · Elementary</p>
+      <div class="bar"><i style="width:37%"></i></div>
+      <p class="sub">«Puedo describir un bug y pedir ayuda a mi equipo en inglés.»</p>
+      <div class="path">
+        <div class="node"><span class="dot done">✓</span><div><div class="t">What does an AI model do?</div><div class="m">IA · Present simple</div></div></div>
+        <div class="node"><span class="dot done">✓</span><div><div class="t">Follow the setup steps</div><div class="m">Frontend · Imperatives</div></div></div>
+        <div class="node"><span class="dot done">✓</span><div><div class="t">My first API request</div><div class="m">Backend · Can / must</div></div></div>
+        <div class="node"><span class="dot cur">4</span><div><div class="t">Reporting a bug</div><div class="m">QA · Past simple · Empezar →</div></div></div>
+        <div class="node"><span class="dot">5</span><div><div class="t">Comparing frameworks</div><div class="m">Frontend · Comparatives</div></div></div>
+        <div class="node"><span class="dot">6</span><div><div class="t">Planning the next sprint</div><div class="m">QA · Going to</div></div></div>
+        <div class="node"><span class="dot">🎧</span><div><div class="t">Listening: Talk Python (tramo 1:12)</div><div class="m">Podcast · 3 pasadas</div></div></div>
+      </div>
+    </div>
+    <nav class="tabs"><a><span class="ico">⌂</span>Hoy</a><a class="act"><span class="ico">⟟</span>Camino</a><a><span class="ico">🎙</span>Entrevista</a><a><span class="ico">🎧</span>Escuchar</a><a><span class="ico">◔</span>Perfil</a></nav>
+    </div></div>
+
+    <div class="wrap"><span class="cap">3 · Ejercicio con feedback</span>
+    <div class="phone"><div class="scr">
+      <div class="top"><span>✕</span><div class="bar" style="flex:1;margin:0 10px"><i style="width:55%"></i></div><span>6/11</span></div>
+      <p class="sub">Lee el reporte y completa con el past simple</p>
+      <div class="code">BUG-142 · Login<br>Steps: I <span class="w">opened</span> the page and ____ my password.<br>Expected: dashboard · Actual: 500 error</div>
+      <div class="opt ko">type</div>
+      <div class="opt ok">typed ✓</div>
+      <div class="opt">was typing</div>
+      <div class="fb"><strong>¡Correcto!</strong> En un bug report los pasos van en past simple: <i>I typed</i>, <i>I clicked</i>. «typed» se añade a tu repaso.</div>
+      <div style="margin-top:auto;display:flex;flex-direction:column;gap:6px">
+        <span class="btn">Continuar</span>
+        <span class="btn ghost">¿Por qué? Ver explicación</span>
+      </div>
+    </div></div></div>
+  </div>
+</template>
+
+<section class="dir"><h2>A · «Terminal Calma» (recomendada por la investigación)</h2>
+<p class="desc">Teal sobre neutros fríos, JetBrains Mono para código y términos técnicos, esquinas medias. Sobria y profesional, motivadora sin ser infantil. La más barata en rendimiento (solo CSS).</p>
+<div class="A" data-slot></div></section>
+
+<section class="dir"><h2>B · «Cuaderno cálido»</h2>
+<p class="desc">Crema e índigo con ámbar para la racha. Más amable y «de estudio», ideal para lecturas largas. Esquinas redondeadas grandes.</p>
+<div class="B" data-slot></div></section>
+
+<section class="dir"><h2>C · «Raycast / Linear dev»</h2>
+<p class="desc">Neutros muy limpios con acento azul, densidad alta, esquinas pequeñas. Estética de herramienta de desarrollador; brilla en oscuro y con atajos de teclado.</p>
+<div class="C" data-slot></div></section>
+
+<script>
+  const tpl = document.getElementById('screens');
+  document.querySelectorAll('[data-slot]').forEach(s => s.appendChild(tpl.content.cloneNode(true)));
+  const bl = document.getElementById('bl'), bd = document.getElementById('bd');
+  function set(d){ document.documentElement.classList.toggle('dark', d); document.body.classList.toggle('dark', d); bl.setAttribute('aria-pressed', !d); bd.setAttribute('aria-pressed', d); }
+  bl.onclick = () => set(false); bd.onclick = () => set(true);
+</script>
+</body>
+</html>
