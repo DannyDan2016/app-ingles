@@ -5,7 +5,7 @@ const bypass = env.VERCEL_BYPASS ? { 'x-vercel-protection-bypass': env.VERCEL_BY
 
 // Contexto con la sesión del admin (storageState del setup).
 // Mismo origen: se declara con `Sec-Fetch-Site: same-origin` (sin Origin). Con `Origin` propio el resultado dependería de
-// que `req.nextUrl.origin` coincida con el host público, y en el contenedor standalone (HOSTNAME=0.0.0.0) no coincide.
+// que `req.nextUrl.origin` coincida con el host público, y el origen interno de Next standalone (HOSTNAME de bind) no coincide con el Host público.
 const MISMO_ORIGEN = { 'sec-fetch-site': 'same-origin' };
 const test = base.extend<{ sesion: Awaited<ReturnType<typeof pwRequest.newContext>>; anonimo: Awaited<ReturnType<typeof pwRequest.newContext>> }>({
   sesion: async ({ baseURL }, use) => {

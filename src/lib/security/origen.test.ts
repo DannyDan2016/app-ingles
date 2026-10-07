@@ -12,10 +12,10 @@ describe('mismoOrigen', () => {
 describe('origenesPropios', () => {
   const h = (o: Record<string, string>) => new Headers(o);
   it('incluye nextUrl.origin siempre', () => expect(origenesPropios(h({}), 'https://a.example')).toEqual(['https://a.example']));
-  it('Docker: Host web:3000 con nextUrl 0.0.0.0 → añade http://web:3000', () =>
-    expect(origenesPropios(h({ host: 'web:3000' }), 'http://0.0.0.0:3000')).toEqual(['http://0.0.0.0:3000', 'http://web:3000']));
+  it('Docker: Host web:3000 con nextUrl interno-next → añade http://web:3000', () =>
+    expect(origenesPropios(h({ host: 'web:3000' }), 'http://interno-next:3000')).toEqual(['http://interno-next:3000', 'http://web:3000']));
   it('x-forwarded-host y x-forwarded-proto (primer valor) mandan sobre Host', () =>
-    expect(origenesPropios(h({ host: 'interno:3000', 'x-forwarded-host': 'app.example, otro', 'x-forwarded-proto': 'https, http' }), 'http://0.0.0.0:3000'))
+    expect(origenesPropios(h({ host: 'interno:3000', 'x-forwarded-host': 'app.example, otro', 'x-forwarded-proto': 'https, http' }), 'http://interno-next:3000'))
       .toContain('https://app.example'));
   it('protocolo no http/https se ignora', () =>
     expect(origenesPropios(h({ host: 'a.example', 'x-forwarded-proto': 'javascript' }), 'https://x.example')).toEqual(['https://x.example']));
