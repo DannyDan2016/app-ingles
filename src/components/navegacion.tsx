@@ -23,7 +23,7 @@ export function Navegacion() {
     return () => window.removeEventListener('keydown', onKey);
   }, [router]);
   return (
-    <nav aria-label="Principal" className="fixed inset-x-0 bottom-0 z-10 border-t border-borde/40 bg-fondo lg:static lg:w-56 lg:border-r lg:border-t-0">
+    <nav aria-label="Principal" className="fixed inset-x-0 bottom-0 z-10 border-t border-borde/40 bg-fondo pb-[env(safe-area-inset-bottom)] lg:static lg:pb-0 lg:w-56 lg:border-r lg:border-t-0">
       <ul className="mx-auto flex max-w-xl justify-around lg:flex-col lg:gap-1 lg:p-3">
         {SECCIONES.map(({ href, etiqueta, Icono }, i) => {
           const activa = ruta === href || ruta.startsWith(`${href}/`);

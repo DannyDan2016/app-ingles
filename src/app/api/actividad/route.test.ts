@@ -51,6 +51,11 @@ describe('POST /api/actividad', () => {
     expect(r.status).toBe(400);
     expect(sumarActividad).not.toHaveBeenCalled();
   });
+  it('cuerpo JSON enviado como text/plain (sendBeacon) → 204 y registra', async () => {
+    const r = await POST(new NextRequest(URL_API, { method: 'POST', headers: { 'content-type': 'text/plain;charset=UTF-8', origin: PROPIO }, body: JSON.stringify({ segundos: 45 }) }));
+    expect(r.status).toBe(204);
+    expect(sumarActividad).toHaveBeenCalledWith(DB, 'u1', expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/), 45);
+  });
   it('cuerpo que no es JSON → 400', async () => {
     const r = await POST(peticion('no es json', { origin: PROPIO }, true));
     expect(r.status).toBe(400);

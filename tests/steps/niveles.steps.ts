@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { Given, When, Then } from '../fixtures';
 import { crearCuenta } from './comunes.steps';
-import { sinScrollHorizontal } from './aprendizaje.steps';
+import { sinScrollHorizontal } from '../support/pantalla';
 
 When('elijo {string} como nivel inicial', async ({ niveles }, nivel: string) => {
   await niveles.elegirNivel(nivel);

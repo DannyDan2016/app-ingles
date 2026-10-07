@@ -88,7 +88,7 @@ export function FlujoTramo({ tramo, glosario, yaCompletado }: { tramo: Tramo; gl
         <>
           {videoCaido ? (
             <div className="flex flex-col items-start gap-3">
-              <Boton type="button" onClick={() => setPaso('preguntas')}>Ir a las preguntas</Boton>
+              <Boton type="button" onClick={() => { setVideoCaido(false); setPaso('preguntas'); }}>Ir a las preguntas</Boton>
             </div>
           ) : (
             <>

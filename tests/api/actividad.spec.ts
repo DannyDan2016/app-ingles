@@ -37,6 +37,11 @@ test.describe('@api @seguridad POST /api/actividad', () => {
     expect(r.status()).toBe(400);
   });
 
+  test('con sesión y Origin propio (el de baseURL) → 204', async ({ sesion, baseURL }) => {
+    const r = await sesion.post('/api/actividad', { data: { segundos: 30 }, headers: { origin: new URL(baseURL!).origin } });
+    expect(r.status()).toBe(204);
+  });
+
   test('{ segundos: 30 } → 204', async ({ sesion }) => {
     const r = await sesion.post('/api/actividad', { data: { segundos: 30 }, headers: MISMO_ORIGEN });
     expect(r.status()).toBe(204);

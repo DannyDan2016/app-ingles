@@ -26,7 +26,7 @@ export function PalabraGlosario({ visible, base, entrada, nivel }: { visible: st
     cerrar.current?.focus();
     const fuera = (ev: PointerEvent) => {
       const t = ev.target as Node;
-      if (!panel.current?.contains(t) && !disparador.current?.contains(t)) setAbierto(false);
+      if (!panel.current?.contains(t) && !disparador.current?.contains(t)) cerrarPanel();
     };
     document.addEventListener('pointerdown', fuera);
     return () => document.removeEventListener('pointerdown', fuera);
@@ -59,7 +59,7 @@ export function PalabraGlosario({ visible, base, entrada, nivel }: { visible: st
   // Móvil: hoja inferior. Desde lg: modal centrado, así nunca se sale del viewport.
   const dialogo = (
     <>
-      <div aria-hidden="true" onClick={() => setAbierto(false)} className="fixed inset-0 z-30 bg-black/40" />
+      <div aria-hidden="true" onClick={cerrarPanel} className="fixed inset-0 z-30 bg-black/40" />
       <div ref={panel} id={id} role="dialog" aria-modal="true" aria-labelledby={`${id}-t`} onKeyDown={teclas}
         className="fixed inset-x-0 bottom-0 z-40 max-h-[80dvh] overflow-y-auto rounded-t-2xl border border-borde bg-fondo p-4 text-texto shadow-lg lg:inset-auto lg:left-1/2 lg:top-1/2 lg:w-96 lg:max-w-[calc(100vw-2rem)] lg:-translate-x-1/2 lg:-translate-y-1/2 lg:rounded-xl">
         <div className="flex items-start justify-between gap-2">

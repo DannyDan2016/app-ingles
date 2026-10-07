@@ -18,8 +18,15 @@ export function MedidorActividad() {
       if (segundos < 1) return;
       acumulado.current = 0;
       const body = JSON.stringify({ segundos });
-      if (beacon && navigator.sendBeacon) navigator.sendBeacon('/api/actividad', new Blob([body], { type: 'application/json' }));
-      else void fetch('/api/actividad', { method: 'POST', headers: { 'content-type': 'application/json' }, body, keepalive: true }).catch(() => {});
+      const restaurar = () => { acumulado.current += segundos; };
+      // Blob text/plain: Chrome lanza SecurityError con tipos no CORS-safelisted (application/json). El handler usa req.json(), que ignora el content-type.
+      let enviado = false;
+      if (beacon && navigator.sendBeacon) {
+        try { enviado = navigator.sendBeacon('/api/actividad', new Blob([body], { type: 'text/plain;charset=UTF-8' })); } catch { enviado = false; }
+      }
+      if (enviado) return;
+      void fetch('/api/actividad', { method: 'POST', headers: { 'content-type': 'application/json' }, body, keepalive: true })
+        .then((r) => { if (r.status >= 500) restaurar(); }, restaurar);
     };
     const tocar = () => { ultimaInteraccion.current = Date.now(); };
     tocar(); // entrar a la pantalla cuenta como interacción

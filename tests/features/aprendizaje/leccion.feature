@@ -23,7 +23,6 @@ Característica: Lecciones
     Y la página no tiene violaciones de accesibilidad graves
 
   # Salir de la lección envía el tiempo acumulado a POST /api/actividad desde el navegador.
-  # FALLA hoy en el stack Docker (403): ver informe D1, bug del control de origen.
   @local-only
   Escenario: El medidor registra el tiempo de práctica al salir de la lección
     Dado que registro las peticiones de red

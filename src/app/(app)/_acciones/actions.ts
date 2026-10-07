@@ -35,7 +35,8 @@ export async function completarItemAction(input: { itemId: string }) {
   if (estado === 'bloqueado') return { ok: false as const, motivo: 'bloqueado' as const };
   const r = await completarItem(db, u.userId, item.nivel, item.id);
   const leccion = getLeccion(item.id);
-  if (r === 'nuevo' && leccion) await agregarTarjetas(db, u.userId, item.nivel, leccion.terminos, new Date());
+  // Siempre (idempotente): si un intento previo falló tras el insert, se autocorrige.
+  if (leccion) await agregarTarjetas(db, u.userId, item.nivel, leccion.terminos, new Date());
   return { ok: true as const, nuevo: r === 'nuevo' };
 }
 

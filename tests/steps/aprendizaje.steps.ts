@@ -4,6 +4,7 @@ import type { LeccionPage } from '../pages/leccion.page';
 import type { HoyPage } from '../pages/hoy.page';
 import type { NivelesPage } from '../pages/niveles.page';
 import { crearCuenta } from './comunes.steps';
+import { sinScrollHorizontal } from '../support/pantalla';
 
 // Contenido de la demo (content/_demo, solo imagen con CONTENT_DEMO=1): lección demo-01 y tramo demo-t1.
 type L = LeccionPage;
@@ -44,16 +45,6 @@ async function ejerciciosDemo01(l: L, alResumen = true) {
   if (alResumen) await l.irAlResumen();
 }
 
-export async function sinScrollHorizontal(page: Page) {
-  const anchos = await page.evaluate(() => {
-    const w = document.documentElement.clientWidth;
-    const culpables = [...document.body.querySelectorAll('*')]
-      .filter((e) => e.getBoundingClientRect().right > w + 1)
-      .slice(0, 5).map((e) => `${e.tagName.toLowerCase()}.${String(e.className).slice(0, 60)}`);
-    return { hay: document.documentElement.scrollWidth > w, scroll: document.documentElement.scrollWidth, w, culpables };
-  });
-  expect(anchos.hay, JSON.stringify(anchos)).toBe(false);
-}
 
 async function empezarDesdeHoy(l: L, hoy: HoyPage) {
   await l.pulsar(hoy.enlaceEmpezar());
@@ -155,7 +146,7 @@ Then('Hoy muestra el estado del repaso y no desborda', async ({ page, niveles, h
   await sinScrollHorizontal(page);
 });
 
-When('permanezco unos segundos en la pantalla', async ({ page }) => { await page.waitForTimeout(3000); });
+When('permanezco unos segundos en la pantalla', async ({ page }) => { await page.waitForTimeout(3000); }); // espera real: el medidor cuenta 1 s por tic y exige >= 1 s acumulado antes de enviar al salir
 
 Then('el tiempo de práctica se registró en el servidor', async ({ ctx }) => {
   await expect.poll(() => ctx.actividad!.length, { message: 'no hubo ninguna petición a /api/actividad' }).toBeGreaterThan(0);
