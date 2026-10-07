@@ -1,0 +1,21 @@
+tipo: leccion
+id: demo-01
+nivel: A2
+tema: backend
+orden: 0
+titulo: A Small Commit
+objetivo: Puedo explicar qué es un commit y una rama.
+gramatica: Present simple
+lectura: |
+  Every day, Leo opens the [[repository]] and creates a new [[branch]].
+  He writes code and makes a small [[commit]] after each [[change]].
+  Then a teammate does a [[review]]. If the code is good, they [[merge]] the branch.
+video: { youtubeId: Ecu_7juyU0Q, start: 20, end: 80, titulo: "QA bug reporting basics", canal: "QA Unlocked" }
+terminos: [commit, branch, merge]
+ejercicios:
+  - { id: demo-01-e1, tipo: opcion_multiple, enunciado: "What does Leo create every day?", opciones: ["A branch", "A database", "A bug"], correcta: 0, explicacion: "La lectura dice «creates a new branch».", terminos: [branch] }
+  - { id: demo-01-e2, tipo: completar, enunciado: "Completa la frase.", texto: "He makes a small ___ after each change.", respuesta: commit, aceptadas: ["a commit"], explicacion: "Un commit guarda un grupo de cambios.", terminos: [commit] }
+  - { id: demo-01-e3, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["They", "merge", "the", "branch"], explicacion: "Sujeto + verbo + complemento." }
+  - { id: demo-01-e4, tipo: emparejar, enunciado: "Empareja cada término con su traducción.", pares: [{ a: commit, b: confirmación }, { a: branch, b: rama }, { a: review, b: revisión }], explicacion: "Vocabulario básico de git." }
+  - { id: demo-01-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "A teammate does a review before the merge.", correcta: true, explicacion: "Primero la revisión, luego el merge." }
+revisado: false

@@ -1,0 +1,13 @@
+tipo: tramo
+id: demo-t1
+nivel: A2
+tema: backend
+orden: 99
+fuente: { podcast: "QA Unlocked", youtubeId: Ecu_7juyU0Q, start: 20, end: 80, titulo: "QA bug reporting basics", canal: "QA Unlocked" }
+preguntaGuia: What does a good bug report need?
+palabrasClave: [change, review]
+preguntas:
+  - { id: demo-t1-e1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The video talks about bug reports.", correcta: true, explicacion: "El título lo indica." }
+  - { id: demo-t1-e2, tipo: opcion_multiple, enunciado: "What is the video about?", opciones: ["Bug reports", "Cooking"], correcta: 0, explicacion: "Habla de informes de bugs." }
+  - { id: demo-t1-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The speaker talks about pizza.", correcta: false, explicacion: "No se habla de comida." }
+revisado: false

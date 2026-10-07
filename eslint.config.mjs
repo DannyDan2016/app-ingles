@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // El framework de QA tiene su propio package.json y tsconfig.
     "tests/**",
+    // Contenido compilado (generado).
+    "src/content/generado/**",
   ]),
 ]);
 

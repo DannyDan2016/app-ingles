@@ -1,0 +1,10 @@
+tipo: glosario
+nivel: A2
+tema: backend
+entradas:
+  - { termino: commit, categoria: noun, traduccion_es: confirmación (commit), definicion_en: A saved group of changes in a project., ejemplo_en: I made a small commit before lunch., nivel: A2, tema: backend }
+  - { termino: branch, categoria: noun, traduccion_es: rama, definicion_en: A separate line of work in a project., ejemplo_en: She is working on a new branch., nivel: A2, tema: backend }
+  - { termino: merge, categoria: verb, traduccion_es: fusionar, definicion_en: To join two lines of work together., ejemplo_en: We merge the branch on Friday., nivel: A2, tema: backend }
+  - { termino: review, categoria: noun, traduccion_es: revisión, definicion_en: When a person reads and checks your work., ejemplo_en: My review is ready., nivel: A2, tema: backend }
+  - { termino: repository, categoria: noun, traduccion_es: repositorio, definicion_en: The place where a project and its history live., ejemplo_en: Clone the repository first., nivel: A2, tema: backend }
+  - { termino: change, categoria: noun, traduccion_es: cambio, definicion_en: Something that is now different., ejemplo_en: This change fixes the button., nivel: A2, tema: backend }

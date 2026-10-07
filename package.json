@@ -17,10 +17,17 @@
     "db:migrate": "drizzle-kit migrate",
     "admin:crear": "tsx scripts/crear-admin.ts",
     "admin:reset": "tsx scripts/reset-password.ts",
-    "check:no-pc": "tsx scripts/check-no-pc.mjs"
+    "check:no-pc": "tsx scripts/check-no-pc.mjs",
+    "content:build": "tsx scripts/contenido/compilar.ts",
+    "predev": "npm run content:build",
+    "prebuild": "npm run content:build",
+    "pretypecheck": "npm run content:build",
+    "pretest": "npm run content:build",
+    "pretest:int": "npm run content:build"
   },
   "dependencies": {
     "drizzle-orm": "0.45.3",
+    "lucide-react": "1.52.0",
     "next": "16.3.8",
     "pg": "8.23.1",
     "react": "19.2.8",
@@ -42,6 +49,7 @@
     "tsx": "4.23.15",
     "typescript": "~6.0.3",
     "vite-tsconfig-paths": "6.1.1",
-    "vitest": "5.0.3"
+    "vitest": "5.0.3",
+    "yaml": "2.9.1"
   }
 }

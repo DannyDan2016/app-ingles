@@ -33,3 +33,6 @@ tests/.auth/
 tests/playwright-report/
 tests/test-results/
 tests/.features-gen/
+
+# Contenido compilado
+src/content/generado/
