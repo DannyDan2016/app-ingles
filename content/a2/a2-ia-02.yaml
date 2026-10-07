@@ -24,4 +24,4 @@ ejercicios:
   - { id: a2-ia-02-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Marta says: write a very long prompt.", correcta: false, explicacion: "Marta dice «Please don't write a long text»: un prompt corto y claro funciona mejor.", terminos: [prompt, short] }
   - { id: a2-ia-02-e6, tipo: opcion_multiple, enunciado: "Which sentence is a negative imperative?", opciones: ["Copy the code.", "Don't copy the code.", "You don't copy the code."], correcta: 1, explicacion: "El imperativo negativo se forma con don't + verbo base y no lleva sujeto: «Don't copy the code». «You don't copy the code» es una afirmación en present simple, no una orden.", terminos: [copy] }
   - { id: a2-ia-02-e7, tipo: ordenar, enunciado: "Ordena las instrucciones con secuenciadores.", piezas: ["First,", "write", "a short prompt.", "Then", "check", "the result."], explicacion: "«First» abre la secuencia y «then» introduce el paso siguiente. Cada paso es un imperativo: write…, check…", terminos: [prompt, check, result] }
-revisado: false
+revisado: true

@@ -25,4 +25,4 @@ ejercicios:
   - { id: a2-frontend-02-e6, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["He", "is", "going", "to", "test", "the form", "in the browser"], explicacion: "Sujeto + be + going to + verbo base + complemento. Es un plan ya decidido, por eso usamos going to.", terminos: [form, browser] }
   - { id: a2-frontend-02-e7, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Luis is going to use HTML for the structure of the page.", correcta: true, explicacion: "La lectura lo dice casi igual: «He is going to use HTML for the structure of the page».", terminos: [html] }
   - { id: a2-frontend-02-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Luis thinks the form will be ready today.", correcta: false, explicacion: "Luis dice que el formulario estará listo mañana (tomorrow). «Will» también sirve para predicciones." }
-revisado: false
+revisado: true
