@@ -16,7 +16,9 @@ const TITULOS: Record<Paso, string> = { lectura: 'Lectura', video: 'Video', ejer
 const ENLACE = 'inline-flex min-h-11 items-center justify-center rounded-md px-4 font-semibold';
 
 export function FlujoLeccion({ leccion, glosario, yaCompletada, palabrasFrase }: { leccion: Leccion; glosario: Record<string, EntradaGlosario>; yaCompletada: boolean; palabrasFrase: PalabraFrase[] }) {
-  const pasos: Paso[] = leccion.video ? ['lectura', 'video', 'ejercicios', 'frase', 'resumen'] : ['lectura', 'ejercicios', 'frase', 'resumen'];
+  const hayFrase = palabrasFrase.length > 0;
+  const base: Paso[] = leccion.video ? ['lectura', 'video', 'ejercicios'] : ['lectura', 'ejercicios'];
+  const pasos: Paso[] = hayFrase ? [...base, 'frase', 'resumen'] : [...base, 'resumen'];
   const [n, setN] = useState(0);
   const [guardado, setGuardado] = useState<'pendiente' | 'ok' | 'error'>('pendiente');
   const [frases, setFrases] = useState(0);

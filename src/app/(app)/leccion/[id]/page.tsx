@@ -21,7 +21,7 @@ export default async function LeccionPage({ params }: PageProps<'/leccion/[id]'>
   const palabrasFrase = leccion.terminos.slice(0, 3).map((base) => ({
     base,
     visibles: [...new Set(segmentos.flatMap((s) => (s.tipo === 'termino' && s.base === base.toLowerCase() ? [s.visible] : [])))],
-    entrada: gl[base],
+    entrada: gl[base.toLowerCase()],
   }));
   return <FlujoLeccion leccion={leccion} glosario={gl} yaCompletada={estado === 'hecho'} palabrasFrase={palabrasFrase} />;
 }

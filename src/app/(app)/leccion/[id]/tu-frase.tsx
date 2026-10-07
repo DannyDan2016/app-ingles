@@ -2,7 +2,7 @@
 import { useId, useRef, useState } from 'react';
 import { CircleCheck, CircleX } from 'lucide-react';
 import type { EntradaGlosario } from '@/lib/contenido/esquema';
-import { evaluarFrase, formasAceptadas } from '@/lib/aprendizaje/frase';
+import { evaluarFrase, formasAceptadas, ejemplosDeFormas } from '@/lib/aprendizaje/frase';
 import { Boton } from '@/components/boton';
 import { Tarjeta } from '@/components/tarjeta';
 
@@ -21,7 +21,7 @@ function TarjetaFrase({ palabra, hecha, onHecha, onRehacer, campoRef }: {
   const [texto, setTexto] = useState('');
   const [res, setRes] = useState<Resultado>(null);
   const formas = formasAceptadas(palabra.base, palabra.visibles);
-  const ejemplosFormas = formas.filter((f) => f !== palabra.base).slice(0, 4).join(', ');
+  const ejemplosFormas = ejemplosDeFormas(palabra.base, palabra.visibles).join(', ');
 
   function comprobar() {
     const r = evaluarFrase(texto, formas);
@@ -50,7 +50,7 @@ function TarjetaFrase({ palabra, hecha, onHecha, onRehacer, campoRef }: {
         />
       </div>
       {!hecha && <Boton type="button" onClick={comprobar} className="self-start">Comprobar</Boton>}
-      <div role="status" aria-live="polite">
+      <div role="status">
         {res && (
           <div className={`flex gap-3 rounded-lg border-2 p-3 ${res.tipo === 'valida' ? 'border-exito' : 'border-error'}`}>
             {res.tipo === 'valida'
@@ -117,7 +117,7 @@ export function TuFrase({ palabras, onTerminar }: { palabras: PalabraFrase[]; on
       ))}
       <div className="flex flex-wrap gap-3">
         <Boton type="button" ref={continuar} disabled={!todas} onClick={() => onTerminar(total)}>Continuar</Boton>
-        <Boton type="button" variante="secundario" onClick={() => onTerminar(0)}>Omitir este paso</Boton>
+        <Boton type="button" variante="secundario" onClick={() => onTerminar(total)}>Omitir este paso</Boton>
       </div>
     </div>
   );
