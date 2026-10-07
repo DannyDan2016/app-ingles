@@ -23,7 +23,7 @@ describe('repaso', () => {
     expect(await tarjetasPendientes(testDb, userId, now, 1)).toHaveLength(1);
   });
   it('«La sabía» sube de caja y registra la caja anterior', async () => {
-    expect(await responderTarjeta(testDb, userId, 'bug', 'A2', true, now)).toEqual({ caja: 4 });
+    expect(await responderTarjeta(testDb, userId, 'bug', 'A2', true, now, 3)).toEqual({ caja: 4 });
     const [t] = await testDb.select().from(tarjetas).where(eq(tarjetas.termino, 'bug'));
     expect(t.proximaAt.toISOString()).toBe('2026-10-21T05:00:00.000Z');
     expect(t.aciertos).toBe(1);
@@ -31,12 +31,19 @@ describe('repaso', () => {
     expect([r.origen, r.itemId, r.caja, r.correcta]).toEqual(['repaso', 'bug', 3, true]);
   });
   it('«No la sabía» → caja 1 mañana', async () => {
-    expect(await responderTarjeta(testDb, userId, 'bug', 'A2', false, now)).toEqual({ caja: 1 });
+    expect(await responderTarjeta(testDb, userId, 'bug', 'A2', false, now, 3)).toEqual({ caja: 1 });
     const [t] = await testDb.select().from(tarjetas).where(eq(tarjetas.termino, 'bug'));
     expect([t.caja, t.fallos, t.proximaAt.toISOString()]).toEqual([1, 1, '2026-10-08T05:00:00.000Z']);
   });
+  it('reintento con la misma cajaEsperada no mueve la tarjeta dos veces ni duplica la respuesta', async () => {
+    expect(await responderTarjeta(testDb, userId, 'bug', 'A2', true, now, 3)).toEqual({ caja: 4 });
+    expect(await responderTarjeta(testDb, userId, 'bug', 'A2', true, now, 3)).toEqual({ caja: 4 });
+    const [t] = await testDb.select().from(tarjetas).where(eq(tarjetas.termino, 'bug'));
+    expect([t.caja, t.aciertos, t.fallos]).toEqual([4, 1, 0]);
+    expect(await testDb.select().from(respuestas)).toHaveLength(1);
+  });
   it('tarjeta inexistente → null', async () => {
-    expect(await responderTarjeta(testDb, userId, 'nada', 'A2', true, now)).toBeNull();
+    expect(await responderTarjeta(testDb, userId, 'nada', 'A2', true, now, 1)).toBeNull();
     expect(await testDb.select().from(respuestas)).toHaveLength(0);
   });
 });

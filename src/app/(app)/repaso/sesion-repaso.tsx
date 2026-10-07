@@ -11,12 +11,13 @@ import { responderTarjetaAction } from './actions';
 export type TarjetaRepaso = {
   termino: string;
   nivel: string;
+  caja: number;
   ejemplo: string | null;
   traduccion: string | null;
   definicion: string | null;
 };
 
-type Envio = { termino: string; nivel: string; sabia: boolean };
+type Envio = { termino: string; nivel: string; sabia: boolean; cajaEsperada: number };
 
 function Resaltado({ texto, termino }: { texto: string; termino: string }) {
   const i = texto.toLowerCase().indexOf(termino.toLowerCase());
@@ -36,42 +37,49 @@ export function SesionRepaso({ tarjetas }: { tarjetas: TarjetaRepaso[] }) {
   const [revelada, setRevelada] = useState(false);
   const [sabidas, setSabidas] = useState(0);
   const [aviso, setAviso] = useState(false);
+  const resumen = useRef<HTMLHeadingElement>(null);
   const zonaBotones = useRef<HTMLDivElement>(null);
   const cola = useMemo(
     () => crearColaRegistro<Envio>((x) => responderTarjetaAction(x), { onFalloPersistente: () => setAviso(true) }),
     [],
   );
 
+  const terminadaInicial = indice >= tarjetas.length;
   useEffect(() => {
+    if (terminadaInicial) { resumen.current?.focus(); return; }
     // Primer botón de la zona: «Mostrar respuesta» o, tras revelar, «La sabía».
     zonaBotones.current?.querySelector('button')?.focus();
-  }, [revelada, indice]);
+  }, [revelada, indice, terminadaInicial]);
 
   const total = tarjetas.length;
   const terminada = indice >= total;
 
   function responder(sabia: boolean) {
     const t = tarjetas[indice];
-    cola.encolar({ termino: t.termino, nivel: t.nivel, sabia });
+    cola.encolar({ termino: t.termino, nivel: t.nivel, sabia, cajaEsperada: t.caja });
     if (sabia) setSabidas((n) => n + 1);
     setRevelada(false);
     setIndice((i) => i + 1);
   }
 
-  const aviso_ = aviso ? (
-    <p role="status" className="flex items-center gap-2 text-sm text-aviso">
-      <CircleAlert aria-hidden className="size-4 shrink-0" />
-      <span>No pudimos guardar alguna respuesta. Revisa tu conexión; seguiremos reintentando.</span>
-    </p>
-  ) : null;
+  const aviso_ = (
+    <div role="status" aria-live="polite">
+      {aviso ? (
+        <p className="flex items-center gap-2 text-sm text-aviso">
+          <CircleAlert aria-hidden className="size-4 shrink-0" />
+          <span>No pudimos guardar alguna respuesta. Revisa tu conexión; seguiremos reintentando.</span>
+        </p>
+      ) : null}
+    </div>
+  );
 
   if (terminada) {
     return (
-      <Tarjeta aria-live="polite" className="space-y-3">
-        <p className="flex items-center gap-2 text-lg font-semibold text-exito">
+      <Tarjeta className="space-y-3">
+        <h2 ref={resumen} tabIndex={-1} className="flex items-center gap-2 text-lg font-semibold text-exito outline-offset-4">
           <CheckCircle2 aria-hidden className="size-5 shrink-0" />
           <span>Sabías {sabidas} de {total}</span>
-        </p>
+        </h2>
         <p className="text-texto-suave">Sesión de repaso terminada. Las tarjetas que fallaste volverán mañana.</p>
         {aviso_}
         <Link href="/hoy" className="inline-flex min-h-11 items-center font-semibold text-primario underline">Volver a Hoy</Link>

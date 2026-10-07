@@ -15,6 +15,7 @@ export default async function RepasoPage() {
     const e = buscarEntrada(t.nivel, t.termino);
     return [{
       termino: t.termino,
+      caja: t.caja,
       nivel: t.nivel,
       ejemplo: e?.ejemplo_en ?? null,
       traduccion: e?.traduccion_es ?? null,
