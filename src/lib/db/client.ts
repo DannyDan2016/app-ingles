@@ -1,11 +1,12 @@
 import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
 import * as schema from './schema';
+import { enforceSslUrl } from './ssl-url';
 
 export type Db = NodePgDatabase<typeof schema>;
 
 export function createDb(url: string): { db: Db; pool: Pool } {
-  const pool = new Pool({ connectionString: url, max: 5, connectionTimeoutMillis: 10_000, idleTimeoutMillis: 10_000 });
+  const pool = new Pool({ connectionString: enforceSslUrl(url), max: 5, connectionTimeoutMillis: 10_000, idleTimeoutMillis: 10_000 });
   // Sin listener, un error de un cliente inactivo (Neon suspendido, conexión cortada) tumba el proceso.
   pool.on('error', (e) => console.error('pg pool:', e.message));
   return { db: drizzle(pool, { schema }), pool };

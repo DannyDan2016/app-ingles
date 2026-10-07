@@ -1,8 +1,79 @@
 # app-ingles
 
-App privada para practicar inglés técnico (niveles CEFR A1-C2).
+App privada para practicar inglés técnico (niveles CEFR A1-C2). Es también una pieza de portfolio de QA: el proyecto incluye un framework de pruebas completo (E2E/BDD, API, accesibilidad, seguridad) y su pipeline de CI/CD.
 
-Documentación en `docs/`.
+## Demo y producción
+
+https://app-ingles-mauve.vercel.app
+
+El acceso es solo por invitación: no hay registro abierto.
+
+## Stack
+
+- Next.js 16 (App Router) y React 19, Tailwind CSS 4, TypeScript.
+- Drizzle ORM sobre PostgreSQL (Neon en producción, Postgres 17 en local).
+- Node 24 (argon2id con `crypto.argon2`).
+- Pruebas: Vitest (unit e integración) y Playwright con playwright-bdd (Gherkin en español), axe-core.
+- Despliegue: Vercel desde GitHub Actions; ZAP baseline y gitleaks en CI.
+
+## Arquitectura
+
+- `src/app/`: rutas, Server Actions y páginas.
+- `src/lib/`: autenticación y sesiones, base de datos (`db/`), seguridad (`security/`: CSP y cabeceras).
+- `src/proxy.ts`: genera la CSP con nonce y filtra de forma optimista por la cookie de sesión; la validación real está en `requireUser` y `requireAdmin`.
+- `drizzle/`: migraciones SQL. `scripts/`: crear admin, restablecer contraseña y guardia no-PC.
+- `tests/`: framework de QA (ver `tests/README.md`). `docs/`: requisitos, seguridad y QA manual.
+
+## Correr en local
+
+Requisitos: Node 24 y Docker.
+
+```powershell
+npm ci
+Copy-Item .env.example .env        # y ajusta DATABASE_URL a la BD local
+docker compose up -d db            # Postgres 17, solo en loopback, puerto 5432
+npm run db:migrate                 # aplica las migraciones
+npm run dev                        # solo loopback, puerto 3000
+```
+
+Como el desarrollo es por http, define `COOKIE_INSECURE=true` solo en tu `.env` local. Para crear el administrador usa `npm run admin:crear` (receta en "Crear el administrador", más abajo).
+
+## Tests
+
+| Comando | Qué ejecuta |
+| --- | --- |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | Tipos de Next y TypeScript |
+| `npm test` | Unit (Vitest) |
+| `npm run test:int` | Integración contra Postgres (`DATABASE_URL_TEST`, BD acabada en `_test`) |
+| `npm run check:no-pc` | Guardia contra la exposición del PC |
+
+La suite E2E (Playwright + BDD) corre en Docker; los comandos y los entornos (`local`, `preview`) están en [tests/README.md](tests/README.md). En local:
+
+```powershell
+$env:E2E_ADMIN_PASSWORD = '<mínimo 12 caracteres>'
+$f = '-f', 'docker-compose.yml', '-f', 'tests/docker-compose.yml'
+docker compose @f up -d --build --wait web
+docker compose @f run --rm --build tests
+docker compose @f down -v
+```
+
+## Reporte de pruebas
+
+El informe de Playwright de `main` se publica en GitHub Pages: https://dannydan2016.github.io/app-ingles/
+
+## Estrategia de QA
+
+Se automatiza por riesgo, no por cobertura (resumen de `docs/requisitos.md` §7):
+
+- Acceso no autorizado y exposición del PC (riesgo máximo): rutas protegidas, invitaciones inválidas o revocadas, cookie, cabeceras, secretos, dependencias y escaneo dinámico (API, E2E y CI de seguridad).
+- Responsive y accesibilidad: tres viewports, axe en las páginas del MVP y navegación con teclado.
+- Framework de portfolio: Page Objects, datos en YAML por entorno, BDD en español, Docker y GitHub Actions.
+- Manual, con checklist en el repo: pruebas en dispositivos reales (`docs/qa/checklist-sp1.md`) y sesión exploratoria por subproyecto (`docs/qa/exploratoria-sp1.md`).
+
+## Seguridad
+
+Modelo de amenazas, controles y riesgos aceptados en [docs/seguridad.md](docs/seguridad.md).
 
 ## Despliegue
 
@@ -17,7 +88,7 @@ Lo que hay que configurar a mano antes del primer despliegue. Nada de esto vive 
 ### Neon
 
 - Dos ramas: `main` (producción) y `preview`. Crear `preview` **antes** de que `main` tenga datos, para que los hashes de producción no se copien al preview.
-- La app usa la URL **con pooler** y `?sslmode=require`.
+- La app usa la URL **con pooler** y `?sslmode=verify-full`.
 - Las migraciones (`npm run db:migrate`) usan la URL **directa** (sin pooler).
 
 ### GitHub

@@ -14,6 +14,9 @@ test.describe('@api @seguridad cabeceras de seguridad', () => {
       expect(h['x-content-type-options']).toBe('nosniff');
       expect(h['referrer-policy']).toBe('strict-origin-when-cross-origin');
       expect(h['permissions-policy']).toContain('microphone=()');
+      expect(h['cross-origin-opener-policy'], ruta).toBe('same-origin');
+      expect(h['cross-origin-resource-policy'], ruta).toBe('same-origin');
+      expect(h['cross-origin-embedder-policy'], ruta).toBeUndefined();
       expect(h['x-powered-by']).toBeUndefined();
       // Sin CORS abierto en rutas propias (ZAP 10098 está en WARN por los estáticos de la CDN de Vercel).
       expect(h['access-control-allow-origin'], `CORS en ${ruta}`).toBeUndefined();

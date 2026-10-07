@@ -25,5 +25,12 @@ describe('cabeceras estáticas', () => {
   const keys = STATIC_SECURITY_HEADERS.map((h) => h.key);
   it.each([
     'Strict-Transport-Security', 'X-Content-Type-Options', 'Referrer-Policy', 'Permissions-Policy', 'X-Frame-Options',
+    'Cross-Origin-Opener-Policy', 'Cross-Origin-Resource-Policy',
   ])('incluye %s', (k) => expect(keys).toContain(k));
+  it('COOP y CORP en same-origin y sin COEP', () => {
+    const v = (k: string) => STATIC_SECURITY_HEADERS.find((h) => h.key === k)?.value;
+    expect(v('Cross-Origin-Opener-Policy')).toBe('same-origin');
+    expect(v('Cross-Origin-Resource-Policy')).toBe('same-origin');
+    expect(keys).not.toContain('Cross-Origin-Embedder-Policy');
+  });
 });
