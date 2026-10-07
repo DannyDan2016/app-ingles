@@ -22,4 +22,4 @@ ejercicios:
   - { id: a2-ia-01-e5, tipo: ordenar, enunciado: "Ordena la frase (present continuous).", piezas: ["Sara", "is", "reading", "the", "answer"], explicacion: "Estructura del present continuous: sujeto + is/are + verbo con -ing + complemento.", terminos: [answer] }
   - { id: a2-ia-01-e6, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Sara uses the chatbot's answer without a check.", correcta: false, explicacion: "La lectura dice que a veces la respuesta es incorrecta, así que Sara «always checks it before she uses it». «Always» es un adverbio de frecuencia: marca un hábito.", terminos: [answer, wrong] }
   - { id: a2-ia-01-e7, tipo: opcion_multiple, enunciado: "Which word shows a habit (a routine)?", opciones: ["usually", "right now", "at the moment"], correcta: 0, explicacion: "Los adverbios de frecuencia (usually, always, often, sometimes, never) acompañan al present simple y marcan hábitos. «Right now» y «at the moment» van con el present continuous." }
-revisado: false
+revisado: true

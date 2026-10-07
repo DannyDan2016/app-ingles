@@ -25,4 +25,4 @@ ejercicios:
   - { id: a2-backend-01-e6, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["There", "isn't", "much", "information", "about", "the new products"], explicacion: "Con un incontable (information) en negativo usamos «There isn't much» + nombre. Orden: There + isn't + much + nombre + complemento.", terminos: [information] }
   - { id: a2-backend-01-e7, tipo: verdadero_falso, enunciado: "Según la lectura, ¿verdadero o falso?", afirmacion: "There are many new products in the table.", correcta: false, explicacion: "La lectura dice «there aren't many new ones»: hay pocos productos nuevos. «Many» va con contables en plural (products)." }
   - { id: a2-backend-01-e8, tipo: opcion_multiple, enunciado: "What does a database do?", opciones: ["It stores information.", "It draws the colors of the page.", "It opens web pages for the user."], correcta: 0, explicacion: "Una base de datos guarda (stores) información de forma ordenada, por ejemplo en tablas. Los colores los define el CSS y las páginas las abre el navegador.", terminos: [database, store] }
-revisado: false
+revisado: true

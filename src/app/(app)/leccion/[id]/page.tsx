@@ -2,7 +2,7 @@ import { notFound, redirect } from 'next/navigation';
 import { requireUser } from '@/lib/auth/current-user';
 import { getDb } from '@/lib/db/client';
 import { getLeccion, glosarioPara, caminoDeNivel } from '@/lib/contenido/catalogo';
-import { terminosDeLectura } from '@/lib/contenido/lectura';
+import { segmentarLectura, terminosDeLectura } from '@/lib/contenido/lectura';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
 import { FlujoLeccion } from './flujo-leccion';
@@ -16,5 +16,12 @@ export default async function LeccionPage({ params }: PageProps<'/leccion/[id]'>
   const estado = estadoCamino(caminoDeNivel(leccion.nivel), await itemsCompletados(getDb(), u.userId, leccion.nivel)).items.find((i) => i.id === id)?.estado;
   if (estado === 'bloqueado') redirect(`/camino/${leccion.nivel}`);
   const terminos = [...terminosDeLectura(leccion.lectura), ...leccion.terminos];
-  return <FlujoLeccion leccion={leccion} glosario={glosarioPara(leccion.nivel, leccion.tema, terminos)} yaCompletada={estado === 'hecho'} />;
+  const gl = glosarioPara(leccion.nivel, leccion.tema, terminos);
+  const segmentos = segmentarLectura(leccion.lectura);
+  const palabrasFrase = leccion.terminos.slice(0, 3).map((base) => ({
+    base,
+    visibles: [...new Set(segmentos.flatMap((s) => (s.tipo === 'termino' && s.base === base.toLowerCase() ? [s.visible] : [])))],
+    entrada: gl[base.toLowerCase()],
+  }));
+  return <FlujoLeccion leccion={leccion} glosario={gl} yaCompletada={estado === 'hecho'} palabrasFrase={palabrasFrase} />;
 }

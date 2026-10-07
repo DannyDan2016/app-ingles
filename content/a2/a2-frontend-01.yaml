@@ -25,4 +25,4 @@ ejercicios:
   - { id: a2-frontend-01-e6, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "The font on Page A is bigger than the font on Page B.", correcta: false, explicacion: "La lectura dice que la tipografía de la página A es «smaller than» la de la página B, es decir, más pequeña.", terminos: [font] }
   - { id: a2-frontend-01-e7, tipo: opcion_multiple, enunciado: "¿Qué frase es correcta?", opciones: ["This is the most good layout.", "This is the best layout.", "This is the goodest layout."], correcta: 1, explicacion: "El superlativo de «good» es irregular: «the best». No se forma con «most» ni con -est." }
   - { id: a2-frontend-01-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Marco says that Page A is as nice as Page B on a big computer.", correcta: true, explicacion: "«As...as» expresa que dos cosas son iguales. Marco dice «Page A is as nice as Page B» en una computadora grande." }
-revisado: false
+revisado: true

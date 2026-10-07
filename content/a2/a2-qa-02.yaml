@@ -73,4 +73,4 @@ ejercicios:
     correcta: false
     explicacion: "Marta dice «You must also test it in two browsers»: es una obligación. Lo que sí pueden elegir («can») es qué dos navegadores usar."
     terminos: [browser]
-revisado: false
+revisado: true

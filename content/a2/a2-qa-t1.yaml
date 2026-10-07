@@ -42,4 +42,4 @@ preguntas:
     correcta: 0
     explicacion: "Un buen informe dice qué debía pasar (expected result) y qué pasó de verdad (actual result). Ojo: «actual» en inglés significa «real», no «actual»."
     terminos: [expected result]
-revisado: false
+revisado: true

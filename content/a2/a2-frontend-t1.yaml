@@ -11,4 +11,4 @@ preguntas:
   - { id: a2-frontend-t1-e2, tipo: opcion_multiple, enunciado: "A responsive website changes to fit different...", opciones: ["screens", "passwords", "servers"], correcta: 0, explicacion: "Responsive significa que la página se adapta al tamaño de la pantalla.", terminos: [screen, responsive] }
   - { id: a2-frontend-t1-e3, tipo: opcion_multiple, enunciado: "On which devices should a responsive page work well?", opciones: ["Only on large computers", "On phones, tablets and computers", "Only on phones"], correcta: 1, explicacion: "La idea del diseño responsive es que una misma página funcione bien en distintos dispositivos.", terminos: [device] }
   - { id: a2-frontend-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "In a responsive design, the layout stays exactly the same on every screen.", correcta: false, explicacion: "Al contrario: el diseño (layout) cambia según el tamaño de la pantalla.", terminos: [layout] }
-revisado: false
+revisado: true

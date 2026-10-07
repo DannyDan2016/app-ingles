@@ -25,4 +25,4 @@ ejercicios:
   - { id: a2-backend-02-e6, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["The", "server", "is", "in", "the", "cloud"], explicacion: "Estructura: sujeto + is + preposición de lugar + lugar. «In the cloud» va al final.", terminos: [server, cloud] }
   - { id: a2-backend-02-e7, tipo: verdadero_falso, enunciado: "Según la lectura, ¿verdadero o falso?", afirmacion: "Code 500 means everything is OK.", correcta: false, explicacion: "El código 200 significa que todo va bien. El código 500 indica un problema en el servidor.", terminos: [code, status] }
   - { id: a2-backend-02-e8, tipo: verdadero_falso, enunciado: "Según la lectura, ¿verdadero o falso?", afirmacion: "The next maintenance is from 2 to 3 a.m. on Sunday.", correcta: true, explicacion: "La lectura dice «for Sunday, from 2 to 3 a.m.». Con «from ... to» marcamos el inicio y el fin de un periodo.", terminos: [schedule] }
-revisado: false
+revisado: true

@@ -11,4 +11,4 @@ preguntas:
   - { id: a2-backend-t1-e2, tipo: opcion_multiple, enunciado: "What does the browser send to the web server?", opciones: ["A request", "A response", "A backup"], correcta: 0, explicacion: "El navegador envía una petición (request) y el servidor contesta con una respuesta (response).", terminos: [request] }
   - { id: a2-backend-t1-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The web server and the browser are the same thing.", correcta: false, explicacion: "Son dos cosas distintas: el navegador pide la página y el servidor la entrega.", terminos: [server] }
   - { id: a2-backend-t1-e4, tipo: opcion_multiple, enunciado: "What does the server send back to the browser?", opciones: ["A response", "A request", "A backup"], correcta: 0, explicacion: "El navegador envía la petición (request) y el servidor devuelve una respuesta (response) con la página o los datos. Un backup es una copia de seguridad, no forma parte de este intercambio.", terminos: [response, data] }
-revisado: false
+revisado: true

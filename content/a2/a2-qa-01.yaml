@@ -68,4 +68,4 @@ ejercicios:
     pares: [{ a: tester, b: probador }, { a: login, b: inicio de sesión }, { a: password, b: contraseña }, { a: screen, b: pantalla }]
     explicacion: "Vocabulario clave de la historia. «Login» es el paso de entrar con usuario y contraseña."
     terminos: [tester, login, password, screen]
-revisado: false
+revisado: true
