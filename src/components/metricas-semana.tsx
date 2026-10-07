@@ -14,7 +14,7 @@ export function SemanaActiva({ r }: { r: ResumenSemana }) {
           return (
             <li key={d.fecha} className="flex flex-col items-center gap-1 text-xs text-texto-suave">
               <span
-                className={`flex size-11 items-center justify-center rounded-full border ${d.activo ? 'border-acierto bg-acierto text-fondo' : 'border-borde bg-fondo text-texto-suave'}`}
+                className={`flex size-9 items-center sm:size-11 justify-center rounded-full border ${d.activo ? 'border-acierto bg-acierto text-fondo' : 'border-borde bg-fondo text-texto-suave'}`}
               >
                 {d.activo ? <Check aria-hidden="true" className="size-5" /> : d.futuro ? <Clock aria-hidden="true" className="size-4" /> : <Minus aria-hidden="true" className="size-4" />}
               </span>
