@@ -5,14 +5,14 @@ import { verifyPassword, DUMMY_HASH } from './password';
 import { hashToken } from './tokens';
 import { normalizeAlias } from './alias';
 import { createSession } from './sessions';
-import { maybePurgeStale } from './purge';
+import { maybePurgeStale, type PurgeOpts } from './purge';
 import { countRecentFailures, isBlocked, recordFailure, clearFailures } from './rate-limit';
 
 export async function login(
   db: Db,
   input: { alias: string; password: string; ip: string },
   now: Date,
-  opts: { purgeEvery?: number } = {},
+  opts: { purge?: PurgeOpts } = {},
 ): Promise<{ ok: true; token: string; expiraAt: Date } | { ok: false; error: 'credenciales' | 'bloqueado' }> {
   const parsed = normalizeAlias(input.alias);
   // Alias inválido: no se consulta el usuario; la clave de rate limit es el texto normalizado y acotado.
@@ -24,10 +24,11 @@ export async function login(
   const valid = await verifyPassword(u?.passwordHash ?? (await DUMMY_HASH), input.password.slice(0, 128));
   if (!u || !valid) {
     await recordFailure(db, key, ipHash, now);
+    await maybePurgeStale(db, now, opts.purge);
     return { ok: false, error: 'credenciales' };
   }
   await clearFailures(db, key);
   const s = await createSession(db, u.id, now);
-  await maybePurgeStale(db, now, { every: opts.purgeEvery });
+  await maybePurgeStale(db, now, opts.purge);
   return { ok: true, ...s };
 }

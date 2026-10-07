@@ -25,12 +25,16 @@ export const invites = pgTable('invites', {
   createdAt: ts('created_at').notNull().defaultNow(),
 });
 
-export const sessions = pgTable('sessions', {
-  idHash: text('id_hash').primaryKey(),
-  userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
-  expiraAt: ts('expira_at').notNull(),
-  createdAt: ts('created_at').notNull().defaultNow(),
-});
+export const sessions = pgTable(
+  'sessions',
+  {
+    idHash: text('id_hash').primaryKey(),
+    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    expiraAt: ts('expira_at').notNull(),
+    createdAt: ts('created_at').notNull().defaultNow(),
+  },
+  (t) => [index('sessions_expira_at').on(t.expiraAt)],
+);
 
 export const loginAttempts = pgTable(
   'login_attempts',
@@ -40,7 +44,7 @@ export const loginAttempts = pgTable(
     ipHash: text('ip_hash').notNull(),
     at: ts('at').notNull().defaultNow(),
   },
-  (t) => [index('login_attempts_alias_at').on(t.alias, t.at), index('login_attempts_ip_at').on(t.ipHash, t.at)],
+  (t) => [index('login_attempts_alias_at').on(t.alias, t.at), index('login_attempts_ip_at').on(t.ipHash, t.at), index('login_attempts_at').on(t.at)],
 );
 
 export const progress = pgTable(

@@ -1,5 +1,6 @@
 'use server';
 import { cookies } from 'next/headers';
+import { after } from 'next/server';
 import { redirect } from 'next/navigation';
 import { getDb } from '@/lib/db/client';
 import { login } from '@/lib/auth/login';
@@ -15,7 +16,9 @@ export async function loginAction(_: LoginState, form: FormData): Promise<LoginS
   const parsed = loginSchema.safeParse({ alias: form.get('alias'), password: form.get('password') });
   if (!parsed.success) return { error: CREDENCIALES };
   const { alias, password } = parsed.data;
-  const r = await login(getDb(), { alias, password, ip: await getClientIp() }, new Date());
+  const r = await login(getDb(), { alias, password, ip: await getClientIp() }, new Date(), {
+    purge: { schedule: after }, // la purga oportunista corre tras responder
+  });
   if (!r.ok) {
     return { error: r.error === 'bloqueado' ? 'Demasiados intentos. Espera 15 minutos.' : CREDENCIALES, alias: alias.slice(0, 64) };
   }

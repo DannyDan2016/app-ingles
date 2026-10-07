@@ -1,5 +1,6 @@
 'use server';
 import { cookies } from 'next/headers';
+import { after } from 'next/server';
 import { redirect } from 'next/navigation';
 import { getDb } from '@/lib/db/client';
 import { registerLimited } from '@/lib/auth/register';
@@ -22,7 +23,9 @@ export async function registroAction(_: RegistroState, form: FormData): Promise<
   }
   const db = getDb();
   const now = new Date();
-  const r = await registerLimited(db, { ...parsed.data, ip: await getClientIp() }, now);
+  const r = await registerLimited(db, { ...parsed.data, ip: await getClientIp() }, now, {
+    purge: { schedule: after }, // la purga oportunista corre tras responder
+  });
   if (!r.ok && r.error === 'bloqueado') return { error: 'Demasiados intentos. Espera 15 minutos.' };
   if (!r.ok) return { error: mensajeRegistro(r.error), alias: parsed.data.alias.slice(0, 64) };
   const s = await createSession(db, r.userId, now);
