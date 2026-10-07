@@ -1,0 +1,28 @@
+tipo: leccion
+id: a2-frontend-01
+nivel: A2
+tema: frontend
+orden: 10
+titulo: Which Layout Is Better?
+objetivo: Puedo comparar dos diseños de página con comparativos y superlativos.
+gramatica: Comparatives and superlatives (than, as...as)
+lectura: |
+  Ana and Marco are designers. Today they compare two [[layouts|layout]] for a shop website: Page A and Page B.
+
+  Page A has a very [[large]] [[image]] at the top and a big [[header]]. The [[menu]] has seven links, so it is more difficult to use than the menu on Page B. The [[font]] is smaller than the font on Page B, and it is not easy to read on a [[mobile phone]].
+
+  Page B is [[faster|fast]] than Page A because it has fewer images. Its menu is [[simpler|simple]], and its [[colors|color]] are calmer. Page B is also [[responsive]]: its layout changes to fit a small [[screen]], so it stays easy to use.
+
+  Ana says, "Page B is better than Page A." Marco agrees. "We have three old layouts too, but Page B is the best layout for phones," he says. "On a big computer, Page A is as nice as Page B."
+video: { youtubeId: gT0Lh1eYk78, start: 30, end: 100, titulo: "HTML, CSS, JavaScript Explained [in 4 minutes for beginners]", canal: "Danielle Thé" }
+terminos: [layout, screen, font, header, responsive, fast, simple, mobile phone]
+ejercicios:
+  - { id: a2-frontend-01-e1, tipo: opcion_multiple, enunciado: "Page B is ___ than Page A.", opciones: ["fast", "faster", "fastest"], correcta: 1, explicacion: "Con «than» comparamos dos cosas: adjetivo corto + -er (fast, faster). «Fastest» se usa para decir que algo es el más rápido de todos.", terminos: [fast] }
+  - { id: a2-frontend-01-e2, tipo: completar, enunciado: "Completa con el comparativo de «simple».", texto: "The menu on Page B is ___ than the menu on Page A.", respuesta: simpler, explicacion: "«Simple» termina en -e, así que solo añadimos -r: simple, simpler.", terminos: [simple] }
+  - { id: a2-frontend-01-e3, tipo: completar, enunciado: "Completa con el superlativo de «good».", texto: "Page B is the ___ layout for mobile phones.", respuesta: best, explicacion: "«Good» es irregular: good, better, best. El superlativo lleva «the» delante.", terminos: [layout] }
+  - { id: a2-frontend-01-e4, tipo: ordenar, enunciado: "Ordena la frase según la lectura.", piezas: ["Page B", "is", "faster", "than", "Page A"], explicacion: "Estructura del comparativo: sujeto + be + adjetivo-er + than + segundo elemento. Según la lectura, la página rápida es la B.", terminos: [fast] }
+  - { id: a2-frontend-01-e5, tipo: emparejar, enunciado: "Empareja cada término con su traducción.", pares: [{ a: layout, b: maquetación }, { a: font, b: tipografía }, { a: header, b: cabecera }, { a: screen, b: pantalla }], explicacion: "Son términos básicos de diseño web que verás en casi cualquier equipo de frontend.", terminos: [layout, font, header, screen] }
+  - { id: a2-frontend-01-e6, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "The font on Page A is bigger than the font on Page B.", correcta: false, explicacion: "La lectura dice que la tipografía de la página A es «smaller than» la de la página B, es decir, más pequeña.", terminos: [font] }
+  - { id: a2-frontend-01-e7, tipo: opcion_multiple, enunciado: "¿Qué frase es correcta?", opciones: ["This is the most good layout.", "This is the best layout.", "This is the goodest layout."], correcta: 1, explicacion: "El superlativo de «good» es irregular: «the best». No se forma con «most» ni con -est." }
+  - { id: a2-frontend-01-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Marco says that Page A is as nice as Page B on a big computer.", correcta: true, explicacion: "«As...as» expresa que dos cosas son iguales. Marco dice «Page A is as nice as Page B» en una computadora grande." }
+revisado: false

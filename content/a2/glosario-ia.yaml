@@ -1,0 +1,31 @@
+tipo: glosario
+nivel: A2
+tema: ia
+entradas:
+  - { termino: ai, categoria: noun, traduccion_es: IA (inteligencia artificial), definicion_en: Computer systems that do tasks that need human thinking., ejemplo_en: AI can help me write code., nivel: A2, tema: ia }
+  - { termino: assistant, categoria: noun, traduccion_es: asistente, definicion_en: A program that helps you do a task., ejemplo_en: The assistant explains my error., nivel: A2, tema: ia }
+  - { termino: chatbot, categoria: noun, traduccion_es: chatbot, definicion_en: A program that talks with you in text., ejemplo_en: I ask the chatbot for help every day., nivel: A2, tema: ia }
+  - { termino: question, categoria: noun, traduccion_es: pregunta, definicion_en: Words you use to ask for information., ejemplo_en: I have a question about this error., nivel: A2, tema: ia }
+  - { termino: answer, categoria: noun, traduccion_es: respuesta, definicion_en: What you say or write after a question., ejemplo_en: The answer is on the screen., nivel: A2, tema: ia }
+  - { termino: data, categoria: noun, traduccion_es: datos, definicion_en: Information that a computer can use., ejemplo_en: The AI learns from a lot of data., nivel: A2, tema: ia }
+  - { termino: learn, categoria: verb, traduccion_es: aprender, definicion_en: To get new knowledge or a new skill., ejemplo_en: Models learn patterns from data., nivel: A2, tema: ia }
+  - { termino: understand, categoria: verb, traduccion_es: entender, definicion_en: To know what something means., ejemplo_en: I don't understand this error., nivel: A2, tema: ia }
+  - { termino: write, categoria: verb, traduccion_es: escribir, definicion_en: To put words or code on a screen or paper., ejemplo_en: The chatbot can write a short text., nivel: A2, tema: ia }
+  - { termino: useful, categoria: adjective, traduccion_es: útil, definicion_en: Good for doing something., ejemplo_en: This tool is very useful., nivel: A2, tema: ia }
+  - { termino: wrong, categoria: adjective, traduccion_es: incorrecto, definicion_en: Not correct., ejemplo_en: "The answer is wrong, so I check it.", nivel: A2, tema: ia }
+  - { termino: tool, categoria: noun, traduccion_es: herramienta, definicion_en: A program or object that helps you do work., ejemplo_en: This AI tool saves me time., nivel: A2, tema: ia }
+  - { termino: prompt, categoria: noun, traduccion_es: instrucción (prompt), definicion_en: The text you send to an AI to ask for something., ejemplo_en: My prompt is short and clear., nivel: A2, tema: ia }
+  - { termino: example, categoria: noun, traduccion_es: ejemplo, definicion_en: A sample that shows what you mean., ejemplo_en: Give the AI an example., nivel: A2, tema: ia }
+  - { termino: short, categoria: adjective, traduccion_es: corto, definicion_en: Not long., ejemplo_en: Write a short prompt., nivel: A2, tema: ia }
+  - { termino: clear, categoria: adjective, traduccion_es: claro, definicion_en: Easy to understand., ejemplo_en: Your prompt must be clear., nivel: A2, tema: ia }
+  - { termino: explain, categoria: verb, traduccion_es: explicar, definicion_en: To make something easy to understand., ejemplo_en: Explain this error, please., nivel: A2, tema: ia }
+  - { termino: list, categoria: noun, traduccion_es: "lista (también: enumerar)", definicion_en: Items written one after another., ejemplo_en: Ask the AI for a list of ideas., nivel: A2, tema: ia }
+  - { termino: translate, categoria: verb, traduccion_es: traducir, definicion_en: To change words into another language., ejemplo_en: Translate this sentence into Spanish., nivel: A2, tema: ia }
+  - { termino: check, categoria: verb, traduccion_es: comprobar, definicion_en: To look again to see if something is right., ejemplo_en: Always check the result., nivel: A2, tema: ia }
+  - { termino: copy, categoria: verb, traduccion_es: copiar, definicion_en: To make the same text again somewhere else., ejemplo_en: Don't copy the code without a test., nivel: A2, tema: ia }
+  - { termino: result, categoria: noun, traduccion_es: resultado, definicion_en: What you get at the end., ejemplo_en: The result is not what I want., nivel: A2, tema: ia }
+  - { termino: step, categoria: noun, traduccion_es: paso, definicion_en: One part of a plan or process., ejemplo_en: The first step is to write a prompt., nivel: A2, tema: ia }
+  - { termino: mistake, categoria: noun, traduccion_es: error (equivocación), definicion_en: Something you do wrong., ejemplo_en: The AI made a mistake., nivel: A2, tema: ia }
+  - { termino: intelligence, categoria: noun, traduccion_es: inteligencia, definicion_en: The ability to learn and think., ejemplo_en: Artificial intelligence is part of many apps., nivel: A2, tema: ia }
+  - { termino: human, categoria: noun, traduccion_es: ser humano, definicion_en: A person., ejemplo_en: A human reads the final answer., nivel: A2, tema: ia }
+  - { termino: task, categoria: noun, traduccion_es: tarea, definicion_en: A piece of work to do., ejemplo_en: This task is easy for a computer., nivel: A2, tema: ia }

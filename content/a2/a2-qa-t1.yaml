@@ -1,0 +1,45 @@
+tipo: tramo
+id: a2-qa-t1
+nivel: A2
+tema: qa
+orden: 6
+fuente: { podcast: "QA Unlocked", youtubeId: Ecu_7juyU0Q, start: 100, end: 190, titulo: "QA bug reporting basics: How to write clear and effective bug reports?", canal: "QA Unlocked" }
+preguntaGuia: What does a good bug report need?
+palabrasClave: [bug report, step, screenshot, expected result, clear]
+preguntas:
+  - id: a2-qa-t1-e1
+    tipo: opcion_multiple
+    enunciado: "What is the video about?"
+    opciones: ["How to write a clear bug report", "How to build a website", "How to learn a new language"]
+    correcta: 0
+    explicacion: "La pregunta guía y el título del video hablan de cómo escribir informes de errores (bug reports) claros y efectivos."
+    terminos: [bug report, clear]
+  - id: a2-qa-t1-e2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "A good bug report is clear and easy to understand."
+    correcta: true
+    explicacion: "Un informe claro ayuda al desarrollador a entender el problema sin hacer más preguntas."
+    terminos: [bug report, clear]
+  - id: a2-qa-t1-e3
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "A good bug report shows the steps to see the bug again."
+    correcta: true
+    explicacion: "Los pasos para reproducir el error (steps to reproduce) son una parte básica de un buen informe: con ellos el desarrollador puede ver el mismo fallo."
+    terminos: [step, bug report]
+  - id: a2-qa-t1-e4
+    tipo: opcion_multiple
+    enunciado: "Which information helps the developer see the problem?"
+    opciones: ["A screenshot", "A new password", "The tester's phone number"]
+    correcta: 0
+    explicacion: "Una captura de pantalla muestra el problema tal como lo vio el tester."
+    terminos: [screenshot]
+  - id: a2-qa-t1-e5
+    tipo: opcion_multiple
+    enunciado: "A good bug report compares the expected result with..."
+    opciones: ["the actual result", "the price of the app", "the name of the developer"]
+    correcta: 0
+    explicacion: "Un buen informe dice qué debía pasar (expected result) y qué pasó de verdad (actual result). Ojo: «actual» en inglés significa «real», no «actual»."
+    terminos: [expected result]
+revisado: false
