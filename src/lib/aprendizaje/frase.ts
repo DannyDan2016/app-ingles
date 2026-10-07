@@ -15,8 +15,9 @@ function generadas(b: string): string[] {
   if (b.includes(' ')) return [`${b}s`];
   const consY = /[^aeiou]y$/.test(b);
   const plural = /(s|x|z|ch|sh)$/.test(b) || /[^aeiou]o$/.test(b) ? `${b}es` : consY ? `${b.slice(0, -1)}ies` : `${b}s`;
-  const ing = b.endsWith('ie') ? `${b.slice(0, -2)}ying` : b.endsWith('e') && !/(ee|ye|oe)$/.test(b) ? `${b.slice(0, -1)}ing` : `${b}ing`;
-  const pasado = b.endsWith('e') ? `${b}d` : consY ? `${b.slice(0, -1)}ied` : `${b}ed`;
+  const cvc = /^[^aeiou]+[aeiou][^aeiouwxy]$/.test(b) ? b + b.slice(-1) : b;
+  const ing = b.endsWith('ie') ? `${b.slice(0, -2)}ying` : b.endsWith('e') && !/(ee|ye|oe)$/.test(b) ? `${b.slice(0, -1)}ing` : `${cvc}ing`;
+  const pasado = b.endsWith('e') ? `${b}d` : consY ? `${b.slice(0, -1)}ied` : `${cvc}ed`;
   return [plural, ing, pasado];
 }
 

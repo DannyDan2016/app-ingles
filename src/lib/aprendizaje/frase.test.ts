@@ -95,3 +95,26 @@ describe('evaluarFrase: casos límite', () => {
     expect(evaluarFrase('This code is bug-free now', formasAceptadas('bug', [])).usaPalabra).toBe(true);
   });
 });
+
+describe('duplicación de consonante (R21)', () => {
+  it('bug: bugged y bugging, no buged/buging', () => {
+    const f = formasAceptadas('bug', []);
+    expect(f).toEqual(expect.arrayContaining(['bugs', 'bugged', 'bugging']));
+    expect(f).not.toContain('buging');
+    expect(f).not.toContain('buged');
+  });
+  it('stop y plan duplican', () => {
+    expect(formasAceptadas('stop', [])).toEqual(expect.arrayContaining(['stopped', 'stopping']));
+    expect(formasAceptadas('plan', [])).toEqual(expect.arrayContaining(['planned', 'planning']));
+  });
+  it('no duplican: open, fix, test, fail', () => {
+    expect(formasAceptadas('open', [])).toEqual(expect.arrayContaining(['opened', 'opening']));
+    expect(formasAceptadas('fix', [])).toEqual(expect.arrayContaining(['fixed', 'fixing']));
+    expect(formasAceptadas('test', [])).toContain('tested');
+    expect(formasAceptadas('fail', [])).toContain('failed');
+    expect(formasAceptadas('open', [])).not.toContain('openned');
+  });
+  it('ejemplosDeFormas de bug muestra bugs y bugging', () => {
+    expect(ejemplosDeFormas('bug', [])).toEqual(['bugs', 'bugging']);
+  });
+});
