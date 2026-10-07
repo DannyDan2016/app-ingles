@@ -18,7 +18,7 @@ Modelo de amenazas y controles de app-ingles (SP1). La app es privada, de acceso
 - **Autenticación**: contraseñas con argon2id (`crypto.argon2` de Node 24). Login con mensaje genérico y hash señuelo cuando el alias no existe.
 - **Invitaciones**: enlace de un solo uso que caduca a los 7 días y puede revocarse. El registro exige invitación válida.
 - **Cookies**: en producción la sesión es `__Host-sesion` (`Secure`, `HttpOnly`, `SameSite=Lax`, `Path=/`). Solo en el stack local sobre http se usa `sesion` sin `Secure`.
-- **CSP con nonce**: `proxy.ts` genera un nonce por petición; `script-src 'self' 'nonce-…' 'strict-dynamic'`, `object-src 'none'`, `frame-ancestors 'none'`, `frame-src 'none'`, `base-uri 'self'`, `form-action 'self'`.
+- **CSP con nonce**: `src/proxy.ts` genera un nonce por petición; `script-src 'self' 'nonce-…' 'strict-dynamic'`, `object-src 'none'`, `frame-ancestors 'none'`, `frame-src 'none'`, `base-uri 'self'`, `form-action 'self'`.
 - **Cabeceras** (desde `next.config.ts`, definidas en `src/lib/security/csp.ts`): HSTS con preload, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options: DENY`, `Cross-Origin-Opener-Policy: same-origin` y `Cross-Origin-Resource-Policy: same-origin`. Verificadas en `tests/api/cabeceras.spec.ts`.
 - **Rate limit**: por IP y por alias en el login (lockout de 5 fallos en 15 minutos).
 - **Guardia no-PC**: `npm run check:no-pc` falla si el repositorio o la configuración pueden exponer el PC del autor.
@@ -47,7 +47,7 @@ Modelo de amenazas y controles de app-ingles (SP1). La app es privada, de acceso
 - **Carrera check/record del rate limit**: acotada por la latencia de argon2.
 - **Lockout por alias** (5 fallos en 15 minutos): permite bloquear a propósito un alias conocido. DoS aceptado.
 - **Enumeración**: el login responde con mensaje genérico y hash señuelo (sin enumeración anónima). El registro revela «Ese usuario ya existe» solo a quien tiene una invitación válida.
-- **`proxy.ts` es optimista**: solo comprueba que exista la cookie. La validación real está en `requireUser` y `requireAdmin`. **Regla: todo route handler `/api/*` futuro debe llamar a `requireUser()` dentro del handler.**
+- **`src/proxy.ts` es optimista**: solo comprueba que exista la cookie. La validación real está en `requireUser` y `requireAdmin`. **Regla: todo route handler `/api/*` futuro debe llamar a `requireUser()` dentro del handler.**
 - **Enlace de invitación con `?c=`**: un solo uso y caduca en 7 días; los logs de Vercel pueden registrar la query.
 
 ### CI y dependencias
