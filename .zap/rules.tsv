@@ -48,3 +48,8 @@
 # 10096 Timestamp Disclosure (Low): aparecen valores tipo timestamp Unix en los bundles estáticos de Next (hashes y
 # constantes); no revelan información del servidor.
 10096	IGNORE	(Timestamp Disclosure)
+# 10098 Cross-Domain Misconfiguration: la CDN de Vercel sirve los estáticos públicos (/_next/static, favicon) con
+# Access-Control-Allow-Origin: *; son iguales para todos, sin credenciales ni datos de usuario. Solo esas URLs quedan
+# fuera de alcance (OUTOFSCOPE con regex de URL); en cualquier otra ruta la 10098 sigue en FAIL.
+10098	OUTOFSCOPE	^https://[^/]+/_next/static/.*
+10098	OUTOFSCOPE	^https://[^/]+/favicon\.ico.*
