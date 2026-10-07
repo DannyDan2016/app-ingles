@@ -14,7 +14,7 @@ async function comprobarYContinuar(l: L, correcta = true, continuar = true) {
   if (correcta && continuar) await l.pulsar(l.continuar());
 }
 
-async function ejerciciosDemo01(l: L) {
+async function ejerciciosDemo01(l: L, alResumen = true) {
   await expect(l.paso('Ejercicios')).toBeVisible();
   // 1. opción múltiple
   await expect(l.posicion('Ejercicio 1 de 5')).toBeVisible();
@@ -41,7 +41,7 @@ async function ejerciciosDemo01(l: L) {
   await expect(l.posicion('Ejercicio 5 de 5')).toBeVisible();
   await l.marcar(l.opcion('Verdadero'));
   await comprobarYContinuar(l, true, false);
-  await l.irAlResumen();
+  if (alResumen) await l.irAlResumen();
 }
 
 export async function sinScrollHorizontal(page: Page) {
@@ -113,6 +113,30 @@ When('continúo hasta el video', async ({ leccion }) => {
 When('salto el video', async ({ leccion }) => { await leccion.pulsar(leccion.saltarVideo()); });
 
 When('resuelvo los 5 ejercicios fallando uno a propósito', async ({ leccion }) => ejerciciosDemo01(leccion));
+
+When('resuelvo los 5 ejercicios y llego a Tu frase', async ({ leccion }) => {
+  await ejerciciosDemo01(leccion, false);
+  await leccion.irATuFrase();
+});
+
+When('escribo una frase válida con {string}', async ({ leccion: l }, palabra: string) => {
+  await l.escribir(l.campoFrase(palabra), `I make a small ${palabra} every day.`);
+  await l.pulsar(l.comprobarFrase().first());
+});
+
+Then('veo la frase modelo', async ({ page }) => {
+  await expect(page.getByText(/Frase modelo/)).toBeVisible();
+});
+
+When('confirmo que mi frase está bien', async ({ leccion: l }) => {
+  await l.pulsar(l.fraseBien());
+  await expect(l.page.getByText('Frase lista')).toBeVisible();
+});
+
+When('omito el resto del paso Tu frase', async ({ leccion: l }) => {
+  await l.pulsar(l.omitirPaso());
+  await expect(l.paso('Resumen')).toBeVisible();
+});
 
 Then('veo el resumen {string}', async ({ page }, texto: string) => {
   await expect(page.getByRole('main').getByText(texto)).toBeVisible();

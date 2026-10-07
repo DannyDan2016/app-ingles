@@ -55,3 +55,16 @@ Característica: Lecciones
     Y la miniatura se pide a i.ytimg.com
     Cuando pulso «Reproducir video»
     Entonces existe un iframe de youtube-nocookie
+
+  @local-only
+  Escenario: Escribir una frase propia en el paso Tu frase
+    Dado que tengo una cuenta con nivel "A2"
+    Cuando empiezo la siguiente lección desde Hoy
+    Y continúo hasta el video
+    Y salto el video
+    Y resuelvo los 5 ejercicios y llego a Tu frase
+    Y escribo una frase válida con "commit"
+    Entonces veo la frase modelo
+    Cuando confirmo que mi frase está bien
+    Y omito el resto del paso Tu frase
+    Entonces veo el resumen "Escribiste 1 frase propia."

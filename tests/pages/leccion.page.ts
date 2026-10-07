@@ -43,9 +43,18 @@ export class LeccionPage {
    * (hoy ninguno; E1 añadirá «Tu frase» con «Omitir este paso»).
    */
   async irAlResumen() {
-    await this.pulsar(this.continuar());
+    await this.irATuFrase();
+    await this.pulsar(this.omitirPaso());
     await expect(this.paso('Resumen')).toBeVisible();
   }
+  async irATuFrase() {
+    await this.pulsar(this.continuar());
+    await expect(this.paso('Tu frase')).toBeVisible();
+  }
+  omitirPaso() { return this.page.getByRole('button', { name: 'Omitir este paso' }); }
+  campoFrase(palabra: string) { return this.page.getByRole('textbox', { name: `Tu frase con «${palabra}»` }); }
+  comprobarFrase() { return this.page.getByRole('button', { name: 'Comprobar' }); }
+  fraseBien() { return this.page.getByRole('button', { name: 'Mi frase está bien' }); }
 
   titulo() { return this.page.getByRole('heading', { level: 1 }); }
   paso(nombre: string) { return this.page.getByRole('heading', { level: 2, name: nombre }); }
