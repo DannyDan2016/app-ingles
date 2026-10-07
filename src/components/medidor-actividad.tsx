@@ -28,10 +28,12 @@ export function MedidorActividad() {
     }, 1000);
     const lote = setInterval(() => enviar(false), ENVIO_MS);
     const alSalir = () => enviar(true);
+    const alOcultar = () => { if (document.visibilityState === 'hidden') enviar(true); };
     const eventos = ['pointerdown', 'keydown', 'scroll', 'touchstart'] as const;
     eventos.forEach((e) => window.addEventListener(e, tocar, { passive: true }));
     window.addEventListener('pagehide', alSalir);
-    return () => { clearInterval(tic); clearInterval(lote); eventos.forEach((e) => window.removeEventListener(e, tocar)); window.removeEventListener('pagehide', alSalir); enviar(false); };
+    document.addEventListener('visibilitychange', alOcultar);
+    return () => { clearInterval(tic); clearInterval(lote); eventos.forEach((e) => window.removeEventListener(e, tocar)); window.removeEventListener('pagehide', alSalir); document.removeEventListener('visibilitychange', alOcultar); enviar(false); };
   }, [medir, ruta]);
   return null;
 }

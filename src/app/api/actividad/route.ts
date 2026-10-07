@@ -11,7 +11,7 @@ const cuerpo = z.object({ segundos: z.number().int().min(1).max(600) });
 export async function POST(req: NextRequest) {
   const origin = req.headers.get('origin');
   const sec = req.headers.get('sec-fetch-site');
-  const propios = [req.nextUrl.origin, process.env.APP_URL].filter((x): x is string => !!x);
+  const propios = [req.nextUrl.origin, process.env.APP_URL?.replace(/\/+$/, '')].filter((x): x is string => !!x);
   if (!propios.some((p) => mismoOrigen(origin, sec, p))) {
     return NextResponse.json({ error: 'origen' }, { status: 403 });
   }
