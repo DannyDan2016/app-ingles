@@ -3,6 +3,7 @@ const valida = (id: string) => { if (!ID.test(id)) throw new Error('youtubeId in
 
 export const urlMiniatura = (id: string) => `https://i.ytimg.com/vi/${valida(id)}/hqdefault.jpg`;
 export function urlEmbed(v: { youtubeId: string; start: number; end: number }, opts: { api?: boolean } = {}) {
+  if (!Number.isInteger(v.start) || !Number.isInteger(v.end) || v.start < 0 || v.end <= v.start) throw new Error('tramo inválido');
   const p = new URLSearchParams({ start: String(v.start), end: String(v.end), rel: '0', autoplay: '1' });
   if (opts.api) p.set('enablejsapi', '1');
   return `https://www.youtube-nocookie.com/embed/${valida(v.youtubeId)}?${p}`;

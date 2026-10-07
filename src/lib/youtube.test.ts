@@ -13,4 +13,11 @@ describe('youtube', () => {
     expect(new URL(urlEmbed({ youtubeId: 'Ecu_7juyU0Q', start: 0, end: 60 }, { api: true })).searchParams.get('enablejsapi')).toBe('1');
   });
   it('rechaza ids inválidos', () => expect(() => urlMiniatura('../x')).toThrow());
+  it('rechaza tramos inválidos', () => {
+    const v = { youtubeId: 'Ecu_7juyU0Q' };
+    expect(() => urlEmbed({ ...v, start: -1, end: 10 })).toThrow();
+    expect(() => urlEmbed({ ...v, start: 1.5, end: 10 })).toThrow();
+    expect(() => urlEmbed({ ...v, start: 10, end: 10 })).toThrow();
+    expect(() => urlEmbed({ ...v, start: 20, end: 10 })).toThrow();
+  });
 });
