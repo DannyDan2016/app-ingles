@@ -1,6 +1,6 @@
-const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1']);
+import { isLocalHost } from '@/lib/net/local-host';
 
-/** Origen válido de APP_URL: https, o http solo en localhost/127.0.0.1; sin ruta. Null si no es válida. */
+/** Origen válido de APP_URL: https, o http solo en hosts locales; sin ruta. Null si no es válida. */
 function appOrigin(appUrl: string): string | null {
   let u: URL;
   try {
@@ -9,7 +9,7 @@ function appOrigin(appUrl: string): string | null {
     return null;
   }
   const httpsOk = u.protocol === 'https:';
-  const httpLocalOk = u.protocol === 'http:' && LOCAL_HOSTS.has(u.hostname);
+  const httpLocalOk = u.protocol === 'http:' && isLocalHost(u.hostname);
   if (!httpsOk && !httpLocalOk) return null;
   if (u.pathname !== '/' || u.search || u.hash) return null;
   return u.origin;

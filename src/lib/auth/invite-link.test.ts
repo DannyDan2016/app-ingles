@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { buildInviteLink } from './invite-link';
+import { LOCAL_URL_HOSTS } from '@/lib/net/local-host';
 
 describe('buildInviteLink', () => {
   it('usa APP_URL si está definida', () => {
@@ -10,8 +11,11 @@ describe('buildInviteLink', () => {
     expect(buildInviteLink({ appUrl: 'https://app.example.com/', host: null, proto: null, code: 'abc' }))
       .toBe('https://app.example.com/registro?c=abc');
   });
-  it.each(['http://127.0.0.1:3000', 'http://localhost:3000/'])('acepta %s en local', (appUrl) => {
-    expect(buildInviteLink({ appUrl, host: null, proto: null, code: 'x' })).toMatch(/^http:\/\/(127\.0\.0\.1|localhost):3000\/registro\?c=x$/);
+  it.each(LOCAL_URL_HOSTS)('acepta http en el host local %s', (h) => {
+    expect(buildInviteLink({ appUrl: `http://${h}:3000/`, host: null, proto: null, code: 'x' })).toBe(`http://${h}:3000/registro?c=x`);
+  });
+  it('rechaza http en un host que parece interno pero no está en la allowlist', () => {
+    expect(buildInviteLink({ appUrl: 'http://postgres:3000', host: 'h.com', proto: 'https', code: 'x' })).toBeNull();
   });
   it.each(['http://app.example.com', 'ftp://x.com', 'no-es-url', 'https://a.com/ruta'])('rechaza APP_URL inválida %s', (appUrl) => {
     expect(buildInviteLink({ appUrl, host: 'h.com', proto: 'https', code: 'x' })).toBeNull();

@@ -3,12 +3,7 @@
  * pg 8 trata `sslmode=require` como verify-full, pero pg 9 dejará de verificar el certificado;
  * por eso se fija `verify-full` explícitamente. Los hosts locales no se tocan.
  */
-const LOCAL_HOSTS = new Set(['localhost', '127.0.0.1', '::1', '[::1]']);
-
-function isLocalHost(hostname: string): boolean {
-  // Un nombre sin punto es un servicio de docker compose (p. ej. `db`).
-  return LOCAL_HOSTS.has(hostname) || !hostname.includes('.') && !hostname.includes(':');
-}
+import { isLocalHost } from '../net/local-host';
 
 export function enforceSslUrl(url: string): string {
   let parsed: URL;

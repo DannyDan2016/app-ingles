@@ -1,16 +1,18 @@
 import { describe, it, expect } from 'vitest';
 import { enforceSslUrl } from './ssl-url';
+import { LOCAL_URL_HOSTS } from '@/lib/net/local-host';
 
 const mode = (u: string) => new URL(u).searchParams.get('sslmode');
 
 describe('enforceSslUrl', () => {
-  it.each([
-    'postgres://u:p@localhost:5432/d',
-    'postgres://u:p@127.0.0.1:5432/d?sslmode=disable',
-    'postgres://u:p@[::1]:5432/d',
-    'postgres://u:p@db:5432/d',
-    'postgres://u:p@db:5432/d?sslmode=disable',
-  ])('deja igual el host local %s', (u) => expect(enforceSslUrl(u)).toBe(u));
+  it.each(LOCAL_URL_HOSTS.flatMap((h) => [`postgres://u:p@${h}:5432/d`, `postgres://u:p@${h}:5432/d?sslmode=disable`]))(
+    'deja igual el host local %s',
+    (u) => expect(enforceSslUrl(u)).toBe(u),
+  );
+  it.each(['postgres', '2130706433', 'db.example.com'])('trata %s como remoto: fuerza verify-full y rechaza disable', (h) => {
+    expect(mode(enforceSslUrl(`postgres://u:p@${h}:5432/d`))).toBe('verify-full');
+    expect(() => enforceSslUrl(`postgres://u:p@${h}:5432/d?sslmode=disable`)).toThrow(/disable/);
+  });
 
   const remoto = 'postgres://u:p@ep-x-pooler.eu-central-1.aws.neon.tech/d';
   it('añade verify-full si falta', () => expect(mode(enforceSslUrl(remoto))).toBe('verify-full'));

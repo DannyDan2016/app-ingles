@@ -8,8 +8,7 @@ export const ALLOWLIST: RegExp[] = [
   /^tests\/Dockerfile$/,
   /^docs\/.+\.md$/,
   /^tests\/data\/local\//,
-  /^src\/lib\/db\/ssl-url(\.test)?\.ts$/, // distingue hosts locales de remotos para forzar TLS
-  /^src\/lib\/auth\/invite-link(\.test)?\.ts$/, // validación de APP_URL: http solo en loopback
+  /^src\/lib\/net\/local-host(\.test)?\.ts$/, // única allowlist de hosts locales (TLS a la BD, APP_URL http)
   /^\.github\/workflows\/ci\.yml$/, // servicios de CI en el propio runner de GitHub
 ];
 
