@@ -6,7 +6,7 @@ import { nivelInicialAction } from './actions';
 
 export default async function NivelInicialPage() {
   const u = await requireUser();
-  if (u.nivelInicial) redirect('/niveles');
+  if (u.nivelInicial) redirect('/hoy');
   return (
     <>
       <h1 className="mb-4 text-2xl font-bold">Elige tu nivel</h1>
