@@ -22,4 +22,7 @@ export const STATIC_SECURITY_HEADERS = [
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), payment=(), usb=()' },
   { key: 'X-Frame-Options', value: 'DENY' },
+  // COOP/CORP same-origin; sin COEP (no usamos SharedArrayBuffer y solo arriesgaría romper recursos).
+  { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+  { key: 'Cross-Origin-Resource-Policy', value: 'same-origin' },
 ];
