@@ -1,6 +1,6 @@
 # SP2 — Contenido, aprendizaje y rediseño («Duolingo para devs»)
 
-- **Fecha:** 2026-10-07 · **Estado:** propuesto (pendiente de revisión del usuario)
+- **Fecha:** 2026-10-07 · **Estado:** aprobado (2026-10-07) · Plan: [2026-10-07-sp2-contenido](../plans/2026-10-07-sp2-contenido.md)
 - **Depende de:** SP1 en producción (`be4ce04`).
 - **Insumos:** [requisitos](../../requisitos.md) (EP5, EP6, EP11, §5-§7), [contenido A2](../../investigacion/sp2-contenido-a2.md), [metodología](../../investigacion/sp2-metodologia.md), [UX y podcasts](../../investigacion/sp2-ux-podcasts.md), [mockups](../../diseno/sp2-direcciones-visuales.html).
 
