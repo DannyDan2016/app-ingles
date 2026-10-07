@@ -3,14 +3,16 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule: { interval: weekly }
-    # react y react-dom (y sus tipos) deben subir juntos.
+    # react, react-dom (y sus tipos) y next (con su eslint-config) deben subir juntos.
     groups:
-      react:
+      react-next:
         patterns:
           - "react"
           - "react-dom"
           - "@types/react"
           - "@types/react-dom"
+          - "next"
+          - "eslint-config-next"
     ignore:
       - dependency-name: "@types/node"
         update-types: ["version-update:semver-major"]
