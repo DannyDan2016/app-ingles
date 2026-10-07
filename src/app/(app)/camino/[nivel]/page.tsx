@@ -51,7 +51,7 @@ export default async function CaminoNivelPage({ params }: PageProps<'/camino/[ni
                   <Tarjeta as="div" className={`p-0 ${actualItem ? 'border-2 border-primario' : ''} ${bloqueado ? 'text-texto-suave' : ''}`}>
                     {bloqueado
                       ? <div className="flex min-h-11 items-center justify-between gap-3 p-4">{contenido}</div>
-                      : <Link href={href} className="flex min-h-11 items-center justify-between gap-3 rounded-xl p-4">{contenido}</Link>}
+                      : <Link href={href} aria-current={actualItem ? 'step' : undefined} className="flex min-h-11 items-center justify-between gap-3 rounded-xl p-4">{contenido}</Link>}
                   </Tarjeta>
                 </li>
               );

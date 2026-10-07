@@ -22,7 +22,7 @@ export function Emparejar({ ejercicio, onResponder }: { ejercicio: Extract<Ejerc
           <select id={`${base}-${i}`} value={asig[p.a] ?? ''} onChange={(ev) => elegir(p.a, ev.target.value)}
             className="min-h-11 min-w-0 flex-1 rounded-md border-2 border-borde bg-fondo px-2 text-texto">
             <option value="">Elige…</option>
-            {opciones.map((o) => <option key={o} value={o}>{o}</option>)}
+            {opciones.map((o, k) => <option key={k} value={o} lang="en">{o}</option>)}
           </select>
         </li>
       ))}

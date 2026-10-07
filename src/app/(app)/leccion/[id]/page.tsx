@@ -9,6 +9,7 @@ import { FlujoLeccion } from './flujo-leccion';
 
 export default async function LeccionPage({ params }: PageProps<'/leccion/[id]'>) {
   const u = await requireUser();
+  if (!u.nivelInicial) redirect('/nivel-inicial');
   const { id } = await params;
   const leccion = getLeccion(id);
   if (!leccion) notFound();

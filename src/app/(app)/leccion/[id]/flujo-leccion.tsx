@@ -73,25 +73,30 @@ export function FlujoLeccion({ leccion, glosario, yaCompletada }: { leccion: Lec
 
       {paso === 'resumen' && (
         <Tarjeta className="flex flex-col gap-3">
-          <p className="flex items-center gap-2 text-lg font-semibold text-exito">
-            <CircleCheck aria-hidden="true" className="size-6" /> Lección completada
-          </p>
-          <div role="status">
-            {guardado === 'pendiente' && <p className="text-texto-suave">Guardando tu progreso…</p>}
-            {guardado === 'ok' && <p>Tu progreso está guardado.</p>}
-          </div>
-          {guardado === 'error' && (
+          {guardado === 'error' ? (
             <div role="alert" className="flex flex-col items-start gap-2 text-error">
-              <p>No pudimos guardar tu progreso. Revisa tu conexión e inténtalo de nuevo.</p>
+              <p className="font-semibold">Terminaste los ejercicios, pero no pudimos guardar tu progreso.</p>
+              <p>Revisa tu conexión e inténtalo de nuevo.</p>
               <Boton type="button" variante="secundario" onClick={completar}>Reintentar</Boton>
             </div>
+          ) : (
+            <>
+              <p className="flex items-center gap-2 text-lg font-semibold text-exito">
+                <CircleCheck aria-hidden="true" className="size-6" /> Lección completada
+              </p>
+              <div role="status">
+                {guardado === 'pendiente' ? <p className="text-texto-suave">Guardando tu progreso…</p> : <p>Tu progreso está guardado.</p>}
+              </div>
+              {guardado === 'ok' && (
+                <div>
+                  <p className="font-semibold">Palabras añadidas a tu repaso</p>
+                  <ul lang="en" className="mt-1 flex flex-wrap gap-2 font-mono">
+                    {leccion.terminos.map((t) => <li key={t} className="rounded-md bg-fondo px-2 py-1">{t}</li>)}
+                  </ul>
+                </div>
+              )}
+            </>
           )}
-          <div>
-            <p className="font-semibold">Palabras añadidas a tu repaso</p>
-            <ul lang="en" className="mt-1 flex flex-wrap gap-2 font-mono">
-              {leccion.terminos.map((t) => <li key={t} className="rounded-md bg-fondo px-2 py-1">{t}</li>)}
-            </ul>
-          </div>
           <div className="flex flex-wrap gap-3">
             <Link href={`/camino/${leccion.nivel}`} className={`${ENLACE} bg-primario text-sobre-primario`}>Siguiente</Link>
             <Link href="/repaso" className={`${ENLACE} border border-borde bg-superficie text-texto`}>Repasar</Link>
