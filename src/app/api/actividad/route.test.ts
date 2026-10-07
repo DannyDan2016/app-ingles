@@ -61,6 +61,23 @@ describe('POST /api/actividad', () => {
     expect(sumarActividad).toHaveBeenCalledTimes(1);
     expect(sumarActividad).toHaveBeenCalledWith(DB, 'u1', expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/), 30);
   });
+  it('Docker: nextUrl 0.0.0.0, Host web:3000 y Origin http://web:3000 → 204', async () => {
+    const r = await POST(new NextRequest('http://0.0.0.0:3000/api/actividad', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', host: 'web:3000', origin: 'http://web:3000' },
+      body: JSON.stringify({ segundos: 30 }),
+    }));
+    expect(r.status).toBe(204);
+  });
+  it('Host evil.example con Origin de otro sitio → 403', async () => {
+    const r = await POST(new NextRequest('http://0.0.0.0:3000/api/actividad', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', host: 'evil.example', origin: 'https://otro.example' },
+      body: JSON.stringify({ segundos: 30 }),
+    }));
+    expect(r.status).toBe(403);
+    expect(sumarActividad).not.toHaveBeenCalled();
+  });
   it('APP_URL definida (con barra final) y Origin igual → 204', async () => {
     vi.stubEnv('APP_URL', 'https://publico.example/');
     const r = await POST(peticion({ segundos: 30 }, { origin: 'https://publico.example' }));

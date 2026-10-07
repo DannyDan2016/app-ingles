@@ -4,14 +4,14 @@ import { getCurrentUser } from '@/lib/auth/current-user';
 import { getDb } from '@/lib/db/client';
 import { sumarActividad } from '@/lib/aprendizaje/actividad.repo';
 import { diaBogota } from '@/lib/tiempo/bogota';
-import { mismoOrigen } from '@/lib/security/origen';
+import { mismoOrigen, origenesPropios } from '@/lib/security/origen';
 
 const cuerpo = z.object({ segundos: z.number().int().min(1).max(600) });
 
 export async function POST(req: NextRequest) {
   const origin = req.headers.get('origin');
   const sec = req.headers.get('sec-fetch-site');
-  const propios = [req.nextUrl.origin, process.env.APP_URL?.replace(/\/+$/, '')].filter((x): x is string => !!x);
+  const propios = origenesPropios(req.headers, req.nextUrl.origin, process.env.APP_URL);
   if (!propios.some((p) => mismoOrigen(origin, sec, p))) {
     return NextResponse.json({ error: 'origen' }, { status: 403 });
   }
