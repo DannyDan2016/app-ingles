@@ -1,0 +1,83 @@
+tipo: leccion
+id: a2-qa-02
+nivel: A2
+tema: qa
+orden: 5
+titulo: What Should We Test?
+objetivo: Puedo expresar obligaciones, permisos y consejos en un plan de pruebas.
+gramatica: can/can't, must/mustn't, should; because
+lectura: |
+  The team is ready to test the payment page. Marta, the lead, explains the plan.
+
+  "You must test the page on [[mobile]], because many users pay with their phones.
+  You should write the [[expected result]] in every [[test case]], and you should
+  write clear [[steps]]. You can use two different [[browsers|browser]],
+  but you mustn't test only in one.
+  You should add a [[screenshot]] when a test [[fails|fail]]."
+
+  Tom asks about the [[environment]]. Marta says, "You must use the test
+  environment. You mustn't use real customer data."
+
+  Then she talks about the [[priority]]. "A [[requirement]] about payments has
+  high priority. You can't release the app with a failed test.
+  You can run an [[automatic test]] every night, and you should check
+  if all tests [[pass]]."
+video: { youtubeId: Biynpm4x4Ig, start: 30, end: 100, titulo: "Unit Testing Explained: What It Is and How It Works", canal: "QA Unlocked" }
+terminos: [test case, expected result, steps, pass, fail, requirement, browser, mobile]
+ejercicios:
+  - id: a2-qa-02-e1
+    tipo: opcion_multiple
+    enunciado: "Choose the correct word: You ___ release the app with a failed test."
+    opciones: ["can't", "can", "should"]
+    correcta: 0
+    explicacion: "«Can't» expresa que algo no está permitido. Aquí el equipo no puede publicar con una prueba fallida."
+    terminos: [fail, release]
+  - id: a2-qa-02-e2
+    tipo: opcion_multiple
+    enunciado: "Which sentence is a strong rule (obligation)?"
+    opciones: ["You should add a screenshot.", "You must test on mobile.", "You can use two browsers."]
+    correcta: 1
+    explicacion: "«Must» expresa obligación fuerte. «Should» es un consejo y «can» es un permiso o posibilidad."
+    terminos: [mobile]
+  - id: a2-qa-02-e3
+    tipo: completar
+    enunciado: Completa con must, mustn't, should o can.
+    texto: "You ___ use real customer data in the test environment."
+    respuesta: "mustn't"
+    aceptadas: ["must not"]
+    explicacion: "«Mustn't» expresa una prohibición fuerte. No se deben usar datos reales de clientes."
+    terminos: [environment]
+  - id: a2-qa-02-e4
+    tipo: completar
+    enunciado: Completa con must, mustn't, should o can.
+    texto: "You ___ write the expected result in every test case. It is a good idea."
+    respuesta: should
+    explicacion: "«Should» da un consejo o recomendación: es buena idea, pero no una obligación."
+    terminos: [expected result, test case]
+  - id: a2-qa-02-e5
+    tipo: completar
+    enunciado: Completa con la palabra correcta.
+    texto: "We test on mobile ___ many users pay with their phones."
+    respuesta: because
+    explicacion: "«Because» introduce la razón («porque»). Responde a la pregunta «why?»."
+    terminos: [mobile]
+  - id: a2-qa-02-e6
+    tipo: ordenar
+    enunciado: Ordena las palabras para formar la frase.
+    piezas: ["You", "should", "add", "a", "screenshot"]
+    explicacion: "Después de «should» va el verbo en forma base, sin «to» ni -s: should add."
+    terminos: [screenshot]
+  - id: a2-qa-02-e7
+    tipo: emparejar
+    enunciado: Empareja cada término con su significado.
+    pares: [{ a: test case, b: prueba escrita con pasos y resultado }, { a: expected result, b: lo que debería pasar }, { a: requirement, b: algo que el software debe hacer }, { a: priority, b: qué es más urgente }]
+    explicacion: "Estos cuatro términos aparecen en cualquier plan de pruebas. El resultado esperado se compara con el resultado real."
+    terminos: [test case, expected result, requirement, priority]
+  - id: a2-qa-02-e8
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "The team can test in two different browsers."
+    correcta: true
+    explicacion: "Marta dice «You can use two different browsers». «Can» expresa que está permitido."
+    terminos: [browser]
+revisado: false

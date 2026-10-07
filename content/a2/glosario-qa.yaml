@@ -1,0 +1,33 @@
+tipo: glosario
+nivel: A2
+tema: qa
+entradas:
+  - { termino: tester, categoria: noun, traduccion_es: tester (probador), definicion_en: A person who checks if software works well., ejemplo_en: The tester checks every new feature., nivel: A2, tema: qa }
+  - { termino: bug, categoria: noun, traduccion_es: error (bug), definicion_en: A mistake in a program that causes a problem., ejemplo_en: The bug closes the app., nivel: A2, tema: qa }
+  - { termino: login, categoria: noun, traduccion_es: inicio de sesión, definicion_en: The step where you enter your name and password., ejemplo_en: The login page is very slow., nivel: A2, tema: qa }
+  - { termino: page, categoria: noun, traduccion_es: página, definicion_en: One screen of a website or an app., ejemplo_en: This page does not open., nivel: A2, tema: qa }
+  - { termino: button, categoria: noun, traduccion_es: botón, definicion_en: A part of the screen that you click to do something., ejemplo_en: Click the blue button., nivel: A2, tema: qa }
+  - { termino: screen, categoria: noun, traduccion_es: pantalla, definicion_en: The part of a device where you see things., ejemplo_en: The screen is white., nivel: A2, tema: qa }
+  - { termino: click, categoria: verb, traduccion_es: hacer clic, definicion_en: To press a button with the mouse., ejemplo_en: I click the save button., nivel: A2, tema: qa }
+  - { termino: find, categoria: verb, traduccion_es: encontrar, definicion_en: To see or discover something you were looking for., ejemplo_en: Testers find bugs before users do., nivel: A2, tema: qa }
+  - { termino: report, categoria: verb, traduccion_es: reportar (informar de), definicion_en: To tell someone about a problem., ejemplo_en: Please report this bug today., nivel: A2, tema: qa }
+  - { termino: fix, categoria: verb, traduccion_es: arreglar, definicion_en: To repair a problem so it works again., ejemplo_en: The developer fixed the bug., nivel: A2, tema: qa }
+  - { termino: password, categoria: noun, traduccion_es: contraseña, definicion_en: A secret word that lets you enter your account., ejemplo_en: My password has eight characters., nivel: A2, tema: qa }
+  - { termino: message, categoria: noun, traduccion_es: mensaje, definicion_en: Words that the app shows or sends to you., ejemplo_en: An error message appeared., nivel: A2, tema: qa }
+  - { termino: developer, categoria: noun, traduccion_es: desarrollador, definicion_en: A person who writes software., ejemplo_en: The developer reads my report., nivel: A2, tema: qa }
+  - { termino: test case, categoria: noun, traduccion_es: caso de prueba, definicion_en: A written test with steps and a result to check., ejemplo_en: This test case checks the payment button., nivel: A2, tema: qa }
+  - { termino: expected result, categoria: noun, traduccion_es: resultado esperado, definicion_en: What should happen when the software works well., ejemplo_en: The expected result is a success message., nivel: A2, tema: qa }
+  - { termino: steps, categoria: noun, traduccion_es: pasos, definicion_en: The actions you do one after another., ejemplo_en: Write the steps in a clear list., nivel: A2, tema: qa }
+  - { termino: pass, categoria: verb, traduccion_es: pasar (aprobar), definicion_en: To finish a test with the expected result., ejemplo_en: All the tests pass today., nivel: A2, tema: qa }
+  - { termino: fail, categoria: verb, traduccion_es: fallar, definicion_en: To finish a test without the expected result., ejemplo_en: The test fails on mobile., nivel: A2, tema: qa }
+  - { termino: requirement, categoria: noun, traduccion_es: requisito, definicion_en: Something the software must do., ejemplo_en: Each requirement needs a test., nivel: A2, tema: qa }
+  - { termino: browser, categoria: noun, traduccion_es: navegador, definicion_en: A program for visiting websites, like Chrome., ejemplo_en: Test the page in two browsers., nivel: A2, tema: qa }
+  - { termino: mobile, categoria: adjective, traduccion_es: móvil, definicion_en: Made for phones and small devices., ejemplo_en: The mobile page looks different., nivel: A2, tema: qa }
+  - { termino: automatic test, categoria: noun, traduccion_es: prueba automática, definicion_en: A test that a program runs by itself., ejemplo_en: An automatic test runs every night., nivel: A2, tema: qa }
+  - { termino: screenshot, categoria: noun, traduccion_es: captura de pantalla, definicion_en: A picture of what you see on your screen., ejemplo_en: Add a screenshot to the report., nivel: A2, tema: qa }
+  - { termino: priority, categoria: noun, traduccion_es: prioridad, definicion_en: How important it is to do something first., ejemplo_en: This bug has high priority., nivel: A2, tema: qa }
+  - { termino: environment, categoria: noun, traduccion_es: entorno, definicion_en: "The place where the software runs, like test or production.", ejemplo_en: Test in the staging environment first., nivel: A2, tema: qa }
+  - { termino: release, categoria: verb, traduccion_es: publicar (lanzar), definicion_en: To give the new version of software to users., ejemplo_en: We release the app on Friday., nivel: A2, tema: qa }
+  - { termino: test, categoria: verb, traduccion_es: probar, definicion_en: To check if something works well., ejemplo_en: Please test the new button., nivel: A2, tema: qa }
+  - { termino: bug report, categoria: noun, traduccion_es: informe de error, definicion_en: A text that explains a problem in the software., ejemplo_en: A good bug report is short and clear., nivel: A2, tema: qa }
+  - { termino: clear, categoria: adjective, traduccion_es: claro, definicion_en: Easy to understand., ejemplo_en: Write a clear title., nivel: A2, tema: qa }
