@@ -20,6 +20,39 @@ const tramo = (over: Record<string, unknown> = {}): ArchivoCargado => ({
 });
 const run = (a: ArchivoCargado[], estricto = false) => validarCatalogo(a, { estricto });
 
+describe('coherencia con el nombre y la carpeta del archivo', () => {
+  it('nivel distinto al de la carpeta', () => {
+    const r = run([glos(['bug']), { ...lec({ nivel: 'B1', id: 'b1-qa-01', ejercicios: [1, 2, 3, 4, 5].map((n) => vf(`b1-qa-01-e${n}`)) }), ruta: 'content/a2/b1-qa-01.yaml' }]);
+    expect(r.errores.join('\n')).toMatch(/content\/a2\/b1-qa-01\.yaml: nivel B1 no coincide con la carpeta a2/);
+  });
+  it('tema distinto al del nombre del archivo', () => {
+    const r = run([glos(['bug']), lec({ tema: 'ia' })]);
+    expect(r.errores.join('\n')).toMatch(/content\/a2\/a2-qa-01\.yaml: tema ia no coincide con el nombre del archivo/);
+  });
+  it('id distinto al nombre del archivo', () => {
+    const r = run([glos(['bug']), { ...lec(), ruta: 'content/a2/a2-qa-09.yaml' }]);
+    expect(r.errores.join('\n')).toMatch(/content\/a2\/a2-qa-09\.yaml: el id a2-qa-01 no coincide con el nombre del archivo/);
+  });
+  it('glosario: nivel y tema deben coincidir con carpeta y nombre', () => {
+    const g = glos(['bug']);
+    const mal = { ...g, ruta: 'content/b1/glosario-ia.yaml' };
+    const e = run([mal]).errores.join('\n');
+    expect(e).toMatch(/content\/b1\/glosario-ia\.yaml: nivel A2 no coincide con la carpeta b1/);
+    expect(e).toMatch(/content\/b1\/glosario-ia\.yaml: tema qa no coincide con el nombre del archivo/);
+  });
+  it('el contenido demo está exento', () => {
+    const r = run([{ ...lec({ id: 'demo-01', ejercicios: [1, 2, 3, 4, 5].map((n) => vf(`demo-01-e${n}`)) }), ruta: 'content/_demo/demo-01.yaml', demo: true }, glos(['bug'])]);
+    expect(r.errores.join('\n')).not.toMatch(/no coincide/);
+  });
+});
+
+describe('errores de lectura del archivo', () => {
+  it('YAML mal formado indica el archivo', () => {
+    const r = run([{ ruta: 'content/a2/roto.yaml', demo: false, datos: undefined, errorLectura: 'bad indentation at line 3' }]);
+    expect(r.errores).toEqual(['content/a2/roto.yaml: YAML mal formado: bad indentation at line 3']);
+  });
+});
+
 describe('validarCatalogo', () => {
   it('catálogo válido sin errores', () => {
     const r = run([glos(['bug']), lec(), tramo()]);
