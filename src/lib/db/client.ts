@@ -4,6 +4,8 @@ import * as schema from './schema';
 import { enforceSslUrl } from './ssl-url';
 
 export type Db = NodePgDatabase<typeof schema>;
+/** Conexión normal o transacción (`db.transaction(async (tx) => …)`): los repos aceptan ambas. */
+export type DbOrTx = Db | Parameters<Parameters<Db['transaction']>[0]>[0];
 
 export function createDb(url: string): { db: Db; pool: Pool } {
   const pool = new Pool({ connectionString: enforceSslUrl(url), max: 5, connectionTimeoutMillis: 10_000, idleTimeoutMillis: 10_000 });

@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { testDb, testPool, resetDb } from '@/lib/db/test-utils';
 import { users, tarjetas, actividadDiaria, respuestas } from '@/lib/db/schema';
 import { completarItem, itemsCompletados, completadosEntre } from './progreso.repo';
-import { registrarRespuesta } from './respuestas.repo';
+import { registrarRespuesta, registrarRespuestaConTarjetas } from './respuestas.repo';
 import { agregarTarjetas, contarPendientes } from './tarjetas.repo';
 import { sumarActividad, MAX_SEGUNDOS_DIA } from './actividad.repo';
 
@@ -46,6 +46,23 @@ describe('respuestas', () => {
     await registrarRespuesta(testDb, { userId, itemId: 'bug', correcta: true, origen: 'repaso', caja: 3 });
     const filas = await testDb.select().from(respuestas);
     expect(filas.map((f) => [f.origen, f.caja])).toEqual(expect.arrayContaining([['leccion', null], ['repaso', 3]]));
+  });
+});
+
+describe('registrarRespuestaConTarjetas (atómico)', () => {
+  it('guarda la respuesta y las tarjetas juntas', async () => {
+    await registrarRespuestaConTarjetas(testDb, { userId, itemId: 'a2-qa-01-e1', correcta: false, origen: 'leccion' }, { nivel: 'A2', terminos: ['bug'], now });
+    expect(await testDb.select().from(respuestas)).toHaveLength(1);
+    expect(await testDb.select().from(tarjetas)).toHaveLength(1);
+  });
+  it('si fallan las tarjetas no queda la respuesta: el reintento no duplica filas', async () => {
+    const malas = { nivel: 'ZZ' as never, terminos: ['bug'], now };
+    const intento = () => registrarRespuestaConTarjetas(testDb, { userId, itemId: 'a2-qa-01-e1', correcta: false, origen: 'leccion' }, malas);
+    await expect(intento()).rejects.toThrow();
+    await expect(intento()).rejects.toThrow();
+    expect(await testDb.select().from(respuestas)).toHaveLength(0);
+    await registrarRespuestaConTarjetas(testDb, { userId, itemId: 'a2-qa-01-e1', correcta: false, origen: 'leccion' }, { nivel: 'A2', terminos: ['bug'], now });
+    expect(await testDb.select().from(respuestas)).toHaveLength(1);
   });
 });
 
