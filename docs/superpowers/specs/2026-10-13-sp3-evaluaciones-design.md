@@ -1,6 +1,6 @@
 # SP3 — Evaluaciones y paso de nivel
 
-- **Fecha:** 2026-10-13 · **Estado:** borrador para revisión del usuario · Plan: pendiente
+- **Fecha:** 2026-10-13 · **Estado:** aprobado (2026-10-13) · Plan: [2026-10-13-sp3-evaluaciones](../plans/2026-10-13-sp3-evaluaciones.md)
 - **Depende de:** SP2 en producción (`67961fc`), contenido A2 `revisado: true`; contenido B1 en preparación (rama `content/b1`).
 - **Insumos:** [requisitos](../../requisitos.md) (EP7-HU01, HU02, HU03; §5 MVP; P4), [spec SP2](2026-10-07-sp2-contenido-design.md), [temario B1/B2](../../investigacion/contenido-b1-b2.md).
 
@@ -75,7 +75,7 @@ preguntas:                # exactamente 40: 10 por bloque
 
 ### 5.2 Reglas nuevas del compilador
 - Exactamente 10 preguntas por bloque; IDs únicos con prefijo `<nivel>-ev-`.
-- Lectura y listening: 2-3 recursos por bloque, cada recurso con ≥ 4 preguntas; toda referencia `recurso` existe y su tipo coincide con el bloque.
+- Lectura y listening: exactamente 2 recursos por bloque, cada uno con ≥ 4 preguntas (10 preguntas no admiten 3 recursos de ≥ 4); toda referencia `recurso` existe y su tipo coincide con el bloque.
 - Ningún video del banco aparece en lecciones ni tramos (de ningún nivel).
 - Nivel del archivo = carpeta (regla ya existente en `fix/deuda-sp2`).
 - Con `VERCEL=1`, `revisado: true` obligatorio (igual que lecciones).
@@ -145,6 +145,9 @@ Perezosa: al leer un intento `en_curso` con `iniciado_at` + 48 h < ahora, se mar
 - Guardado con la cola de reintentos del SP2 (`crearColaRegistro`) y aviso discreto; «Enviar» se bloquea hasta que las 20 estén confirmadas por el servidor.
 - Accesibilidad (reglas del SP2): objetivos ≥ 44 px, feedback color + icono + texto, `prefers-reduced-motion`, foco al enunciado al cambiar de pregunta, sin sonidos, sin scroll horizontal de 360 a 1920 px.
 - Nivel bloqueado → redirige al Camino con mensaje (nunca 404). Aprobar un nivel sin contenido publicado → estado vacío existente «El contenido de <nivel> llega pronto».
+
+### 7.8 Nivel actual
+El nivel actual deja de ser `users.nivel_inicial`: es el primer nivel «En curso» de `estadoNiveles({ nivelInicial, aprobados })` (si todos están aprobados, el último). Hoy, Escuchar y Camino usan el nivel actual. Un nivel «Bloqueado» no se puede abrir: `/camino/[nivel]` y `/leccion/[id]` redirigen al Camino y `completarItemAction` lo rechaza.
 
 ## 9. Errores y casos límite
 
