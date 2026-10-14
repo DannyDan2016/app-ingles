@@ -108,6 +108,7 @@ Crear en GitHub → Settings → Environments:
 | `preview` | `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `DATABASE_URL_UNPOOLED` (Neon preview, URL directa), `VERCEL_BYPASS`, `E2E_ADMIN_PASSWORD` |
 | `production` | `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`, `DATABASE_URL_UNPOOLED` (Neon main, URL directa) |
 
+- **Variable `NEON_ENDPOINT_ESPERADO` (no secreta) en cada environment**: GitHub → Environments → *Variables*. Es el ID de endpoint de la rama de Neon de ese entorno (`ep-…`, el primer tramo del host; vale también el host completo, con o sin `-pooler`): la rama `preview` en `preview` y la rama `main` en `production`. `deploy.yml` falla antes de migrar si la base no coincide o la variable falta, sin imprimir la URL.
 - **`production` debe tener un revisor obligatorio** (Required reviewers): sin él, el job de producción se ejecutaría sin aprobación manual.
 - **URL de Neon directa vs. con pooler**: `DATABASE_URL_UNPOOLED` es la URL **directa** (host sin `-pooler`) y solo sirve para migrar desde Actions. La app en Vercel usa `DATABASE_URL` **con pooler** (variable de entorno de Vercel, no secret de GitHub). Las migraciones no funcionan bien a través del pooler.
 - Usar `sslmode=verify-full` en las URLs de Neon.

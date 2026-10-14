@@ -6,6 +6,10 @@ name: deploy
 # y nunca interpolado dentro de `run:`. `npm ci --ignore-scripts`: ningún paquete ejecuta código de
 # instalación en el runner (probado: build, drizzle-kit y playwright funcionan igual).
 # Acciones fijadas por SHA; solo runners de GitHub.
+# Guardia de base de datos: antes de migrar, scripts/comprobar-neon.ts compara el endpoint de Neon
+# (sin imprimirlo) con la variable NO secreta NEON_ENDPOINT_ESPERADO del environment (preview -> rama `preview`,
+# production -> rama `main`). Si no coincide o falta la variable, el job falla antes de tocar la base.
+# La DATABASE_URL de Vercel es Sensitive (`vercel pull` no la descarga): se mantiene sincronizada desde `neonctl`.
 on:
   workflow_run:
     workflows: [ci]
@@ -41,6 +45,11 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci --ignore-scripts
+      - name: Comprobar rama de Neon (preview, URL de migraciones)
+        env:
+          DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
+          NEON_ENDPOINT_ESPERADO: ${{ vars.NEON_ENDPOINT_ESPERADO }}
+        run: npx --no-install tsx scripts/comprobar-neon.ts var DATABASE_URL_UNPOOLED
       - name: Migraciones (URL directa de Neon preview)
         env:
           DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
@@ -142,6 +151,11 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci --ignore-scripts
+      - name: Comprobar rama de Neon (production, URL de migraciones)
+        env:
+          DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}
+          NEON_ENDPOINT_ESPERADO: ${{ vars.NEON_ENDPOINT_ESPERADO }}
+        run: npx --no-install tsx scripts/comprobar-neon.ts var DATABASE_URL_UNPOOLED
       - name: Migraciones (URL directa de Neon main)
         env:
           DATABASE_URL_UNPOOLED: ${{ secrets.DATABASE_URL_UNPOOLED }}

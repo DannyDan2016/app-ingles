@@ -6,7 +6,7 @@ const sumarActividad = vi.fn();
 const DB = { marca: 'db' };
 vi.mock('@/lib/auth/current-user', () => ({ getCurrentUser: () => getCurrentUser() }));
 vi.mock('@/lib/db/client', () => ({ getDb: () => DB }));
-vi.mock('@/lib/aprendizaje/actividad.repo', () => ({ sumarActividad: (...a: unknown[]) => sumarActividad(...a) }));
+vi.mock('@/lib/aprendizaje/actividad.repo', () => ({ VENTANA_ACTIVIDAD_S: 60, sumarActividad: (...a: unknown[]) => sumarActividad(...a) }));
 
 import { POST } from './route';
 
@@ -22,7 +22,7 @@ function peticion(cuerpo: unknown, headers: Record<string, string> = { origin: P
 
 beforeEach(() => {
   getCurrentUser.mockReset().mockResolvedValue({ userId: 'u1' });
-  sumarActividad.mockReset().mockResolvedValue(undefined);
+  sumarActividad.mockReset().mockResolvedValue(true);
 });
 afterEach(() => vi.unstubAllEnvs());
 
@@ -37,6 +37,12 @@ describe('POST /api/actividad', () => {
     const r = await POST(peticion({ segundos: 30 }));
     expect(r.status).toBe(401);
     expect(sumarActividad).not.toHaveBeenCalled();
+  });
+  it('límite por ventana superado → 429', async () => {
+    sumarActividad.mockResolvedValue(false);
+    const r = await POST(peticion({ segundos: 30 }));
+    expect(r.status).toBe(429);
+    expect(r.headers.get('retry-after')).toBeTruthy();
   });
   it('sin Origin pero Sec-Fetch-Site same-origin y con sesión → 204', async () => {
     const r = await POST(peticion({ segundos: 30 }, { 'sec-fetch-site': 'same-origin' }));

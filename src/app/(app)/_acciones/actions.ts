@@ -5,7 +5,7 @@ import { requireUser } from '@/lib/auth/current-user';
 import { getEjercicio, getItem, getLeccion, caminoDeNivel } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { NIVELES } from '@/lib/progreso/niveles';
-import { registrarRespuesta } from '@/lib/aprendizaje/respuestas.repo';
+import { registrarRespuesta, registrarRespuestaConTarjetas } from '@/lib/aprendizaje/respuestas.repo';
 import { agregarTarjetas } from '@/lib/aprendizaje/tarjetas.repo';
 import { completarItem, itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
 import { normalizarTermino } from '@/lib/aprendizaje/terminos';
@@ -19,8 +19,11 @@ export async function registrarRespuestaAction(input: { ejercicioId: string; cor
   if (!p.success || !ref) return { ok: false as const };
   const db = getDb();
   const origen = getLeccion(ref.padreId) ? 'leccion' : 'tramo';
-  await registrarRespuesta(db, { userId: u.userId, itemId: p.data.ejercicioId, correcta: p.data.correcta, origen });
-  if (!p.data.correcta && ref.ejercicio.terminos?.length) await agregarTarjetas(db, u.userId, ref.nivel, ref.ejercicio.terminos, new Date());
+  const respuesta = { userId: u.userId, itemId: p.data.ejercicioId, correcta: p.data.correcta, origen } as const;
+  const terminos = !p.data.correcta ? ref.ejercicio.terminos ?? [] : [];
+  // Atómico: un reintento tras un fallo parcial no duplica la fila de respuestas.
+  if (terminos.length) await registrarRespuestaConTarjetas(db, respuesta, { nivel: ref.nivel, terminos, now: new Date() });
+  else await registrarRespuesta(db, respuesta);
   return { ok: true as const };
 }
 

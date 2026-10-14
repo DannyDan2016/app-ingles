@@ -1,7 +1,24 @@
 import { archivoSchema, type Catalogo, type Ejercicio, type EntradaGlosario, type Leccion, type Tramo } from './esquema';
 import { terminosDeLectura } from './lectura';
 
-export type ArchivoCargado = { ruta: string; datos: unknown; demo: boolean };
+export type ArchivoCargado = { ruta: string; datos: unknown; demo: boolean; /** Mensaje si el archivo no se pudo leer o parsear (YAML mal formado). */ errorLectura?: string };
+
+/** El nivel debe coincidir con la carpeta (`content/a2/…`) y tema/id con el nombre (`a2-qa-01`, `glosario-qa`). */
+function reglasArchivo(ruta: string, d: { tipo: string; nivel: string; tema: string; id?: string }): string[] {
+  const m = /^content\/([^/]+)\/([^/]+)\.yaml$/.exec(ruta);
+  if (!m) return [];
+  const [, carpeta, nombre] = m;
+  const err: string[] = [];
+  if (d.nivel.toLowerCase() !== carpeta) err.push(`${ruta}: nivel ${d.nivel} no coincide con la carpeta ${carpeta}`);
+  if (d.tipo === 'glosario') {
+    if (nombre !== `glosario-${d.tema}`) err.push(`${ruta}: tema ${d.tema} no coincide con el nombre del archivo (glosario-${d.tema}.yaml)`);
+  } else {
+    if (d.id !== nombre) err.push(`${ruta}: el id ${d.id} no coincide con el nombre del archivo`);
+    const temaEnNombre = nombre.split('-')[1];
+    if (temaEnNombre !== d.tema) err.push(`${ruta}: tema ${d.tema} no coincide con el nombre del archivo (${nombre})`);
+  }
+  return err;
+}
 
 function reglasEjercicio(e: Ejercicio, padreId: string): string[] {
   const err: string[] = [];
@@ -22,12 +39,14 @@ export function validarCatalogo(archivos: ArchivoCargado[], opts: { estricto: bo
   const demoIds = new Set<string>();
 
   for (const a of archivos) {
+    if (a.errorLectura !== undefined) { errores.push(`${a.ruta}: YAML mal formado: ${a.errorLectura}`); continue; }
     const r = archivoSchema.safeParse(a.datos);
     if (!r.success) {
       for (const i of r.error.issues) errores.push(`${a.ruta}: ${i.path.join('.') || '(raíz)'}: ${i.message}`);
       continue;
     }
     const d = r.data;
+    if (!a.demo) errores.push(...reglasArchivo(a.ruta, d));
     if (d.tipo === 'glosario') glosario.push(...d.entradas);
     else {
       (d.tipo === 'leccion' ? lecciones : tramos).push(d as never);
