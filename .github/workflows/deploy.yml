@@ -6,9 +6,10 @@ name: deploy
 # y nunca interpolado dentro de `run:`. `npm ci --ignore-scripts`: ningún paquete ejecuta código de
 # instalación en el runner (probado: build, drizzle-kit y playwright funcionan igual).
 # Acciones fijadas por SHA; solo runners de GitHub.
-# Guardia de base de datos: antes de migrar y tras `vercel pull`, scripts/comprobar-neon.ts compara el endpoint de Neon
+# Guardia de base de datos: antes de migrar, scripts/comprobar-neon.ts compara el endpoint de Neon
 # (sin imprimirlo) con la variable NO secreta NEON_ENDPOINT_ESPERADO del environment (preview -> rama `preview`,
 # production -> rama `main`). Si no coincide o falta la variable, el job falla antes de tocar la base.
+# La DATABASE_URL de Vercel es Sensitive (`vercel pull` no la descarga): se mantiene sincronizada desde `neonctl`.
 on:
   workflow_run:
     workflows: [ci]
@@ -62,10 +63,6 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: npx --yes vercel@62.5.0 pull --yes --environment=preview --token "$VERCEL_TOKEN"
-      - name: Comprobar rama de Neon (preview, DATABASE_URL que usará la app)
-        env:
-          NEON_ENDPOINT_ESPERADO: ${{ vars.NEON_ENDPOINT_ESPERADO }}
-        run: npx --no-install tsx scripts/comprobar-neon.ts entorno preview
       - name: vercel build
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -172,10 +169,6 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: npx --yes vercel@62.5.0 pull --yes --environment=production --token "$VERCEL_TOKEN"
-      - name: Comprobar rama de Neon (production, DATABASE_URL que usará la app)
-        env:
-          NEON_ENDPOINT_ESPERADO: ${{ vars.NEON_ENDPOINT_ESPERADO }}
-        run: npx --no-install tsx scripts/comprobar-neon.ts entorno production
       - name: vercel build
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

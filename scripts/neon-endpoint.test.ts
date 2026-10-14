@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { endpointDeUrl, comprobarEndpoint, urlDeArchivoEnv } from './neon-endpoint';
+import { endpointDeUrl, comprobarEndpoint } from './neon-endpoint';
 
 const directa = 'postgres://u:secreto@ep-cool-sun-123456.us-east-2.aws.neon.tech/db?sslmode=verify-full';
 const pooled = 'postgres://u:secreto@ep-cool-sun-123456-pooler.us-east-2.aws.neon.tech/db?sslmode=verify-full';
@@ -36,13 +36,5 @@ describe('comprobarEndpoint', () => {
       expect(m).not.toContain('secreto');
       expect(m).not.toContain('ep-cool-sun-123456');
     }
-  });
-});
-
-describe('urlDeArchivoEnv', () => {
-  it('lee DATABASE_URL de un .env generado por vercel pull (con o sin comillas)', () => {
-    expect(urlDeArchivoEnv(`FOO=1\nDATABASE_URL="${pooled}"\n`, 'DATABASE_URL')).toBe(pooled);
-    expect(urlDeArchivoEnv(`DATABASE_URL=${pooled}\r\n`, 'DATABASE_URL')).toBe(pooled);
-    expect(urlDeArchivoEnv('FOO=1\n', 'DATABASE_URL')).toBeUndefined();
   });
 });

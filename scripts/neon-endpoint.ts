@@ -29,12 +29,3 @@ export function comprobarEndpoint(url: string, esperado: string | undefined): { 
   if (real !== esperadoId) return { ok: false, motivo: 'La base de datos no es la rama de Neon esperada para este entorno.' };
   return { ok: true };
 }
-
-/** Lee una variable de un archivo .env (formato de `vercel pull`), con o sin comillas. */
-export function urlDeArchivoEnv(contenido: string, nombre: string): string | undefined {
-  for (const linea of contenido.split(/\r?\n/)) {
-    const m = new RegExp(`^${nombre}=(.*)$`).exec(linea);
-    if (m) return m[1].replace(/^(["'])(.*)\1$/, '$2');
-  }
-  return undefined;
-}
