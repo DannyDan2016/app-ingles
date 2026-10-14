@@ -3,12 +3,14 @@ id: b1-frontend-t1
 nivel: B1
 tema: frontend
 orden: 12
-fuente: { podcast: "Bro Code", youtubeId: NO5kUNxGIu0, start: 30, end: 110, titulo: "The JavaScript DOM explained in 5 minutes!", canal: "Bro Code" }
+# Fragmento 0-115 s contrastado con la transcripción automática pública: definición del DOM, árbol con html como raíz, objeto document y cambio del título de la página desde JavaScript.
+fuente: { podcast: "Bro Code", youtubeId: NO5kUNxGIu0, start: 0, end: 115, titulo: "The JavaScript DOM explained in 5 minutes!", canal: "Bro Code" }
 preguntaGuia: How does JavaScript change what you see on a web page?
-palabrasClave: [dom, element, event, render, attribute]
+palabrasClave: [dom, element]
 preguntas:
-  - { id: b1-frontend-t1-e1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The video explains what the DOM is.", correcta: true, explicacion: "El título del video es «The JavaScript DOM explained in 5 minutes», así que su tema principal es el DOM.", terminos: [dom] }
-  - { id: b1-frontend-t1-e2, tipo: opcion_multiple, enunciado: "What does DOM stand for?", opciones: ["Document Object Model", "Data Output Method", "Display Order Manager"], correcta: 0, explicacion: "DOM significa Document Object Model (modelo de objetos del documento): la representación de la página que el navegador ofrece a JavaScript.", terminos: [dom] }
-  - { id: b1-frontend-t1-e3, tipo: opcion_multiple, enunciado: "JavaScript uses the DOM to ___ the page.", opciones: ["change", "install", "translate"], correcta: 0, explicacion: "A través del DOM, JavaScript puede leer y cambiar elementos, atributos y textos de la página sin recargarla.", terminos: [dom, element] }
-  - { id: b1-frontend-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The DOM shows the page as a tree of objects.", correcta: true, explicacion: "El DOM organiza la página como un árbol: el documento es la raíz y cada elemento es una rama u hoja.", terminos: [dom, element] }
+  - { id: b1-frontend-t1-e1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "The web browser builds the DOM when it loads an HTML document.", correcta: true, explicacion: "El video lo dice al principio: el navegador construye el DOM al cargar un documento HTML y organiza todos los elementos en forma de árbol.", terminos: [dom, element] }
+  - { id: b1-frontend-t1-e2, tipo: opcion_multiple, enunciado: "What does DOM stand for?", opciones: ["Document Object Model", "Data Output Method", "Display Order Manager"], correcta: 0, explicacion: "DOM significa Document Object Model (modelo de objetos del documento): un objeto de JavaScript que representa la página y ofrece una API para interactuar con ella.", terminos: [dom] }
+  - { id: b1-frontend-t1-e3, tipo: opcion_multiple, enunciado: "In the DOM tree of the example, which element is the root?", opciones: ["The html element", "The body element", "The head element"], correcta: 0, explicacion: "El elemento html es la raíz del árbol; dentro de él están head y body, y dentro de estos, el resto de elementos.", terminos: [dom, element] }
+  - { id: b1-frontend-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "The DOM organizes the elements of the page in a tree.", correcta: true, explicacion: "El presentador habla de una representación «tree-like»: cada elemento cuelga de otro, como las ramas de un árbol.", terminos: [dom, element] }
+  - { id: b1-frontend-t1-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "After the page loads, JavaScript cannot change the title of the page.", correcta: false, explicacion: "En el ejemplo, el presentador accede a la propiedad title del objeto document, la cambia a «my website» y el título cambia de forma dinámica.", terminos: [dom] }
 revisado: false
