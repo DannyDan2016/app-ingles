@@ -3,9 +3,9 @@
 Característica: Mapa de niveles (Camino)
 
   @a11y
-  Escenario: Empezar en A2
+  Escenario: Todas las cuentas empiezan en A2
     Dado que tengo una cuenta nueva
-    Cuando elijo "A2" como nivel inicial
+    Cuando confirmo mi meta diaria y empiezo
     Entonces A1 aparece como "Omitido", A2 como "En curso" y B1 como "Bloqueado"
     Y la página no tiene violaciones de accesibilidad graves
 
@@ -17,7 +17,7 @@ Característica: Mapa de niveles (Camino)
     Entonces no aparece scroll horizontal
     Cuando creo mi cuenta con una contraseña válida
     Entonces no aparece scroll horizontal
-    Cuando elijo "A2" como nivel inicial
+    Cuando confirmo mi meta diaria y empiezo
     Entonces no aparece scroll horizontal
     Y la página no tiene violaciones de accesibilidad graves
     Cuando cierro mi sesión

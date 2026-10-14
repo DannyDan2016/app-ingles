@@ -1,13 +1,12 @@
 import type { Page } from '@playwright/test';
 
-/** Pantallas de entrada tras el registro: elegir nivel, «Hoy» y el mapa de niveles («Camino»). */
+/** Pantallas de entrada tras el registro: bienvenida (meta diaria; todos empiezan en A2), «Hoy» y el mapa de niveles («Camino»). */
 export class NivelesPage {
   constructor(private page: Page) {}
-  async elegirNivel(nivel: string) {
-    await this.page.getByRole('radio', { name: nivel, exact: true }).check();
+  async empezar() {
     await this.page.getByRole('button', { name: 'Guardar y empezar' }).click();
   }
-  /** Salir vive en Perfil (y en la pantalla de nivel inicial, que no tiene navegación). */
+  /** Salir vive en Perfil (y en la pantalla de bienvenida, que no tiene navegación). */
   async salir() {
     const salir = this.page.getByRole('button', { name: 'Salir' });
     if (!(await salir.isVisible())) await this.irA('Perfil');
@@ -19,5 +18,5 @@ export class NivelesPage {
   }
   tarjeta(nivel: string) { return this.page.getByRole('listitem').filter({ hasText: new RegExp(`^Nivel ${nivel}`) }); }
   titulo() { return this.page.getByRole('heading', { level: 1, name: 'Hoy' }); }
-  tituloElegirNivel() { return this.page.getByRole('heading', { level: 1, name: 'Elige tu nivel' }); }
+  tituloBienvenida() { return this.page.getByRole('heading', { level: 1, name: 'Antes de empezar' }); }
 }

@@ -3,8 +3,8 @@ import { Given, When, Then } from '../fixtures';
 import { crearCuenta } from './comunes.steps';
 import { sinScrollHorizontal } from '../support/pantalla';
 
-When('elijo {string} como nivel inicial', async ({ niveles }, nivel: string) => {
-  await niveles.elegirNivel(nivel);
+When('confirmo mi meta diaria y empiezo', async ({ niveles }) => {
+  await niveles.empezar();
   await expect(niveles.titulo()).toBeVisible();
 });
 
@@ -17,7 +17,7 @@ Then('A1 aparece como {string}, A2 como {string} y B1 como {string}', async ({ n
 
 Given('que tengo una cuenta con nivel elegido', async ({ invitaciones, registro, page, ctx, niveles }) => {
   await crearCuenta({ invitaciones, registro, page, ctx });
-  await niveles.elegirNivel('A2');
+  await niveles.empezar();
   await expect(niveles.titulo()).toBeVisible();
 });
 

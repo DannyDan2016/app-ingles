@@ -75,8 +75,9 @@ Given('que registro las peticiones de red', async ({ page, ctx }) => {
 Given('que completé la lección demo-01', async ({ leccion, hoy }) => completarDemo01({ leccion, hoy }));
 
 Given('que tengo una cuenta con nivel {string}', async ({ invitaciones, registro, page, ctx, niveles }, nivel: string) => {
+  if (nivel !== 'A2') throw new Error(`Todas las cuentas empiezan en A2; el escenario pide ${nivel}`);
   await crearCuenta({ invitaciones, registro, page, ctx });
-  await niveles.elegirNivel(nivel);
+  await niveles.empezar();
   await expect(niveles.titulo()).toBeVisible();
 });
 

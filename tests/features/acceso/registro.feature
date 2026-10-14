@@ -9,7 +9,7 @@ Característica: Registro con invitación
   Escenario: Registro con invitación válida
     Dado que el admin generó una invitación
     Cuando abro el enlace y creo mi cuenta con una contraseña válida
-    Entonces veo la pantalla para elegir mi nivel
+    Entonces veo la pantalla de bienvenida
 
   Escenario: Invitación revocada
     Dado que el admin generó una invitación y la revocó

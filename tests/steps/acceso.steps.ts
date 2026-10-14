@@ -25,7 +25,7 @@ When('creo mi cuenta con una contraseña válida', async ({ registro, niveles, c
   ctx.alias = aliasNuevo();
   ctx.clave = CLAVE;
   await registro.crearCuenta(ctx.alias, ctx.clave);
-  await expect(niveles.tituloElegirNivel()).toBeVisible();
+  await expect(niveles.tituloBienvenida()).toBeVisible();
 });
 
 When('cierro mi sesión', async ({ page, niveles, login }) => {
@@ -36,8 +36,8 @@ When('cierro mi sesión', async ({ page, niveles, login }) => {
 
 When('abro el enlace', async ({ registro, ctx }) => registro.abrir(ctx.enlace!));
 
-Then('veo la pantalla para elegir mi nivel', async ({ niveles }) => {
-  await expect(niveles.tituloElegirNivel()).toBeVisible();
+Then('veo la pantalla de bienvenida', async ({ niveles }) => {
+  await expect(niveles.tituloBienvenida()).toBeVisible();
 });
 
 Then('no veo el formulario de registro', async ({ registro }) => {
