@@ -5,7 +5,7 @@ import { users, tarjetas, actividadDiaria, respuestas } from '@/lib/db/schema';
 import { completarItem, itemsCompletados, completadosEntre } from './progreso.repo';
 import { registrarRespuesta, registrarRespuestaConTarjetas, podarRespuestas } from './respuestas.repo';
 import { agregarTarjetas, contarPendientes } from './tarjetas.repo';
-import { sumarActividad, MAX_SEGUNDOS_DIA } from './actividad.repo';
+import { sumarActividad, MAX_SEGUNDOS_DIA, VENTANA_ACTIVIDAD_S } from './actividad.repo';
 
 let userId: string;
 const now = new Date('2026-10-07T15:00:00Z'); // 10:00 en Bogotá
@@ -92,9 +92,31 @@ describe('actividad', () => {
     await sumarActividad(testDb, userId, '2026-10-07', 120);
     let [a] = await testDb.select().from(actividadDiaria);
     expect(a.segundos).toBe(720);
-    for (let i = 0; i < 30; i++) await sumarActividad(testDb, userId, '2026-10-07', 600);
+    for (let i = 0; i < 30; i++) await sumarActividad(testDb, userId, '2026-10-07', 600, { maxPorVentana: 1000 });
     [a] = await testDb.select().from(actividadDiaria);
     expect(a.segundos).toBe(MAX_SEGUNDOS_DIA);
+  });
+});
+
+describe('actividad: rate limit por ventana', () => {
+  const fila = async () => (await testDb.select().from(actividadDiaria))[0];
+  it('rechaza (false) al pasar de N envíos por ventana y no suma esos segundos', async () => {
+    const r = [];
+    for (let i = 0; i < 4; i++) r.push(await sumarActividad(testDb, userId, '2026-10-07', 10, { maxPorVentana: 3 }));
+    expect(r).toEqual([true, true, true, false]);
+    expect((await fila()).segundos).toBe(30);
+  });
+  it('al terminar la ventana vuelve a aceptar', async () => {
+    for (let i = 0; i < 3; i++) await sumarActividad(testDb, userId, '2026-10-07', 10, { maxPorVentana: 3 });
+    expect(await sumarActividad(testDb, userId, '2026-10-07', 10, { maxPorVentana: 3 })).toBe(false);
+    await testDb.update(actividadDiaria).set({ ventanaInicio: new Date(Date.now() - 2 * VENTANA_ACTIVIDAD_S * 1000) });
+    expect(await sumarActividad(testDb, userId, '2026-10-07', 10, { maxPorVentana: 3 })).toBe(true);
+    expect((await fila()).segundos).toBe(40);
+  });
+  it('es por usuario', async () => {
+    const [otro] = await testDb.insert(users).values({ alias: 'luis', passwordHash: 'x' }).returning({ id: users.id });
+    for (let i = 0; i < 3; i++) await sumarActividad(testDb, userId, '2026-10-07', 10, { maxPorVentana: 3 });
+    expect(await sumarActividad(testDb, otro.id, '2026-10-07', 10, { maxPorVentana: 3 })).toBe(true);
   });
 });
 

@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { getCurrentUser } from '@/lib/auth/current-user';
 import { getDb } from '@/lib/db/client';
-import { sumarActividad } from '@/lib/aprendizaje/actividad.repo';
+import { sumarActividad, VENTANA_ACTIVIDAD_S } from '@/lib/aprendizaje/actividad.repo';
 import { diaBogota } from '@/lib/tiempo/bogota';
 import { mismoOrigen, origenesPropios } from '@/lib/security/origen';
 
@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
   const json = await req.json().catch(() => null);
   const p = cuerpo.safeParse(json);
   if (!p.success) return NextResponse.json({ error: 'datos' }, { status: 400 });
-  await sumarActividad(getDb(), u.userId, diaBogota(new Date()), p.data.segundos);
+  const aceptado = await sumarActividad(getDb(), u.userId, diaBogota(new Date()), p.data.segundos);
+  if (!aceptado) return NextResponse.json({ error: 'demasiadas_peticiones' }, { status: 429, headers: { 'retry-after': String(VENTANA_ACTIVIDAD_S) } });
   return new NextResponse(null, { status: 204 });
 }

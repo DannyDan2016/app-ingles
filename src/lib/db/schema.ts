@@ -101,6 +101,9 @@ export const actividadDiaria = pgTable(
     userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
     fecha: date('fecha', { mode: 'string' }).notNull(),
     segundos: integer('segundos').notNull().default(0),
+    /** Rate limit de /api/actividad: inicio de la ventana actual y envíos aceptados en ella. */
+    ventanaInicio: ts('ventana_inicio'),
+    ventanaN: smallint('ventana_n').notNull().default(0),
   },
   (t) => [primaryKey({ columns: [t.userId, t.fecha] }), check('actividad_segundos', sql`${t.segundos} between 0 and 14400`)],
 );
