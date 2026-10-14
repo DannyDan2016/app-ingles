@@ -1,0 +1,32 @@
+tipo: glosario
+nivel: B1
+tema: qa
+entradas:
+  - { termino: regression, categoria: noun, traduccion_es: regresión (fallo en algo que antes funcionaba), definicion_en: A bug in a feature that worked well before a change., ejemplo_en: The last update caused a regression in the login page., nivel: B1, tema: qa }
+  - { termino: reproduce, categoria: verb, traduccion_es: reproducir (un fallo), definicion_en: To make a bug happen again by following the same steps., ejemplo_en: I could not reproduce the crash on my laptop., nivel: B1, tema: qa }
+  - { termino: crash, categoria: verb, traduccion_es: colapsar / cerrarse de golpe, definicion_en: To stop working suddenly and without warning., ejemplo_en: The app crashes when I upload a large file., nivel: B1, tema: qa }
+  - { termino: defect, categoria: noun, traduccion_es: defecto, definicion_en: A fault in software that makes it behave in a wrong way., ejemplo_en: We found three defects in the new build., nivel: B1, tema: qa }
+  - { termino: severity, categoria: noun, traduccion_es: gravedad, definicion_en: How serious the effect of a defect is for the users., ejemplo_en: The severity is high because users cannot pay., nivel: B1, tema: qa }
+  - { termino: intermittent, categoria: adjective, traduccion_es: intermitente, definicion_en: Happening sometimes, but not every time., ejemplo_en: An intermittent bug is difficult to reproduce., nivel: B1, tema: qa }
+  - { termino: build, categoria: noun, traduccion_es: compilación / versión generada, definicion_en: A version of the software that is created from the code., ejemplo_en: The tests run on every new build., nivel: B1, tema: qa }
+  - { termino: investigate, categoria: verb, traduccion_es: investigar, definicion_en: To look carefully for the cause of a problem., ejemplo_en: I investigate the logs before I write the report., nivel: B1, tema: qa }
+  - { termino: workaround, categoria: noun, traduccion_es: solución provisional, definicion_en: A temporary way to avoid a problem without fixing its cause., ejemplo_en: The workaround is to use another browser for now., nivel: B1, tema: qa }
+  - { termino: root cause, categoria: noun, traduccion_es: causa raíz, definicion_en: The main reason why a problem happens., ejemplo_en: The root cause was a missing check in the code., nivel: B1, tema: qa }
+  - { termino: assign, categoria: verb, traduccion_es: asignar, definicion_en: To give a task or a ticket to a person., ejemplo_en: The lead assigned the ticket to Marta., nivel: B1, tema: qa }
+  - { termino: reopen, categoria: verb, traduccion_es: reabrir, definicion_en: To open a closed ticket again because the problem is not solved., ejemplo_en: I reopened the bug after it failed again., nivel: B1, tema: qa }
+  - { termino: blocker, categoria: noun, traduccion_es: bloqueante, definicion_en: A problem so serious that the team cannot continue or release., ejemplo_en: This bug is a blocker for the release., nivel: B1, tema: qa }
+  - { termino: automation, categoria: noun, traduccion_es: automatización, definicion_en: Using programs to do tasks, like running tests, without manual work., ejemplo_en: Test automation saves us hours every week., nivel: B1, tema: qa }
+  - { termino: test suite, categoria: noun, traduccion_es: conjunto de pruebas, definicion_en: A group of tests that are run together., ejemplo_en: The whole test suite takes twenty minutes., nivel: B1, tema: qa }
+  - { termino: assertion, categoria: noun, traduccion_es: aserción (comprobación en una prueba), definicion_en: A line in a test that checks if a result is correct., ejemplo_en: The assertion fails if the total is wrong., nivel: B1, tema: qa }
+  - { termino: coverage, categoria: noun, traduccion_es: cobertura, definicion_en: The part of the code that the tests check., ejemplo_en: Our coverage is around seventy percent., nivel: B1, tema: qa }
+  - { termino: flaky, categoria: adjective, traduccion_es: inestable (prueba que falla al azar), definicion_en: Describes a test that sometimes passes and sometimes fails without code changes., ejemplo_en: A flaky test makes the team lose trust in the pipeline., nivel: B1, tema: qa }
+  - { termino: pipeline, categoria: noun, traduccion_es: pipeline (flujo automático de build y pruebas), definicion_en: A series of automatic steps that build, test and deliver software., ejemplo_en: The pipeline runs the tests after every commit., nivel: B1, tema: qa }
+  - { termino: trigger, categoria: verb, traduccion_es: activar / disparar, definicion_en: To make something start automatically., ejemplo_en: Every pull request triggers the tests., nivel: B1, tema: qa }
+  - { termino: script, categoria: noun, traduccion_es: script (guion de código), definicion_en: A small program that does a list of tasks automatically., ejemplo_en: This script cleans the test data., nivel: B1, tema: qa }
+  - { termino: unit test, categoria: noun, traduccion_es: prueba unitaria, definicion_en: A test that checks one small part of the code alone., ejemplo_en: Each unit test runs in a few milliseconds., nivel: B1, tema: qa }
+  - { termino: integration test, categoria: noun, traduccion_es: prueba de integración, definicion_en: A test that checks if different parts work well together., ejemplo_en: The integration test checks the API and the database., nivel: B1, tema: qa }
+  - { termino: mock, categoria: noun, traduccion_es: simulacro (objeto simulado en pruebas), definicion_en: A fake part that replaces a real one in a test., ejemplo_en: We use a mock instead of the payment service., nivel: B1, tema: qa }
+  - { termino: skip, categoria: verb, traduccion_es: omitir / saltar (una prueba), definicion_en: To not run a test on purpose., ejemplo_en: We skip this test until the feature is ready., nivel: B1, tema: qa }
+  - { termino: maintain, categoria: verb, traduccion_es: mantener, definicion_en: To keep something updated and working., ejemplo_en: Who maintains the automated tests?, nivel: B1, tema: qa }
+  - { termino: smoke test, categoria: noun, traduccion_es: prueba de humo, definicion_en: A quick test that checks if the main functions of a build work., ejemplo_en: We run a smoke test before the full test suite., nivel: B1, tema: qa }
+  - { termino: sanity test, categoria: noun, traduccion_es: prueba de cordura (verificación puntual), definicion_en: A short test that checks one small change or fix., ejemplo_en: After the fix, we ran a sanity test on the login., nivel: B1, tema: qa }
