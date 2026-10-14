@@ -65,7 +65,7 @@ jobs:
       - name: Comprobar rama de Neon (preview, DATABASE_URL que usará la app)
         env:
           NEON_ENDPOINT_ESPERADO: ${{ vars.NEON_ENDPOINT_ESPERADO }}
-        run: npx --no-install tsx scripts/comprobar-neon.ts archivo .vercel/.env.preview.local
+        run: npx --no-install tsx scripts/comprobar-neon.ts entorno preview
       - name: vercel build
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -175,7 +175,7 @@ jobs:
       - name: Comprobar rama de Neon (production, DATABASE_URL que usará la app)
         env:
           NEON_ENDPOINT_ESPERADO: ${{ vars.NEON_ENDPOINT_ESPERADO }}
-        run: npx --no-install tsx scripts/comprobar-neon.ts archivo .vercel/.env.production.local
+        run: npx --no-install tsx scripts/comprobar-neon.ts entorno production
       - name: vercel build
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
