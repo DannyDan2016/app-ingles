@@ -1,0 +1,14 @@
+tipo: tramo
+id: b1-frontend-t1
+nivel: B1
+tema: frontend
+orden: 12
+fuente: { podcast: "Bro Code", youtubeId: NO5kUNxGIu0, start: 30, end: 110, titulo: "The JavaScript DOM explained in 5 minutes!", canal: "Bro Code" }
+preguntaGuia: How does JavaScript change what you see on a web page?
+palabrasClave: [dom, element, event, render, attribute]
+preguntas:
+  - { id: b1-frontend-t1-e1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The video explains what the DOM is.", correcta: true, explicacion: "El título del video es «The JavaScript DOM explained in 5 minutes», así que su tema principal es el DOM.", terminos: [dom] }
+  - { id: b1-frontend-t1-e2, tipo: opcion_multiple, enunciado: "What does DOM stand for?", opciones: ["Document Object Model", "Data Output Method", "Display Order Manager"], correcta: 0, explicacion: "DOM significa Document Object Model (modelo de objetos del documento): la representación de la página que el navegador ofrece a JavaScript.", terminos: [dom] }
+  - { id: b1-frontend-t1-e3, tipo: opcion_multiple, enunciado: "JavaScript uses the DOM to ___ the page.", opciones: ["change", "install", "translate"], correcta: 0, explicacion: "A través del DOM, JavaScript puede leer y cambiar elementos, atributos y textos de la página sin recargarla.", terminos: [dom, element] }
+  - { id: b1-frontend-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The DOM shows the page as a tree of objects.", correcta: true, explicacion: "El DOM organiza la página como un árbol: el documento es la raíz y cada elemento es una rama u hoja.", terminos: [dom, element] }
+revisado: false
