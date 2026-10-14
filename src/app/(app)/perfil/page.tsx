@@ -94,6 +94,19 @@ export default async function PerfilPage() {
         </form>
       </Tarjeta>
 
+      <Tarjeta aria-labelledby="p-datos">
+        <h2 id="p-datos" className="mb-2 text-lg font-semibold">Mis datos</h2>
+        <p className="mb-3 text-texto-suave">Guarda una copia de tu avance en un archivo JSON, para no perderlo.</p>
+        {/* Descarga directa (GET); es un enlace, no un botón, pero con el mismo tamaño táctil (≥ 44 px). */}
+        <a
+          href="/api/exportar"
+          download
+          className="inline-flex min-h-11 min-w-11 items-center rounded-md border border-borde bg-superficie px-4 font-semibold text-texto"
+        >
+          Descargar mi progreso
+        </a>
+      </Tarjeta>
+
       <div className="flex flex-wrap items-center gap-4">
         <Suspense fallback={null}>
           <EnlaceAdmin />

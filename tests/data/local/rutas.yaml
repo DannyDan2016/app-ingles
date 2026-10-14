@@ -11,6 +11,7 @@ protegidas:
   - { ruta: /admin/invitaciones, tipo: pagina }
   - { ruta: /api/no-existe, tipo: api }
   - { ruta: /api/actividad, tipo: api }
+  - { ruta: /api/exportar, tipo: api }
 publicas:
   - /login
   - /api/salud
