@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { testDb, testPool, resetDb } from '@/lib/db/test-utils';
 import { users, tarjetas, actividadDiaria, respuestas } from '@/lib/db/schema';
 import { completarItem, itemsCompletados, completadosEntre } from './progreso.repo';
-import { registrarRespuesta, registrarRespuestaConTarjetas } from './respuestas.repo';
+import { registrarRespuesta, registrarRespuestaConTarjetas, podarRespuestas } from './respuestas.repo';
 import { agregarTarjetas, contarPendientes } from './tarjetas.repo';
 import { sumarActividad, MAX_SEGUNDOS_DIA } from './actividad.repo';
 
@@ -37,6 +37,14 @@ describe('tarjetas', () => {
     expect(await contarPendientes(testDb, userId, now)).toBe(0);
     expect(await contarPendientes(testDb, userId, new Date('2026-10-08T15:00:00Z'))).toBe(1);
   });
+  it('tope por usuario: no crea más tarjetas de las permitidas y no afecta a otro usuario', async () => {
+    expect(await agregarTarjetas(testDb, userId, 'A2', ['a', 'b'], now, 3)).toBe(2);
+    expect(await agregarTarjetas(testDb, userId, 'A2', ['c', 'd', 'e'], now, 3)).toBe(1);
+    expect(await agregarTarjetas(testDb, userId, 'A2', ['f'], now, 3)).toBe(0);
+    expect(await testDb.select().from(tarjetas).where(eq(tarjetas.userId, userId))).toHaveLength(3);
+    const [otro] = await testDb.insert(users).values({ alias: 'luis', passwordHash: 'x' }).returning({ id: users.id });
+    expect(await agregarTarjetas(testDb, otro.id, 'A2', ['a'], now, 3)).toBe(1);
+  });
   it('lista vacía no consulta y devuelve 0', async () => expect(await agregarTarjetas(testDb, userId, 'A2', [], now)).toBe(0));
 });
 
@@ -46,6 +54,18 @@ describe('respuestas', () => {
     await registrarRespuesta(testDb, { userId, itemId: 'bug', correcta: true, origen: 'repaso', caja: 3 });
     const filas = await testDb.select().from(respuestas);
     expect(filas.map((f) => [f.origen, f.caja])).toEqual(expect.arrayContaining([['leccion', null], ['repaso', 3]]));
+  });
+});
+
+describe('podarRespuestas', () => {
+  it('conserva solo las N más recientes del usuario y no toca a otros', async () => {
+    const [otro] = await testDb.insert(users).values({ alias: 'luis', passwordHash: 'x' }).returning({ id: users.id });
+    for (let i = 1; i <= 5; i++) await registrarRespuesta(testDb, { userId, itemId: `e${i}`, correcta: true, origen: 'leccion', at: new Date(2026, 9, i) });
+    await registrarRespuesta(testDb, { userId: otro.id, itemId: 'x', correcta: true, origen: 'leccion', at: new Date(2020, 0, 1) });
+    await podarRespuestas(testDb, userId, 3);
+    const mias = await testDb.select().from(respuestas).where(eq(respuestas.userId, userId));
+    expect(mias.map((f) => f.itemId).sort()).toEqual(['e3', 'e4', 'e5']);
+    expect(await testDb.select().from(respuestas).where(eq(respuestas.userId, otro.id))).toHaveLength(1);
   });
 });
 
