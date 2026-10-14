@@ -12,8 +12,8 @@ lectura: |
   I started to [[investigate]] immediately. While I was [[reproducing|reproduce]] the problem, I noticed a pattern. The page crashed only when the cart was empty and a discount code was being applied. I wrote the steps in a bug report and set the [[severity]] to high, because customers could not pay. The bug was also a [[blocker]] for the release.
 
   In the daily meeting, I explained what happened. While the developers were reading the report, one of them suggested a [[workaround]]: we could disable the discount field for empty carts. It was not a permanent fix, but it let us continue testing. Later, the team lead [[assigned|assign]] the ticket to Marta. She was checking the logs when she found the [[root cause]]: the code divided by zero. She fixed it the same afternoon. However, when I tested the next build, a similar crash appeared on the wishlist page, so I had to [[reopen]] the ticket.
-video: { youtubeId: AWX6WvYktwk, start: 30, end: 100, titulo: "Regression testing – What, Why, When, and How to Run It?", canal: "QA Madness" }
-terminos: [regression, reproduce, crash, defect, intermittent, workaround, root cause, reopen]
+video: { youtubeId: AWX6WvYktwk, start: 29, end: 97, titulo: "Regression testing – What, Why, When, and How to Run It?", canal: "QA Madness" }
+terminos: [regression, reproduce, crash, defect, severity, intermittent, build, investigate, workaround, root cause, assign, reopen, blocker]
 ejercicios:
   - id: b1-qa-01-e1
     tipo: completar
@@ -25,16 +25,16 @@ ejercicios:
   - id: b1-qa-01-e2
     tipo: completar
     enunciado: Completa con el past continuous de «deploy».
-    texto: "When the build failed, we ___ the new version."
+    texto: "When the nightly build failed, we ___ the new version to the test server."
     respuesta: were deploying
     explicacion: "Con sujeto plural («we») usamos «were» + -ing. La construcción «when + past simple» marca la interrupción: la acción de fondo está en past continuous."
     terminos: [build]
   - id: b1-qa-01-e3
     tipo: opcion_multiple
     enunciado: "Which sentence is correct?"
-    opciones: ["While the developers read the report, Marta found the root cause.", "While the developers were reading the report, Marta found the root cause.", "While the developers were read the report, Marta found the root cause."]
+    opciones: ["While the developers was reading the report, Marta found the root cause.", "While the developers were reading the report, Marta found the root cause.", "While the developers were read the report, Marta found the root cause."]
     correcta: 1
-    explicacion: "Después de «while» describimos la acción de fondo en past continuous («were reading»). La opción 1 usa past simple para la acción larga y la 3 mezcla «were» con el verbo sin -ing."
+    explicacion: "Después de «while» describimos la acción de fondo en past continuous: were + -ing («were reading»). La opción 1 falla en la concordancia («developers» es plural: were, no was) y la 3 mezcla «were» con el verbo sin -ing."
     terminos: [root cause]
   - id: b1-qa-01-e4
     tipo: ordenar
