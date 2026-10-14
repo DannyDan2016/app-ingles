@@ -5,7 +5,7 @@ entradas:
   - { termino: model, categoria: noun, traduccion_es: modelo, definicion_en: A program trained on data to make predictions or create content., ejemplo_en: The model answers support tickets., nivel: B1, tema: ia }
   - { termino: train, categoria: verb, traduccion_es: entrenar, definicion_en: To teach a model by showing it many examples., ejemplo_en: We train the model every weekend., nivel: B1, tema: ia }
   - { termino: dataset, categoria: noun, traduccion_es: conjunto de datos, definicion_en: A collection of data used to train or test a model., ejemplo_en: The dataset has ten thousand tickets., nivel: B1, tema: ia }
-  - { termino: accuracy, categoria: noun, traduccion_es: precisión (exactitud), definicion_en: The percentage of predictions that are correct., ejemplo_en: The accuracy is now 91 percent., nivel: B1, tema: ia }
+  - { termino: accuracy, categoria: noun, traduccion_es: exactitud (porcentaje de aciertos), definicion_en: The percentage of predictions that are correct., ejemplo_en: The accuracy is now 91 percent., nivel: B1, tema: ia }
   - { termino: predict, categoria: verb, traduccion_es: predecir, definicion_en: To say what will probably happen or what the right answer is., ejemplo_en: The model predicts the category of each ticket., nivel: B1, tema: ia }
   - { termino: improve, categoria: verb, traduccion_es: mejorar, definicion_en: To become better or to make something better., ejemplo_en: More data can improve the results., nivel: B1, tema: ia }
   - { termino: generate, categoria: verb, traduccion_es: generar, definicion_en: To create new text, code or images., ejemplo_en: The model can generate a short summary., nivel: B1, tema: ia }
