@@ -1,0 +1,46 @@
+tipo: tramo
+id: b1-qa-t1
+nivel: B1
+tema: qa
+orden: 6
+# POR VERIFICAR: fragmento (start/end) y preguntas basados en título y descripción oEmbed; no se vio el video. Alternativo: roIode67TQE.
+fuente: { podcast: "Test Systems", youtubeId: Sd1xryTlyVI, start: 40, end: 130, titulo: "Smoke vs Sanity vs Regression Testing — Pick the Right Test", canal: "Test Systems" }
+preguntaGuia: When do we run a regression test?
+palabrasClave: [regression, smoke test, sanity test, build, defect]
+preguntas:
+  - id: b1-qa-t1-e1
+    tipo: opcion_multiple
+    enunciado: "What is the video mainly about?"
+    opciones: ["The differences between smoke, sanity and regression testing", "How to write a unit test in Python", "How to design a login page"]
+    correcta: 0
+    explicacion: "El título del video compara tres tipos de pruebas (smoke, sanity y regression) y ayuda a elegir la adecuada."
+    terminos: [smoke test, sanity test, regression]
+  - id: b1-qa-t1-e2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "A regression test checks that old features still work after a change."
+    correcta: true
+    explicacion: "Una prueba de regresión busca defectos nuevos en funciones que antes funcionaban, después de un cambio en el código."
+    terminos: [regression, defect]
+  - id: b1-qa-t1-e3
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "A smoke test is a long and complete check of the whole application."
+    correcta: false
+    explicacion: "La prueba de humo es rápida y superficial: confirma que las funciones principales de un build funcionan antes de hacer pruebas más profundas."
+    terminos: [smoke test, build]
+  - id: b1-qa-t1-e4
+    tipo: opcion_multiple
+    enunciado: "When do we run a regression test?"
+    opciones: ["After a change, to check that existing features still work", "Only before we write any code", "Never, if the build is new"]
+    correcta: 0
+    explicacion: "Se ejecuta cuando hay cambios (nuevas funciones o arreglos) para asegurar que nada de lo anterior se rompió."
+    terminos: [regression, build]
+  - id: b1-qa-t1-e5
+    tipo: opcion_multiple
+    enunciado: "Which test is a quick first check of a new build?"
+    opciones: ["Smoke test", "Full regression test", "Performance test"]
+    correcta: 0
+    explicacion: "Si la prueba de humo falla, el build se rechaza enseguida y no se pierde tiempo con pruebas más largas."
+    terminos: [smoke test, build]
+revisado: false
