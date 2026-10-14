@@ -169,11 +169,19 @@ Perezosa: al leer un intento `en_curso` con `iniciado_at` + 48 h < ahora, se mar
 - **Ola B (contenido, en paralelo a A):** banco A2 (4 redactores, uno por bloque), etiquetado `bloque` de A2 y B1, banco de demo para E2E; luego banco B1.
 - **Ola C:** E2E, revisión final Opus, `auditor-seguridad-web` + ZAP, E2E Docker, deploy y `verificador` en producción.
 
-## 12. Testing y QA
-- **Unitarias:** `elegibilidad` (todos los estados), `seleccionar` (5 por bloque, recursos juntos, ≥ 50 % distintas; propiedad en 200 semillas), `corregir` (5 tipos), nota/bloques, reglas del compilador del banco, `armarRefuerzo`.
-- **Integración (`_test`):** repo de intentos (concurrencia del índice único, caducidad, idempotencia, propiedad), `estadoNiveles` desde intentos aprobados, reset y exportación con las tablas nuevas.
-- **Seguridad:** sin solución en el payload; guardas; rutas protegidas.
-- **E2E (Playwright, banco de demo con `CONTENT_DEMO=1`):** bloqueo por lecciones; aprobar → siguiente nivel «En curso»; suspender → refuerzo → espera simulada → reintento con ≥ 50 % distintas; reanudar tras recargar; axe en las 4 pantallas nuevas.
+## 12. Pruebas (criterio del usuario, 2026-10-13: happy path + seguridad importante)
+
+La app es para aprender inglés, no un proyecto de QA: no se prueban todos los casos límite de §9 (se implementan, pero sin test dedicado salvo los de seguridad).
+
+- **Happy path (unit + 1 E2E):**
+  - Unit: `seleccionar` devuelve 5 por bloque y ≥ 10 distintas del intento anterior; `corregir` acierta los 5 tipos; nota y bloques a reforzar.
+  - E2E (banco de demo, `CONTENT_DEMO=1`): completar lecciones → presentar → aprobar → el siguiente nivel queda «En curso»; y suspender → refuerzo → reintento.
+- **Seguridad (obligatorio):**
+  - Sin sesión: rutas nuevas en `tests/data/*/rutas.yaml` (401/redirect); test de guardas exige `requireUser` en `page.tsx` y actions nuevas.
+  - Nadie toma control de otro intento: integración que comprueba que no se puede responder ni finalizar un intento ajeno.
+  - Sin soluciones en el cliente: el payload/HTML de una pregunta en curso no contiene la respuesta correcta ni la explicación.
+  - Se mantienen las puertas existentes: `check:no-pc`, gitleaks, npm audit, cabeceras/CSP, ZAP sobre la preview, `auditor-seguridad-web`.
+- **Puerta de salida:** revisión final Opus, E2E en Docker (suite existente + los nuevos) y `verificador` en producción.
 
 ## 13. Riesgos
 | Riesgo | Mitigación |
