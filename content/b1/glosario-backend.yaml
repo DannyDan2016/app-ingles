@@ -1,0 +1,30 @@
+tipo: glosario
+nivel: B1
+tema: backend
+entradas:
+  - { termino: query, categoria: noun, traduccion_es: consulta, definicion_en: A request that asks a database for specific data., ejemplo_en: This query returns all the orders from last week., nivel: B1, tema: backend }
+  - { termino: schema, categoria: noun, traduccion_es: esquema, definicion_en: The structure that describes the tables and fields of a database., ejemplo_en: We changed the schema to add a phone number., nivel: B1, tema: backend }
+  - { termino: record, categoria: noun, traduccion_es: registro (dato guardado), definicion_en: One complete item of data saved in a database., ejemplo_en: Each customer has one record in the database., nivel: B1, tema: backend }
+  - { termino: index, categoria: noun, traduccion_es: índice, definicion_en: A structure that helps a database find data faster., ejemplo_en: We added an index to the email column., nivel: B1, tema: backend }
+  - { termino: transaction, categoria: noun, traduccion_es: transacción, definicion_en: A group of changes that are saved together or not saved at all., ejemplo_en: The payment runs inside a transaction., nivel: B1, tema: backend }
+  - { termino: authentication, categoria: noun, traduccion_es: autenticación, definicion_en: The process that confirms who a user is., ejemplo_en: Authentication fails if the password is wrong., nivel: B1, tema: backend }
+  - { termino: session, categoria: noun, traduccion_es: sesión, definicion_en: The period when a logged-in user is connected to a service., ejemplo_en: The session ends after thirty minutes., nivel: B1, tema: backend }
+  - { termino: cache, categoria: noun, traduccion_es: caché, definicion_en: A fast place that keeps answers so the system can reuse them., ejemplo_en: The cache stores the product list for one minute., nivel: B1, tema: backend }
+  - { termino: validate, categoria: verb, traduccion_es: validar, definicion_en: To check that data is correct before using it., ejemplo_en: The server must validate the email address., nivel: B1, tema: backend }
+  - { termino: payload, categoria: noun, traduccion_es: carga útil (datos enviados), definicion_en: The data that a request carries to the server., ejemplo_en: The payload contains the product and the quantity., nivel: B1, tema: backend }
+  - { termino: relational, categoria: adjective, traduccion_es: relacional, definicion_en: Describes a database that keeps data in tables connected to each other., ejemplo_en: PostgreSQL is a relational database., nivel: B1, tema: backend }
+  - { termino: row, categoria: noun, traduccion_es: fila, definicion_en: One horizontal line of data in a table., ejemplo_en: Each order is one row in the orders table., nivel: B1, tema: backend }
+  - { termino: join, categoria: noun, traduccion_es: unión (join entre tablas), definicion_en: A query that connects data from two or more tables., ejemplo_en: A join links every order to its customer., nivel: B1, tema: backend }
+  - { termino: queue, categoria: noun, traduccion_es: cola (de mensajes), definicion_en: A list of messages or tasks that wait to be processed in order., ejemplo_en: The order stays in the queue until a worker takes it., nivel: B1, tema: backend }
+  - { termino: scale, categoria: verb, traduccion_es: escalar, definicion_en: To make a system able to handle more users or more work., ejemplo_en: We can scale the service by adding more servers., nivel: B1, tema: backend }
+  - { termino: latency, categoria: noun, traduccion_es: latencia, definicion_en: The time that one request takes to get an answer., ejemplo_en: The latency went up to two seconds., nivel: B1, tema: backend }
+  - { termino: throughput, categoria: noun, traduccion_es: rendimiento (capacidad de procesamiento), definicion_en: The number of requests a system can handle in a period of time., ejemplo_en: The throughput is five hundred requests per second., nivel: B1, tema: backend }
+  - { termino: bottleneck, categoria: noun, traduccion_es: cuello de botella, definicion_en: The slowest part of a system that limits its speed., ejemplo_en: The database is the bottleneck of the whole app., nivel: B1, tema: backend }
+  - { termino: load balancer, categoria: noun, traduccion_es: balanceador de carga, definicion_en: A tool that shares incoming traffic between several servers., ejemplo_en: The load balancer sends each request to a free server., nivel: B1, tema: backend }
+  - { termino: retry, categoria: noun, traduccion_es: reintento, definicion_en: A new attempt to do something after it failed., ejemplo_en: The client makes a retry after two seconds., nivel: B1, tema: backend }
+  - { termino: rate limit, categoria: noun, traduccion_es: límite de peticiones, definicion_en: A rule that limits how many requests a client can send., ejemplo_en: The rate limit is one hundred requests per minute., nivel: B1, tema: backend }
+  - { termino: container, categoria: noun, traduccion_es: contenedor, definicion_en: A package that holds an app and everything it needs to run., ejemplo_en: Each service runs in its own container., nivel: B1, tema: backend }
+  - { termino: microservice, categoria: noun, traduccion_es: microservicio, definicion_en: A small independent service that does one specific job., ejemplo_en: The payment microservice only handles payments., nivel: B1, tema: backend }
+  - { termino: monitor, categoria: verb, traduccion_es: monitorizar / vigilar, definicion_en: To watch a system all the time to see how it works., ejemplo_en: We monitor the CPU and the memory of the server., nivel: B1, tema: backend }
+  - { termino: alert, categoria: noun, traduccion_es: alerta, definicion_en: An automatic message that warns the team about a problem., ejemplo_en: An alert arrives when the error rate is high., nivel: B1, tema: backend }
+  - { termino: dependency, categoria: noun, traduccion_es: dependencia, definicion_en: Another service or library that your code needs in order to work., ejemplo_en: If one dependency fails, the whole service can fail., nivel: B1, tema: backend }

@@ -1,0 +1,14 @@
+tipo: tramo
+id: b1-backend-t1
+nivel: B1
+tema: backend
+orden: 9
+fuente: { podcast: "ByteByteGo", youtubeId: "-mN3VyJuCjM", start: 30, end: 120, titulo: "What Is REST API?", canal: ByteByteGo }
+preguntaGuia: What does a REST API do when a client sends a request?
+palabrasClave: [query, payload, session, authentication, validate]
+preguntas:
+  - { id: b1-backend-t1-e1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "A REST API lets a client and a server exchange data over HTTP.", correcta: true, explicacion: "Una API REST es una forma de que un cliente y un servidor intercambien datos usando HTTP." }
+  - { id: b1-backend-t1-e2, tipo: opcion_multiple, enunciado: "What does the client send to a REST API?", opciones: ["A request", "A schema", "A container"], correcta: 0, explicacion: "El cliente envía una petición (request) y la API responde. Esquema y contenedor son conceptos distintos." }
+  - { id: b1-backend-t1-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The server answers with a response that includes a status code.", correcta: true, explicacion: "Toda respuesta HTTP incluye un código de estado (por ejemplo 200 o 404) que indica el resultado." }
+  - { id: b1-backend-t1-e4, tipo: opcion_multiple, enunciado: "Which part of a request can carry the data of a new order?", opciones: ["The payload", "The index", "The cache"], correcta: 0, explicacion: "El payload es la parte de la petición que lleva los datos, por ejemplo el producto y la cantidad de un pedido nuevo.", terminos: [payload] }
+revisado: false
