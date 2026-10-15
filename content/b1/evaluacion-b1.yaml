@@ -1,0 +1,357 @@
+tipo: evaluacion
+nivel: B1
+revisado: false
+recursos:
+  - tipo: lectura
+    id: b1-ev-l1
+    titulo: The Chatbot That Invented a Date
+    texto: |
+      Last month, our support team added a chatbot that summarizes customer tickets. The model has been trained on ten thousand old tickets, and its accuracy is now 91 percent. At first, everyone was happy.
+
+      One Friday, while Elena was reading a summary, she noticed a strange detail. The chatbot said that the new release was published on March 3, but the ticket never mentioned a date. This was a hallucination: the model had made an assumption and presented it as a fact. Elena was surprised because the rest of the summary was correct.
+
+      Elena and her colleague Marco decided to investigate. They found that many prompts were too vague. For example, the prompt "Summarize this ticket" gave no context and no format. If a prompt does not include constraints, the model sometimes fills the gaps with invented information.
+
+      So they refined the prompt. The new version asks for three lines, tells the model to use only the text of the ticket, and says that it must write "unknown" when a detail is missing. After the change, the hallucinations were reduced a lot.
+
+      Now the team has a simple rule: every summary must be verified against the original source before it is sent to a customer. Marco says that a reliable assistant is not a perfect assistant, but one whose mistakes are easy to find.
+  - tipo: lectura
+    id: b1-ev-l2
+    titulo: Orders Lost at Night
+    texto: |
+      Our online shop receives about two thousand orders every hour. For a long time, the order service saved each order directly in the database. It worked well until last winter, when sales grew fast. During a big promotion, the database became a bottleneck, and the latency went from 200 milliseconds to six seconds. Some requests failed, and a few orders were lost.
+
+      Priya, the backend engineer, proposed to use a queue. With a queue, the service does not write to the database immediately. It puts each order in a line, and a worker, which is a small program that reads the line, saves the orders one by one. If the database is slow, the orders wait safely instead of disappearing.
+
+      The team also added a retry: when the worker fails to save an order, it tries again up to three times. If the order still fails, it is moved to a separate queue so that an engineer can check it. Priya also set an alert that is sent when more than five hundred orders are waiting in the line.
+
+      The new system was tested in a staging environment before it was released. During the next promotion, the latency stayed under 300 milliseconds, and no order was lost. Priya says that the best part of the change is that the team can now scale the workers without touching the database.
+  - tipo: video
+    id: b1-ev-v1
+    fuente: { youtubeId: dSCFk168vmo, start: 5, end: 125, titulo: "Why do we split data into train test and validation sets?", canal: "Mısra Turp" }
+  - tipo: video
+    id: b1-ev-v2
+    fuente: { youtubeId: DYFocSiPOl8, start: 15, end: 115, titulo: "Message Queues in System Design", canal: "Hayk Simonyan" }
+preguntas:
+  # ---------- LECTURA: The Chatbot That Invented a Date (ia) ----------
+  - id: b1-ev-q01
+    bloque: lectura
+    recurso: b1-ev-l1
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "The ticket mentioned the date of the release."
+    correcta: false
+    explicacion: "El texto dice que el ticket «never mentioned a date». Por eso la fecha del chatbot era una alucinación: información inventada que el modelo presentó como hecho."
+  - id: b1-ev-q02
+    bloque: lectura
+    recurso: b1-ev-l1
+    tipo: opcion_multiple
+    enunciado: "What did Elena notice in the summary?"
+    opciones: ["A date that was not in the ticket.", "A spelling mistake in the title.", "A very long summary.", "A missing customer name."]
+    correcta: 0
+    explicacion: "Elena notó que el chatbot daba una fecha de publicación («March 3») que no aparecía en el ticket. La pregunta usa el pasado simple («noticed»): busca el hecho concreto que ocurrió."
+  - id: b1-ev-q03
+    bloque: lectura
+    recurso: b1-ev-l1
+    tipo: completar
+    enunciado: "Completa con el número según la lectura."
+    texto: "The accuracy of the model is now ___ percent."
+    respuesta: "91"
+    aceptadas: ["ninety-one", "ninety one"]
+    explicacion: "La lectura dice «its accuracy is now 91 percent». Accuracy es el porcentaje de predicciones correctas."
+  - id: b1-ev-q04
+    bloque: lectura
+    recurso: b1-ev-l1
+    tipo: opcion_multiple
+    enunciado: "Why was the prompt «Summarize this ticket» a problem?"
+    opciones: ["It was too long for the model.", "It gave no context and no format.", "It asked for three lines.", "It was written in Spanish."]
+    correcta: 1
+    explicacion: "El texto explica que el prompt era «too vague»: «gave no context and no format». Un prompt vago deja huecos que el modelo puede rellenar con datos inventados."
+  - id: b1-ev-q05
+    bloque: lectura
+    recurso: b1-ev-l1
+    tipo: ordenar
+    enunciado: "Ordena los hechos según ocurren en la lectura."
+    piezas: ["Elena noticed a wrong date.", "Elena and Marco investigated.", "They refined the prompt.", "The hallucinations were reduced."]
+    explicacion: "Primero Elena detecta el error, después investigan, luego afinan el prompt y como resultado se reducen las alucinaciones. En una narración, el orden de los párrafos suele seguir el orden de los hechos."
+  # ---------- LECTURA: Orders Lost at Night (backend) ----------
+  - id: b1-ev-q06
+    bloque: lectura
+    recurso: b1-ev-l2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "During the next promotion, the latency stayed under 300 milliseconds."
+    correcta: true
+    explicacion: "Es verdadero: «the latency stayed under 300 milliseconds, and no order was lost». Latency es el tiempo que tarda una petición en recibir respuesta."
+  - id: b1-ev-q07
+    bloque: lectura
+    recurso: b1-ev-l2
+    tipo: opcion_multiple
+    enunciado: "What is a worker in the text?"
+    opciones: ["A person who answers customers.", "A small program that reads the line and saves the orders.", "A copy of the database.", "A type of alert."]
+    correcta: 1
+    explicacion: "La lectura lo define con una oración de relativo: «a worker, which is a small program that reads the line». Las cláusulas con which/that suelen dar la definición de un término."
+  - id: b1-ev-q08
+    bloque: lectura
+    recurso: b1-ev-l2
+    tipo: completar
+    enunciado: "Completa con el número según la lectura."
+    texto: "When the worker fails to save an order, it tries again up to ___ times."
+    respuesta: three
+    aceptadas: ["3", "Three"]
+    explicacion: "El texto dice «it tries again up to three times». Esa repetición automática es un retry. «Up to» significa «como máximo»."
+  - id: b1-ev-q09
+    bloque: lectura
+    recurso: b1-ev-l2
+    tipo: emparejar
+    enunciado: "Relaciona cada elemento con su función en el texto."
+    pares:
+      - { a: "The queue", b: "Keeps the orders waiting safely" }
+      - { a: "The retry", b: "Tries to save the order again" }
+      - { a: "The separate queue", b: "Stores the orders that still fail" }
+      - { a: "The alert", b: "Warns the team about many waiting orders" }
+    explicacion: "La cola guarda los pedidos a salvo, el retry reintenta guardar, la cola separada recoge los que siguen fallando para que un ingeniero los revise, y la alerta avisa cuando hay más de quinientos pedidos esperando."
+  - id: b1-ev-q10
+    bloque: lectura
+    recurso: b1-ev-l2
+    tipo: opcion_multiple
+    enunciado: "According to Priya, what is the best part of the change?"
+    opciones: ["The shop receives more orders.", "The database is now free.", "The team can scale the workers without touching the database.", "The alert is sent every hour."]
+    correcta: 2
+    explicacion: "Priya dice que lo mejor es que el equipo puede escalar los workers («scale the workers») sin tocar la base de datos. Scale significa aumentar la capacidad."
+  # ---------- LISTENING: train, test and validation sets (ia) — por verificar ----------
+  - id: b1-ev-q11
+    bloque: listening
+    recurso: b1-ev-v1
+    tipo: opcion_multiple
+    enunciado: "What is the main topic of the video? (por verificar)"
+    opciones: ["How to design a login page", "Why data is divided into separate sets", "How to deploy a web server", "How to write CSS animations"]
+    correcta: 1
+    explicacion: "El título del video es «Why do we split data into train, test and validation sets?»: trata de por qué se divide el conjunto de datos en partes separadas. Escuchar el título y las primeras frases ayuda a identificar el tema principal."
+  - id: b1-ev-q12
+    bloque: listening
+    recurso: b1-ev-v1
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el video? (por verificar)"
+    afirmacion: "A good way to measure a model is to use only the data it has already seen during training."
+    correcta: false
+    explicacion: "Para medir de verdad un modelo se necesitan datos que no vio al entrenar. Si lo evalúas con los mismos datos, el resultado parece mejor de lo que será con datos nuevos."
+  - id: b1-ev-q13
+    bloque: listening
+    recurso: b1-ev-v1
+    tipo: completar
+    enunciado: "Completa con la palabra que describe el conjunto con el que se enseña al modelo. (por verificar)"
+    texto: "The data used to teach the model is called the ___ set."
+    respuesta: train
+    aceptadas: [training, Train, Training]
+    explicacion: "El conjunto de entrenamiento (train o training set) es el que el modelo usa para aprender. Train es el verbo y también se usa como modificador: «the train set»."
+  - id: b1-ev-q14
+    bloque: listening
+    recurso: b1-ev-v1
+    tipo: emparejar
+    enunciado: "Relaciona cada conjunto de datos con su uso. (por verificar)"
+    pares:
+      - { a: "Train set", b: "Teach the model" }
+      - { a: "Validation set", b: "Compare and adjust the model during development" }
+      - { a: "Test set", b: "Final check with new data" }
+    explicacion: "El train set enseña al modelo, el validation set sirve para comparar y ajustar durante el desarrollo, y el test set se guarda para una comprobación final con datos nuevos."
+  - id: b1-ev-q15
+    bloque: listening
+    recurso: b1-ev-v1
+    tipo: ordenar
+    enunciado: "Ordena los pasos de un flujo típico de trabajo con datos. (por verificar)"
+    piezas: ["Split the dataset.", "Train the model.", "Adjust it with the validation set.", "Check it with the test set."]
+    explicacion: "Primero se divide el dataset, luego se entrena, después se ajusta con la validación y al final se comprueba con el test. El test va al final para que siga siendo una prueba con datos nuevos."
+  # ---------- LISTENING: Message Queues in System Design (backend) — por verificar ----------
+  - id: b1-ev-q16
+    bloque: listening
+    recurso: b1-ev-v2
+    tipo: opcion_multiple
+    enunciado: "What is the video about? (por verificar)"
+    opciones: ["Message queues in a system", "Dark mode in web pages", "Unit tests for a form", "Training a language model"]
+    correcta: 0
+    explicacion: "El título es «Message Queues in System Design»: habla de colas de mensajes en el diseño de sistemas. Identificar la palabra clave repetida en el audio («queue», «message») te confirma el tema."
+  - id: b1-ev-q17
+    bloque: listening
+    recurso: b1-ev-v2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el video? (por verificar)"
+    afirmacion: "A message queue lets one part of a system send messages to another part without waiting for an immediate answer."
+    correcta: true
+    explicacion: "Es la idea básica de una cola de mensajes: comunicación asíncrona. El emisor deja el mensaje en la cola y sigue trabajando; otro componente lo procesa cuando puede."
+  - id: b1-ev-q18
+    bloque: listening
+    recurso: b1-ev-v2
+    tipo: completar
+    enunciado: "Completa con la palabra correcta. (por verificar)"
+    texto: "A queue helps a system to handle many requests without losing ___."
+    respuesta: messages
+    aceptadas: [message, Messages]
+    explicacion: "La cola guarda los mensajes hasta que se procesan, así que no se pierden aunque lleguen muchos a la vez. Recuerda: messages es plural porque habla de muchas peticiones."
+  - id: b1-ev-q19
+    bloque: listening
+    recurso: b1-ev-v2
+    tipo: opcion_multiple
+    enunciado: "Which problem can a queue help to avoid? (por verificar)"
+    opciones: ["A sudden peak of requests overloading a service", "A spelling mistake in the interface", "A slow image on the home page", "A missing label in the data"]
+    correcta: 0
+    explicacion: "Las colas absorben los picos de peticiones: los mensajes esperan en orden en lugar de saturar el servicio. Es el mismo problema de cuello de botella que aparece en la lectura de los pedidos."
+  - id: b1-ev-q20
+    bloque: listening
+    recurso: b1-ev-v2
+    tipo: emparejar
+    enunciado: "Relaciona cada elemento con su función. (por verificar)"
+    pares:
+      - { a: "Producer", b: "Sends the messages" }
+      - { a: "Queue", b: "Stores the messages until they are processed" }
+      - { a: "Consumer", b: "Reads and processes the messages" }
+    explicacion: "El producer (productor) envía mensajes, la queue los guarda en orden y el consumer (consumidor) los lee y procesa. Son los tres roles básicos de un sistema con colas."
+  # ---------- VOCABULARIO ----------
+  - id: b1-ev-q21
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "False information that an AI presents as if it were true is called a ___."
+    opciones: ["token", "template", "hallucination", "label"]
+    correcta: 2
+    explicacion: "Hallucination (alucinación) es el dato inventado que una IA presenta como verdadero. Un token es un fragmento de texto, una template es una plantilla y un label es la respuesta correcta de un ejemplo."
+  - id: b1-ev-q22
+    bloque: vocabulario
+    tipo: completar
+    enunciado: "Completa con el adjetivo correcto."
+    texto: "A test that passes and fails randomly is a ___ test."
+    respuesta: flaky
+    aceptadas: [Flaky]
+    explicacion: "Flaky describe una prueba inestable que falla al azar sin que cambie el código. Es distinto de «intermittent», que se aplica sobre todo a un error que aparece solo a veces."
+  - id: b1-ev-q23
+    bloque: vocabulario
+    tipo: emparejar
+    enunciado: "Relaciona cada término con su significado."
+    pares:
+      - { a: "bottleneck", b: "A point that slows down the whole system" }
+      - { a: "load balancer", b: "Shares the traffic between several servers" }
+      - { a: "rate limit", b: "A maximum number of requests allowed" }
+      - { a: "latency", b: "The time a request takes to get an answer" }
+    explicacion: "Bottleneck es el punto que frena todo el sistema, load balancer reparte el tráfico, rate limit fija un máximo de peticiones y latency es el tiempo de respuesta."
+  - id: b1-ev-q24
+    bloque: vocabulario
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "A workaround is a permanent solution that fixes the root cause."
+    correcta: false
+    explicacion: "Un workaround es una solución provisional que evita el problema sin resolver la causa raíz (root cause). La solución definitiva es otra cosa."
+  - id: b1-ev-q25
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "What does «vague» mean in «a vague prompt»?"
+    opciones: ["Very fast", "Not clear or not detailed enough", "Written in code", "Too expensive"]
+    correcta: 1
+    explicacion: "Vague significa vago o impreciso: sin claridad ni detalle suficiente. Un prompt vago produce una respuesta vaga, porque el modelo no tiene contexto."
+  - id: b1-ev-q26
+    bloque: vocabulario
+    tipo: completar
+    enunciado: "Completa con la palabra correcta."
+    texto: "With ___ loading, images are downloaded only when the user scrolls near them."
+    respuesta: lazy
+    aceptadas: [Lazy]
+    explicacion: "Lazy loading (carga diferida) retrasa la descarga de los recursos hasta que se necesitan, lo que mejora el rendimiento (performance) de la página."
+  - id: b1-ev-q27
+    bloque: vocabulario
+    tipo: ordenar
+    enunciado: "Ordena las partes para formar una frase correcta."
+    piezas: ["The pipeline", "is triggered", "after every", "commit."]
+    explicacion: "El pipeline se activa («is triggered») después de cada commit. Trigger como verbo significa activar o disparar un proceso automático."
+  - id: b1-ev-q28
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "Which verb means «to check that something is true or correct»?"
+    opciones: ["generate", "refine", "summarize", "verify"]
+    correcta: 3
+    explicacion: "Verify es verificar. Generate es generar, refine es afinar mejorando con pequeños cambios y summarize es resumir."
+  - id: b1-ev-q29
+    bloque: vocabulario
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "A regression is a bug in a feature that worked before."
+    correcta: true
+    explicacion: "Una regresión (regression) es un fallo en algo que antes funcionaba, normalmente tras un cambio. Por eso las pruebas de regresión se repiten después de cada versión."
+  - id: b1-ev-q30
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "In a relational database, another word for a row is a ___."
+    opciones: ["schema", "record", "index", "query"]
+    correcta: 1
+    explicacion: "Una fila (row) de una tabla es un registro (record). El schema es la estructura de las tablas, el index acelera las búsquedas y la query es la consulta."
+  # ---------- GRAMÁTICA ----------
+  - id: b1-ev-q31
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "Choose the correct sentence."
+    opciones: ["We have already fix the bug.", "We already have fix the bug.", "We have already fixed the bug.", "We has already fixed the bug."]
+    correcta: 2
+    explicacion: "El present perfect se forma con have/has + participio: «have fixed». Already va entre el auxiliar y el participio. Con «we» se usa have, no has."
+  - id: b1-ev-q32
+    bloque: gramatica
+    tipo: completar
+    enunciado: "Completa con la forma correcta del verbo «test»."
+    texto: "While I ___ the login page, the server crashed."
+    respuesta: was testing
+    aceptadas: ["Was testing"]
+    explicacion: "Una acción larga en progreso (past continuous: was testing) es interrumpida por otra corta (past simple: crashed). Se conectan con while o when."
+  - id: b1-ev-q33
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "If the smoke test ___, we will not release the build."
+    opciones: ["fails", "will fail", "failed", "is failing"]
+    correcta: 0
+    explicacion: "Primer condicional: if + presente simple, will + verbo. No se usa will después de if: «if the test fails», no «if the test will fail»."
+  - id: b1-ev-q34
+    bloque: gramatica
+    tipo: ordenar
+    enunciado: "Ordena las palabras para formar una oración en voz pasiva."
+    piezas: ["The tests", "are", "run", "every night."]
+    explicacion: "La pasiva en presente es sujeto + am/is/are + participio: «The tests are run». Se usa cuando importa la acción y no quién la hace."
+  - id: b1-ev-q35
+    bloque: gramatica
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso? Considera la gramática de la frase."
+    afirmacion: "The sentence «The tool which find bugs is free» is correct."
+    correcta: false
+    explicacion: "Es incorrecta: en la oración de relativo, «which» se refiere a «the tool» (singular), así que el verbo lleva -s: «which finds bugs». Which/that se usan para cosas; who para personas."
+  - id: b1-ev-q36
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "We use a queue ___ messages."
+    opciones: ["for avoid losing", "to avoid losing", "to avoiding losing", "avoid to lose"]
+    correcta: 1
+    explicacion: "Para expresar propósito se usa «to + infinitivo» (to avoid). Y el verbo avoid va seguido de gerundio (losing), nunca de infinitivo."
+  - id: b1-ev-q37
+    bloque: gramatica
+    tipo: completar
+    enunciado: "Completa con la expresión correcta."
+    texto: "We ___ build pages with tables, but now we use CSS grid."
+    respuesta: used to
+    aceptadas: ["Used to"]
+    explicacion: "«Used to + verbo» habla de hábitos o situaciones del pasado que ya no ocurren. Aquí contrasta con «now», que marca el cambio."
+  - id: b1-ev-q38
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "If we had more time, we ___ dark mode."
+    opciones: ["will add", "would add", "added", "have added"]
+    correcta: 1
+    explicacion: "Segundo condicional: if + pasado simple, would + verbo. Expresa una situación imaginaria o poco probable en el presente («no tenemos más tiempo»)."
+  - id: b1-ev-q39
+    bloque: gramatica
+    tipo: emparejar
+    enunciado: "Relaciona cada expresión con su significado."
+    pares:
+      - { a: "You have to log in", b: "It is necessary" }
+      - { a: "You don't have to log in", b: "It is not necessary" }
+      - { a: "You might log in", b: "It is possible" }
+    explicacion: "Have to indica obligación, don't have to indica que no es obligatorio (no confundir con «prohibido») y might expresa una posibilidad."
+  - id: b1-ev-q40
+    bloque: gramatica
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "«The page is too slow» means that the page is fast enough."
+    correcta: false
+    explicacion: "Too + adjetivo indica un exceso con consecuencia negativa: la página es demasiado lenta. «Fast enough» (adjetivo + enough) significa lo contrario: suficientemente rápida."
