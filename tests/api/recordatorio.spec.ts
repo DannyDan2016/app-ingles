@@ -40,3 +40,16 @@ test.describe('@api @seguridad GET /api/recordatorio', () => {
     expect(ics).toContain('TRIGGER:PT0M');
   });
 });
+
+test.describe('@api Perfil: recordatorio en el calendario', () => {
+  test('«Añadir a mi calendario» descarga recordatorio-ingles.ics', async ({ browser, baseURL }) => {
+    const ctx = await browser.newContext({ storageState: '.auth/admin.json', baseURL, extraHTTPHeaders: bypass, acceptDownloads: true });
+    const page = await ctx.newPage();
+    await page.goto('/perfil');
+    const enlace = page.getByRole('link', { name: 'Añadir a mi calendario' });
+    await expect(enlace).toBeVisible();
+    const [descarga] = await Promise.all([page.waitForEvent('download'), enlace.click()]);
+    expect(descarga.suggestedFilename()).toBe('recordatorio-ingles.ics');
+    await ctx.close();
+  });
+});
