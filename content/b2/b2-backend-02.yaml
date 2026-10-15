@@ -1,0 +1,34 @@
+tipo: leccion
+id: b2-backend-02
+nivel: B2
+tema: backend
+orden: 8
+titulo: By Q3 We Will Have Moved to Canary Releases
+objetivo: Puedo presentar un plan de fiabilidad con hitos futuros y delegar acciones.
+gramatica: "Future perfect y future continuous (By Q3 we will have defined an SLO; This time next month we'll be running canary releases) y causativo (We will have the vendor increase the quota)"
+lectura: |
+  Priya, the engineering manager, opens the reliability planning meeting for the next quarter.
+
+  "By the end of Q3, we will have defined an [[SLO|slo]] for every critical service," she says. "For checkout, the target is 99.9 percent. That gives us an [[error budget]] of about 43 minutes per month. If we spend it all, we will have stopped new features until the service is stable again."
+
+  Dan, the platform engineer, explains the deployment plan. "This time next month, we'll be running [[canary releases|canary release]] for the payment service: only five percent of the users will receive the new version. By the end of the quarter, we'll have moved the main application to a [[blue-green deployment]], so a rollback will take seconds. We'll also have all environments described as [[infrastructure as code]], and we will have the platform team review every change."
+
+  Lucía, the SRE, talks about monitoring. "By June, we will have added [[tracing]] to every service, so our [[observability]] will be much better. At the moment, a slow request is almost impossible to follow. In two months, we'll be reading complete traces instead of guessing."
+
+  Then she covers failure handling. "Every client will have a [[circuit breaker]], and the queues will apply [[backpressure]] when a consumer is too slow. If the recommendation service goes down, the shop will show popular products instead. That is a clear example of [[graceful degradation]]. We also need a proper [[failover]] for the database, and we'll have the cloud team test it twice a year."
+
+  The last point is the [[API gateway|api gateway]]. "Its quota is too low for the promotion season," Dan says. "We'll have the vendor increase it before October. Meanwhile, I'll be preparing the [[orchestration]] files, so that all the services start in the correct order."
+
+  Priya closes the meeting: "Next quarter we will be reviewing the results, and by then we should have our first full report."
+terminos: [observability, tracing, slo, failover, circuit breaker, backpressure, orchestration, blue-green deployment, canary release, infrastructure as code, graceful degradation, api gateway, error budget]
+ejercicios:
+  - { id: b2-backend-02-e1, tipo: opcion_multiple, enunciado: "By Q3, we ___ an SLO for every critical service.", opciones: ["will have defined", "will define", "will be defining"], correcta: 0, explicacion: "El future perfect (will have + participio) expresa una acción que estará terminada antes de un momento futuro. La expresión «by Q3» («para el tercer trimestre») es típica de este tiempo.", terminos: [slo] }
+  - { id: b2-backend-02-e2, tipo: completar, enunciado: "Completa con el future continuous (will be + -ing).", texto: "This time next month, we ___ running canary releases for the payment service.", respuesta: "will be", aceptadas: ["'ll be"], explicacion: "El future continuous (will be + -ing) describe una acción que estará en progreso en un momento concreto del futuro. «This time next month» indica ese momento.", terminos: [canary release] }
+  - { id: b2-backend-02-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Dan says the team will increase the API gateway quota without help from the vendor.", correcta: false, explicacion: "Dan dice «We'll have the vendor increase it». El causativo (have + persona + verbo base) indica que otra persona hace la acción; aquí es el proveedor quien amplía la cuota.", terminos: [api gateway] }
+  - { id: b2-backend-02-e4, tipo: emparejar, enunciado: "Empareja cada término con su significado.", pares: [{ a: error budget, b: margen de fallos permitido }, { a: failover, b: cambio automático a un sistema de respaldo }, { a: backpressure, b: frenar al emisor cuando el receptor no da abasto }, { a: graceful degradation, b: ofrecer menos funciones en lugar de caer del todo }], explicacion: "El error budget es el tiempo o porcentaje de fallos que un SLO permite. El failover traslada la carga a un sistema de respaldo. La backpressure hace que un componente lento pida a los demás que reduzcan el ritmo, y la graceful degradation mantiene el servicio con funciones reducidas.", terminos: [error budget, failover, backpressure, graceful degradation] }
+  - { id: b2-backend-02-e5, tipo: ordenar, enunciado: "Ordena la frase (causativo).", piezas: ["We", "will", "have", "the", "vendor", "increase", "the", "quota"], explicacion: "Causativo con have: have + persona + verbo en forma base. Indica que organizas o encargas que otra persona haga algo («the vendor increases the quota»).", terminos: [api gateway] }
+  - { id: b2-backend-02-e6, tipo: opcion_multiple, enunciado: "Which sentence uses the causative correctly?", opciones: ["We had the vendor patch the gateway.", "We had the vendor to patch the gateway.", "We had patch the gateway the vendor."], correcta: 0, explicacion: "En el causativo con persona, «have» va seguido de la persona y el verbo en infinitivo sin «to»: «had the vendor patch». Con «get», en cambio, sí se usa «to»: «got the vendor to patch».", terminos: [api gateway] }
+  - { id: b2-backend-02-e7, tipo: completar, enunciado: "Completa con el future perfect.", texto: "By June, we ___ finished moving every environment to infrastructure as code.", respuesta: "will have", aceptadas: ["'ll have"], explicacion: "«By + fecha futura» pide future perfect: will have + participio. La acción estará completada antes de junio.", terminos: [infrastructure as code] }
+  - { id: b2-backend-02-e8, tipo: opcion_multiple, enunciado: "Which sentence describes an action in progress at a specific future moment?", opciones: ["At 10 a.m. tomorrow we'll be deploying the canary.", "By 10 a.m. tomorrow we'll have deployed the canary.", "We deployed the canary at 10 a.m."], correcta: 0, explicacion: "«Will be + -ing» (future continuous) muestra la acción en desarrollo a las 10 a.m. La segunda opción (future perfect) dice que ya habrá terminado antes de esa hora, y la tercera es pasado simple.", terminos: [canary release] }
+video: { youtubeId: H5z70EBtEow, start: 15, end: 128, titulo: "Deployment Strategies Explained: Blue-Green vs. Canary vs. Rolling", canal: "CodeLucky" }
+revisado: false
