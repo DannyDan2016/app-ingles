@@ -2,6 +2,9 @@ import { test, expect } from '@playwright/test';
 import { rutas } from '../support/data';
 
 const { publicas } = rutas();
+// Manifest e iconos de la PWA son estáticos (force-static): la CDN de Vercel los sirve con ACAO `*`.
+// Públicos y sin datos de usuario; ver docs/seguridad.md (10098).
+const ESTATICOS_PWA = ['/manifest.webmanifest', '/icono-180.png', '/icono-192.png', '/icono-512.png', '/icono-maskable-512.png'];
 
 test.describe('@api @seguridad cabeceras de seguridad', () => {
   for (const ruta of publicas) {
@@ -22,7 +25,8 @@ test.describe('@api @seguridad cabeceras de seguridad', () => {
       expect(h['cross-origin-embedder-policy'], ruta).toBeUndefined();
       expect(h['x-powered-by']).toBeUndefined();
       // Sin CORS abierto en rutas propias (ZAP 10098 está en WARN por los estáticos de la CDN de Vercel).
-      expect(h['access-control-allow-origin'], `CORS en ${ruta}`).toBeUndefined();
+      if (ESTATICOS_PWA.includes(ruta)) expect([undefined, '*'], `CORS en ${ruta}`).toContain(h['access-control-allow-origin']);
+      else expect(h['access-control-allow-origin'], `CORS en ${ruta}`).toBeUndefined();
     });
   }
 });
