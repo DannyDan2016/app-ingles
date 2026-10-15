@@ -1,0 +1,16 @@
+tipo: tramo
+id: b2-frontend-t1
+nivel: B2
+tema: frontend
+orden: 12
+# Fragmento 293-409 s contrastado con la transcripción pública (subtítulos generados en directo, con errores): principios «operable» (foco visible), «understandable» (mensajes de error en formularios) y «robust» (estructura sólida) de WCAG/POUR, y los keyboard traps. Charla de conferencia con acento canadiense; ritmo pausado pero audio de sala. Alternativo: cOmehxAU_4s.
+fuente: { podcast: "StarCon KW", youtubeId: J4zg-XqUe0Q, start: 293, end: 409, titulo: "Web Accessibility is More than Colour Contrast", canal: "Kayleen Hamelin" }
+preguntaGuia: Why is color contrast not enough to make a website accessible?
+palabrasClave: [focus, semantic html]
+preguntas:
+  - { id: b2-frontend-t1-e1, tipo: opcion_multiple, enunciado: "What does the speaker say about the focus outline of interactive elements?", opciones: ["Every interaction should have an outline so that users can see it.", "It should always be removed to look cleaner.", "It is only needed for images."], correcta: 0, explicacion: "La ponente dice que no se debe eliminar el contorno de foco: cada elemento interactivo debe tener un contorno visible, para que quien navega con el teclado sepa dónde está.", terminos: [focus] }
+  - { id: b2-frontend-t1-e2, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "A blue focus outline on a blue site is easy to see.", correcta: false, explicacion: "Es falso: la ponente señala que con un sitio azul y un contorno azul («blue on blue») no se podrá ver el foco. Ese es un problema de contraste, pero ya dentro del principio «operable».", terminos: [focus] }
+  - { id: b2-frontend-t1-e3, tipo: opcion_multiple, enunciado: "In a form, what should happen after the user submits it with missing fields?", opciones: ["The form should say which fields were missed and ask the user to fix them.", "The form should only change its colors.", "The form should do nothing."], correcta: 0, explicacion: "Es el ejemplo del principio «understandable»: un aviso solo visual, como un cambio de color, no ayuda a quien no distingue el rojo. Hay que explicar qué campos faltan.", terminos: [semantic html] }
+  - { id: b2-frontend-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "«Robust» means making sure that the site is structurally sound.", correcta: true, explicacion: "La ponente describe el principio «robust» como el más desconocido: comprobar que el sitio es sólido a nivel estructural (por ejemplo, que no falte una etiqueta de cierre). Así lo interpretan bien los navegadores y las tecnologías de apoyo.", terminos: [semantic html] }
+  - { id: b2-frontend-t1-e5, tipo: opcion_multiple, enunciado: "What is a keyboard trap?", opciones: ["When you tab through a page and cannot get in or out of an element.", "A shortcut to close the browser.", "A broken physical keyboard."], correcta: 0, explicacion: "Un keyboard trap ocurre cuando, al navegar con la tecla Tab, el foco entra en un componente (como un modal) y no se puede salir de él. Quien no usa el ratón queda bloqueado.", terminos: [focus] }
+revisado: false

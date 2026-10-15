@@ -1,0 +1,36 @@
+tipo: leccion
+id: b2-frontend-02
+nivel: B2
+tema: frontend
+orden: 11
+titulo: The Component, Which Was Written in 2019, Needs a Refactor
+objetivo: Puedo redactar la descripción de un pull request o un RFC con información añadida y tono formal.
+gramatica: "Non-defining relative clauses (The Button component, which was written in 2019, is used by 40 pages; Maya, who leads the platform team, approved it) y nominalización (The removal of the old API is a breaking change)"
+lectura: |
+  Pull request #482: Migrate the Button component to the design system
+
+  Description
+
+  The Button component, which was written in 2019, is used by 40 pages. This [[pull request]] migrates it to our [[design system]], which is maintained by the platform team. The migration reduces our [[tech debt]] and makes the interface consistent.
+
+  The removal of the old API is a [[breaking change]]. The `variant` prop, which was deprecated last year, no longer works. The new version is not [[backward compatible]] with it, so every page that uses the prop must be updated. I have already updated six pages in the [[monorepo]], where all our front-end applications live. I also resolved a [[merge conflict]] in the checkout package, which had been edited by Sam during the week.
+
+  Other changes: the component now has complete [[type safety]], and the [[linter]], which runs in CI, reports no warnings. We have deleted the old [[polyfill]], which supported a browser that nobody uses any more. The loading state, which used to live in a global store, is now local, so the [[state management]] is simpler. The [[changelog]], which is generated automatically, mentions the breaking change.
+
+  Review comments
+
+  Thanks, Sam. I have finished the [[code review]], and the changes look good in general. I wonder whether we could keep the old prop for one more release, which would give other teams some time to adapt. It might be a bit risky to remove it in the same version, and a short warning in the console would probably be enough. Maya, who leads the platform team, can decide. Apart from that, the improvement in readability is clear.
+
+  Sam replied that the extra release would add more complexity, but he agreed to discuss it with Maya before the merge.
+terminos: [pull request, code review, merge conflict, breaking change, backward compatible, monorepo, design system, tech debt, linter, type safety, polyfill, state management, changelog]
+ejercicios:
+  - { id: b2-frontend-02-e1, tipo: opcion_multiple, enunciado: "The Button component, ___ was written in 2019, is used by 40 pages.", opciones: ["which", "that", "who"], correcta: 0, explicacion: "En una non-defining relative clause (la que va entre comas y solo añade información) no se puede usar «that». Para cosas se usa «which» y para personas, «who».", terminos: [design system] }
+  - { id: b2-frontend-02-e2, tipo: completar, enunciado: "Completa con el pronombre relativo correcto.", texto: "Maya, ___ leads the platform team, can decide about the extra release.", respuesta: "who", explicacion: "Maya es una persona, así que usamos «who». Como la información entre comas solo añade un dato extra, el pronombre es obligatorio y no se puede sustituir por «that».", terminos: [design system] }
+  - { id: b2-frontend-02-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "According to the description, the removal of the old API is not a breaking change.", correcta: false, explicacion: "La descripción dice claramente que «the removal of the old API is a breaking change»: la nueva versión no es compatible con el uso antiguo de la prop «variant», y por eso hay que actualizar las páginas.", terminos: [breaking change, backward compatible] }
+  - { id: b2-frontend-02-e4, tipo: emparejar, enunciado: "Empareja cada término con su significado.", pares: [{ a: breaking change, b: cambio que rompe la compatibilidad }, { a: backward compatible, b: sigue funcionando con versiones anteriores }, { a: tech debt, b: deuda técnica }, { a: polyfill, b: código que añade funciones a navegadores antiguos }], explicacion: "Un breaking change obliga a los usuarios de una API a adaptar su código. Algo «backward compatible» sigue funcionando con lo anterior. La tech debt es el coste futuro de soluciones rápidas o antiguas, y un polyfill añade funciones modernas a navegadores que no las tienen.", terminos: [breaking change, backward compatible, tech debt, polyfill] }
+  - { id: b2-frontend-02-e5, tipo: ordenar, enunciado: "Ordena los fragmentos para formar una frase con una non-defining relative clause.", piezas: ["The Button component,", "which was written in 2019,", "is used by", "40 pages."], explicacion: "La cláusula de relativo no defining va entre comas, justo después del sustantivo al que añade información. La frase seguiría siendo correcta si la quitáramos: «The Button component is used by 40 pages».", terminos: [design system] }
+  - { id: b2-frontend-02-e6, tipo: opcion_multiple, enunciado: "Which noun phrase is the nominalization of «We removed the old API»?", opciones: ["The removal of the old API", "The remove of the old API", "The removed old API"], correcta: 0, explicacion: "La nominalización convierte un verbo en sustantivo para dar un tono más formal: remove pasa a removal. Es muy habitual en descripciones de PR, RFC y changelogs («The removal of...», «The migration of...»).", terminos: [changelog, breaking change] }
+  - { id: b2-frontend-02-e7, tipo: completar, enunciado: "Completa con el pronombre relativo de lugar.", texto: "The monorepo, ___ all our front-end applications live, needs six updates.", respuesta: "where", explicacion: "«Where» se usa para añadir información sobre un lugar, incluido un lugar «técnico» como un repositorio. Aquí equivale a «in which».", terminos: [monorepo] }
+  - { id: b2-frontend-02-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso? Considera la gramática de la frase.", afirmacion: "In a non-defining relative clause, we can replace «which» with «that».", correcta: false, explicacion: "Es falso: «that» solo se usa en defining relative clauses (sin comas). Con comas hay que usar «which» (cosas) o «who» (personas): «The linter, which runs in CI, reports no warnings».", terminos: [linter] }
+video: { youtubeId: Y9sp8gONv9M, start: 64, end: 170, titulo: "Code Review Tips (How I Review Code as a Staff Software Engineer)", canal: "Cody Engel" }
+revisado: false
