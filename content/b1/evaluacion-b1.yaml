@@ -6,7 +6,7 @@ recursos:
     id: b1-ev-l1
     titulo: The Chatbot That Invented a Date
     texto: |
-      Last month, our support team added a chatbot that summarizes customer tickets. The model has been trained on ten thousand old tickets, and its accuracy is now 91 percent. At first, everyone was happy.
+      Last month, our support team added a chatbot that summarizes customer tickets. The model has been trained on ten thousand old tickets, and in our tests 91 percent of its summaries were correct. At first, everyone was happy.
 
       One Friday, while Elena was reading a summary, she noticed a strange detail. The chatbot said that the new release was published on March 3, but the ticket never mentioned a date. This was a hallucination: the model had made an assumption and presented it as a fact. Elena was surprised because the rest of the summary was correct.
 
@@ -17,11 +17,11 @@ recursos:
       Now the team has a simple rule: every summary must be verified against the original source before it is sent to a customer. Marco says that a reliable assistant is not a perfect assistant, but one whose mistakes are easy to find.
   - tipo: lectura
     id: b1-ev-l2
-    titulo: Orders Lost at Night
+    titulo: Orders Lost During a Promotion
     texto: |
       Our online shop receives about two thousand orders every hour. For a long time, the order service saved each order directly in the database. It worked well until last winter, when sales grew fast. During a big promotion, the database became a bottleneck, and the latency went from 200 milliseconds to six seconds. Some requests failed, and a few orders were lost.
 
-      Priya, the backend engineer, proposed to use a queue. With a queue, the service does not write to the database immediately. It puts each order in a line, and a worker, which is a small program that reads the line, saves the orders one by one. If the database is slow, the orders wait safely instead of disappearing.
+      Priya, the backend engineer, suggested using a queue. With a queue, the service does not write to the database immediately. It puts each order in a line, and a worker, which is a small program that reads the line, saves the orders one by one. If the database is slow, the orders wait safely instead of disappearing.
 
       The team also added a retry: when the worker fails to save an order, it tries again up to three times. If the order still fails, it is moved to a separate queue so that an engineer can check it. Priya also set an alert that is sent when more than five hundred orders are waiting in the line.
 
@@ -49,16 +49,16 @@ preguntas:
     enunciado: "What did Elena notice in the summary?"
     opciones: ["A date that was not in the ticket.", "A spelling mistake in the title.", "A very long summary.", "A missing customer name."]
     correcta: 0
-    explicacion: "Elena notó que el chatbot daba una fecha de publicación («March 3») que no aparecía en el ticket. La pregunta usa el pasado simple («noticed»): busca el hecho concreto que ocurrió."
+    explicacion: "El texto dice que Elena «noticed a strange detail»: el resumen daba una fecha de publicación («March 3») que el ticket «never mentioned». Las demás opciones no aparecen en la lectura."
   - id: b1-ev-q03
     bloque: lectura
     recurso: b1-ev-l1
     tipo: completar
     enunciado: "Completa con el número según la lectura."
-    texto: "The accuracy of the model is now ___ percent."
+    texto: "In the team's tests, ___ percent of the summaries were correct."
     respuesta: "91"
     aceptadas: ["ninety-one", "ninety one"]
-    explicacion: "La lectura dice «its accuracy is now 91 percent». Accuracy es el porcentaje de predicciones correctas."
+    explicacion: "La lectura dice «in our tests 91 percent of its summaries were correct». Ese porcentaje de resultados correctos es lo que en IA se llama accuracy (exactitud)."
   - id: b1-ev-q04
     bloque: lectura
     recurso: b1-ev-l1
@@ -80,9 +80,9 @@ preguntas:
     recurso: b1-ev-l2
     tipo: verdadero_falso
     enunciado: "¿Verdadero o falso según la lectura?"
-    afirmacion: "During the next promotion, the latency stayed under 300 milliseconds."
+    afirmacion: "In the next promotion, the system stayed fast and no orders were lost."
     correcta: true
-    explicacion: "Es verdadero: «the latency stayed under 300 milliseconds, and no order was lost». Latency es el tiempo que tarda una petición en recibir respuesta."
+    explicacion: "Es verdadero: el texto dice «the latency stayed under 300 milliseconds, and no order was lost». Latency es el tiempo que tarda una petición en recibir respuesta; 300 ms es rápido comparado con los seis segundos de antes."
   - id: b1-ev-q07
     bloque: lectura
     recurso: b1-ev-l2
@@ -116,15 +116,15 @@ preguntas:
     recurso: b1-ev-l2
     tipo: opcion_multiple
     enunciado: "According to Priya, what is the best part of the change?"
-    opciones: ["The shop receives more orders.", "The database is now free.", "The team can scale the workers without touching the database.", "The alert is sent every hour."]
+    opciones: ["The shop receives more orders.", "The database is now faster.", "The team can scale the workers without touching the database.", "The alert is sent every hour."]
     correcta: 2
     explicacion: "Priya dice que lo mejor es que el equipo puede escalar los workers («scale the workers») sin tocar la base de datos. Scale significa aumentar la capacidad."
-  # ---------- LISTENING: train, test and validation sets (ia) — por verificar ----------
+  # ---------- LISTENING: train, test and validation sets (ia) ----------
   - id: b1-ev-q11
     bloque: listening
     recurso: b1-ev-v1
     tipo: opcion_multiple
-    enunciado: "What is the main topic of the video? (por verificar)"
+    enunciado: "What is the main topic of the video?"
     opciones: ["How to design a login page", "Why data is divided into separate sets", "How to deploy a web server", "How to write CSS animations"]
     correcta: 1
     explicacion: "El título del video es «Why do we split data into train, test and validation sets?»: trata de por qué se divide el conjunto de datos en partes separadas. Escuchar el título y las primeras frases ayuda a identificar el tema principal."
@@ -132,7 +132,7 @@ preguntas:
     bloque: listening
     recurso: b1-ev-v1
     tipo: verdadero_falso
-    enunciado: "¿Verdadero o falso según el video? (por verificar)"
+    enunciado: "¿Verdadero o falso según el video?"
     afirmacion: "A good way to measure a model is to use only the data it has already seen during training."
     correcta: false
     explicacion: "Para medir de verdad un modelo se necesitan datos que no vio al entrenar. Si lo evalúas con los mismos datos, el resultado parece mejor de lo que será con datos nuevos."
@@ -140,7 +140,7 @@ preguntas:
     bloque: listening
     recurso: b1-ev-v1
     tipo: completar
-    enunciado: "Completa con la palabra que describe el conjunto con el que se enseña al modelo. (por verificar)"
+    enunciado: "Completa con la palabra que describe el conjunto con el que se enseña al modelo."
     texto: "The data used to teach the model is called the ___ set."
     respuesta: train
     aceptadas: [training, Train, Training]
@@ -149,7 +149,7 @@ preguntas:
     bloque: listening
     recurso: b1-ev-v1
     tipo: emparejar
-    enunciado: "Relaciona cada conjunto de datos con su uso. (por verificar)"
+    enunciado: "Relaciona cada conjunto de datos con su uso."
     pares:
       - { a: "Train set", b: "Teach the model" }
       - { a: "Validation set", b: "Compare and adjust the model during development" }
@@ -159,15 +159,15 @@ preguntas:
     bloque: listening
     recurso: b1-ev-v1
     tipo: ordenar
-    enunciado: "Ordena los pasos de un flujo típico de trabajo con datos. (por verificar)"
+    enunciado: "Ordena los pasos de un flujo típico de trabajo con datos."
     piezas: ["Split the dataset.", "Train the model.", "Adjust it with the validation set.", "Check it with the test set."]
     explicacion: "Primero se divide el dataset, luego se entrena, después se ajusta con la validación y al final se comprueba con el test. El test va al final para que siga siendo una prueba con datos nuevos."
-  # ---------- LISTENING: Message Queues in System Design (backend) — por verificar ----------
+  # ---------- LISTENING: Message Queues in System Design (backend) ----------
   - id: b1-ev-q16
     bloque: listening
     recurso: b1-ev-v2
     tipo: opcion_multiple
-    enunciado: "What is the video about? (por verificar)"
+    enunciado: "What is the video about?"
     opciones: ["Message queues in a system", "Dark mode in web pages", "Unit tests for a form", "Training a language model"]
     correcta: 0
     explicacion: "El título es «Message Queues in System Design»: habla de colas de mensajes en el diseño de sistemas. Identificar la palabra clave repetida en el audio («queue», «message») te confirma el tema."
@@ -175,32 +175,32 @@ preguntas:
     bloque: listening
     recurso: b1-ev-v2
     tipo: verdadero_falso
-    enunciado: "¿Verdadero o falso según el video? (por verificar)"
-    afirmacion: "A message queue lets one part of a system send messages to another part without waiting for an immediate answer."
-    correcta: true
-    explicacion: "Es la idea básica de una cola de mensajes: comunicación asíncrona. El emisor deja el mensaje en la cola y sigue trabajando; otro componente lo procesa cuando puede."
+    enunciado: "¿Verdadero o falso según el video?"
+    afirmacion: "If the consumer is down for a few minutes, all the messages in the queue are lost."
+    correcta: false
+    explicacion: "Es falso: la cola guarda los mensajes hasta que se procesan. Si el consumidor se cae, los mensajes esperan en la cola y se procesan cuando vuelve. Por eso se dice que el productor y el consumidor están desacoplados (decoupled)."
   - id: b1-ev-q18
     bloque: listening
     recurso: b1-ev-v2
     tipo: completar
-    enunciado: "Completa con la palabra correcta. (por verificar)"
-    texto: "A queue helps a system to handle many requests without losing ___."
-    respuesta: messages
-    aceptadas: [message, Messages]
-    explicacion: "La cola guarda los mensajes hasta que se procesan, así que no se pierden aunque lleguen muchos a la vez. Recuerda: messages es plural porque habla de muchas peticiones."
+    enunciado: "Completa con el adjetivo correcto."
+    texto: "A message queue allows ___ communication: the sender does not wait for an immediate answer."
+    respuesta: asynchronous
+    aceptadas: [async]
+    explicacion: "Asynchronous (asíncrono) significa que el emisor no espera la respuesta: deja el mensaje en la cola y sigue trabajando, y otro componente lo procesa después. Lo contrario es synchronous: esperar la respuesta antes de continuar."
   - id: b1-ev-q19
     bloque: listening
     recurso: b1-ev-v2
     tipo: opcion_multiple
-    enunciado: "Which problem can a queue help to avoid? (por verificar)"
+    enunciado: "Which problem can a queue help to avoid?"
     opciones: ["A sudden peak of requests overloading a service", "A spelling mistake in the interface", "A slow image on the home page", "A missing label in the data"]
     correcta: 0
-    explicacion: "Las colas absorben los picos de peticiones: los mensajes esperan en orden en lugar de saturar el servicio. Es el mismo problema de cuello de botella que aparece en la lectura de los pedidos."
+    explicacion: "Las colas absorben los picos de peticiones: cuando llegan muchas a la vez, la cola crece y los mensajes esperan su turno en lugar de saturar el servicio. Además, se pueden añadir más workers para procesarlos. Las otras opciones son problemas de interfaz o de datos, no de carga."
   - id: b1-ev-q20
     bloque: listening
     recurso: b1-ev-v2
     tipo: emparejar
-    enunciado: "Relaciona cada elemento con su función. (por verificar)"
+    enunciado: "Relaciona cada elemento con su función."
     pares:
       - { a: "Producer", b: "Sends the messages" }
       - { a: "Queue", b: "Stores the messages until they are processed" }
@@ -218,7 +218,7 @@ preguntas:
     bloque: vocabulario
     tipo: completar
     enunciado: "Completa con el adjetivo correcto."
-    texto: "A test that passes and fails randomly is a ___ test."
+    texto: "A test that sometimes passes and sometimes fails without any change in the code is a ___ test."
     respuesta: flaky
     aceptadas: [Flaky]
     explicacion: "Flaky describe una prueba inestable que falla al azar sin que cambie el código. Es distinto de «intermittent», que se aplica sobre todo a un error que aparece solo a veces."
@@ -292,7 +292,7 @@ preguntas:
   - id: b1-ev-q32
     bloque: gramatica
     tipo: completar
-    enunciado: "Completa con la forma correcta del verbo «test»."
+    enunciado: "Completa con el verbo «test» en la forma que expresa una acción en progreso en el pasado."
     texto: "While I ___ the login page, the server crashed."
     respuesta: was testing
     aceptadas: ["Was testing"]
@@ -301,9 +301,9 @@ preguntas:
     bloque: gramatica
     tipo: opcion_multiple
     enunciado: "If the smoke test ___, we will not release the build."
-    opciones: ["fails", "will fail", "failed", "is failing"]
+    opciones: ["fails", "will fail", "failed", "would fail"]
     correcta: 0
-    explicacion: "Primer condicional: if + presente simple, will + verbo. No se usa will después de if: «if the test fails», no «if the test will fail»."
+    explicacion: "Primer condicional: if + presente simple, will + verbo. No se usa will después de if («if the test will fail» es incorrecto). «Failed» y «would fail» corresponden al segundo condicional, que pediría «would not release»."
   - id: b1-ev-q34
     bloque: gramatica
     tipo: ordenar
@@ -327,11 +327,11 @@ preguntas:
   - id: b1-ev-q37
     bloque: gramatica
     tipo: completar
-    enunciado: "Completa con la expresión correcta."
+    enunciado: "Completa con la expresión de dos palabras que indica un hábito del pasado."
     texto: "We ___ build pages with tables, but now we use CSS grid."
     respuesta: used to
     aceptadas: ["Used to"]
-    explicacion: "«Used to + verbo» habla de hábitos o situaciones del pasado que ya no ocurren. Aquí contrasta con «now», que marca el cambio."
+    explicacion: "«Used to + verbo» habla de hábitos o situaciones del pasado que ya no ocurren. Aquí contrasta con «now», que marca el cambio. Ojo: en frases afirmativas se escribe «used to», no «use to»."
   - id: b1-ev-q38
     bloque: gramatica
     tipo: opcion_multiple
