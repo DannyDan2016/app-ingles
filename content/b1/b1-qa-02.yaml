@@ -69,4 +69,4 @@ ejercicios:
     pares: [{ a: coverage, b: parte del código que prueban los tests }, { a: assertion, b: línea que comprueba un resultado }, { a: flaky, b: prueba que falla al azar }, { a: skip, b: no ejecutar una prueba a propósito }]
     explicacion: "Vocabulario clave de la automatización. Ojo: «skip» no significa borrar la prueba, solo no ejecutarla por ahora."
     terminos: [coverage, assertion, flaky, skip]
-revisado: false
+revisado: true

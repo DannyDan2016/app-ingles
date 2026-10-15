@@ -25,4 +25,4 @@ ejercicios:
   - { id: b1-ia-01-e7, tipo: completar, enunciado: "Completa con «for» o «since».", texto: "The accuracy has improved ___ last Friday.", respuesta: "since", explicacion: "«Since» va con un momento concreto de inicio (last Friday, 2020, Monday). «For» va con una duración (for two weeks, for three days).", terminos: [accuracy, improve] }
   - { id: b1-ia-01-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "There are more tickets in Spanish than in English in the data.", correcta: false, explicacion: "Es al revés: hay muchos más tickets en inglés, y eso crea un sesgo (bias) que hace que el modelo funcione peor en español.", terminos: [bias] }
 video: { youtubeId: qYNweeDHiyU, start: 173, end: 289, titulo: "AI, Machine Learning, Deep Learning and Generative AI Explained", canal: "IBM Technology" }
-revisado: false
+revisado: true

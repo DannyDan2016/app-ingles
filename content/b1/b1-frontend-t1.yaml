@@ -13,4 +13,4 @@ preguntas:
   - { id: b1-frontend-t1-e3, tipo: opcion_multiple, enunciado: "In the DOM tree of the example, which element is the root?", opciones: ["The html element", "The body element", "The head element"], correcta: 0, explicacion: "El elemento html es la raíz del árbol; dentro de él están head y body, y dentro de estos, el resto de elementos.", terminos: [dom, element] }
   - { id: b1-frontend-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "The DOM organizes the elements of the page in a tree.", correcta: true, explicacion: "El presentador habla de una representación «tree-like»: cada elemento cuelga de otro, como las ramas de un árbol.", terminos: [dom, element] }
   - { id: b1-frontend-t1-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "After the page loads, JavaScript cannot change the title of the page.", correcta: false, explicacion: "En el ejemplo, el presentador accede a la propiedad title del objeto document, la cambia a «my website» y el título cambia de forma dinámica.", terminos: [dom] }
-revisado: false
+revisado: true

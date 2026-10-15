@@ -33,4 +33,4 @@ ejercicios:
   - { id: b1-frontend-02-e6, tipo: opcion_multiple, enunciado: "Un compañero quiere publicar un formulario sin validación. ¿Qué consejo es correcto?", opciones: ["You should add validation first.", "You should to add validation first.", "You would to add validation first."], correcta: 0, explicacion: "«Should» va seguido del verbo base, sin «to». Sirve para dar un consejo o una recomendación.", terminos: [validation] }
   - { id: b1-frontend-02-e7, tipo: completar, enunciado: "Completa con el término correcto.", texto: "Because the request is ___, the data arrives after the page is shown.", respuesta: asynchronous, explicacion: "Una petición asíncrona no bloquea el resto del código: la página sigue funcionando mientras espera la respuesta del servidor.", terminos: [asynchronous, fetch] }
   - { id: b1-frontend-02-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "In the second conditional, we use «would» in the if-clause.", correcta: false, explicacion: "Es falso: en la cláusula con «if» va el pasado simple (If we had more time) y «would» va en la cláusula del resultado." }
-revisado: false
+revisado: true

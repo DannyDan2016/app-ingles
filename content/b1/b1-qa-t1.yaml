@@ -43,4 +43,4 @@ preguntas:
     correcta: 0
     explicacion: "El video lo dice claro: «If they fail, stop dependent work and fix the basic problem». Seguir probando solo repetiría el mismo fallo de base."
     terminos: [smoke test]
-revisado: false
+revisado: true

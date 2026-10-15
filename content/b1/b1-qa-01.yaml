@@ -69,4 +69,4 @@ ejercicios:
     correcta: 0
     explicacion: "«Intermittent» significa que ocurre de forma irregular. Estos defectos son difíciles de reproducir, por eso conviene anotar el entorno y los pasos exactos."
     terminos: [intermittent, defect, reproduce]
-revisado: false
+revisado: true
