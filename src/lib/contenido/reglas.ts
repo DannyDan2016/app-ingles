@@ -1,4 +1,4 @@
-import { archivoSchema, BLOQUES, type Catalogo, type Ejercicio, type EntradaGlosario, type Evaluacion, type Leccion, type Tramo } from './esquema';
+import { archivoSchema, BLOQUES, type Catalogo, type Ejercicio, type EntradaGlosario, type Evaluacion, type Leccion, type PreguntaEntrevista, type Shadowing, type Tramo } from './esquema';
 import { terminosDeLectura } from './lectura';
 
 export type ArchivoCargado = { ruta: string; datos: unknown; demo: boolean; /** Mensaje si el archivo no se pudo leer o parsear (YAML mal formado). */ errorLectura?: string };
@@ -19,6 +19,22 @@ function reglasArchivo(ruta: string, d: { tipo: string; nivel: string; tema?: st
     if (d.id !== nombre) err.push(`${ruta}: el id ${d.id} no coincide con el nombre del archivo`);
     const temaEnNombre = nombre.split('-')[1];
     if (temaEnNombre !== d.tema) err.push(`${ruta}: tema ${d.tema} no coincide con el nombre del archivo (${nombre})`);
+  }
+  return err;
+}
+
+/** content/entrevistas/preguntas-<rol>.yaml y content/entrevistas/shadowing-<rol>.yaml (id = shadowing-<rol>). */
+function reglasEntrevista(ruta: string, d: { tipo: 'entrevistas'; rol: string; preguntas: { id: string }[] } | Shadowing): string[] {
+  const err: string[] = [];
+  const esperado = d.tipo === 'entrevistas' ? `content/entrevistas/preguntas-${d.rol}.yaml` : `content/entrevistas/shadowing-${d.rol}.yaml`;
+  if (ruta !== esperado) err.push(`${ruta}: debe estar en ${esperado}`);
+  if (d.tipo === 'entrevistas') {
+    for (const p of d.preguntas) if (!p.id.startsWith(`ent-${d.rol}-`)) err.push(`${p.id}: el id debe empezar por ent-${d.rol}-`);
+  } else {
+    if (d.id !== `shadowing-${d.rol}`) err.push(`${ruta}: el id debe ser shadowing-${d.rol}`);
+    d.frases.forEach((f, i) => {
+      if (f.end <= f.start || f.end - f.start > 15) err.push(`${d.id}: frase ${i + 1} debe durar entre 1 y 15 s`);
+    });
   }
   return err;
 }
@@ -81,6 +97,7 @@ export function validarCatalogo(archivos: ArchivoCargado[], opts: { estricto: bo
   const lecciones: Leccion[] = []; const tramos: Tramo[] = []; const glosario: EntradaGlosario[] = [];
   const evaluaciones: { ev: Evaluacion; demo: boolean }[] = [];
   const demoIds = new Set<string>();
+  const entrevistas: PreguntaEntrevista[] = []; const shadowing: Shadowing[] = [];
 
   for (const a of archivos) {
     if (a.errorLectura !== undefined) { errores.push(`${a.ruta}: YAML mal formado: ${a.errorLectura}`); continue; }
@@ -90,6 +107,13 @@ export function validarCatalogo(archivos: ArchivoCargado[], opts: { estricto: bo
       continue;
     }
     const d = r.data;
+    if (d.tipo === 'entrevistas' || d.tipo === 'shadowing') {
+      if (!a.demo) errores.push(...reglasEntrevista(a.ruta, d));
+      if (!d.revisado && !a.demo) (opts.estricto ? errores : avisos).push(`${a.ruta}: revisado: false`);
+      if (d.tipo === 'entrevistas') entrevistas.push(...d.preguntas.map((p) => ({ ...p, rol: d.rol })));
+      else shadowing.push(d);
+      continue;
+    }
     if (!a.demo) errores.push(...reglasArchivo(a.ruta, d));
     if (d.tipo === 'evaluacion') { evaluaciones.push({ ev: d, demo: a.demo }); continue; }
     if (d.tipo === 'glosario') glosario.push(...d.entradas);
@@ -155,6 +179,11 @@ export function validarCatalogo(archivos: ArchivoCargado[], opts: { estricto: bo
       if (x.demo) porNivel.set(x.ev.nivel, x);
     } else errores.push(`evaluación ${x.ev.nivel} duplicada`);
   }
-  const catalogo: Catalogo = { lecciones, tramos, glosario, evaluaciones: [...porNivel.values()].map((x) => x.ev) };
+  const idsPregunta = new Set<string>();
+  for (const p of entrevistas) {
+    if (idsPregunta.has(p.id)) errores.push(`id duplicado: ${p.id}`);
+    idsPregunta.add(p.id);
+  }
+  const catalogo: Catalogo = { lecciones, tramos, glosario, evaluaciones: [...porNivel.values()].map((x) => x.ev), entrevistas, shadowing };
   return { errores, avisos, catalogo };
 }

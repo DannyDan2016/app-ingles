@@ -5,6 +5,7 @@ export function idsDeVideo(c: Catalogo): string[] {
     ...c.lecciones.flatMap((l) => (l.video ? [l.video.youtubeId] : [])),
     ...c.tramos.map((t) => t.fuente.youtubeId),
     ...c.evaluaciones.flatMap((e) => e.recursos.flatMap((r) => (r.tipo === 'video' ? [r.fuente.youtubeId] : []))),
+    ...c.shadowing.map((s) => s.video.youtubeId),
   ])];
 }
 const CAIDO = new Set([401, 403, 404, 410]);

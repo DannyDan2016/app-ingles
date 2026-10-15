@@ -64,7 +64,25 @@ export const evaluacionSchema = z.object({
   preguntas: z.array(preguntaSchema).min(20),
 });
 
-export const archivoSchema = z.discriminatedUnion('tipo', [leccionSchema, tramoSchema, glosarioSchema, evaluacionSchema]);
+export const ROLES_ENTREVISTA = ['general', 'ia', 'qa', 'backend', 'frontend'] as const;
+export const NIVELES_ENTREVISTA = ['A2', 'B1', 'B2'] as const;
+const rolEntrevista = z.enum(ROLES_ENTREVISTA);
+export const preguntaEntrevistaSchema = z.object({
+  id, nivel: z.enum(NIVELES_ENTREVISTA), pregunta: texto, respuesta: texto,
+  estructuras: z.array(texto).min(4).max(6),
+  vocabulario: z.array(z.object({ termino: texto, traduccion: texto })).min(1).max(8),
+});
+export const bancoEntrevistasSchema = z.object({
+  tipo: z.literal('entrevistas'), rol: rolEntrevista, revisado: z.boolean(),
+  preguntas: z.array(preguntaEntrevistaSchema).min(1),
+});
+export const shadowingSchema = z.object({
+  tipo: z.literal('shadowing'), id, rol: rolEntrevista, nivel: z.enum(['B1', 'B2']), titulo: texto, revisado: z.boolean(),
+  video: videoSchema.pick({ youtubeId: true, titulo: true, canal: true }),
+  frases: z.array(z.object({ texto, traduccion: texto, start: z.number().int().min(0), end: z.number().int().min(1) })).length(6),
+});
+
+export const archivoSchema = z.discriminatedUnion('tipo', [leccionSchema, tramoSchema, glosarioSchema, evaluacionSchema, bancoEntrevistasSchema, shadowingSchema]);
 
 export type Nivel = z.infer<typeof nivel>;
 export type Tema = z.infer<typeof tema>;
@@ -77,4 +95,8 @@ export type Bloque = (typeof BLOQUES)[number];
 export type Recurso = z.infer<typeof recursoSchema>;
 export type Pregunta = z.infer<typeof preguntaSchema>;
 export type Evaluacion = z.infer<typeof evaluacionSchema>;
-export type Catalogo = { lecciones: Leccion[]; tramos: Tramo[]; glosario: EntradaGlosario[]; evaluaciones: Evaluacion[] };
+export type RolEntrevista = (typeof ROLES_ENTREVISTA)[number];
+export type NivelEntrevista = (typeof NIVELES_ENTREVISTA)[number];
+export type PreguntaEntrevista = z.infer<typeof preguntaEntrevistaSchema> & { rol: RolEntrevista };
+export type Shadowing = z.infer<typeof shadowingSchema>;
+export type Catalogo = { lecciones: Leccion[]; tramos: Tramo[]; glosario: EntradaGlosario[]; evaluaciones: Evaluacion[]; entrevistas: PreguntaEntrevista[]; shadowing: Shadowing[] };
