@@ -6,18 +6,18 @@ recursos:
     id: a2-ev-l1
     titulo: A Slow Checkout Page
     texto: |
-      Last Monday, Sam, a tester at an online shop, checked the checkout page on his phone. The page was very slow. He clicked the pay button, but the screen stayed white for ten seconds. Then an error message appeared: "Something went wrong." Sam tried again three times and got the same result. He did not find the problem on his laptop, so he knew it only happened on phones.
+      Last Monday, Sam, a tester at an online shop, checked the checkout page on his phone. This is the page where users pay. The page was very slow. He clicked the pay button, but the screen stayed white for ten seconds. Then an error message appeared: "Something went wrong." Sam tried again three times and got the same result. After that, he opened the same page on his laptop, and it worked well. So he thought the problem only happened on phones.
 
-      He wrote a short report with the steps and a screenshot. In the afternoon, the developer, Lucia, read it. She said, "You must always write the phone model in the report." Sam can add that information next time. Lucia fixed the bug on Tuesday, and Sam tested the page again. This time, the payment worked fast.
+      He wrote a short bug report with the steps and a screenshot. In the afternoon, the developer, Lucia, read it. She said, "You must always write the phone model in the report." Sam answered, "OK, I can add it now." Lucia fixed the bug on Tuesday, and Sam tested the page on his phone again. This time, everything worked fast.
   - tipo: lectura
     id: a2-ev-l2
     titulo: Which Menu Is Better?
     texto: |
       Our team has two designs for the mobile menu. Design A is simpler than Design B. It has four big buttons and a white background. Design B is more colorful, but it has eight small buttons, so it is harder to use on a small screen.
 
-      Mia, the designer, thinks Design A is the best option because users can find the page they need faster. Tom, the developer, says Design B looks nicer, but it is slower than Design A. He also says the menu is going to need more time to build.
+      Mia, the designer, thinks Design A is the better option because users can find the page they need faster. Tom, the developer, says Design B looks nicer, but it is more difficult to build. He thinks it is going to take two more days.
 
-      The team decided to test both designs with ten users next week. If users like Design B more, the team will change the layout. If not, they will keep Design A.
+      The team decided to test both designs with ten users next week. If users like Design B more, the team will use it. If not, they will keep Design A.
   - tipo: video
     id: a2-ev-v1
     fuente: { youtubeId: qMxuthTIQq4, start: 10, end: 100, titulo: "What is an LLM? | Large Language Models Explained Simply", canal: "MyaPya" }
@@ -31,9 +31,9 @@ preguntas:
     recurso: a2-ev-l1
     tipo: verdadero_falso
     enunciado: "¿Verdadero o falso según la lectura?"
-    afirmacion: "Sam checked the checkout page on his laptop."
+    afirmacion: "Sam clicked the pay button only one time."
     correcta: false
-    explicacion: "El texto dice que Sam revisó la página «on his phone». En el laptop no encontró el problema."
+    explicacion: "Después del primer clic, «Sam tried again three times»: lo intentó varias veces más. Repetir los pasos es lo que hace un tester para confirmar un bug."
   - id: a2-ev-q02
     bloque: lectura
     recurso: a2-ev-l1
@@ -46,10 +46,10 @@ preguntas:
     bloque: lectura
     recurso: a2-ev-l1
     tipo: opcion_multiple
-    enunciado: "Why did Sam know the problem only happened on phones?"
-    opciones: ["He did not find the problem on his laptop.", "The developer told him.", "The shop closed on Monday.", "He lost his password."]
+    enunciado: "Why did Sam think the problem only happened on phones?"
+    opciones: ["The page worked well on his laptop.", "The developer told him.", "The shop closed on Monday.", "He lost his password."]
     correcta: 0
-    explicacion: "«He did not find the problem on his laptop, so he knew it only happened on phones». El conector «so» introduce la consecuencia."
+    explicacion: "En el laptop la página «worked well», así que («So») Sam pensó que el fallo era solo del móvil. «So» introduce la consecuencia."
   - id: a2-ev-q04
     bloque: lectura
     recurso: a2-ev-l1
@@ -64,8 +64,8 @@ preguntas:
     recurso: a2-ev-l1
     tipo: ordenar
     enunciado: "Ordena los hechos según ocurren en la lectura."
-    piezas: ["Sam clicked the pay button.", "The screen stayed white.", "An error message appeared.", "Sam wrote a report."]
-    explicacion: "La historia sigue el orden cronológico: primero hace clic, luego la pantalla queda en blanco, después aparece el mensaje de error y al final Sam escribe el informe."
+    piezas: ["Sam clicked the pay button.", "An error message appeared.", "Sam opened the page on his laptop.", "Sam wrote a bug report."]
+    explicacion: "Fíjate en los conectores de tiempo: «Then» (aparece el error), «After that» (prueba en el laptop) y, al final, el informe. Así se cuenta una historia en past simple."
   # ---------- LECTURA: Which Menu Is Better? (frontend) ----------
   - id: a2-ev-q06
     bloque: lectura
@@ -98,18 +98,18 @@ preguntas:
     tipo: emparejar
     enunciado: "Relaciona cada persona o grupo con lo que dice o hace."
     pares:
-      - { a: "Mia", b: "Design A is the best option." }
+      - { a: "Mia", b: "Design A is the better option." }
       - { a: "Tom", b: "Design B looks nicer." }
       - { a: "The team", b: "Test both designs next week." }
-    explicacion: "Mia (diseñadora) prefiere A; Tom (desarrollador) opina que B se ve mejor; el equipo decide probar ambos diseños."
+    explicacion: "Mia (diseñadora) prefiere A; Tom (desarrollador) opina que B se ve mejor; el equipo decide probar ambos diseños. Con dos opciones se usa el comparativo: «the better option»."
   - id: a2-ev-q10
     bloque: lectura
     recurso: a2-ev-l2
     tipo: opcion_multiple
     enunciado: "What happens if users like Design B more?"
-    opciones: ["The team will keep Design A.", "The team will change the layout.", "The team will stop the project.", "The team will test Design A again."]
+    opciones: ["The team will keep Design A.", "The team will use Design B.", "The team will stop the project.", "The team will test Design A again."]
     correcta: 1
-    explicacion: "La frase condicional dice «If users like Design B more, the team will change the layout». Estructura: if + presente, will + verbo."
+    explicacion: "La frase condicional dice «If users like Design B more, the team will use it» (it = Design B). Estructura: if + presente, will + verbo."
   # ---------- LISTENING: What is an LLM? (ia) ----------
   - id: a2-ev-q11
     bloque: listening
@@ -143,15 +143,15 @@ preguntas:
     enunciado: "What does the video try to do?"
     opciones: ["Explain an idea in a simple way", "Sell a phone", "Teach a song", "Show a football match"]
     correcta: 0
-    explicacion: "El título dice «Explained Simply»: el objetivo del video es explicar un tema técnico de forma sencilla."
+    explicacion: "El video explica un tema técnico con palabras sencillas (como dice su título, «Explained Simply»); no vende ni enseña otra cosa."
   - id: a2-ev-q15
     bloque: listening
     recurso: a2-ev-v1
     tipo: verdadero_falso
     enunciado: "¿Verdadero o falso según el video?"
-    afirmacion: "The video is about how to cook."
-    correcta: false
-    explicacion: "El video trata de inteligencia artificial y modelos de lenguaje, no de cocina."
+    afirmacion: "In the video, an LLM is a type of AI that works with language (words and text)."
+    correcta: true
+    explicacion: "Un LLM trabaja con lenguaje: lee y escribe texto. Por eso la palabra «Language» está en su nombre."
   # ---------- LISTENING: What is a database? (backend) ----------
   - id: a2-ev-q16
     bloque: listening
@@ -166,18 +166,18 @@ preguntas:
     recurso: a2-ev-v2
     tipo: verdadero_falso
     enunciado: "¿Verdadero o falso según el video?"
-    afirmacion: "The video is about databases."
+    afirmacion: "The video says that apps and websites use databases."
     correcta: true
-    explicacion: "El tema central son las bases de datos, como indica el título del video."
+    explicacion: "El video presenta las bases de datos como una pieza básica del software: las apps y las webs las usan para guardar su información."
   - id: a2-ev-q18
     bloque: listening
     recurso: a2-ev-v2
     tipo: completar
-    enunciado: "Completa con la palabra que se explica en el video."
-    texto: "The video explains what a ___ is."
-    respuesta: database
-    aceptadas: [Database]
-    explicacion: "El video explica qué es una «database» (base de datos): un lugar donde un programa guarda su información de forma ordenada."
+    enunciado: "Completa según el video."
+    texto: "A database is a place to store ___."
+    respuesta: data
+    aceptadas: [information, "your data", "the data"]
+    explicacion: "Una base de datos guarda «data» (datos) o «information». Las dos palabras son incontables: no llevan -s."
   - id: a2-ev-q19
     bloque: listening
     recurso: a2-ev-v2
@@ -193,15 +193,15 @@ preguntas:
     enunciado: "What kind of video is it?"
     opciones: ["A short explanation of a technical idea", "A long interview", "A cooking lesson", "A music class"]
     correcta: 0
-    explicacion: "El título «in under 4 minutes» indica una explicación corta de un concepto técnico."
+    explicacion: "Es un video breve (menos de 4 minutos) en el que una persona explica un concepto técnico; no es una entrevista ni una clase de otro tema."
   # ---------- VOCABULARIO ----------
   - id: a2-ev-q21
     bloque: vocabulario
     tipo: opcion_multiple
     enunciado: "What is a «bug»?"
-    opciones: ["A mistake in a program that causes a problem", "A person who checks software", "A copy of your data", "A part of the screen that you click"]
+    opciones: ["A mistake in a program that causes a problem", "A person who checks software", "A list of steps for a test", "A part of the screen that you click"]
     correcta: 0
-    explicacion: "Un «bug» es un error o fallo en un programa. Un «tester» es quien revisa el software y un «button» es lo que se pulsa."
+    explicacion: "Un «bug» es un error o fallo en un programa. Un «tester» es quien revisa el software, un «test case» es la lista de pasos y un «button» es lo que se pulsa."
   - id: a2-ev-q22
     bloque: vocabulario
     tipo: emparejar
@@ -218,7 +218,7 @@ preguntas:
     enunciado: "Completa con la palabra correcta."
     texto: "A ___ is a program that talks with you in text."
     respuesta: chatbot
-    aceptadas: [Chatbot]
+    aceptadas: [bot, "chat bot"]
     explicacion: "Un «chatbot» es un programa que conversa contigo por escrito, por ejemplo un asistente de IA."
   - id: a2-ev-q24
     bloque: vocabulario
@@ -284,7 +284,7 @@ preguntas:
     bloque: gramatica
     tipo: ordenar
     enunciado: "Ordena las palabras para formar una instrucción."
-    piezas: ["Please", "write", "a short", "summary."]
+    piezas: ["Please", "write", "a short", "prompt."]
     explicacion: "El imperativo usa el verbo base sin sujeto. «Please» suaviza la instrucción y va al principio."
   - id: a2-ev-q33
     bloque: gramatica
@@ -300,11 +300,11 @@ preguntas:
     enunciado: "Choose the correct option: «You ___ test the app before the release. It is very important.»"
     opciones: ["must", "can't", "mustn't", "doesn't"]
     correcta: 0
-    explicacion: "«Must» expresa obligación. «Mustn't» y «can't» expresan prohibición o imposibilidad, y «doesn't» necesita otro verbo auxiliar."
+    explicacion: "«Must» expresa obligación, y «It is very important» lo confirma. «Mustn't» y «can't» expresan prohibición o imposibilidad, y «doesn't» no va con «you» (sería «don't») ni expresa obligación."
   - id: a2-ev-q35
     bloque: gramatica
     tipo: opcion_multiple
-    enunciado: "Choose the correct option: «We don't have ___ time. The deadline is tomorrow.»"
+    enunciado: "Choose the correct option: «We don't have ___ time. The release is tomorrow.»"
     opciones: ["much", "many", "a", "few"]
     correcta: 0
     explicacion: "«Time» es incontable, así que se usa «much» en frases negativas. «Many» y «few» son para contables, y «a» no va con incontables."
@@ -341,5 +341,5 @@ preguntas:
     bloque: gramatica
     tipo: ordenar
     enunciado: "Ordena las palabras para formar una comparación."
-    piezas: ["Our API", "is", "faster", "than", "the old one."]
-    explicacion: "Comparativo: sujeto + is + adjetivo-er + than + segundo elemento."
+    piezas: ["The new menu", "is", "smaller", "than", "the old menu."]
+    explicacion: "Comparativo: sujeto + is + adjetivo-er + than + segundo elemento. Small → smaller."
