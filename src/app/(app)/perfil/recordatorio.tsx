@@ -8,7 +8,7 @@ const DURACIONES = [5, 10, 15, 20, 30] as const;
 export function Recordatorio({ metaMin }: { metaMin: number }) {
   const [dias, setDias] = useState<Dia[]>(['L', 'M', 'X', 'J', 'V']);
   const [hora, setHora] = useState('19:00');
-  const [min, setMin] = useState<number>(DURACIONES.includes(metaMin as never) ? metaMin : 10);
+  const [min, setMin] = useState<number>((DURACIONES as readonly number[]).includes(metaMin) ? metaMin : 10);
   const alternar = (d: Dia) => setDias((a) => (a.includes(d) ? a.filter((x) => x !== d) : DIAS.filter((x) => x === d || a.includes(x))));
   const href = `/api/recordatorio?${new URLSearchParams({ dias: dias.join(','), hora, min: String(min) })}`;
 
@@ -35,9 +35,9 @@ export function Recordatorio({ metaMin }: { metaMin: number }) {
         </select>
       </label>
       {dias.length === 0 || !hora
-        ? <p role="status" className="font-medium">Elige al menos un día</p>
+        ? <p role="status" className="font-medium">{dias.length === 0 ? 'Elige al menos un día' : 'Elige una hora'}</p>
         : (
-          <a href={href} download className="inline-flex min-h-11 min-w-11 self-start items-center rounded-md border border-borde bg-superficie px-4 font-semibold text-texto">
+          <a href={href} className="inline-flex min-h-11 min-w-11 self-start items-center rounded-md border border-borde bg-superficie px-4 font-semibold text-texto">
             Añadir a mi calendario
           </a>
         )}

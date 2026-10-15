@@ -29,13 +29,27 @@ export function InstalarApp() {
     return () => { window.removeEventListener('beforeinstallprompt', alPedir); window.removeEventListener('appinstalled', alInstalar); };
   }, []);
 
-  const estado = instalada ? 'instalada' : entorno !== 'cargando' && entorno !== 'instalada' && evento ? 'boton' : entorno;
+  // El evento solo sirve una vez: pase lo que pase se descarta; si no se instaló, vuelven las instrucciones.
+  const instalar = async (e: EventoInstalar) => {
+    try {
+      await e.prompt();
+      const r = await e.userChoice;
+      if (r.outcome === 'accepted') setInstalada(true);
+    } catch {
+      // prompt() ya usado o rechazado: se cae a las instrucciones.
+    } finally {
+      setEvento(null);
+    }
+  };
+
+  const puedeInstalar = entorno === 'ios' || entorno === 'menu';
+  const estado = instalada ? 'instalada' : puedeInstalar && evento ? 'boton' : entorno;
   if (estado === 'cargando' || estado === 'instalada') return null;
   return (
     <Tarjeta aria-labelledby="p-instalar">
       <h2 id="p-instalar" className="mb-2 text-lg font-semibold">Instalar la app</h2>
       {estado === 'boton' && evento && (
-        <Boton type="button" onClick={async () => { await evento.prompt(); const r = await evento.userChoice; if (r.outcome === 'accepted') setInstalada(true); }}>
+        <Boton type="button" onClick={() => instalar(evento)}>
           Instalar
         </Boton>
       )}

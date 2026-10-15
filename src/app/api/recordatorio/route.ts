@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { appOrigin, inviteLinkProblem } from '@/lib/auth/invite-link';
 import { getCurrentUser } from '@/lib/auth/current-user';
 import { generarIcs, NOMBRE_ICS } from '@/lib/recordatorio/ics';
 import { parsearParametros } from '@/lib/recordatorio/parametros';
@@ -8,7 +9,12 @@ export async function GET(request: NextRequest) {
   if (!u) return NextResponse.json({ error: 'no_autenticado' }, { status: 401 });
   const p = parsearParametros(request.nextUrl.searchParams);
   if (!p.ok) return NextResponse.json({ error: 'parametros_invalidos' }, { status: 400 });
-  const appUrl = process.env.APP_URL ?? request.nextUrl.origin;
+  const base = { appUrl: process.env.APP_URL, host: null, proto: null, vercelEnv: process.env.VERCEL_ENV };
+  if (inviteLinkProblem(base)) {
+    console.error('recordatorio: APP_URL ausente o no válida en producción');
+    return NextResponse.json({ error: 'configuracion' }, { status: 500 });
+  }
+  const appUrl = (base.appUrl ? appOrigin(base.appUrl) : null) ?? request.nextUrl.origin;
   return new NextResponse(generarIcs(p.valor, { appUrl, ahora: new Date() }), {
     status: 200,
     headers: {
