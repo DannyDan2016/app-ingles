@@ -1,0 +1,36 @@
+tipo: leccion
+id: b1-frontend-02
+nivel: B1
+tema: frontend
+orden: 11
+titulo: If We Had More Time, We Would Add Dark Mode
+objetivo: Puedo hablar de mejoras hipotéticas y dar consejo a un compañero («If I were you...»).
+gramatica: "Second conditional (If we had more time, we would add dark mode; If I were you, I would lazy load the images) y should/shouldn't para dar consejo"
+lectura: |
+  The team is planning the next sprint, but there is not enough time for everything. Lena, the lead developer, opens the list.
+
+  "If we had more time, we would add [[dark mode]]," she says. "Users keep asking for it. But if we built it now, we wouldn't finish the form [[validation]]."
+
+  Omar shakes his head. "If I were you, I would start with [[performance]]. Our [[bundle]] is too big, so the first screen is slow. If we used [[lazy loading]], the page would load much faster. We shouldn't load every image at the start."
+
+  "Good point. And the new [[animation]]?" Lena asks.
+
+  "It's nice, but it isn't essential. You shouldn't spend a whole week on it."
+
+  Then Priya, a junior developer, explains a problem. She is [[debugging|debug]] the shopping cart. The page uses [[fetch]] to ask the server for data, and the request is [[asynchronous]], so the data arrives later. The cart reads the data with an old helper function. "If I passed the right [[callback]] to the helper, it would work," she says, "but I also send the wrong [[props]] to the child component."
+
+  "You should read the docs first," Omar says. "That old helper is [[deprecated]]. We should [[refactor]] this part before it breaks."
+
+  Lena writes the plan: performance first, validation second, and dark mode for the next sprint.
+video: { youtubeId: RmLh08I4n6I, start: 16, end: 93, titulo: "Lazy Load your Images", canal: "Computeshorts" }
+terminos: [validation, animation, performance, bundle, lazy loading, props, callback, fetch, asynchronous, debug, deprecated, refactor, dark mode]
+ejercicios:
+  - { id: b1-frontend-02-e1, tipo: opcion_multiple, enunciado: "Elige la forma correcta.", opciones: ["If we have more time, we would add dark mode.", "If we had more time, we would add dark mode.", "If we would have more time, we would add dark mode."], correcta: 1, explicacion: "El segundo condicional habla de situaciones irreales o poco probables: if + pasado simple, would + verbo base. Nunca se pone «would» en la parte del «if»." }
+  - { id: b1-frontend-02-e2, tipo: completar, enunciado: "Completa para dar un consejo.", texto: "If I ___ you, I would start with performance.", respuesta: were, explicacion: "En «If I were you...» se usa «were» para todas las personas. Es la fórmula fija para dar consejo; «If I was you» se oye en el habla informal, pero en un contexto de trabajo se espera «were»." }
+  - { id: b1-frontend-02-e3, tipo: ordenar, enunciado: "Ordena la frase según la lectura.", piezas: ["If", "we", "used", "lazy loading", "the page", "would", "load faster"], explicacion: "La parte del «if» va en pasado simple («used») y el resultado lleva «would» + verbo base. La coma separa ambas partes al escribir.", terminos: [lazy loading] }
+  - { id: b1-frontend-02-e4, tipo: emparejar, enunciado: "Empareja cada término con su significado.", pares: [{ a: bundle, b: archivo que agrupa el código }, { a: callback, b: función que se pasa para ejecutarse después }, { a: props, b: datos que recibe un componente }, { a: deprecated, b: en desuso }], explicacion: "Son cuatro términos habituales en revisiones de código. «Props» es la abreviatura de «properties»; casi siempre aparece en plural, y en singular se dice «a prop».", terminos: [bundle, callback, props, deprecated] }
+  - { id: b1-frontend-02-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Omar thinks the team should spend a whole week on the animation.", correcta: false, explicacion: "Omar dice lo contrario: «You shouldn't spend a whole week on it». «Shouldn't» + verbo base expresa un consejo negativo.", terminos: [animation] }
+  - { id: b1-frontend-02-e6, tipo: opcion_multiple, enunciado: "Un compañero quiere publicar un formulario sin validación. ¿Qué consejo es correcto?", opciones: ["You should add validation first.", "You should to add validation first.", "You would to add validation first."], correcta: 0, explicacion: "«Should» va seguido del verbo base, sin «to». Sirve para dar un consejo o una recomendación.", terminos: [validation] }
+  - { id: b1-frontend-02-e7, tipo: completar, enunciado: "Completa con el término correcto.", texto: "Because the request is ___, the data arrives after the page is shown.", respuesta: asynchronous, explicacion: "Una petición asíncrona no bloquea el resto del código: la página sigue funcionando mientras espera la respuesta del servidor.", terminos: [asynchronous, fetch] }
+  - { id: b1-frontend-02-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "In the second conditional, we use «would» in the if-clause.", correcta: false, explicacion: "Es falso: en la cláusula con «if» va el pasado simple (If we had more time) y «would» va en la cláusula del resultado." }
+revisado: true
