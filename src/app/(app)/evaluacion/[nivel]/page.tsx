@@ -27,7 +27,7 @@ export default async function EvaluacionPage({ params }: PageProps<'/evaluacion/
     // Solo la vista (sin soluciones) y el recurso de cada pregunta llegan al navegador.
     const preguntas: PreguntaExamen[] = ctx.abierto.preguntas.map((id) => {
       const p = porId.get(id)!;
-      return { bloque: p.bloque, vista: aVista(p), recurso: p.recurso ? recursos.get(p.recurso) : undefined };
+      return { bloque: p.bloque, vista: aVista(p, `${crypto.randomUUID()}:${p.id}`), recurso: p.recurso ? recursos.get(p.recurso) : undefined };
     });
     const respondidas = [...(await respuestasDe(db, ctx.abierto.id)).keys()];
     return <FlujoEvaluacion nivel={nivel} intentoId={ctx.abierto.id} preguntas={preguntas} respondidas={respondidas} />;
@@ -37,6 +37,7 @@ export default async function EvaluacionPage({ params }: PageProps<'/evaluacion/
     <div className="flex flex-col gap-4">
       <p><Link href={`/camino/${nivel}`} className="inline-flex min-h-11 items-center text-primario underline">Volver al camino</Link></p>
       <h1 className="text-2xl font-bold">Evaluación de {nivel}</h1>
+      {ctx.caducadoAhora && <p role="status" className="text-aviso">Tu intento anterior caducó. Puedes empezar otro.</p>}
       <Tarjeta>
         <ul className="flex list-disc flex-col gap-1 pl-5">
           <li>20 preguntas en 4 bloques: lectura, listening, vocabulario y gramática.</li>

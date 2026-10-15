@@ -6,6 +6,7 @@ Característica: Evaluación de nivel
     Dado que tengo una cuenta con nivel "A2" y todas sus lecciones completadas
     Cuando abro la evaluación de "A2"
     Y empiezo la evaluación
+    Y la página no contiene las soluciones
     Y respondo todas las preguntas con "Verdadero"
     Y envío la evaluación
     Entonces veo el resultado "Aprobado"
@@ -22,3 +23,6 @@ Característica: Evaluación de nivel
     Y envío la evaluación
     Entonces veo el resultado "No aprobado"
     Y veo el enlace "Hacer el refuerzo"
+    Cuando sigo el enlace "Hacer el refuerzo"
+    Y completo los ejercicios del refuerzo
+    Entonces veo el refuerzo completado con la fecha para reintentar

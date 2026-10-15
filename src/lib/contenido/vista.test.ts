@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { aVista } from './vista';
+import { barajar } from '@/lib/aprendizaje/barajar';
 import type { Ejercicio } from './esquema';
 
 const ejercicios: Ejercicio[] = [
@@ -24,5 +25,13 @@ describe('aVista', () => {
     expect([...o.piezas].sort()).toEqual(['We', 'changes', 'ship', 'small'].sort());
     expect(m.izquierda).toEqual(['bug', 'branch', 'merge']);
     expect([...m.derecha].sort()).toEqual(['error', 'fusionar', 'rama']);
+  });
+
+  it('con semilla secreta el barajado no coincide con el derivable del id (no revela la solución)', () => {
+    const e: Ejercicio = { id: 'x-e8', tipo: 'ordenar', enunciado: 'E', explicacion: 'S', piezas: ['a1', 'b2', 'c3', 'd4', 'e5', 'f6', 'g7', 'h8'] };
+    const v = aVista(e, 'semilla-secreta-1');
+    if (v.tipo !== 'ordenar') throw new Error('tipo');
+    expect(v.piezas).not.toEqual(barajar(e.piezas, e.id));
+    expect([...v.piezas].sort()).toEqual([...e.piezas].sort());
   });
 });

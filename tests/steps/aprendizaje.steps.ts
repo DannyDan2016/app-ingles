@@ -299,3 +299,42 @@ When('envío la evaluación', async ({ evaluacion }) => { await evaluacion.envia
 Then('veo el resultado {string}', async ({ evaluacion }, texto: string) => { await expect(evaluacion.resultado(texto)).toBeVisible(); });
 Then('veo el enlace {string}', async ({ page }, texto: string) => { await expect(page.getByRole('link', { name: texto })).toBeVisible(); });
 Then('el nivel {string} aparece {string}', async ({ niveles }, nivel: string, estado: string) => { await expect(niveles.tarjeta(nivel)).toContainText(estado); });
+
+Then('la página no contiene las soluciones', async ({ evaluacion }) => {
+  const html = await evaluacion.html();
+  // Claves del modelo (con comillas, escapadas o no, para no confundir con texto de enunciados) y textos de explicación del banco demo.
+  expect(html).not.toMatch(/explicacion/);
+  expect(html).not.toMatch(/aceptadas/);
+  expect(html).not.toMatch(/correcta\?"s*:/);
+  expect(html).not.toContain('La lectura dice');
+  expect(html).not.toContain('Present simple con -s en tercera persona');
+});
+When('sigo el enlace {string}', async ({ page }, texto: string) => { await page.getByRole('link', { name: texto }).click(); });
+// Refuerzo: 8 ejercicios de práctica del demo en orden barajado; se resuelven según su enunciado.
+When('completo los ejercicios del refuerzo', async ({ leccion: l, page }) => {
+  for (let n = 0; n < 12; n++) {
+    if (await page.getByRole('heading', { name: 'Refuerzo completado' }).isVisible()) return;
+    const enunciado = (await page.locator('legend').first().innerText()).trim();
+    if (enunciado === 'What does Leo create every day?') await l.marcar(l.opcion('A branch'));
+    else if (enunciado === 'Completa la frase.') await l.escribir(l.respuesta(), 'commit');
+    else if (enunciado === 'Ordena la frase.') { for (const p of ['They', 'merge', 'the', 'branch']) await l.pulsar(l.pieza(p)); }
+    else if (enunciado.startsWith('Empareja')) {
+      await l.elegir(l.selectorDe('commit'), 'confirmación');
+      await l.elegir(l.selectorDe('branch'), 'rama');
+      await l.elegir(l.selectorDe('review'), 'revisión');
+    } else if (enunciado === 'What is the video about?') await l.marcar(l.opcion('Bug reports'));
+    else if (enunciado.startsWith('¿Verdadero o falso?')) {
+      // La afirmación decide: solo «The speaker talks about pizza.» es falsa.
+      const falsa = await page.getByText('The speaker talks about pizza.', { exact: true }).isVisible();
+      await l.marcar(l.opcion(falsa ? 'Falso' : 'Verdadero'));
+    } else throw new Error(`Ejercicio de refuerzo desconocido: ${enunciado}`);
+    await l.pulsar(l.comprobar());
+    await expect(l.feedback()).toContainText('¡Correcto!');
+    await l.pulsar(l.continuar());
+  }
+  await expect(page.getByRole('heading', { name: 'Refuerzo completado' })).toBeVisible();
+});
+Then('veo el refuerzo completado con la fecha para reintentar', async ({ page }) => {
+  await expect(page.getByRole('heading', { name: 'Refuerzo completado' })).toBeVisible();
+  await expect(page.getByText(/Podrás volver a presentar|Ya puedes volver a presentar/)).toBeVisible();
+});

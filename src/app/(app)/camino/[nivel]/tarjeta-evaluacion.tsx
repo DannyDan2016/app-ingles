@@ -8,11 +8,12 @@ import { Boton } from '@/components/boton';
 
 const ENLACE = 'mt-3 inline-flex min-h-11 items-center rounded-md bg-primario px-4 font-semibold text-sobre-primario';
 
-export function TarjetaEvaluacion({ nivel, e, iniciadoAt, respondidas, totalLecciones, notaAprobada }: { nivel: string; e: Elegibilidad; iniciadoAt?: Date; respondidas?: number; totalLecciones?: number; notaAprobada?: number | null }) {
+export function TarjetaEvaluacion({ nivel, e, iniciadoAt, respondidas, totalLecciones, notaAprobada, caducadoAhora }: { nivel: string; e: Elegibilidad; iniciadoAt?: Date; respondidas?: number; totalLecciones?: number; notaAprobada?: number | null; caducadoAhora?: boolean }) {
   if (e.tipo === 'bloqueado_nivel' || e.tipo === 'sin_banco') return null;
   return (
     <Tarjeta aria-labelledby="h-evaluacion">
       <h2 id="h-evaluacion" className="text-lg font-semibold">Evaluación de {nivel}</h2>
+      {caducadoAhora && <p role="status" className="mt-1 text-aviso">Tu intento anterior caducó. Puedes empezar otro.</p>}
       {e.tipo === 'faltan_lecciones' && (<>
         <p className="mt-1 text-texto-suave">Te {e.faltan === 1 ? 'falta 1 lección' : `faltan ${e.faltan} lecciones`} para presentarla.</p>
         {totalLecciones ? (

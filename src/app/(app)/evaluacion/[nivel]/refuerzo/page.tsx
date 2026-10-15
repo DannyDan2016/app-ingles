@@ -32,12 +32,14 @@ export default async function RefuerzoPage({ params }: PageProps<'/evaluacion/[n
     await marcarRefuerzo(getDb(), u.userId, ctx.ultimo.id, new Date());
     redirect(`/camino/${nivel}`);
   }
-  const reintentoDesde = formatoFechaHora(new Date((ctx.ultimo.terminadoAt ?? new Date()).getTime() + ESPERA_MS));
+  const ahora = new Date();
+  const hasta = (ctx.ultimo.terminadoAt ?? ahora).getTime() + ESPERA_MS;
+  const reintento = hasta <= ahora.getTime() ? 'Ya puedes volver a presentar la evaluación.' : `Podrás volver a presentar la evaluación desde el ${formatoFechaHora(new Date(hasta))}.`;
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Refuerzo de {nivel}</h1>
       <p className="text-texto-suave">Practica {bloques.map((b) => ETIQUETA_BLOQUE[b].toLowerCase()).join(', ')}. No cuenta para la nota.</p>
-      <FlujoRefuerzo nivel={nivel} intentoId={ctx.ultimo.id} reintentoDesde={reintentoDesde} ejercicios={ejercicios} />
+      <FlujoRefuerzo nivel={nivel} intentoId={ctx.ultimo.id} reintento={reintento} ejercicios={ejercicios} />
     </div>
   );
 }

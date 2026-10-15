@@ -40,12 +40,18 @@ export function FlujoEvaluacion({ nivel, intentoId, preguntas, respondidas }: { 
   }
   async function enviar() {
     setEnviando(true);
-    const r = await finalizarEvaluacionAction({ intentoId });
-    if (r.ok) { router.push(`/evaluacion/${nivel}/resultado/${r.intentoId}`); return; }
-    setEnviando(false);
-    setError(r.motivo === 'incompleto' ? 'Aún faltan respuestas por guardar. Revisa la lista.'
-      : r.motivo === 'caducado' ? 'La evaluación caducó. Vuelve al camino para empezar otra.'
-      : 'No encontramos esta evaluación. Vuelve al camino.');
+    setError('');
+    try {
+      const r = await finalizarEvaluacionAction({ intentoId });
+      if (r.ok) { router.push(`/evaluacion/${nivel}/resultado/${r.intentoId}`); return; }
+      setEnviando(false);
+      setError(r.motivo === 'incompleto' ? 'Aún faltan respuestas por guardar. Revisa la lista.'
+        : r.motivo === 'caducado' ? 'La evaluación caducó. Vuelve al camino para empezar otra.'
+        : 'No encontramos esta evaluación. Vuelve al camino.');
+    } catch {
+      setEnviando(false);
+      setError('No pudimos enviar la evaluación. Revisa tu conexión e inténtalo de nuevo.');
+    }
   }
 
   const progreso = <BarraProgreso valor={(confirmadas.size / total) * 100} etiqueta={`${confirmadas.size} de ${total} respuestas guardadas`} />;

@@ -1,3 +1,4 @@
+import 'server-only';
 import type { Db } from '@/lib/db/client';
 import type { Evaluacion, Pregunta } from '@/lib/contenido/esquema';
 import { corregir, type RespuestaUsuario } from '@/lib/aprendizaje/corregir';

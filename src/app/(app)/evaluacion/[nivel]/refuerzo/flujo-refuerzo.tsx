@@ -7,7 +7,7 @@ import { Boton } from '@/components/boton';
 import { Tarjeta } from '@/components/tarjeta';
 import { completarRefuerzoAction } from '../../actions';
 
-export function FlujoRefuerzo({ nivel, intentoId, ejercicios, reintentoDesde }: { nivel: string; intentoId: string; ejercicios: Ejercicio[]; reintentoDesde: string }) {
+export function FlujoRefuerzo({ nivel, intentoId, ejercicios, reintento }: { nivel: string; intentoId: string; ejercicios: Ejercicio[]; reintento: string }) {
   const [fin, setFin] = useState(false);
   const [fallo, setFallo] = useState(false);
   const [guardando, setGuardando] = useState(false);
@@ -28,7 +28,7 @@ export function FlujoRefuerzo({ nivel, intentoId, ejercicios, reintentoDesde }: 
     return (
       <Tarjeta>
         <h2 className="text-lg font-semibold">Refuerzo completado</h2>
-        <p className="mt-1 text-texto-suave">Podrás volver a presentar la evaluación desde el {reintentoDesde}.</p>
+        <p className="mt-1 text-texto-suave">{reintento}</p>
         <Link href={`/camino/${nivel}`} className="mt-3 inline-flex min-h-11 items-center font-semibold text-primario underline">Volver al camino</Link>
       </Tarjeta>
     );

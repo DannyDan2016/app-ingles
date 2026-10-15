@@ -17,10 +17,12 @@ export async function contextoEvaluacion(db: Db, u: { userId: string; nivelInici
     repo.ultimoTerminado(db, u.userId, nivel),
   ]);
   let abierto: repo.Intento | null = (await repo.intentoAbierto(db, u.userId, nivel)) ?? null;
+  let caducadoAhora = false;
   const ids = new Set(banco?.preguntas.map((p) => p.id));
   if (abierto && (caducado(abierto, ahora) || abierto.preguntas.some((id) => !ids.has(id)))) {
     await repo.marcarCaducado(db, abierto.id);
     abierto = null;
+    caducadoAhora = true;
   }
   const lecciones = leccionesDeNivel(nivel);
   return {
@@ -28,6 +30,6 @@ export async function contextoEvaluacion(db: Db, u: { userId: string; nivelInici
       estadoNivel: estadoDe(nivel), hayBanco: !!banco, lecciones: lecciones.length,
       hechas: lecciones.filter((l) => hechos.has(l.id)).length, abierto, aprobado, ultimo, ahora,
     }),
-    banco, abierto, ultimo, aprobado,
+    banco, abierto, ultimo, aprobado, caducadoAhora,
   };
 }

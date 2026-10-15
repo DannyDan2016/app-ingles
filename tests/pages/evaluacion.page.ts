@@ -15,5 +15,7 @@ export class EvaluacionPage {
     await this.page.getByRole('button', { name: 'Enviar evaluación' }).click();
     await this.page.getByRole('button', { name: 'Sí, enviar' }).click();
   }
+  /** HTML completo de la página (incluye el payload RSC): para comprobar que no viajan soluciones. */
+  html() { return this.page.content(); }
   resultado(texto: string) { return this.page.getByText(new RegExp(`^\\s*${texto} ·`)); }
 }

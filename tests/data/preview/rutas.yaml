@@ -5,6 +5,7 @@ protegidas:
   - { ruta: /camino/A2, tipo: pagina }
   - { ruta: /evaluacion/A2, tipo: pagina }
   - { ruta: /evaluacion/A2/refuerzo, tipo: pagina }
+  - { ruta: /evaluacion/A2/resultado/00000000-0000-4000-8000-000000000000, tipo: pagina }
   - { ruta: /repaso, tipo: pagina }
   - { ruta: /escuchar, tipo: pagina }
   - { ruta: /perfil, tipo: pagina }

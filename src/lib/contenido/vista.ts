@@ -10,13 +10,14 @@ export type EjercicioVista =
   | (Base & { tipo: 'emparejar'; izquierda: string[]; derecha: string[] })
   | (Base & { tipo: 'verdadero_falso'; afirmacion: string });
 
-export function aVista(e: Ejercicio): EjercicioVista {
+/** `semilla` decide el barajado; en examen debe ser secreta (no derivable de `id`) para no revelar la solución. */
+export function aVista(e: Ejercicio, semilla: string = e.id): EjercicioVista {
   const base = { id: e.id, enunciado: e.enunciado };
   switch (e.tipo) {
     case 'opcion_multiple': return { ...base, tipo: e.tipo, opciones: e.opciones };
     case 'completar': return { ...base, tipo: e.tipo, texto: e.texto };
-    case 'ordenar': return { ...base, tipo: e.tipo, piezas: barajar(e.piezas, e.id) };
-    case 'emparejar': return { ...base, tipo: e.tipo, izquierda: e.pares.map((p) => p.a), derecha: barajar(e.pares.map((p) => p.b), e.id) };
+    case 'ordenar': return { ...base, tipo: e.tipo, piezas: barajar(e.piezas, semilla) };
+    case 'emparejar': return { ...base, tipo: e.tipo, izquierda: e.pares.map((p) => p.a), derecha: barajar(e.pares.map((p) => p.b), semilla) };
     case 'verdadero_falso': return { ...base, tipo: e.tipo, afirmacion: e.afirmacion };
   }
 }
