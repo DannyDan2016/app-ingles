@@ -15,5 +15,5 @@ export function lunesDe(dia: string): string {
 }
 
 const FMT_HORA = new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
-/** «15 oct, 10:30 a. m.» en hora de Bogotá. */
+/** «15 de oct, 10:30 a. m.» en hora de Bogotá. */
 export const formatoFechaHora = (d: Date): string => FMT_HORA.format(d);

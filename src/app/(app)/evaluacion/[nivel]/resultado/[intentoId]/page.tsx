@@ -49,7 +49,8 @@ export default async function ResultadoPage({ params }: PageProps<'/evaluacion/[
         <ul className="mt-3 flex flex-col gap-1">
           {BLOQUES.map((b) => {
             const ok = notas[b] >= UMBRAL;
-            return <li key={b} className={ok ? 'text-exito' : 'text-error'}>{ETIQUETA_BLOQUE[b]}: {notas[b]} % {ok ? '' : '· a reforzar'}</li>;
+            const IconoB = ok ? CircleCheck : CircleX;
+            return <li key={b} className={`flex items-center gap-2 ${ok ? 'text-exito' : 'text-error'}`}><IconoB aria-hidden="true" className="size-4 shrink-0" /> {ETIQUETA_BLOQUE[b]}: {notas[b]} % {ok ? '· superado' : '· a reforzar'}</li>;
           })}
         </ul>
         <div className="mt-4">
@@ -65,8 +66,8 @@ export default async function ResultadoPage({ params }: PageProps<'/evaluacion/[
             <Tarjeta key={p.id} as="article">
               <p className="font-semibold">{p.enunciado}</p>
               {p.tipo === 'verdadero_falso' && <p lang="en">{p.afirmacion}</p>}
-              <p className="mt-2 text-error">Tu respuesta: <span lang="en">{textoRespuesta(p, r)}</span></p>
-              <p className="text-exito">Correcta: <span lang="en">{textoCorrecta(p)}</span></p>
+              <p className="mt-2 flex items-start gap-2 text-error"><CircleX aria-hidden="true" className="mt-1 size-4 shrink-0" /><span>Tu respuesta: <span lang="en">{textoRespuesta(p, r)}</span></span></p>
+              <p className="flex items-start gap-2 text-exito"><CircleCheck aria-hidden="true" className="mt-1 size-4 shrink-0" /><span>Correcta: <span lang="en">{textoCorrecta(p)}</span></span></p>
               <p className="mt-1 text-texto-suave">{p.explicacion}</p>
             </Tarjeta>
           ))}

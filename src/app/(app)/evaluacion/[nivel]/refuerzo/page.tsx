@@ -9,6 +9,8 @@ import { marcarRefuerzo, notasBloques } from '@/lib/evaluacion/evaluacion.repo';
 import { armarRefuerzo } from '@/lib/evaluacion/refuerzo';
 import { UMBRAL } from '@/lib/evaluacion/nota';
 import { ETIQUETA_BLOQUE } from '@/lib/evaluacion/tipos';
+import { ESPERA_MS } from '@/lib/evaluacion/elegibilidad';
+import { formatoFechaHora } from '@/lib/tiempo/bogota';
 import { FlujoRefuerzo } from './flujo-refuerzo';
 
 export default async function RefuerzoPage({ params }: PageProps<'/evaluacion/[nivel]/refuerzo'>) {
@@ -30,11 +32,12 @@ export default async function RefuerzoPage({ params }: PageProps<'/evaluacion/[n
     await marcarRefuerzo(getDb(), u.userId, ctx.ultimo.id, new Date());
     redirect(`/camino/${nivel}`);
   }
+  const reintentoDesde = formatoFechaHora(new Date((ctx.ultimo.terminadoAt ?? new Date()).getTime() + ESPERA_MS));
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Refuerzo de {nivel}</h1>
       <p className="text-texto-suave">Practica {bloques.map((b) => ETIQUETA_BLOQUE[b].toLowerCase()).join(', ')}. No cuenta para la nota.</p>
-      <FlujoRefuerzo nivel={nivel} intentoId={ctx.ultimo.id} ejercicios={ejercicios} />
+      <FlujoRefuerzo nivel={nivel} intentoId={ctx.ultimo.id} reintentoDesde={reintentoDesde} ejercicios={ejercicios} />
     </div>
   );
 }

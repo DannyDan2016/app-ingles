@@ -27,6 +27,7 @@ export function FlujoEvaluacion({ nivel, intentoId, preguntas, respondidas }: { 
   const cola = useMemo(() => crearColaRegistro(async (x: Envio) => {
     const r = await guardarRespuestaAction(x);
     if (r.ok) setConfirmadas((s) => new Set(s).add(x.preguntaId));
+    else setAviso(true);
     return r;
   }, { onFalloPersistente: () => setAviso(true) }), []);
 
@@ -42,7 +43,9 @@ export function FlujoEvaluacion({ nivel, intentoId, preguntas, respondidas }: { 
     const r = await finalizarEvaluacionAction({ intentoId });
     if (r.ok) { router.push(`/evaluacion/${nivel}/resultado/${r.intentoId}`); return; }
     setEnviando(false);
-    setError(r.motivo === 'incompleto' ? 'Aún faltan respuestas por guardar. Revisa la lista.' : 'La evaluación caducó. Vuelve al camino para empezar otra.');
+    setError(r.motivo === 'incompleto' ? 'Aún faltan respuestas por guardar. Revisa la lista.'
+      : r.motivo === 'caducado' ? 'La evaluación caducó. Vuelve al camino para empezar otra.'
+      : 'No encontramos esta evaluación. Vuelve al camino.');
   }
 
   const progreso = <BarraProgreso valor={(confirmadas.size / total) * 100} etiqueta={`${confirmadas.size} de ${total} respuestas guardadas`} />;
