@@ -305,7 +305,7 @@ Then('la página no contiene las soluciones', async ({ evaluacion }) => {
   // Claves del modelo (con comillas, escapadas o no, para no confundir con texto de enunciados) y textos de explicación del banco demo.
   expect(html).not.toMatch(/explicacion/);
   expect(html).not.toMatch(/aceptadas/);
-  expect(html).not.toMatch(/correcta\?"\s*:/);
+  expect(html).not.toMatch(/correcta\\?"\s*:/);
   expect(html).not.toContain('La lectura dice');
   expect(html).not.toContain('Present simple con -s en tercera persona');
 });
