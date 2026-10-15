@@ -9,11 +9,18 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Inglés técnico",
   description: "Aprende inglés técnico por niveles.",
+  applicationName: "Inglés técnico",
+  appleWebApp: { capable: true, title: "Inglés", statusBarStyle: "default" },
+  icons: { apple: "/icono-180.png" },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+  ],
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

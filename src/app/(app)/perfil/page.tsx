@@ -15,6 +15,8 @@ import { Tarjeta } from '@/components/tarjeta';
 import { MetricasSemana, SemanaActiva } from '@/components/metricas-semana';
 import { salirAction } from '../salir/actions';
 import { EnlaceAdmin } from './enlace-admin';
+import { Recordatorio } from './recordatorio';
+import { InstalarApp } from './instalar-app';
 import { cambiarMetaAction, cambiarTemaAction } from './actions';
 
 const CAJAS = [
@@ -120,6 +122,13 @@ export default async function PerfilPage() {
             </ul>
           )}
       </Tarjeta>
+
+      <Tarjeta aria-labelledby="p-recordatorio">
+        <h2 id="p-recordatorio" className="mb-2 text-lg font-semibold">Recordatorio</h2>
+        <Recordatorio metaMin={datos.metaDiariaMin} />
+      </Tarjeta>
+
+      <InstalarApp />
 
       <Tarjeta aria-labelledby="p-datos">
         <h2 id="p-datos" className="mb-2 text-lg font-semibold">Mis datos</h2>

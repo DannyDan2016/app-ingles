@@ -15,6 +15,9 @@ protegidas:
   - { ruta: /api/no-existe, tipo: api }
   - { ruta: /api/actividad, tipo: api }
   - { ruta: /api/exportar, tipo: api }
+  - { ruta: /api/recordatorio, tipo: api }
 publicas:
   - /login
   - /api/salud
+  - /manifest.webmanifest
+  - /icono-192.png

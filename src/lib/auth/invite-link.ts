@@ -1,7 +1,7 @@
 import { isLocalHost } from '@/lib/net/local-host';
 
 /** Origen válido de APP_URL: https, o http solo en hosts locales; sin ruta. Null si no es válida. */
-function appOrigin(appUrl: string): string | null {
+export function appOrigin(appUrl: string): string | null {
   let u: URL;
   try {
     u = new URL(appUrl);
