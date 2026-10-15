@@ -1,0 +1,76 @@
+tipo: entrevistas
+rol: frontend
+revisado: false
+preguntas:
+  - id: ent-frontend-01
+    nivel: A2
+    pregunta: "What is the difference between HTML, CSS and JavaScript?"
+    respuesta: "HTML is the structure of a web page. It shows the title, the text, the images and the buttons. CSS is the style. It gives colors, sizes and positions to the elements. JavaScript is the behavior. For example, when a user clicks a button, JavaScript can open a menu. I like to think about a house. HTML is the walls, CSS is the paint, and JavaScript is the electricity. I use the three of them every day."
+    estructuras: ["... is the structure of ...", "... is the style. It gives ... to ...", "For example, when a user clicks ..., ... can ...", "I like to think about ...", "I use ... every day."]
+    vocabulario: [{ termino: "element", traduccion: "elemento" }, { termino: "style", traduccion: "estilo" }, { termino: "button", traduccion: "botón" }, { termino: "menu", traduccion: "menú" }]
+  - id: ent-frontend-02
+    nivel: A2
+    pregunta: "What is responsive design?"
+    respuesta: "Responsive design means that a website works well on all screen sizes. The same page looks good on a phone, a tablet and a computer. For example, on a phone the menu is small and the text is in one column. On a computer, there is more space, so we can show two or three columns. I use CSS media queries to change the layout. I always test my pages on a small screen first. Many users visit websites with their phones, so this is very important."
+    estructuras: ["... means that ... works well on ...", "For example, on a phone ... On a computer, ...", "I use ... to change ...", "I always test ... first.", "... so this is very important."]
+    vocabulario: [{ termino: "responsive", traduccion: "adaptable a distintos tamaños de pantalla" }, { termino: "media query", traduccion: "consulta de medios (CSS)" }, { termino: "layout", traduccion: "disposición, maquetación" }, { termino: "screen size", traduccion: "tamaño de pantalla" }]
+  - id: ent-frontend-03
+    nivel: A2
+    pregunta: "What is React, and why do developers use it?"
+    respuesta: "React is a JavaScript library to build user interfaces. In React, I make small pieces called components. For example, a button, a menu or a product card. I can use the same component many times in the application. When the data changes, React updates the page quickly. I like React because the code is organized and easy to read. Also, there are many tutorials and tools, so it is easy to find help. I have used React in two projects."
+    estructuras: ["... is a ... to build ...", "I make small pieces called ...", "For example, a ..., a ... or a ...", "When the data changes, ... updates ...", "I like ... because ..."]
+    vocabulario: [{ termino: "component", traduccion: "componente" }, { termino: "library", traduccion: "librería" }, { termino: "user interface", traduccion: "interfaz de usuario" }, { termino: "data", traduccion: "datos" }]
+  - id: ent-frontend-04
+    nivel: A2
+    pregunta: "How do you debug a problem in the browser?"
+    respuesta: "I open the developer tools in the browser. First, I look at the console, because it shows the errors in red. Then I read the message and the line of the code. If the problem is the style, I use the Elements tab to see the CSS of the button or the text. If the data is wrong, I look at the Network tab to see the request from the server. Yesterday, an image did not appear because the address was wrong. I found the problem in two minutes."
+    estructuras: ["I open ...", "First, I look at ..., because it shows ...", "If the problem is ..., I use ... to see ...", "If the data is wrong, I look at ...", "Yesterday, ... did not appear because ..."]
+    vocabulario: [{ termino: "developer tools", traduccion: "herramientas de desarrollo" }, { termino: "console", traduccion: "consola" }, { termino: "network tab", traduccion: "pestaña de red" }, { termino: "image", traduccion: "imagen" }]
+  - id: ent-frontend-05
+    nivel: B1
+    pregunta: "How do you manage state in a React application?"
+    respuesta: "It depends on how many components need the data. If only one component uses it, I keep the state inside that component with a hook like useState. When a few nearby components need the same value, I move it to their common parent. For data that many parts of the application share, such as the logged-in user, I use the context API or a small state library. The server data, like a list of products, is different, so I use a tool that handles caching and loading states. In my last project, this separation made the code much easier to understand."
+    estructuras: ["It depends on how many ... need ...", "If only one ... uses it, I ...", "When a few ... need the same ..., I move it to ...", "For data that many parts share, such as ..., I use ...", "In my last project, this ... made the code much easier to ..."]
+    vocabulario: [{ termino: "state", traduccion: "estado" }, { termino: "hook", traduccion: "gancho (función de React)" }, { termino: "parent component", traduccion: "componente padre" }, { termino: "caching", traduccion: "almacenamiento en caché" }]
+  - id: ent-frontend-06
+    nivel: B1
+    pregunta: "How do you make a website accessible?"
+    respuesta: "I start with semantic HTML, so I use real buttons, headings and labels instead of generic elements. This helps screen readers understand the page. I also check that everything can be used with the keyboard and that the focus is always visible. For images, I write a short alternative text. Another important point is color contrast, because some users cannot read light text on a light background. In my last project, I used an automatic tool to find problems, but I also tested with a screen reader, because tools do not find everything."
+    estructuras: ["I start with ..., so I use ... instead of ...", "This helps ... understand ...", "I also check that everything can be used with ...", "Another important point is ..., because some users cannot ...", "I used ..., but I also ..., because tools do not ..."]
+    vocabulario: [{ termino: "accessibility", traduccion: "accesibilidad" }, { termino: "screen reader", traduccion: "lector de pantalla" }, { termino: "alternative text", traduccion: "texto alternativo" }, { termino: "contrast", traduccion: "contraste" }]
+  - id: ent-frontend-07
+    nivel: B1
+    pregunta: "How would you improve the loading speed of a web page?"
+    respuesta: "First, I would measure the page with a tool like Lighthouse to see what the real problem is. Very often the images are too big, so I would compress them and use modern formats. Then I would load the heavy parts only when they are needed, for example with lazy loading. I would also reduce the amount of JavaScript, because the browser must download and run it before the page becomes interactive. In a previous project, we removed an unused library, and the page loaded one second faster. Small changes like this can have a big effect."
+    estructuras: ["First, I would measure ... to see what ...", "Very often ... are too big, so I would ...", "Then I would load ... only when they are needed, for example ...", "I would also reduce ..., because the browser must ...", "... removed ..., and the page loaded ... faster."]
+    vocabulario: [{ termino: "lazy loading", traduccion: "carga diferida" }, { termino: "compress", traduccion: "comprimir" }, { termino: "bundle", traduccion: "paquete de código JavaScript" }, { termino: "interactive", traduccion: "interactivo" }]
+  - id: ent-frontend-08
+    nivel: B1
+    pregunta: "How do you test a frontend application?"
+    respuesta: "I use different types of tests for different goals. For small pieces of logic, like a function that formats a date, I write unit tests, because they are fast. For components, I test what the user sees and does, for example typing in a form and clicking the button, instead of checking the internal details. For the most important flows, such as login, I add a few end-to-end tests in a real browser. I do not try to test everything with end-to-end tests, because they are slow. In my last team, this balance gave us confidence without making the pipeline too long."
+    estructuras: ["I use different types of tests for ...", "For small pieces of logic, like ..., I write ..., because ...", "I test what the user sees and does, instead of ...", "For the most important flows, such as ..., I add ...", "This balance gave us ... without making ..."]
+    vocabulario: [{ termino: "unit test", traduccion: "prueba unitaria" }, { termino: "form", traduccion: "formulario" }, { termino: "flow", traduccion: "flujo" }, { termino: "internal details", traduccion: "detalles internos" }]
+  - id: ent-frontend-09
+    nivel: B2
+    pregunta: "What is the difference between client-side rendering and server-side rendering, and when would you choose each one?"
+    respuesta: "With client-side rendering, the browser downloads the JavaScript and builds the page itself. With server-side rendering, the server sends HTML that is already complete, so the user sees content sooner and search engines can read it more easily. I would choose server rendering for public pages where speed and visibility matter, like a product catalog. For a private dashboard that is used after logging in, client rendering might be enough. Nowadays many frameworks allow a mix of both, so the decision can be made per page. If the team were small, I would keep the setup as simple as possible."
+    estructuras: ["With ..., the browser ... With ..., the server ...", "..., so the user sees ... sooner and ... can ...", "I would choose ... for ... where ... matter", "... might be enough.", "If the team were small, I would ..."]
+    vocabulario: [{ termino: "server-side rendering", traduccion: "renderizado en el servidor" }, { termino: "client-side rendering", traduccion: "renderizado en el cliente" }, { termino: "search engine", traduccion: "buscador" }, { termino: "dashboard", traduccion: "panel de control" }, { termino: "framework", traduccion: "framework, marco de trabajo" }]
+  - id: ent-frontend-10
+    nivel: B2
+    pregunta: "A page re-renders too often and feels slow. How would you diagnose and fix it?"
+    respuesta: "I would begin with the profiler in the developer tools to see which components render and how long they take. In my experience, the cause is often a state that lives too high in the tree, so a small change updates a large part of the page. In that case, I would move the state closer to where it is used. Expensive calculations could be memoized, but I would only do it when the measurements showed a real benefit, since memoization adds complexity. For long lists, virtualization is usually the best solution. Afterwards, I would measure again to confirm that the interaction feels smoother."
+    estructuras: ["I would begin with ... to see which ...", "In my experience, the cause is often ...", "In that case, I would move ... closer to ...", "... could be memoized, but I would only do it when ...", "Afterwards, I would measure again to confirm that ..."]
+    vocabulario: [{ termino: "re-render", traduccion: "volver a renderizar" }, { termino: "profiler", traduccion: "perfilador" }, { termino: "memoization", traduccion: "memoización (guardar resultados calculados)" }, { termino: "virtualization", traduccion: "virtualización de listas" }]
+  - id: ent-frontend-11
+    nivel: B2
+    pregunta: "How do you protect a frontend application against common security problems like XSS?"
+    respuesta: "XSS happens when an attacker manages to run their own script in the page of another user. The first defense is that user input should never be inserted into the page as raw HTML. Modern frameworks escape text by default, so I avoid the features that bypass this unless the content has been sanitized by a trusted library. A Content Security Policy adds another layer, because it limits which scripts the browser is allowed to run. I would also keep tokens in secure, HTTP-only cookies rather than in local storage. And, of course, the server must validate everything again, since the frontend can always be bypassed."
+    estructuras: ["... happens when an attacker manages to ...", "The first defense is that ... should never be ...", "... unless the content has been sanitized by ...", "..., because it limits which ... the browser is allowed to ...", "... must validate everything again, since ... can always be bypassed."]
+    vocabulario: [{ termino: "XSS", traduccion: "ejecución de scripts entre sitios" }, { termino: "sanitize", traduccion: "sanear, limpiar contenido" }, { termino: "content security policy", traduccion: "política de seguridad de contenido" }, { termino: "cookie", traduccion: "cookie" }, { termino: "escape", traduccion: "escapar caracteres" }]
+  - id: ent-frontend-12
+    nivel: B2
+    pregunta: "How do you decide whether to build a UI component yourself or use an existing library?"
+    respuesta: "I weigh the cost of building and maintaining against the cost of adopting. For complex, well-solved problems, such as accessible dropdowns or date pickers, I would prefer a mature library, because getting keyboard support and edge cases right takes a lot of time. If the component is simple or very specific to our product, writing it ourselves avoids extra dependencies. Before adding a package, I check its size, how active the maintenance is, and whether it works with our framework. In one project, a heavy library was used for a single button style, and it should have been replaced by a few lines of CSS."
+    estructuras: ["I weigh the cost of ... against the cost of ...", "For complex, well-solved problems, such as ..., I would prefer ..., because ...", "If the component is ..., writing it ourselves avoids ...", "Before adding ..., I check ...", "... should have been replaced by ..."]
+    vocabulario: [{ termino: "dependency", traduccion: "dependencia" }, { termino: "maintenance", traduccion: "mantenimiento" }, { termino: "date picker", traduccion: "selector de fecha" }, { termino: "bundle size", traduccion: "tamaño del paquete" }]

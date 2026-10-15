@@ -1,0 +1,76 @@
+tipo: entrevistas
+rol: backend
+revisado: false
+preguntas:
+  - id: ent-backend-01
+    nivel: A2
+    pregunta: "What is an API?"
+    respuesta: "An API is a way for two programs to talk to each other. For example, a mobile app asks the server for a list of products. The server sends the data back in a simple format, usually JSON. I build APIs with Node.js. Each API has endpoints, and each endpoint does one job. One endpoint gets users, and another one creates a new user. A good API is simple, clear and safe."
+    estructuras: ["An API is a way for ... to ...", "For example, a mobile app asks the server for ...", "Each endpoint does one job.", "One endpoint ..., and another one ...", "A good API is simple, clear and ..."]
+    vocabulario: [{ termino: "API", traduccion: "interfaz de programación de aplicaciones" }, { termino: "endpoint", traduccion: "punto de acceso de una API" }, { termino: "server", traduccion: "servidor" }, { termino: "JSON", traduccion: "formato de datos JSON" }]
+  - id: ent-backend-02
+    nivel: A2
+    pregunta: "What is the difference between GET and POST?"
+    respuesta: "GET is used to read data. For example, I use GET to see the list of orders. It does not change anything on the server. POST is used to send new data. For example, I use POST when a user creates an order. The data goes in the body of the request. We should not use GET to change data, because it is not safe. I use the right method for each task, so the API is easy to understand."
+    estructuras: ["... is used to read data.", "For example, I use ... to ...", "It does not change anything on ...", "We should not use ... to ..., because ...", "I use the right ... for each task, so ..."]
+    vocabulario: [{ termino: "request", traduccion: "petición" }, { termino: "body", traduccion: "cuerpo (de la petición)" }, { termino: "order", traduccion: "pedido" }, { termino: "method", traduccion: "método" }]
+  - id: ent-backend-03
+    nivel: A2
+    pregunta: "What is a database, and which ones do you know?"
+    respuesta: "A database is a place where an application keeps its data. Users, orders and products are in the database. I know PostgreSQL and MySQL. They are relational databases, so the data is in tables. I also know a little MongoDB, which keeps documents. I use SQL to read and change the data. For example, I write a query to find all the orders from last week. I always make a copy of the data, because a backup is very important."
+    estructuras: ["A ... is a place where ...", "I know ... and ...", "They are ..., so the data is in ...", "For example, I write a query to ...", "I always ..., because ... is very important."]
+    vocabulario: [{ termino: "database", traduccion: "base de datos" }, { termino: "table", traduccion: "tabla" }, { termino: "query", traduccion: "consulta" }, { termino: "backup", traduccion: "copia de seguridad" }]
+  - id: ent-backend-04
+    nivel: A2
+    pregunta: "What do you do when the server returns an error?"
+    respuesta: "First, I look at the status code. A 400 error means the request is wrong. A 500 error means there is a problem in the server. Then I open the logs and look for the error message. Last week, an endpoint returned 500 because a field was empty. I found the line in the log, and I changed the code. After that, I wrote a test, so the same error does not happen again. I also tell my team what happened."
+    estructuras: ["First, I look at ...", "A ... error means ...", "Then I open the logs and look for ...", "Last week, ... returned ... because ...", "I wrote a test, so the same error does not happen again."]
+    vocabulario: [{ termino: "status code", traduccion: "código de estado" }, { termino: "log", traduccion: "registro" }, { termino: "field", traduccion: "campo" }, { termino: "empty", traduccion: "vacío" }]
+  - id: ent-backend-05
+    nivel: B1
+    pregunta: "What makes a REST API well designed?"
+    respuesta: "For me, a good REST API is predictable. The URLs use nouns, like /orders and /orders/42, and the HTTP methods show the action: GET to read, POST to create, PUT or PATCH to update, and DELETE to remove. The API should return the correct status codes, for instance 404 when something does not exist, and clear error messages. In my last project, we also added pagination to every list endpoint, because one request returned ten thousand records and the server became slow. Finally, I think versioning is important, so we can change the API without breaking existing clients."
+    estructuras: ["For me, a good ... is ...", "The URLs use ..., like ...", "The API should return ..., for instance ...", "..., because one request returned ... and ...", "..., so we can change ... without breaking ..."]
+    vocabulario: [{ termino: "pagination", traduccion: "paginación" }, { termino: "versioning", traduccion: "versionado" }, { termino: "client", traduccion: "cliente" }, { termino: "record", traduccion: "registro (de datos)" }]
+  - id: ent-backend-06
+    nivel: B1
+    pregunta: "What is a database index, and when is it a good idea to create one?"
+    respuesta: "An index is a structure that helps the database find rows faster, like the index of a book. Without an index, the database must read the whole table, which is slow when the table is large. I create an index on columns that we use often in filters or joins, for example the email of a user. However, indexes are not free, because they take space and make writes slower. In a previous project, a report took twenty seconds. I checked the query plan, added one index, and the time dropped to less than a second."
+    estructuras: ["... is a structure that helps ... find ... faster", "Without ..., the database must ...", "I create ... on ... that we use often in ...", "However, ... are not free, because ...", "I checked ..., added ..., and the time dropped to ..."]
+    vocabulario: [{ termino: "index", traduccion: "índice" }, { termino: "join", traduccion: "unión de tablas" }, { termino: "query plan", traduccion: "plan de ejecución de la consulta" }, { termino: "column", traduccion: "columna" }]
+  - id: ent-backend-07
+    nivel: B1
+    pregunta: "What is the difference between authentication and authorization?"
+    respuesta: "Authentication answers the question \"Who are you?\", and authorization answers \"What are you allowed to do?\". For example, when a user logs in with a password, we authenticate them. After that, when they try to delete an invoice, we check whether their role has permission. In my last project, I implemented login with tokens that expire after a short time. I also stored passwords with a strong hashing algorithm, never as plain text. A common mistake is to check the permissions only in the frontend, so I always repeat the checks on the server."
+    estructuras: ["... answers the question \"...?\"", "For example, when a user ..., we ...", "After that, when they try to ..., we check whether ...", "A common mistake is to ...", "..., so I always repeat the checks on ..."]
+    vocabulario: [{ termino: "authentication", traduccion: "autenticación" }, { termino: "authorization", traduccion: "autorización" }, { termino: "token", traduccion: "token, credencial temporal" }, { termino: "hashing", traduccion: "cifrado unidireccional (hash)" }]
+  - id: ent-backend-08
+    nivel: B1
+    pregunta: "How do you handle errors and logging in a backend service?"
+    respuesta: "I think errors should be handled in one central place, so every endpoint returns the same format. The user receives a simple message, but the log keeps the technical details, like the stack trace and a request id. That id is very useful, because we can follow one request through several services. I use log levels, such as info, warning and error, so I can filter the noise. Also, I never write passwords or personal data in the logs. Once, good logs helped us find a payment bug in ten minutes instead of two hours."
+    estructuras: ["I think errors should be handled in ..., so ...", "The user receives ..., but the log keeps ...", "That id is very useful, because we can ...", "I use ..., such as ..., so I can ...", "... helped us find ... in ... instead of ..."]
+    vocabulario: [{ termino: "stack trace", traduccion: "traza de la pila de errores" }, { termino: "log level", traduccion: "nivel de registro" }, { termino: "request id", traduccion: "identificador de petición" }, { termino: "payment", traduccion: "pago" }]
+  - id: ent-backend-09
+    nivel: B2
+    pregunta: "An endpoint has become very slow. How would you investigate and fix it?"
+    respuesta: "I would start by measuring, not guessing. With a profiler or tracing tool, I would see where the time is spent: in the database, in an external call, or in the code. A very common cause is the N+1 problem, where the code runs one query per item instead of loading everything at once. If that were the case, I would fix it with a join or a batch query. For data that rarely changes, a cache could help, but it should have a clear expiry. After deploying the change, I would compare the response times, because an optimization that is not measured is only an opinion."
+    estructuras: ["I would start by measuring, not guessing.", "A very common cause is ..., where ...", "If that were the case, I would fix it with ...", "..., but it should have ...", "..., because an optimization that is not measured is only ..."]
+    vocabulario: [{ termino: "profiler", traduccion: "perfilador de rendimiento" }, { termino: "N+1 problem", traduccion: "problema N+1 de consultas" }, { termino: "batch query", traduccion: "consulta por lotes" }, { termino: "response time", traduccion: "tiempo de respuesta" }, { termino: "expiry", traduccion: "caducidad" }]
+  - id: ent-backend-10
+    nivel: B2
+    pregunta: "How would you choose between a relational database and a NoSQL database?"
+    respuesta: "I would look at the shape of the data and how it will be used. If the data has clear relationships and we need transactions, like orders, payments and customers, a relational database is usually the safest option. A document database could be better when the structure changes often, or when we always read a whole object at once. That said, I would not choose a technology only because it is fashionable. In one project, we started with a document database, and we later regretted it, because the reports needed many joins. Now I would prototype the main queries before deciding."
+    estructuras: ["I would look at ... and how it will be used.", "If ..., a relational database is usually the safest option.", "... could be better when ..., or when ...", "That said, I would not choose ... only because ...", "..., and we later regretted it, because ..."]
+    vocabulario: [{ termino: "transaction", traduccion: "transacción" }, { termino: "relationship", traduccion: "relación (entre datos)" }, { termino: "document database", traduccion: "base de datos de documentos" }, { termino: "schema", traduccion: "esquema" }]
+  - id: ent-backend-11
+    nivel: B2
+    pregunta: "How do you make sure a payment endpoint is safe to retry?"
+    respuesta: "The key idea is idempotency. If a client sends the same request twice, for example after a network timeout, the payment must be processed only once. To achieve this, the client sends a unique idempotency key with each request. The server stores the key together with the result, and if the same key arrives again, it returns the saved response instead of charging the customer again. The key should be saved in the same transaction as the payment, so that a crash cannot leave the data inconsistent. I would also add tests that simulate duplicated requests."
+    estructuras: ["The key idea is ...", "If a client sends ... twice, ... must be ... only once.", "To achieve this, the client sends ...", "..., it returns ... instead of charging ... again", "... should be saved in the same transaction as ..., so that ..."]
+    vocabulario: [{ termino: "idempotency", traduccion: "idempotencia" }, { termino: "timeout", traduccion: "tiempo de espera agotado" }, { termino: "retry", traduccion: "reintento" }, { termino: "duplicated request", traduccion: "petición duplicada" }]
+  - id: ent-backend-12
+    nivel: B2
+    pregunta: "How would you change a database schema in production without downtime?"
+    respuesta: "I would split the change into small, backward-compatible steps. For example, if we wanted to rename a column, we would first add the new column and write to both. Then we would copy the old data in batches, so that we do not lock the table for a long time. Only after the application had been switched to read the new column would we remove the old one. Every step must be reversible, and it should be tested on a copy of production data first. This takes longer than one big migration, but it avoids surprises during the deployment."
+    estructuras: ["I would split the change into small, ... steps.", "For example, if we wanted to ..., we would first ...", "..., so that we do not lock ... for a long time", "Only after ... had been ... would we ...", "This takes longer than ..., but it avoids ..."]
+    vocabulario: [{ termino: "migration", traduccion: "migración" }, { termino: "downtime", traduccion: "tiempo de inactividad" }, { termino: "backward-compatible", traduccion: "compatible con versiones anteriores" }, { termino: "lock", traduccion: "bloquear" }, { termino: "rollback", traduccion: "reversión" }]

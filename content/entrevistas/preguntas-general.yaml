@@ -1,0 +1,40 @@
+tipo: entrevistas
+rol: general
+revisado: false
+preguntas:
+  - id: ent-general-01
+    nivel: B1
+    pregunta: "Tell me about yourself."
+    respuesta: "I'm a software developer with four years of experience, mostly in web projects. I started as a junior, and over time I moved from fixing small bugs to building complete features. Last year I led the migration of our reporting module to a new API, which reduced the loading time by almost half. I enjoy working in small teams because communication is faster. Outside work, I'm learning more about automation, since I think it saves a lot of time. Right now I'm looking for a role where I can keep growing and take more responsibility."
+    estructuras: ["I'm a ... with ... years of experience in ...", "I started as ..., and over time I ...", "One of my main achievements was ...", "What I enjoy most about my work is ...", "Right now I'm looking for ..."]
+    vocabulario: [{ termino: "junior", traduccion: "principiante, de nivel inicial" }, { termino: "feature", traduccion: "funcionalidad" }, { termino: "migration", traduccion: "migración" }, { termino: "loading time", traduccion: "tiempo de carga" }]
+  - id: ent-general-02
+    nivel: B1
+    pregunta: "Why do you want to work here?"
+    respuesta: "There are three reasons. First, I like your product, and I have used it myself, so I understand the problems it solves. Second, your team publishes technical articles about its architecture, which shows that you care about quality. Finally, this role matches my experience, but it also gives me a chance to learn new tools. In my last job, I improved our deployment process, and I would like to bring that same attitude here. I believe I can contribute quickly while I keep learning from a strong team."
+    estructuras: ["There are three reasons. First, ...", "What attracts me to this company is ...", "This role matches my experience because ...", "I would like to bring ... to the team", "At the same time, I hope to learn ..."]
+    vocabulario: [{ termino: "product", traduccion: "producto" }, { termino: "architecture", traduccion: "arquitectura (del sistema)" }, { termino: "deployment", traduccion: "despliegue" }, { termino: "contribute", traduccion: "aportar" }]
+  - id: ent-general-03
+    nivel: B1
+    pregunta: "Tell me about a challenge you faced at work and how you solved it."
+    respuesta: "The situation was that our application became very slow after a big release, and customers were complaining. What I did first was to check the monitoring dashboards to find the cause. I discovered that one database query ran thousands of times for every page. Then I added a cache and rewrote the query, and I asked a colleague to review my changes. As a result, the pages loaded three times faster. What I learned was that measuring the problem first is better than guessing, so now I always start with data."
+    estructuras: ["The situation was that ...", "What I did first was ...", "Then I ... and I asked ...", "As a result, ...", "What I learned was that ..."]
+    vocabulario: [{ termino: "release", traduccion: "lanzamiento, versión publicada" }, { termino: "monitoring", traduccion: "monitorización" }, { termino: "query", traduccion: "consulta (a base de datos)" }, { termino: "cache", traduccion: "caché" }]
+  - id: ent-general-04
+    nivel: B1
+    pregunta: "Describe a conflict you had in a team and how you handled it."
+    respuesta: "In a previous project, a colleague and I disagreed about how to structure a new module. He wanted a quick solution, but I was worried that it would be difficult to maintain. Instead of arguing, I suggested that we meet and compare both options on a whiteboard. We listed the advantages and the risks of each one. In the end, we chose a simpler design that could grow later. The important thing for me was to focus on the problem, not on the person. After that, we worked together much better."
+    estructuras: ["We disagreed about ...", "He wanted ..., but I was worried that ...", "Instead of arguing, I suggested that we ...", "In the end, we decided to ...", "The important thing for me was ..."]
+    vocabulario: [{ termino: "module", traduccion: "módulo" }, { termino: "maintain", traduccion: "mantener (código)" }, { termino: "trade-off", traduccion: "compromiso, equilibrio entre ventajas y desventajas" }, { termino: "design", traduccion: "diseño" }]
+  - id: ent-general-05
+    nivel: B1
+    pregunta: "What are your strengths and weaknesses?"
+    respuesta: "One of my strengths is that I learn quickly. When my team adopted a new testing tool, I read the documentation and built a small example in two days, and then I explained it to everyone. Another strength is that I communicate clearly, even with people who are not technical. My weakness is that I sometimes spend too much time on small details. To improve this, I now set a time limit for each task, and I ask for feedback early. It is working well, because I deliver more regularly now."
+    estructuras: ["One of my strengths is that ...", "For example, when ... I ...", "My weakness is that I sometimes ...", "To improve this, I now ...", "It is working well because ..."]
+    vocabulario: [{ termino: "strength", traduccion: "fortaleza" }, { termino: "weakness", traduccion: "debilidad" }, { termino: "feedback", traduccion: "retroalimentación, comentarios" }, { termino: "deliver", traduccion: "entregar" }]
+  - id: ent-general-06
+    nivel: B1
+    pregunta: "Do you have any questions for us?"
+    respuesta: "Yes, I have a few questions. First, how is the team organized, and how do you review code? I would also like to know what a typical week looks like for this role. Another question is how you measure success during the first three months. Finally, what are the biggest technical challenges the team is facing right now? I ask because I want to understand how I can help from the beginning. Thank you for your time, because your answers will help me decide if this is the right place for me."
+    estructuras: ["I have a few questions. First, ...", "I would also like to know ...", "How do you measure ...?", "What are the biggest challenges ... right now?", "I ask because I want to understand ..."]
+    vocabulario: [{ termino: "code review", traduccion: "revisión de código" }, { termino: "measure", traduccion: "medir" }, { termino: "challenge", traduccion: "reto" }, { termino: "team", traduccion: "equipo" }]
