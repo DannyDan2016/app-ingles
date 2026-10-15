@@ -5,6 +5,7 @@ import { requireUser } from '@/lib/auth/current-user';
 import { getEjercicio, getItem, getLeccion, caminoDeNivel } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { NIVELES } from '@/lib/progreso/niveles';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { registrarRespuesta, registrarRespuestaConTarjetas } from '@/lib/aprendizaje/respuestas.repo';
 import { agregarTarjetas } from '@/lib/aprendizaje/tarjetas.repo';
 import { completarItem, itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
@@ -32,7 +33,9 @@ export async function completarItemAction(input: { itemId: string }) {
   const p = z.object({ itemId: idSchema }).safeParse(input);
   const item = p.success ? getItem(p.data.itemId) : undefined;
   if (!item) return { ok: false as const, motivo: 'no_existe' as const };
+  if (!u.nivelInicial) return { ok: false as const, motivo: 'bloqueado' as const };
   const db = getDb();
+  if ((await nivelesDelUsuario(db, u.userId, u.nivelInicial)).estadoDe(item.nivel) === 'bloqueado') return { ok: false as const, motivo: 'bloqueado' as const };
   const estado = estadoCamino(caminoDeNivel(item.nivel), await itemsCompletados(db, u.userId, item.nivel))
     .items.find((i) => i.id === item.id)?.estado;
   if (estado === 'bloqueado') return { ok: false as const, motivo: 'bloqueado' as const };

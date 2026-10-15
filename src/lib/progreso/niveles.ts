@@ -21,3 +21,8 @@ export function estadoNiveles({ nivelInicial, aprobados }: { nivelInicial: Nivel
     return { nivel, estado };
   });
 }
+
+/** Primer nivel «En curso»; si todos están aprobados, el último. */
+export function nivelActual(niveles: { nivel: Nivel; estado: EstadoNivel }[]): Nivel {
+  return niveles.find((n) => n.estado === 'en_curso')?.nivel ?? niveles[niveles.length - 1].nivel;
+}

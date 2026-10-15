@@ -4,6 +4,7 @@ import { CircleCheck, Headphones, Lock } from 'lucide-react';
 import { requireUser } from '@/lib/auth/current-user';
 import { getDb } from '@/lib/db/client';
 import { isNivel } from '@/lib/progreso/niveles';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { caminoDeNivel, getLeccion } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
@@ -16,6 +17,8 @@ export default async function CaminoNivelPage({ params }: PageProps<'/camino/[ni
   if (!u.nivelInicial) redirect('/nivel-inicial');
   const { nivel } = await params;
   if (!isNivel(nivel)) notFound();
+  const { estadoDe } = await nivelesDelUsuario(getDb(), u.userId, u.nivelInicial);
+  if (estadoDe(nivel) === 'bloqueado') redirect('/camino');
   const items = caminoDeNivel(nivel);
   const camino = estadoCamino(items, await itemsCompletados(getDb(), u.userId, nivel));
   const actual = camino.siguiente && getLeccion(camino.siguiente.id);

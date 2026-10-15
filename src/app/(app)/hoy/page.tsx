@@ -6,6 +6,7 @@ import { datosSemana } from '@/lib/avance/avance.repo';
 import { resumenSemana } from '@/lib/avance/semana';
 import { contarPendientes } from '@/lib/aprendizaje/tarjetas.repo';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { caminoDeNivel, getLeccion } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { Tarjeta } from '@/components/tarjeta';
@@ -18,8 +19,8 @@ const ENLACE = 'mt-3 inline-flex min-h-11 items-center rounded-md bg-primario px
 export default async function HoyPage() {
   const u = await requireUser();
   if (!u.nivelInicial) redirect('/nivel-inicial');
-  const nivel = u.nivelInicial;
   const db = getDb();
+  const { actual: nivel } = await nivelesDelUsuario(db, u.userId, u.nivelInicial);
   const ahora = new Date();
   const [datos, pendientes, completados] = await Promise.all([
     datosSemana(db, u.userId, ahora),
