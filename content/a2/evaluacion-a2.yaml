@@ -1,0 +1,345 @@
+tipo: evaluacion
+nivel: A2
+revisado: false
+recursos:
+  - tipo: lectura
+    id: a2-ev-l1
+    titulo: A Slow Checkout Page
+    texto: |
+      Last Monday, Sam, a tester at an online shop, checked the checkout page on his phone. The page was very slow. He clicked the pay button, but the screen stayed white for ten seconds. Then an error message appeared: "Something went wrong." Sam tried again three times and got the same result. He did not find the problem on his laptop, so he knew it only happened on phones.
+
+      He wrote a short report with the steps and a screenshot. In the afternoon, the developer, Lucia, read it. She said, "You must always write the phone model in the report." Sam can add that information next time. Lucia fixed the bug on Tuesday, and Sam tested the page again. This time, the payment worked fast.
+  - tipo: lectura
+    id: a2-ev-l2
+    titulo: Which Menu Is Better?
+    texto: |
+      Our team has two designs for the mobile menu. Design A is simpler than Design B. It has four big buttons and a white background. Design B is more colorful, but it has eight small buttons, so it is harder to use on a small screen.
+
+      Mia, the designer, thinks Design A is the best option because users can find the page they need faster. Tom, the developer, says Design B looks nicer, but it is slower than Design A. He also says the menu is going to need more time to build.
+
+      The team decided to test both designs with ten users next week. If users like Design B more, the team will change the layout. If not, they will keep Design A.
+  - tipo: video
+    id: a2-ev-v1
+    fuente: { youtubeId: qMxuthTIQq4, start: 10, end: 100, titulo: "What is an LLM? | Large Language Models Explained Simply", canal: "MyaPya" }
+  - tipo: video
+    id: a2-ev-v2
+    fuente: { youtubeId: Tk1t3WKK-ZY, start: 15, end: 105, titulo: "What is a database in under 4 minutes", canal: "Linux Academy" }
+preguntas:
+  # ---------- LECTURA: A Slow Checkout Page (qa) ----------
+  - id: a2-ev-q01
+    bloque: lectura
+    recurso: a2-ev-l1
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "Sam checked the checkout page on his laptop."
+    correcta: false
+    explicacion: "El texto dice que Sam revisó la página «on his phone». En el laptop no encontró el problema."
+  - id: a2-ev-q02
+    bloque: lectura
+    recurso: a2-ev-l1
+    tipo: opcion_multiple
+    enunciado: "How long did the screen stay white?"
+    opciones: ["Three seconds", "Ten seconds", "One minute", "One hour"]
+    correcta: 1
+    explicacion: "La lectura dice «the screen stayed white for ten seconds». Las cifras suelen ser el dato clave: búscalas en el texto."
+  - id: a2-ev-q03
+    bloque: lectura
+    recurso: a2-ev-l1
+    tipo: opcion_multiple
+    enunciado: "Why did Sam know the problem only happened on phones?"
+    opciones: ["He did not find the problem on his laptop.", "The developer told him.", "The shop closed on Monday.", "He lost his password."]
+    correcta: 0
+    explicacion: "«He did not find the problem on his laptop, so he knew it only happened on phones». El conector «so» introduce la consecuencia."
+  - id: a2-ev-q04
+    bloque: lectura
+    recurso: a2-ev-l1
+    tipo: completar
+    enunciado: "Completa con el día de la semana según la lectura."
+    texto: "Lucia fixed the bug on ___."
+    respuesta: Tuesday
+    aceptadas: [tuesday]
+    explicacion: "Lucia arregló el error «on Tuesday». Con los días de la semana se usa la preposición «on»."
+  - id: a2-ev-q05
+    bloque: lectura
+    recurso: a2-ev-l1
+    tipo: ordenar
+    enunciado: "Ordena los hechos según ocurren en la lectura."
+    piezas: ["Sam clicked the pay button.", "The screen stayed white.", "An error message appeared.", "Sam wrote a report."]
+    explicacion: "La historia sigue el orden cronológico: primero hace clic, luego la pantalla queda en blanco, después aparece el mensaje de error y al final Sam escribe el informe."
+  # ---------- LECTURA: Which Menu Is Better? (frontend) ----------
+  - id: a2-ev-q06
+    bloque: lectura
+    recurso: a2-ev-l2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "Design B is simpler than Design A."
+    correcta: false
+    explicacion: "La lectura dice lo contrario: «Design A is simpler than Design B». Cuidado con el orden de los dos elementos en una comparación."
+  - id: a2-ev-q07
+    bloque: lectura
+    recurso: a2-ev-l2
+    tipo: opcion_multiple
+    enunciado: "Why does Mia prefer Design A?"
+    opciones: ["Users can find the page they need faster.", "It has eight buttons.", "It is more colorful.", "It needs more time to build."]
+    correcta: 0
+    explicacion: "Mia piensa que A es la mejor opción «because users can find the page they need faster». «Because» introduce la razón."
+  - id: a2-ev-q08
+    bloque: lectura
+    recurso: a2-ev-l2
+    tipo: completar
+    enunciado: "Completa con el número según la lectura."
+    texto: "The team decided to test both designs with ___ users."
+    respuesta: ten
+    aceptadas: ["10", "Ten"]
+    explicacion: "El equipo probará los diseños «with ten users» la semana próxima."
+  - id: a2-ev-q09
+    bloque: lectura
+    recurso: a2-ev-l2
+    tipo: emparejar
+    enunciado: "Relaciona cada persona o grupo con lo que dice o hace."
+    pares:
+      - { a: "Mia", b: "Design A is the best option." }
+      - { a: "Tom", b: "Design B looks nicer." }
+      - { a: "The team", b: "Test both designs next week." }
+    explicacion: "Mia (diseñadora) prefiere A; Tom (desarrollador) opina que B se ve mejor; el equipo decide probar ambos diseños."
+  - id: a2-ev-q10
+    bloque: lectura
+    recurso: a2-ev-l2
+    tipo: opcion_multiple
+    enunciado: "What happens if users like Design B more?"
+    opciones: ["The team will keep Design A.", "The team will change the layout.", "The team will stop the project.", "The team will test Design A again."]
+    correcta: 1
+    explicacion: "La frase condicional dice «If users like Design B more, the team will change the layout». Estructura: if + presente, will + verbo."
+  # ---------- LISTENING: What is an LLM? (ia) ----------
+  - id: a2-ev-q11
+    bloque: listening
+    recurso: a2-ev-v1
+    tipo: opcion_multiple
+    enunciado: "What is the main topic of the video?"
+    opciones: ["What an LLM is", "How to cook pasta", "How to test a login page", "How to choose a font"]
+    correcta: 0
+    explicacion: "El video presenta qué es un LLM (Large Language Model). La idea principal suele aparecer al inicio del video."
+  - id: a2-ev-q12
+    bloque: listening
+    recurso: a2-ev-v1
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el video?"
+    afirmacion: "The video talks about artificial intelligence."
+    correcta: true
+    explicacion: "Un LLM es un modelo de inteligencia artificial; el video lo explica en ese contexto."
+  - id: a2-ev-q13
+    bloque: listening
+    recurso: a2-ev-v1
+    tipo: completar
+    enunciado: "Completa el nombre completo de LLM, como aparece en el video."
+    texto: "LLM means Large ___ Model."
+    respuesta: Language
+    aceptadas: [language]
+    explicacion: "LLM = Large Language Model («modelo de lenguaje grande»). Es útil conocer las siglas y su significado completo."
+  - id: a2-ev-q14
+    bloque: listening
+    recurso: a2-ev-v1
+    tipo: opcion_multiple
+    enunciado: "What does the video try to do?"
+    opciones: ["Explain an idea in a simple way", "Sell a phone", "Teach a song", "Show a football match"]
+    correcta: 0
+    explicacion: "El título dice «Explained Simply»: el objetivo del video es explicar un tema técnico de forma sencilla."
+  - id: a2-ev-q15
+    bloque: listening
+    recurso: a2-ev-v1
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el video?"
+    afirmacion: "The video is about how to cook."
+    correcta: false
+    explicacion: "El video trata de inteligencia artificial y modelos de lenguaje, no de cocina."
+  # ---------- LISTENING: What is a database? (backend) ----------
+  - id: a2-ev-q16
+    bloque: listening
+    recurso: a2-ev-v2
+    tipo: opcion_multiple
+    enunciado: "What is the main topic of the video?"
+    opciones: ["What a database is", "How to paint a wall", "How to write a bug report", "How to choose a color"]
+    correcta: 0
+    explicacion: "El video explica qué es una base de datos. Al escuchar, identifica primero el tema general antes de buscar detalles."
+  - id: a2-ev-q17
+    bloque: listening
+    recurso: a2-ev-v2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el video?"
+    afirmacion: "The video is about databases."
+    correcta: true
+    explicacion: "El tema central son las bases de datos, como indica el título del video."
+  - id: a2-ev-q18
+    bloque: listening
+    recurso: a2-ev-v2
+    tipo: completar
+    enunciado: "Completa con la palabra que se explica en el video."
+    texto: "The video explains what a ___ is."
+    respuesta: database
+    aceptadas: [Database]
+    explicacion: "El video explica qué es una «database» (base de datos): un lugar donde un programa guarda su información de forma ordenada."
+  - id: a2-ev-q19
+    bloque: listening
+    recurso: a2-ev-v2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el video?"
+    afirmacion: "The video says a database is a type of keyboard."
+    correcta: false
+    explicacion: "Una base de datos no es un teclado: es un sistema donde se guarda y se organiza información."
+  - id: a2-ev-q20
+    bloque: listening
+    recurso: a2-ev-v2
+    tipo: opcion_multiple
+    enunciado: "What kind of video is it?"
+    opciones: ["A short explanation of a technical idea", "A long interview", "A cooking lesson", "A music class"]
+    correcta: 0
+    explicacion: "El título «in under 4 minutes» indica una explicación corta de un concepto técnico."
+  # ---------- VOCABULARIO ----------
+  - id: a2-ev-q21
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "What is a «bug»?"
+    opciones: ["A mistake in a program that causes a problem", "A person who checks software", "A copy of your data", "A part of the screen that you click"]
+    correcta: 0
+    explicacion: "Un «bug» es un error o fallo en un programa. Un «tester» es quien revisa el software y un «button» es lo que se pulsa."
+  - id: a2-ev-q22
+    bloque: vocabulario
+    tipo: emparejar
+    enunciado: "Relaciona cada término de backend con su traducción."
+    pares:
+      - { a: "server", b: "servidor" }
+      - { a: "database", b: "base de datos" }
+      - { a: "request", b: "petición" }
+      - { a: "response", b: "respuesta" }
+    explicacion: "Una «request» es la petición que envía el cliente y la «response» es lo que devuelve el «server». Los datos se guardan en la «database»."
+  - id: a2-ev-q23
+    bloque: vocabulario
+    tipo: completar
+    enunciado: "Completa con la palabra correcta."
+    texto: "A ___ is a program that talks with you in text."
+    respuesta: chatbot
+    aceptadas: [Chatbot]
+    explicacion: "Un «chatbot» es un programa que conversa contigo por escrito, por ejemplo un asistente de IA."
+  - id: a2-ev-q24
+    bloque: vocabulario
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "A «prompt» is the text you write to ask an AI for something."
+    correcta: true
+    explicacion: "Un «prompt» es la instrucción o pregunta que escribes a una IA. Cuanto más claro, mejor resultado."
+  - id: a2-ev-q25
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "Which word means «pantalla»?"
+    opciones: ["screen", "button", "page", "link"]
+    correcta: 0
+    explicacion: "«Screen» es la pantalla. «Page» es página, «button» es botón y «link» es enlace."
+  - id: a2-ev-q26
+    bloque: vocabulario
+    tipo: completar
+    enunciado: "Completa con la palabra correcta."
+    texto: "The tester writes a bug ___ with all the steps."
+    respuesta: report
+    aceptadas: [Report]
+    explicacion: "Un «bug report» es el informe de un error. En inglés, el nombre que describe va antes: bug + report."
+  - id: a2-ev-q27
+    bloque: vocabulario
+    tipo: emparejar
+    enunciado: "Relaciona cada término de frontend con su traducción."
+    pares:
+      - { a: "layout", b: "maquetación" }
+      - { a: "font", b: "tipo de letra" }
+      - { a: "link", b: "enlace" }
+      - { a: "header", b: "encabezado" }
+    explicacion: "El «layout» es cómo se colocan los elementos, la «font» es el tipo de letra, un «link» lleva a otra página y el «header» es la parte superior."
+  - id: a2-ev-q28
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "What does «fail» mean in «The test fails»?"
+    opciones: ["It does not pass", "It runs fast", "It is saved", "It is copied"]
+    correcta: 0
+    explicacion: "«Fail» es fallar: el test no pasa (no «pass»). Son los dos resultados básicos de una prueba."
+  - id: a2-ev-q29
+    bloque: vocabulario
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "A «timeout» happens when a server does not answer in time."
+    correcta: true
+    explicacion: "Un «timeout» (tiempo de espera agotado) ocurre cuando la respuesta tarda más de lo permitido."
+  - id: a2-ev-q30
+    bloque: vocabulario
+    tipo: ordenar
+    enunciado: "Ordena las palabras para formar la definición."
+    piezas: ["A backup", "is", "a copy", "of your data."]
+    explicacion: "Una definición básica sigue el orden sujeto + is + complemento: «A backup is a copy of your data» (copia de seguridad)."
+  # ---------- GRAMÁTICA ----------
+  - id: a2-ev-q31
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "Choose the correct option: «Right now, the developer ___ a bug.»"
+    opciones: ["fixes", "is fixing", "fix", "fixed"]
+    correcta: 1
+    explicacion: "«Right now» indica una acción que ocurre en este momento: present continuous (is + verbo-ing). El present simple se usa para rutinas."
+  - id: a2-ev-q32
+    bloque: gramatica
+    tipo: ordenar
+    enunciado: "Ordena las palabras para formar una instrucción."
+    piezas: ["Please", "write", "a short", "summary."]
+    explicacion: "El imperativo usa el verbo base sin sujeto. «Please» suaviza la instrucción y va al principio."
+  - id: a2-ev-q33
+    bloque: gramatica
+    tipo: completar
+    enunciado: "Completa con el past simple del verbo «find»."
+    texto: "Yesterday, the tester ___ three bugs."
+    respuesta: found
+    aceptadas: [Found]
+    explicacion: "«Find» es irregular: find → found. No existe «finded». Los irregulares se memorizan."
+  - id: a2-ev-q34
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "Choose the correct option: «You ___ test the app before the release. It is very important.»"
+    opciones: ["must", "can't", "mustn't", "doesn't"]
+    correcta: 0
+    explicacion: "«Must» expresa obligación. «Mustn't» y «can't» expresan prohibición o imposibilidad, y «doesn't» necesita otro verbo auxiliar."
+  - id: a2-ev-q35
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "Choose the correct option: «We don't have ___ time. The deadline is tomorrow.»"
+    opciones: ["much", "many", "a", "few"]
+    correcta: 0
+    explicacion: "«Time» es incontable, así que se usa «much» en frases negativas. «Many» y «few» son para contables, y «a» no va con incontables."
+  - id: a2-ev-q36
+    bloque: gramatica
+    tipo: completar
+    enunciado: "Completa con la preposición correcta."
+    texto: "The release is ___ Friday."
+    respuesta: on
+    aceptadas: [On]
+    explicacion: "Con los días de la semana se usa «on» (on Friday). «At» va con horas e «in» con meses o años."
+  - id: a2-ev-q37
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "Choose the correct option: «This server is ___ than the old one.»"
+    opciones: ["more fast", "faster", "fastest", "fast"]
+    correcta: 1
+    explicacion: "Los adjetivos cortos forman el comparativo con -er: fast → faster. «Fastest» es el superlativo y «more fast» es incorrecto."
+  - id: a2-ev-q38
+    bloque: gramatica
+    tipo: verdadero_falso
+    enunciado: "¿Es correcta la frase?"
+    afirmacion: "We are going to testing the form tomorrow."
+    correcta: false
+    explicacion: "Después de «going to» va el verbo en forma base: «We are going to test the form tomorrow»."
+  - id: a2-ev-q39
+    bloque: gramatica
+    tipo: verdadero_falso
+    enunciado: "¿Es correcta la frase?"
+    afirmacion: "If the test will fail, we fix the bug today."
+    correcta: false
+    explicacion: "Tras «if» se usa presente, no «will»: «If the test fails, we will fix the bug today»."
+  - id: a2-ev-q40
+    bloque: gramatica
+    tipo: ordenar
+    enunciado: "Ordena las palabras para formar una comparación."
+    piezas: ["Our API", "is", "faster", "than", "the old one."]
+    explicacion: "Comparativo: sujeto + is + adjetivo-er + than + segundo elemento."
