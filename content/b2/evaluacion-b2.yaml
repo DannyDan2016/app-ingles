@@ -1,0 +1,349 @@
+tipo: evaluacion
+nivel: B2
+revisado: true
+recursos:
+  - tipo: lectura
+    id: b2-ev-l1
+    titulo: The Release Nobody Smoke-Tested
+    texto: |
+      Last Friday, our team released a new version of the mobile app at five o'clock. The release was approved quickly, because the pipeline was green and the deadline was close. Within an hour, customers began to report that they could not log in. The incident lasted two hours, and about 4,000 users were affected.
+
+      Having reviewed the logs, the team found the cause: a configuration value was missing in production. If the team had run a smoke test after the deployment, they would have found the problem in a few minutes. The unit tests had passed, but they could not have detected the error, because they used a different configuration.
+
+      During the postmortem, Carla, the QA lead, said that the team should have blocked the release until a manual check was done. Pablo admitted skipping the smoke test, and he explained that nobody had asked him to run it. Carla insisted that the goal was to improve the process, not to blame a person.
+
+      Three actions were agreed: add an automatic smoke test as a quality gate, prepare a rollback for every release, and send a short report to the stakeholders. Although this will add five minutes to each release, the team is confident that it will prevent similar incidents.
+  - tipo: lectura
+    id: b2-ev-l2
+    titulo: Why We Moved to Server-Side Rendering
+    texto: |
+      For three years, our online store was a client-side application. The server sent an almost empty page, and the browser had to download a large bundle before showing anything. Not only was the first load slow, but search engines also had trouble indexing our products.
+
+      Last spring, the team, which is led by Elena, decided to move to server-side rendering. What surprised everyone was the effect on the first render: the content appeared after 1.2 seconds instead of four. However, a new problem appeared. Between the moment the page became visible and the moment it became interactive, users clicked buttons that did not respond. The team found out that this was caused by hydration, the step in which JavaScript attaches to the HTML.
+
+      To reduce the delay, Elena asked the developers to apply code splitting, and the main bundle became 40 percent smaller. She also had an external company perform an accessibility audit. The audit found that several buttons were built with div elements and could not be used with a keyboard. "Never again will we use a div for a button," Elena said.
+
+      By the end of the year, the team will have replaced all the old components with semantic HTML. Although the project took longer than expected, the results are clear.
+  - tipo: video
+    id: b2-ev-v1
+    fuente: { youtubeId: jrHRe9lSqqA, start: 1, end: 120, titulo: "What Is a Prompt Injection Attack?", canal: "IBM Technology" }
+  - tipo: video
+    id: b2-ev-v2
+    fuente: { youtubeId: aJpzr8648XE, start: 21, end: 135, titulo: "Metrics, Logs and Traces: What To Observe and Why", canal: "Tech Upskill" }
+preguntas:
+  # ---------- LECTURA: The Release Nobody Smoke-Tested (qa) ----------
+  - id: b2-ev-q01
+    bloque: lectura
+    recurso: b2-ev-l1
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "The unit tests detected the missing configuration."
+    correcta: false
+    explicacion: "El texto dice que las pruebas unitarias pasaron, pero «could not have detected the error, because they used a different configuration». «Could not have + participio» expresa que era imposible que las pruebas lo detectaran."
+  - id: b2-ev-q02
+    bloque: lectura
+    recurso: b2-ev-l1
+    tipo: opcion_multiple
+    enunciado: "What caused the incident?"
+    opciones: ["A configuration value was missing in production.", "A race condition in the payment service.", "A slow database query.", "A broken screen in the mobile app."]
+    correcta: 0
+    explicacion: "La lectura dice que el equipo revisó los logs y encontró la causa: «a configuration value was missing in production». Las otras opciones no se mencionan."
+  - id: b2-ev-q03
+    bloque: lectura
+    recurso: b2-ev-l1
+    tipo: completar
+    enunciado: "Completa el tercer condicional según la lectura."
+    texto: "If the team had run a smoke test, they ___ have found the problem in a few minutes."
+    respuesta: would
+    explicacion: "Tercer condicional: if + past perfect (had run), would have + participio. El texto usa esta estructura para decir qué habría pasado si el equipo hubiera hecho la prueba de humo."
+  - id: b2-ev-q04
+    bloque: lectura
+    recurso: b2-ev-l1
+    tipo: opcion_multiple
+    enunciado: "What did Pablo admit?"
+    opciones: ["He skipped the smoke test.", "He wrote the wrong configuration.", "He approved the release alone.", "He deleted the logs."]
+    correcta: 0
+    explicacion: "«Pablo admitted skipping the smoke test». Después del verbo «admit» se usa gerundio. Además, explicó que nadie le había pedido ejecutarla, así que el problema era del proceso."
+  - id: b2-ev-q05
+    bloque: lectura
+    recurso: b2-ev-l1
+    tipo: ordenar
+    enunciado: "Ordena los hechos según ocurren en la lectura."
+    piezas: ["The team released the new version.", "Customers could not log in.", "The team found the missing configuration.", "The team agreed on three actions."]
+    explicacion: "Primero se publica la versión, después los clientes informan de que no pueden entrar, luego el equipo revisa los logs y encuentra la causa, y por último, en el postmortem, se acuerdan tres acciones."
+  # ---------- LECTURA: Why We Moved to Server-Side Rendering (frontend) ----------
+  - id: b2-ev-q06
+    bloque: lectura
+    recurso: b2-ev-l2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "After the move, the first content appeared more slowly than before."
+    correcta: false
+    explicacion: "Es falso: el contenido pasó a aparecer a los 1,2 segundos, en lugar de a los cuatro. La frase «What surprised everyone was...» es una cleft sentence que destaca esa mejora."
+  - id: b2-ev-q07
+    bloque: lectura
+    recurso: b2-ev-l2
+    tipo: opcion_multiple
+    enunciado: "Why did some buttons not respond right after the page became visible?"
+    opciones: ["Hydration had not finished yet.", "The server was offline.", "The buttons were hidden.", "The users had no keyboard."]
+    correcta: 0
+    explicacion: "El texto lo explica: entre el momento en que la página es visible y el momento en que es interactiva, el JavaScript todavía no se ha conectado al HTML. Ese paso es la hidratación (hydration)."
+  - id: b2-ev-q08
+    bloque: lectura
+    recurso: b2-ev-l2
+    tipo: completar
+    enunciado: "Completa con el número según la lectura."
+    texto: "Code splitting made the main bundle ___ percent smaller."
+    respuesta: "40"
+    aceptadas: [forty, Forty]
+    explicacion: "La lectura dice «the main bundle became 40 percent smaller». Code splitting divide el código en partes para cargar solo lo necesario en cada momento."
+  - id: b2-ev-q09
+    bloque: lectura
+    recurso: b2-ev-l2
+    tipo: opcion_multiple
+    enunciado: "What did the accessibility audit find?"
+    opciones: ["Several buttons were div elements and could not be used with a keyboard.", "The page had too many images.", "The text colors were all wrong.", "The site did not work in any browser."]
+    correcta: 0
+    explicacion: "La auditoría detectó botones construidos con elementos div que no se podían usar con el teclado. Un button nativo recibe foco y funciona con el teclado de forma predeterminada."
+  - id: b2-ev-q10
+    bloque: lectura
+    recurso: b2-ev-l2
+    tipo: emparejar
+    enunciado: "Relaciona cada término con su significado según la lectura."
+    pares:
+      - { a: "Server-side rendering", b: "The server sends HTML with content" }
+      - { a: "Hydration", b: "JavaScript attaches to the existing HTML" }
+      - { a: "Code splitting", b: "Divides the bundle into smaller parts" }
+      - { a: "Semantic HTML", b: "Uses the right element for each purpose" }
+    explicacion: "El renderizado en servidor envía HTML ya con contenido; la hidratación conecta el JavaScript a ese HTML; code splitting divide el bundle en partes más pequeñas, y el HTML semántico usa el elemento adecuado para cada función."
+  # ---------- LISTENING: What Is a Prompt Injection Attack? (ia) ----------
+  - id: b2-ev-q11
+    bloque: listening
+    recurso: b2-ev-v1
+    tipo: opcion_multiple
+    enunciado: "What is the main topic of the video?"
+    opciones: ["How a user can bend a chatbot's instructions with a prompt injection", "How to train a model with more data", "How to write unit tests for a chatbot", "How to design a car dealership website"]
+    correcta: 0
+    explicacion: "El ponente cuenta el caso de un chatbot de un concesionario al que un cliente da nuevas instrucciones y define ese ataque como «prompt injection». Los demás temas no aparecen."
+  - id: b2-ev-q12
+    bloque: listening
+    recurso: b2-ev-v1
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el video?"
+    afirmacion: "In the example, the chatbot refused to accept a price of one dollar for the car."
+    correcta: false
+    explicacion: "El chatbot hizo exactamente lo que se le había ordenado: respondió «yes, we have a deal». Por eso el ejemplo muestra una prompt injection: el usuario cambió las instrucciones del sistema."
+  - id: b2-ev-q13
+    bloque: listening
+    recurso: b2-ev-v1
+    tipo: completar
+    enunciado: "Completa con la palabra que define las instrucciones que se dan a un modelo de lenguaje."
+    texto: "A ___ is the instructions that you give to a large language model."
+    respuesta: prompt
+    aceptadas: [Prompt]
+    explicacion: "El ponente dice que un prompt es «the instructions that you're giving it». En una prompt injection, el atacante consigue que sus propias instrucciones sustituyan a las del sistema."
+  - id: b2-ev-q14
+    bloque: listening
+    recurso: b2-ev-v1
+    tipo: opcion_multiple
+    enunciado: "According to the OWASP analysis mentioned in the video, which is the number one vulnerability of large language models?"
+    opciones: ["Prompt injection", "Slow response time", "High memory usage", "Missing documentation"]
+    correcta: 0
+    explicacion: "El ponente cita el análisis de OWASP (Open Worldwide Application Security Project): la vulnerabilidad número uno en su lista para los modelos de lenguaje es la prompt injection."
+  - id: b2-ev-q15
+    bloque: listening
+    recurso: b2-ev-v1
+    tipo: ordenar
+    enunciado: "Ordena los pasos del ejemplo del chatbot."
+    piezas: ["The customer tells the bot to agree with everything.", "The bot confirms the rule.", "The customer offers one dollar for an SUV.", "The bot says that they have a deal."]
+    explicacion: "Primero el cliente da la instrucción de aceptarlo todo, el bot la confirma, después el cliente ofrece un dólar por el coche y el bot responde que hay trato. Cada paso depende del anterior."
+  # ---------- LISTENING: Metrics, Logs and Traces (backend) ----------
+  - id: b2-ev-q16
+    bloque: listening
+    recurso: b2-ev-v2
+    tipo: opcion_multiple
+    enunciado: "What is the video about?"
+    opciones: ["What to observe in a system and with which tools", "How to design a login form", "How to write a database migration", "How to train a language model"]
+    correcta: 0
+    explicacion: "La charla trata de observabilidad: qué tipos de datos conviene observar (metrics, logs y traces) y qué herramientas usar para cada uno."
+  - id: b2-ev-q17
+    bloque: listening
+    recurso: b2-ev-v2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el video?"
+    afirmacion: "Metrics are charts and graphs that show the health of the system."
+    correcta: true
+    explicacion: "El ponente dice que las métricas son «the charts and the graphs» que se dibujan para observar la salud del sistema, de la red o de la aplicación. Normalmente se guardan en una base de datos de series temporales."
+  - id: b2-ev-q18
+    bloque: listening
+    recurso: b2-ev-v2
+    tipo: completar
+    enunciado: "Completa con el nombre de la herramienta que el ponente recomienda junto a Prometheus."
+    texto: "Prometheus is a very popular tool, and it is usually used together with a visualizer called ___."
+    respuesta: Grafana
+    aceptadas: [grafana]
+    explicacion: "El ponente presenta Prometheus y Grafana como un dúo muy popular: Prometheus recoge las métricas y Grafana las visualiza en paneles. Solo se sabe cuál es el visualizador si se escucha ese tramo."
+  - id: b2-ev-q19
+    bloque: listening
+    recurso: b2-ev-v2
+    tipo: opcion_multiple
+    enunciado: "Why is it important to collect the logs centrally?"
+    opciones: ["With many servers and containers, it is not possible to check each one separately.", "Because logs never contain errors.", "Because a central place makes the application faster.", "Because logs are only useful for the marketing team."]
+    correcta: 0
+    explicacion: "En infraestructuras grandes, con miles de contenedores que cambian a diario, no se puede entrar en cada servidor para leer sus logs. Por eso se recogen en un sitio central, donde además se pueden visualizar y analizar."
+  - id: b2-ev-q20
+    bloque: listening
+    recurso: b2-ev-v2
+    tipo: emparejar
+    enunciado: "Relaciona cada elemento con su función."
+    pares:
+      - { a: "Metrics", b: "Show the health of the system over time" }
+      - { a: "Logs", b: "Give detailed information to debug a problem" }
+      - { a: "Prometheus", b: "Tool to collect and monitor metrics" }
+    explicacion: "Las métricas muestran la salud del sistema a lo largo del tiempo; los logs son «a treasure trove of information» para depurar, y Prometheus es una herramienta muy popular para recoger y monitorizar métricas."
+  # ---------- VOCABULARIO ----------
+  - id: b2-ev-q21
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "A quick fix that is applied to solve an urgent problem in production is called a ___."
+    opciones: ["hotfix", "changelog", "fixture", "polyfill"]
+    correcta: 0
+    explicacion: "Un hotfix es una corrección urgente aplicada directamente sobre producción. El changelog es el registro de cambios, una fixture prepara datos de prueba y un polyfill añade funciones a navegadores antiguos."
+  - id: b2-ev-q22
+    bloque: vocabulario
+    tipo: completar
+    enunciado: "Completa con la palabra correcta."
+    texto: "A ___ test is a quick check to see whether the basic functions of a new build work."
+    respuesta: smoke
+    aceptadas: [Smoke]
+    explicacion: "Una smoke test es una prueba rápida y superficial que se ejecuta primero con cada versión nueva. Si falla, no tiene sentido continuar con pruebas más largas."
+  - id: b2-ev-q23
+    bloque: vocabulario
+    tipo: emparejar
+    enunciado: "Relaciona cada término con su significado."
+    pares:
+      - { a: "rollback", b: "Return to the previous version" }
+      - { a: "canary release", b: "Give the new version to a small group of users first" }
+      - { a: "circuit breaker", b: "Stops calls to a service that keeps failing" }
+      - { a: "race condition", b: "A bug that depends on the timing of two processes" }
+    explicacion: "El rollback deshace un despliegue; el canary release lo prueba con pocos usuarios; el circuit breaker corta las llamadas a un servicio que falla; y la race condition es un fallo que depende del orden o del momento en que se ejecutan dos procesos."
+  - id: b2-ev-q24
+    bloque: vocabulario
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "Overfitting means that a model works well with the training data but badly with new data."
+    correcta: true
+    explicacion: "El overfitting (sobreajuste) ocurre cuando el modelo memoriza los ejemplos de entrenamiento en lugar de aprender patrones generales, y por eso falla con datos nuevos."
+  - id: b2-ev-q25
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "Which term describes a change that forces the users of an API to update their code?"
+    opciones: ["Breaking change", "Smoke test", "Hotfix", "Tree shaking"]
+    correcta: 0
+    explicacion: "Un breaking change rompe la compatibilidad con versiones anteriores, por eso los usuarios deben adaptar su código. Suele anunciarse de forma destacada en el changelog."
+  - id: b2-ev-q26
+    bloque: vocabulario
+    tipo: completar
+    enunciado: "Completa con la palabra correcta."
+    texto: "A read ___ is a copy of a database that is used to answer read queries."
+    respuesta: replica
+    aceptadas: [Replica]
+    explicacion: "Una read replica es una réplica de la base de datos que solo atiende lecturas. Así se descarga de trabajo al servidor principal, aunque puede ir unos segundos por detrás (consistencia eventual)."
+  - id: b2-ev-q27
+    bloque: vocabulario
+    tipo: ordenar
+    enunciado: "Ordena las partes para formar una frase correcta."
+    piezas: ["The error budget", "is the amount of failure", "that an SLO allows."]
+    explicacion: "El error budget es el margen de fallos que permite un SLO. Si el servicio lo agota, el equipo suele detener las nuevas funciones y centrarse en la estabilidad."
+  - id: b2-ev-q28
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "What does «accountable» mean in «Someone must be accountable for the results»?"
+    opciones: ["Responsible and able to explain the results", "Very fast at calculating", "Cheap to maintain", "Hard to understand"]
+    correcta: 0
+    explicacion: "Accountable significa que una persona o un equipo responde de los resultados y debe poder justificarlos. No tiene relación con «accounting» (contabilidad)."
+  - id: b2-ev-q29
+    bloque: vocabulario
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso?"
+    afirmacion: "Tree shaking adds extra unused code to the bundle."
+    correcta: false
+    explicacion: "Es al revés: el tree shaking elimina del bundle el código que no se usa, de modo que la página descarga menos JavaScript."
+  - id: b2-ev-q30
+    bloque: vocabulario
+    tipo: opcion_multiple
+    enunciado: "In AI systems, what is a guardrail?"
+    opciones: ["A control that limits what the system can answer or do", "A type of training data", "A faster graphics card", "A language for writing prompts"]
+    correcta: 0
+    explicacion: "Un guardrail es una barrera de seguridad: una regla o un filtro que limita las respuestas o las acciones de un sistema de IA, por ejemplo para bloquear contenido peligroso o respuestas sin fuente."
+  # ---------- GRAMÁTICA ----------
+  - id: b2-ev-q31
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "Nobody touched the database all week, so the change ___ have caused the slowdown."
+    opciones: ["can't", "must", "should"]
+    correcta: 0
+    explicacion: "«Can't have + participio» expresa una deducción negativa sobre el pasado: si nadie tocó la base de datos, es casi imposible que el cambio fuera la causa. «Must have» afirmaría lo contrario y «should have» sería una crítica."
+  - id: b2-ev-q32
+    bloque: gramatica
+    tipo: completar
+    enunciado: "Completa el tercer condicional."
+    texto: "If I ___ checked the query plan, I would have found the problem."
+    respuesta: had
+    explicacion: "En el tercer condicional, la cláusula con «if» lleva past perfect (had + participio) y la principal lleva would have + participio. Se refiere a algo que no ocurrió en el pasado."
+  - id: b2-ev-q33
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "If we had chosen a different isolation level, we ___ so many locks now."
+    opciones: ["wouldn't have", "wouldn't have had", "hadn't"]
+    correcta: 0
+    explicacion: "Condicional mixto: condición en el pasado (had chosen) y resultado en el presente (now), por eso «would + verbo base». «Wouldn't have had» sería un tercer condicional puro, con resultado también pasado."
+  - id: b2-ev-q34
+    bloque: gramatica
+    tipo: ordenar
+    enunciado: "Ordena la frase (estilo indirecto con reporting verb)."
+    piezas: ["She", "admitted", "deleting", "the", "wrong", "branch"]
+    explicacion: "El verbo «admit» va seguido de gerundio: «admitted deleting». Es un reporting verb: resume lo que alguien reconoció sin repetir sus palabras exactas."
+  - id: b2-ev-q35
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "The lead ___ us not to deploy on Fridays."
+    opciones: ["warned", "suggested", "denied"]
+    correcta: 0
+    explicacion: "«Warn + objeto + (not) to + infinitivo» es la estructura correcta: «warned us not to deploy». «Suggest» y «deny» se construyen con gerundio o con «that», no con objeto + to."
+  - id: b2-ev-q36
+    bloque: gramatica
+    tipo: completar
+    enunciado: "Completa con el auxiliar correcto (wish + pasado)."
+    texto: "I wish we ___ used a feature flag for this release."
+    respuesta: had
+    explicacion: "Para lamentar algo del pasado se usa «wish + past perfect» (had + participio). Expresa que la situación real fue distinta de la deseada."
+  - id: b2-ev-q37
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "___ all the tests passed, the release had a serious bug."
+    opciones: ["Although", "Despite", "Because"]
+    correcta: 0
+    explicacion: "«Although» introduce una concesión y va seguido de una cláusula completa. «Despite» exigiría un sustantivo o gerundio («despite passing all the tests»), y «because» expresa causa, no contraste."
+  - id: b2-ev-q38
+    bloque: gramatica
+    tipo: completar
+    enunciado: "Completa con el future perfect."
+    texto: "By Friday, we ___ finished the migration."
+    respuesta: will have
+    aceptadas: ["'ll have"]
+    explicacion: "«By + momento futuro» pide future perfect: will have + participio. La acción estará terminada antes de ese momento."
+  - id: b2-ev-q39
+    bloque: gramatica
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso? Considera la gramática de la frase."
+    afirmacion: "The sentence «Not only does the page load quickly, but it is also accessible» is correct."
+    correcta: true
+    explicacion: "Es correcta: después de «Not only» al principio se invierte el orden de auxiliar y sujeto («does the page load»). Es una estructura enfática habitual en textos formales."
+  - id: b2-ev-q40
+    bloque: gramatica
+    tipo: opcion_multiple
+    enunciado: "The old API, ___ was released in 2018, will be removed next year."
+    opciones: ["which", "that", "who"]
+    correcta: 0
+    explicacion: "La información entre comas es una non-defining relative clause: solo añade un dato extra y no admite «that». Para cosas se usa «which»; «who» es para personas."

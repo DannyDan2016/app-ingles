@@ -1,0 +1,16 @@
+tipo: tramo
+id: b2-backend-t1
+nivel: B2
+tema: backend
+orden: 9
+# Fragmento 167-279 s contrastado con la transcripción pública (subtítulos en inglés): los tres estados del circuit breaker (closed, open, half-open), el umbral de fallos, fail fast y la prueba en half-open. Un solo hablante, ritmo claro. Alternativo: dJI2saoM5_k.
+fuente: { podcast: "Nick Chapsas", youtubeId: 5_Bt_OEg0no, start: 167, end: 279, titulo: "The Circuit Breaker Pattern | Resilient Microservices", canal: "Nick Chapsas" }
+preguntaGuia: What does a circuit breaker do when a downstream service keeps failing?
+palabrasClave: [circuit breaker, failover]
+preguntas:
+  - { id: b2-backend-t1-e1, tipo: opcion_multiple, enunciado: "How many states does the circuit breaker have in this explanation?", opciones: ["Three: closed, open and half-open.", "Two: on and off.", "Four: red, yellow, green and blue."], correcta: 0, explicacion: "El ponente dice que el circuit breaker tiene tres estados: closed (cerrado), open (abierto) y half-open (semiabierto).", terminos: [circuit breaker] }
+  - { id: b2-backend-t1-e2, tipo: opcion_multiple, enunciado: "What does an open circuit mean for the calls to the failing service?", opciones: ["No calls go through to the service.", "All calls go through normally.", "Every call is retried ten times."], correcta: 0, explicacion: "Con el circuito abierto («open»), no se envía ninguna llamada al servicio. Cerrado («closed») significa que las llamadas pasan con normalidad.", terminos: [circuit breaker] }
+  - { id: b2-backend-t1-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "The circuit opens when the failure threshold is exceeded.", correcta: true, explicacion: "Mientras el circuito está cerrado se vigila la tasa de fallos; si se supera el umbral configurado, el circuito se abre y se evita llamar al servicio. Así se puede «fail fast» y no malgastar recursos.", terminos: [circuit breaker] }
+  - { id: b2-backend-t1-e4, tipo: opcion_multiple, enunciado: "What is the purpose of the half-open state?", opciones: ["To let some requests try the service and check if it has recovered.", "To delete the failing service.", "To block the users for one hour."], correcta: 0, explicacion: "Pasado el tiempo de espera, el circuito pasa a half-open y deja pasar algunas peticiones de prueba para comprobar si el servicio externo ya funciona de nuevo.", terminos: [circuit breaker] }
+  - { id: b2-backend-t1-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "If the test requests in the half-open state are successful, the circuit opens again.", correcta: false, explicacion: "Es al revés: si las peticiones de prueba tienen éxito, el circuito se cierra y se vuelven a procesar las peticiones con normalidad. Si fallan, el circuito se abre de nuevo durante otro periodo." }
+revisado: true

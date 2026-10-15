@@ -1,0 +1,37 @@
+tipo: leccion
+id: b2-ia-02
+nivel: B2
+tema: ia
+orden: 2
+titulo: Although the Model Is Powerful, It Should Be Supervised
+objetivo: Puedo redactar una recomendación equilibrada sobre adoptar IA en el equipo, reconociendo ventajas y límites.
+gramatica: "Concesión (although, even though, despite, in spite of, whereas) + reporting passive (AI is said to / is expected to) y hedging (tends to, is likely to, appears to)"
+lectura: |
+  Subject: Recommendation on AI coding assistants
+
+  Dear Ms Ortega,
+
+  I am writing to summarize my recommendation about the [[adoption]] of AI assistants in the development team.
+
+  Although the market is full of [[hype]], these tools are expected to make us faster at routine tasks. Many teams are said to save several hours per week, and our own pilot appears to confirm this. Despite these benefits, there is an important [[trade-off]]: speed can reduce the time we spend on careful review.
+
+  The main [[limitation]] is that a language model is not [[deterministic]]. Even though we sent identical requests during the pilot, the answers were sometimes different, so the output tends to need human checking. Whereas a traditional script always gives the same result, an assistant is likely to make a plausible mistake from time to time. For that reason, I propose a clear [[oversight]] process: every suggestion must be reviewed by a developer before it is merged.
+
+  The company also needs a proper [[governance]] framework. Someone must be [[accountable]] for the results, and we have to document how the tool is used. In spite of the extra work, this [[transparency]] will help us in audits and will support our [[compliance]] with data protection rules. We should also [[mitigate]] ethical risks, for example by avoiding sensitive customer data in prompts. Questions about [[ethical]] use are likely to become more important in the coming years.
+
+  Finally, the solution must be [[scalable]]: if the pilot succeeds, we should be able to extend it to every team without rebuilding the process. In my view, we should adopt the assistants, although we must supervise them carefully.
+
+  Best regards,
+  Alicia Ferrer, Tech Lead
+terminos: [hype, trade-off, governance, transparency, accountable, compliance, mitigate, deterministic, scalable, adoption, limitation, ethical, oversight]
+ejercicios:
+  - { id: b2-ia-02-e1, tipo: opcion_multiple, enunciado: "___ the model is powerful, it needs human review.", opciones: ["Although", "Despite", "However"], correcta: 0, explicacion: "«Although» va seguido de una cláusula completa (sujeto + verbo). «Despite» necesita un sustantivo o un gerundio («despite being powerful») y «however» es un conector que va entre dos frases, con coma o punto.", terminos: [oversight] }
+  - { id: b2-ia-02-e2, tipo: completar, enunciado: "Completa con una preposición de concesión (seguida de un sustantivo).", texto: "___ these benefits, there is an important trade-off.", respuesta: "Despite", aceptadas: ["In spite of"], explicacion: "«Despite» e «in spite of» significan «a pesar de» y van seguidos de un sustantivo o gerundio. Ojo: «despite» nunca lleva «of».", terminos: [trade-off] }
+  - { id: b2-ia-02-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Alicia recommends adopting the assistants without any human supervision.", correcta: false, explicacion: "Alicia recomienda adoptarlos, pero propone un proceso de supervisión (oversight): toda sugerencia debe ser revisada por una persona antes de integrarse en el código.", terminos: [oversight, adoption] }
+  - { id: b2-ia-02-e4, tipo: emparejar, enunciado: "Empareja cada término con su traducción.", pares: [{ a: governance, b: gobernanza }, { a: compliance, b: cumplimiento normativo }, { a: accountable, b: responsable (que debe rendir cuentas) }, { a: hype, b: expectación exagerada }], explicacion: "Governance son las reglas y procesos para gestionar el uso de la IA; compliance, el cumplimiento de leyes y normas; accountable, la persona o equipo que responde de los resultados; y hype, la publicidad exagerada alrededor de una tecnología.", terminos: [governance, compliance, accountable, hype] }
+  - { id: b2-ia-02-e5, tipo: ordenar, enunciado: "Ordena la frase (hedging).", piezas: ["AI", "is", "likely", "to", "improve", "our", "productivity"], explicacion: "«Is likely to + verbo» es una forma de matizar (hedging): expresa probabilidad sin afirmarla como un hecho. Es habitual en textos formales y en memos para la dirección.", terminos: [adoption] }
+  - { id: b2-ia-02-e6, tipo: opcion_multiple, enunciado: "Which sentence is the most cautious (hedged)?", opciones: ["AI tends to make mistakes with rare cases.", "AI always makes mistakes with rare cases.", "AI never makes mistakes with rare cases."], correcta: 0, explicacion: "«Tends to» suaviza la afirmación: indica una tendencia, no una regla absoluta. «Always» y «never» son afirmaciones absolutas y rara vez se pueden demostrar en un informe técnico.", terminos: [limitation] }
+  - { id: b2-ia-02-e7, tipo: completar, enunciado: "Completa con el conector de contraste.", texto: "A traditional script always gives the same result, ___ an assistant can give different answers.", respuesta: "whereas", aceptadas: ["while"], explicacion: "«Whereas» (y «while») contrapone dos hechos diferentes dentro de la misma frase, y se usa mucho para comparar. Aquí contrasta un script determinista con un asistente que no lo es.", terminos: [deterministic] }
+  - { id: b2-ia-02-e8, tipo: opcion_multiple, enunciado: "Which sentence uses a reporting passive?", opciones: ["AI is said to reduce the time of code review.", "People say AI reduces the time of code review.", "AI said reducing the time of code review."], correcta: 0, explicacion: "El reporting passive se forma con sujeto + is/are said/expected/believed + to + infinitivo. Evita nombrar quién lo dice y suena más formal que «people say that...».", terminos: [adoption] }
+video: { youtubeId: yh-3WU1FKrk, start: 30, end: 134, titulo: "What is Responsible AI? A Guide to AI Governance", canal: "IBM Technology" }
+revisado: true

@@ -1,0 +1,16 @@
+tipo: tramo
+id: b2-ia-t1
+nivel: B2
+tema: ia
+orden: 3
+# Fragmento 212-329 s contrastado con la transcripción pública (subtítulos en inglés): por qué alucinan los LLM → calidad de datos, método de generación y contexto de entrada. El resto del video explica cómo reducir el riesgo (prompts claros, temperature, multi-shot). Alternativo: 005JLRt3gXI.
+fuente: { podcast: "IBM Technology", youtubeId: cfqtFvWOfg0, start: 212, end: 329, titulo: "Why Large Language Models Hallucinate", canal: "IBM Technology" }
+preguntaGuia: Why do large language models sometimes produce wrong answers confidently?
+palabrasClave: [inference, context window]
+preguntas:
+  - { id: b2-ia-t1-e1, tipo: opcion_multiple, enunciado: "What does the speaker say about how an LLM derives its output?", opciones: ["It is something of a black box, even to its engineers.", "It is completely transparent to every user.", "It is a simple list of fixed rules."], correcta: 0, explicacion: "El presentador dice que la forma en que el modelo obtiene su salida es «something of a black box, even to the engineers of the LLM itself». Por eso explicar una alucinación no es fácil.", terminos: [inference] }
+  - { id: b2-ia-t1-e2, tipo: opcion_multiple, enunciado: "Which three common causes of hallucinations are mentioned?", opciones: ["Data quality, generation method and input context.", "Screen size, network speed and browser version.", "Price, license and brand of the model."], correcta: 0, explicacion: "Las tres causas que explica el fragmento son la calidad de los datos de entrenamiento, el método de generación del texto y el contexto de entrada (el prompt).", terminos: [context window] }
+  - { id: b2-ia-t1-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "If the training data were entirely reliable, the model would cover every possible topic.", correcta: false, explicacion: "El presentador lo desmiente: incluso con datos fiables, esos datos pueden no cubrir todos los temas o dominios sobre los que se espera que el modelo genere contenido." }
+  - { id: b2-ia-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "An unclear or contradictory input can confuse or mislead the model.", correcta: true, explicacion: "El contexto puede guiar al modelo hacia respuestas relevantes, pero si es poco claro, inconsistente o contradictorio, puede confundirlo. Es la causa sobre la que los usuarios podemos actuar directamente.", terminos: [context window] }
+  - { id: b2-ia-t1-e5, tipo: opcion_multiple, enunciado: "As the reasoning capabilities of LLMs improve, hallucinations tend to ___.", opciones: ["decline", "increase", "stay exactly the same"], correcta: 0, explicacion: "El presentador afirma que, a medida que mejora la capacidad de razonamiento de los modelos, las alucinaciones tienden a disminuir (decline). «Tend to» es una forma de matizar: no dice que desaparezcan.", terminos: [inference] }
+revisado: true

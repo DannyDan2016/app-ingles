@@ -1,0 +1,32 @@
+tipo: leccion
+id: b2-backend-01
+nivel: B2
+tema: backend
+orden: 7
+titulo: If We Had Added an Index, the Query Would Be Faster
+objetivo: Puedo explicar decisiones pasadas y arrepentimientos técnicos y su efecto actual en bases de datos y APIs.
+gramatica: "Condicionales mixtos (If we had designed it idempotent, we wouldn't have duplicates now) y wish / if only + past perfect (I wish we had used a read replica)"
+lectura: |
+  A month after the [[migration]] to the new database schema, the orders page was still slow, so Ana, the backend lead, called a performance review.
+
+  "If we had checked the [[query plan]] before the migration, we would know now why the main query scans the whole table," she said. "If we had added an index, it would be much faster today." Marc nodded. "The [[ORM|orm]] generates SQL that nobody reads. I wish we had written that query by hand." He also pointed out that the schema had too many tables. "If we hadn't pushed [[normalization]] so far, we wouldn't need six joins now."
+
+  The second problem was the [[connection pool]]. At peak time, many requests waited for a free connection. "If only we had increased its size, the app wouldn't be struggling with this level of [[concurrency]]," Ana said. Worse, two transactions had blocked each other, and the database had ended one of them with a [[deadlock]] error. Marc suggested that a lower [[isolation level]] for the reports would reduce the locks.
+
+  Then they discussed the replicas. The reports were running on the main database. "I wish we had used a [[read replica]] for them," Ana said. "The main server wouldn't be so busy now." Marc warned that [[replication]] has a price: a replica can be a few seconds behind, so the team must accept some delay in [[consistency]] for the reports.
+
+  Finally, they talked about duplicated payments. "If we had designed the endpoint to be [[idempotent]], we wouldn't have duplicates in the system now," Marc said. Ana added a last regret: "If only we had planned [[sharding]] earlier, we would not be so worried about the growth of the data."
+
+  They agreed to fix the query first, and then to make a longer plan.
+terminos: [idempotent, consistency, replication, sharding, deadlock, normalization, migration, orm, concurrency, query plan, connection pool, read replica, isolation level]
+ejercicios:
+  - { id: b2-backend-01-e1, tipo: opcion_multiple, enunciado: "If we had added an index last month, the query ___ faster now.", opciones: ["would be", "would have been", "will be"], correcta: 0, explicacion: "Es un condicional mixto: la condición está en el pasado (if + past perfect: «had added») y el resultado se nota en el presente («would be», con «now»). El tercer condicional puro usaría «would have been» para un resultado pasado.", terminos: [query plan] }
+  - { id: b2-backend-01-e2, tipo: completar, enunciado: "Completa con la forma negativa del modal (resultado en el presente).", texto: "If we had designed the endpoint to be idempotent, we ___ have duplicates now.", respuesta: "wouldn't", aceptadas: ["would not"], explicacion: "Condicional mixto: if + past perfect (pasado) y «would + verbo base» (presente). Aquí el resultado negativo es presente: «wouldn't have duplicates now».", terminos: [idempotent] }
+  - { id: b2-backend-01-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Ana regrets that the reports were not run on a read replica.", correcta: true, explicacion: "Ana dice «I wish we had used a read replica for them». «Wish + past perfect» expresa un arrepentimiento sobre el pasado: se deseaba otra cosa y no ocurrió.", terminos: [read replica] }
+  - { id: b2-backend-01-e4, tipo: emparejar, enunciado: "Empareja cada término con su significado.", pares: [{ a: deadlock, b: bloqueo mutuo entre transacciones }, { a: idempotent, b: repetir la petición tiene el mismo efecto }, { a: sharding, b: repartir los datos entre servidores }, { a: connection pool, b: conjunto reutilizable de conexiones }], explicacion: "Un deadlock ocurre cuando dos transacciones se esperan entre sí y ninguna avanza. Una operación idempotente produce el mismo efecto aunque se repita. El sharding reparte los datos entre varios servidores y un connection pool reutiliza conexiones abiertas con la base de datos.", terminos: [deadlock, idempotent, sharding, connection pool] }
+  - { id: b2-backend-01-e5, tipo: ordenar, enunciado: "Ordena la frase (wish + past perfect).", piezas: ["I", "wish", "we", "had", "used", "a", "read", "replica"], explicacion: "Estructura: wish + sujeto + had + participio. Se usa para lamentar algo del pasado. El participio de «use» es «used».", terminos: [read replica] }
+  - { id: b2-backend-01-e6, tipo: opcion_multiple, enunciado: "I wish we ___ the report on the main database. It was a mistake, and we regret it.", opciones: ["hadn't run", "didn't run", "wouldn't have run"], correcta: 0, explicacion: "Para lamentar algo que ocurrió en el pasado se usa «wish + past perfect»: «I wish we hadn't run...». «Didn't run» expresaría un deseo sobre el presente y «wouldn't have run» no se usa después de wish.", terminos: [replication] }
+  - { id: b2-backend-01-e7, tipo: completar, enunciado: "Completa con el auxiliar correcto (if only + past perfect).", texto: "If only we ___ planned sharding earlier!", respuesta: "had", explicacion: "«If only» tiene un valor parecido a «wish» y expresa un lamento intenso. Para el pasado se usa past perfect: «If only we had planned...».", terminos: [sharding] }
+  - { id: b2-backend-01-e8, tipo: opcion_multiple, enunciado: "Which sentence is a mixed conditional (past condition, present result)?", opciones: ["If we had used a connection pool, the app wouldn't be slow now.", "If we use a connection pool, the app won't be slow.", "If we had used a connection pool, the app wouldn't have been slow."], correcta: 0, explicacion: "El condicional mixto combina una condición pasada (had used) con un resultado presente (wouldn't be slow now). La segunda opción es un primer condicional y la tercera es un tercer condicional puro, con resultado también en el pasado.", terminos: [connection pool] }
+video: { youtubeId: jLEp1XI_L6Q, start: 20, end: 128, titulo: "Database Replication & Sharding Explained", canal: "Hayk Simonyan" }
+revisado: true
