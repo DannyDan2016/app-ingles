@@ -5,7 +5,7 @@ import type { HoyPage } from '../pages/hoy.page';
 import type { NivelesPage } from '../pages/niveles.page';
 import { crearCuenta } from './comunes.steps';
 import { sinScrollHorizontal } from '../support/pantalla';
-import { completarLeccion } from '../support/db';
+import { completarLeccion, completarRefuerzo } from '../support/db';
 
 // Contenido de la demo (content/_demo, solo imagen con CONTENT_DEMO=1): lección demo-01 y tramo demo-t1.
 type L = LeccionPage;
@@ -268,13 +268,7 @@ Then('Hoy muestra {string}', async ({ hoy, niveles }, texto: string) => {
   await expect(hoy.textoMeta()).toContainText(texto);
 });
 
-// --- Nivel sin contenido ------------------------------------------------------------------------------
-
-Then('veo el aviso {string} con enlace al camino A2', async ({ page }, texto: string) => {
-  const main = page.getByRole('main');
-  await expect(main.getByRole('heading', { name: texto })).toBeVisible();
-  await expect(main.getByRole('link', { name: 'Ir al camino A2' })).toBeVisible();
-});
+Then('veo el encabezado {string}', async ({ page }, texto: string) => { await expect(page.getByRole('heading', { level: 1, name: texto })).toBeVisible(); });
 
 // --- Evaluación de nivel (solo local: usa la BD del stack Docker) -------------------------------------
 
@@ -310,31 +304,14 @@ Then('la página no contiene las soluciones', async ({ evaluacion }) => {
   expect(html).not.toContain('Present simple con -s en tercera persona');
 });
 When('sigo el enlace {string}', async ({ page }, texto: string) => { await page.getByRole('link', { name: texto }).click(); });
-// Refuerzo: 8 ejercicios de práctica del demo en orden barajado; se resuelven según su enunciado.
-When('completo los ejercicios del refuerzo', async ({ leccion: l, page }) => {
-  for (let n = 0; n < 12; n++) {
-    if (await page.getByRole('heading', { name: 'Refuerzo completado' }).isVisible()) return;
-    const enunciado = (await page.locator('legend').first().innerText()).trim();
-    if (enunciado === 'What does Leo create every day?') await l.marcar(l.opcion('A branch'));
-    else if (enunciado === 'Completa la frase.') await l.escribir(l.respuesta(), 'commit');
-    else if (enunciado === 'Ordena la frase.') { for (const p of ['They', 'merge', 'the', 'branch']) await l.pulsar(l.pieza(p)); }
-    else if (enunciado.startsWith('Empareja')) {
-      await l.elegir(l.selectorDe('commit'), 'confirmación');
-      await l.elegir(l.selectorDe('branch'), 'rama');
-      await l.elegir(l.selectorDe('review'), 'revisión');
-    } else if (enunciado === 'What is the video about?') await l.marcar(l.opcion('Bug reports'));
-    else if (enunciado.startsWith('¿Verdadero o falso?')) {
-      // La afirmación decide: solo «The speaker talks about pizza.» es falsa.
-      const falsa = await page.getByText('The speaker talks about pizza.', { exact: true }).isVisible();
-      await l.marcar(l.opcion(falsa ? 'Falso' : 'Verdadero'));
-    } else throw new Error(`Ejercicio de refuerzo desconocido: ${enunciado}`);
-    await l.pulsar(l.comprobar());
-    await expect(l.feedback()).toContainText('¡Correcto!');
-    await l.pulsar(l.continuar());
-  }
-  await expect(page.getByRole('heading', { name: 'Refuerzo completado' })).toBeVisible();
+// Refuerzo: sus ejercicios salen de TODA la práctica de A2 (contenido real + demo, orden barajado por intento), así que no se
+// pueden resolver por la UI de forma determinista. Se comprueba que arranca y el cierre se registra por BD (misma escritura que la acción).
+Then('veo el primer ejercicio del refuerzo', async ({ page }) => {
+  await expect(page.getByRole('heading', { level: 1, name: 'Refuerzo de A2' })).toBeVisible();
+  await expect(page.getByText(/^Ejercicio 1 de \d+$/)).toBeVisible();
 });
-Then('veo el refuerzo completado con la fecha para reintentar', async ({ page }) => {
-  await expect(page.getByRole('heading', { name: 'Refuerzo completado' })).toBeVisible();
-  await expect(page.getByText(/Podrás volver a presentar|Ya puedes volver a presentar/)).toBeVisible();
+When('doy el refuerzo por completado', async ({ ctx }) => { await completarRefuerzo(ctx.alias!, 'A2'); });
+Then('el camino de {string} indica cuándo reintentar', async ({ page }, nivel: string) => {
+  await page.goto(`/camino/${nivel}`);
+  await expect(page.getByText(/Podrás reintentarla desde el/)).toBeVisible();
 });

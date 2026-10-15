@@ -13,7 +13,7 @@ Característica: Evaluación de nivel
     Cuando abro la sección "Camino"
     Entonces el nivel "B1" aparece "En curso"
     Cuando abro la página "/camino/B1"
-    Entonces veo el aviso "El contenido de B1 llega pronto" con enlace al camino A2
+    Entonces veo el encabezado "Nivel B1"
 
   Escenario: Suspender lleva al refuerzo
     Dado que tengo una cuenta con nivel "A2" y todas sus lecciones completadas
@@ -24,5 +24,6 @@ Característica: Evaluación de nivel
     Entonces veo el resultado "No aprobado"
     Y veo el enlace "Hacer el refuerzo"
     Cuando sigo el enlace "Hacer el refuerzo"
-    Y completo los ejercicios del refuerzo
-    Entonces veo el refuerzo completado con la fecha para reintentar
+    Entonces veo el primer ejercicio del refuerzo
+    Cuando doy el refuerzo por completado
+    Entonces el camino de "A2" indica cuándo reintentar
