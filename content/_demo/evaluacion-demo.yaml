@@ -1,0 +1,34 @@
+tipo: evaluacion
+nivel: A2
+revisado: false
+recursos:
+  - tipo: lectura
+    id: demo-ev-l1
+    titulo: A Small Team
+    texto: |
+      Mia is a tester. Every morning she reads the bug list and checks the new build.
+      When a test fails, she writes a clear report for the developers.
+  - tipo: video
+    id: demo-ev-v1
+    fuente: { youtubeId: g0176p-SYP8, start: 10, end: 70, titulo: "Demo listening", canal: "Demo" }
+preguntas:
+  - { id: demo-ev-q01, bloque: lectura, recurso: demo-ev-l1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "Mia is a tester.", correcta: true, explicacion: "La lectura dice «Mia is a tester»." }
+  - { id: demo-ev-q02, bloque: lectura, recurso: demo-ev-l1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "Mia checks the new build.", correcta: true, explicacion: "«checks the new build»." }
+  - { id: demo-ev-q03, bloque: lectura, recurso: demo-ev-l1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "Mia reads the bug list.", correcta: true, explicacion: "«reads the bug list»." }
+  - { id: demo-ev-q04, bloque: lectura, recurso: demo-ev-l1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "Mia writes reports.", correcta: true, explicacion: "«she writes a clear report»." }
+  - { id: demo-ev-q05, bloque: lectura, recurso: demo-ev-l1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The reports are for developers.", correcta: true, explicacion: "«for the developers»." }
+  - { id: demo-ev-q06, bloque: listening, recurso: demo-ev-v1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The video is about testing.", correcta: true, explicacion: "Demo." }
+  - { id: demo-ev-q07, bloque: listening, recurso: demo-ev-v1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The speaker talks about bugs.", correcta: true, explicacion: "Demo." }
+  - { id: demo-ev-q08, bloque: listening, recurso: demo-ev-v1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The video is in English.", correcta: true, explicacion: "Demo." }
+  - { id: demo-ev-q09, bloque: listening, recurso: demo-ev-v1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "The video is short.", correcta: true, explicacion: "Demo." }
+  - { id: demo-ev-q10, bloque: listening, recurso: demo-ev-v1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "You can watch it at 0.75x.", correcta: true, explicacion: "Demo." }
+  - { id: demo-ev-q11, bloque: vocabulario, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "A bug is an error in the code.", correcta: true, explicacion: "bug = error." }
+  - { id: demo-ev-q12, bloque: vocabulario, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "A branch is a line of work in git.", correcta: true, explicacion: "branch = rama." }
+  - { id: demo-ev-q13, bloque: vocabulario, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "To deploy means to publish an app.", correcta: true, explicacion: "deploy = desplegar." }
+  - { id: demo-ev-q14, bloque: vocabulario, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "A commit saves changes.", correcta: true, explicacion: "commit = confirmación." }
+  - { id: demo-ev-q15, bloque: vocabulario, tipo: verdadero_falso, enunciado: "¿Verdadero o falso?", afirmacion: "A test checks the code.", correcta: true, explicacion: "test = prueba." }
+  - { id: demo-ev-q16, bloque: gramatica, tipo: verdadero_falso, enunciado: "¿Es correcta la frase?", afirmacion: "She checks the build every day.", correcta: true, explicacion: "Present simple con -s en tercera persona." }
+  - { id: demo-ev-q17, bloque: gramatica, tipo: verdadero_falso, enunciado: "¿Es correcta la frase?", afirmacion: "They fixed the bug yesterday.", correcta: true, explicacion: "Past simple." }
+  - { id: demo-ev-q18, bloque: gramatica, tipo: verdadero_falso, enunciado: "¿Es correcta la frase?", afirmacion: "We are writing tests now.", correcta: true, explicacion: "Present continuous." }
+  - { id: demo-ev-q19, bloque: gramatica, tipo: verdadero_falso, enunciado: "¿Es correcta la frase?", afirmacion: "He doesn't use mocks.", correcta: true, explicacion: "Negación con doesn't." }
+  - { id: demo-ev-q20, bloque: gramatica, tipo: verdadero_falso, enunciado: "¿Es correcta la frase?", afirmacion: "Did you run the tests?", correcta: true, explicacion: "Pregunta en past simple." }

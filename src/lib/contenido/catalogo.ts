@@ -1,6 +1,6 @@
 import 'server-only';
 import { catalogo } from '@/content/generado/catalogo';
-import type { EntradaGlosario, Ejercicio, Leccion, Nivel, Tema, Tramo } from './esquema';
+import type { EntradaGlosario, Ejercicio, Evaluacion, Leccion, Nivel, Tema, Tramo } from './esquema';
 import type { ItemCamino } from './camino';
 
 const lecciones = new Map(catalogo.lecciones.map((l) => [l.id, l]));
@@ -28,3 +28,7 @@ export function glosarioPara(nivel: Nivel, tema: Tema, terminos: string[]): Reco
 }
 export const buscarEntrada = (nivel: Nivel, termino: string): EntradaGlosario | undefined =>
   catalogo.glosario.find((g) => g.nivel === nivel && g.termino === termino);
+
+const evaluaciones = new Map(catalogo.evaluaciones.map((e) => [e.nivel, e]));
+export const getEvaluacion = (nivel: Nivel): Evaluacion | undefined => evaluaciones.get(nivel);
+export const leccionesDeNivel = (nivel: Nivel): Leccion[] => catalogo.lecciones.filter((l) => l.nivel === nivel).sort((a, b) => a.orden - b.orden);

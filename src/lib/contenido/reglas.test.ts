@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { validarCatalogo, type ArchivoCargado } from './reglas';
+import { BLOQUES } from './esquema';
 
 const glos = (terminos: string[], tema = 'qa'): ArchivoCargado => ({
   ruta: `content/a2/glosario-${tema}.yaml`, demo: false,
@@ -123,5 +124,37 @@ describe('validarCatalogo', () => {
     expect(run([glos(['bug']), tramo({ palabrasClave: ['nada'] })]).errores.join('\n')).toMatch(/«nada»/);
     const ej = { ...vf('a2-qa-01-e1'), terminos: ['zzz'] };
     expect(run([glos(['bug']), lec({ ejercicios: [ej, ...[2, 3, 4, 5].map((n) => vf(`a2-qa-01-e${n}`))] })]).errores.join('\n')).toMatch(/«zzz»/);
+  });
+});
+
+function bancoA2() {
+  const recursos = [
+    { tipo: 'lectura', id: 'a2-ev-l1', titulo: 'Read me', texto: 'A short text.' },
+    { tipo: 'lectura', id: 'a2-ev-l2', titulo: 'Read me too', texto: 'Another short text.' },
+    { tipo: 'video', id: 'a2-ev-v1', fuente: { youtubeId: 'AAAAAAAAAAA', start: 0, end: 60, titulo: 'V1', canal: 'C' } },
+    { tipo: 'video', id: 'a2-ev-v2', fuente: { youtubeId: 'BBBBBBBBBBB', start: 0, end: 60, titulo: 'V2', canal: 'C' } },
+  ];
+  let n = 0;
+  const preguntas = BLOQUES.flatMap((bloque) => Array.from({ length: 10 }, (_, i) => {
+    n += 1;
+    const recurso = bloque === 'lectura' ? (i < 5 ? 'a2-ev-l1' : 'a2-ev-l2') : bloque === 'listening' ? (i < 5 ? 'a2-ev-v1' : 'a2-ev-v2') : undefined;
+    return { id: `a2-ev-q${String(n).padStart(2, '0')}`, tipo: 'verdadero_falso', enunciado: '¿V o F?', afirmacion: 'It works.', correcta: true, explicacion: 'Porque sí.', bloque, ...(recurso ? { recurso } : {}) };
+  }));
+  return { tipo: 'evaluacion', nivel: 'A2', revisado: true, recursos, preguntas };
+}
+
+describe('banco de evaluación', () => {
+  it('acepta un banco válido y lo publica en el catálogo', () => {
+    const r = validarCatalogo([{ ruta: 'content/a2/evaluacion-a2.yaml', demo: false, datos: bancoA2() }], { estricto: true });
+    expect(r.errores).toEqual([]);
+    expect(r.catalogo.evaluaciones).toHaveLength(1);
+    expect(r.catalogo.evaluaciones[0].preguntas).toHaveLength(40);
+  });
+
+  it('rechaza un banco con un bloque incompleto', () => {
+    const b = bancoA2();
+    b.preguntas = b.preguntas.filter((p) => p.id !== 'a2-ev-q40');
+    const r = validarCatalogo([{ ruta: 'content/a2/evaluacion-a2.yaml', demo: false, datos: b }], { estricto: true });
+    expect(r.errores.join('\n')).toMatch(/gramatica tiene 9 preguntas/);
   });
 });

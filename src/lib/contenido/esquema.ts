@@ -8,6 +8,8 @@ const tema = z.enum(TEMAS);
 export const terminoSchema = z.string().regex(/^[a-z0-9][a-z0-9 '\-]{0,39}$/, 'término en minúsculas (máx. 40)');
 const id = z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)+$/, 'id en minúsculas con guiones');
 const texto = z.string().trim().min(1);
+export const BLOQUES = ['lectura', 'listening', 'vocabulario', 'gramatica'] as const;
+const bloque = z.enum(BLOQUES);
 
 export const videoSchema = z.object({
   youtubeId: z.string().regex(/^[A-Za-z0-9_-]{11}$/, 'youtubeId de 11 caracteres'),
@@ -17,7 +19,7 @@ export const videoSchema = z.object({
   canal: texto,
 });
 
-const comun = { id, enunciado: texto, explicacion: texto, terminos: z.array(terminoSchema).optional() };
+const comun = { id, enunciado: texto, explicacion: texto, terminos: z.array(terminoSchema).optional(), bloque: bloque.optional() };
 export const ejercicioSchema = z.discriminatedUnion('tipo', [
   z.object({ ...comun, tipo: z.literal('opcion_multiple'), opciones: z.array(texto).min(2).max(4), correcta: z.number().int().min(0) }),
   z.object({ ...comun, tipo: z.literal('completar'), texto, respuesta: texto, aceptadas: z.array(texto).optional() }),
@@ -51,7 +53,18 @@ export const entradaGlosarioSchema = z.object({
 });
 export const glosarioSchema = z.object({ tipo: z.literal('glosario'), nivel, tema, entradas: z.array(entradaGlosarioSchema).min(1) });
 
-export const archivoSchema = z.discriminatedUnion('tipo', [leccionSchema, tramoSchema, glosarioSchema]);
+export const recursoSchema = z.discriminatedUnion('tipo', [
+  z.object({ tipo: z.literal('lectura'), id, titulo: texto, texto }),
+  z.object({ tipo: z.literal('video'), id, fuente: videoSchema }),
+]);
+export const preguntaSchema = z.intersection(ejercicioSchema, z.object({ bloque, recurso: id.optional() }));
+export const evaluacionSchema = z.object({
+  tipo: z.literal('evaluacion'), nivel, revisado: z.boolean(),
+  recursos: z.array(recursoSchema),
+  preguntas: z.array(preguntaSchema).min(20),
+});
+
+export const archivoSchema = z.discriminatedUnion('tipo', [leccionSchema, tramoSchema, glosarioSchema, evaluacionSchema]);
 
 export type Nivel = z.infer<typeof nivel>;
 export type Tema = z.infer<typeof tema>;
@@ -60,4 +73,8 @@ export type Ejercicio = z.infer<typeof ejercicioSchema>;
 export type Leccion = z.infer<typeof leccionSchema>;
 export type Tramo = z.infer<typeof tramoSchema>;
 export type EntradaGlosario = z.infer<typeof entradaGlosarioSchema>;
-export type Catalogo = { lecciones: Leccion[]; tramos: Tramo[]; glosario: EntradaGlosario[] };
+export type Bloque = (typeof BLOQUES)[number];
+export type Recurso = z.infer<typeof recursoSchema>;
+export type Pregunta = z.infer<typeof preguntaSchema>;
+export type Evaluacion = z.infer<typeof evaluacionSchema>;
+export type Catalogo = { lecciones: Leccion[]; tramos: Tramo[]; glosario: EntradaGlosario[]; evaluaciones: Evaluacion[] };

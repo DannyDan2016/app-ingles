@@ -1,7 +1,11 @@
 import type { Catalogo } from './esquema';
 
 export function idsDeVideo(c: Catalogo): string[] {
-  return [...new Set([...c.lecciones.flatMap((l) => (l.video ? [l.video.youtubeId] : [])), ...c.tramos.map((t) => t.fuente.youtubeId)])];
+  return [...new Set([
+    ...c.lecciones.flatMap((l) => (l.video ? [l.video.youtubeId] : [])),
+    ...c.tramos.map((t) => t.fuente.youtubeId),
+    ...c.evaluaciones.flatMap((e) => e.recursos.flatMap((r) => (r.tipo === 'video' ? [r.fuente.youtubeId] : []))),
+  ])];
 }
 const CAIDO = new Set([401, 403, 404, 410]);
 export type ResultadoVideos = { fallos: { id: string; status: number }[]; noVerificables: { id: string; status: number }[] };
