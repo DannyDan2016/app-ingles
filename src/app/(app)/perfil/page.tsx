@@ -5,6 +5,9 @@ import { requireUser } from '@/lib/auth/current-user';
 import { getDb } from '@/lib/db/client';
 import { datosSemana, tarjetasPorCaja } from '@/lib/avance/avance.repo';
 import { resumenSemana } from '@/lib/avance/semana';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
+import { historial } from '@/lib/evaluacion/evaluacion.repo';
+import { formatoFechaHora } from '@/lib/tiempo/bogota';
 import { COOKIE_TEMA, temaDesdeCookie, type TemaUI } from '@/lib/tema';
 import { Boton } from '@/components/boton';
 import { Tarjeta } from '@/components/tarjeta';
@@ -31,17 +34,19 @@ export default async function PerfilPage() {
   const u = await requireUser();
   if (!u.nivelInicial) redirect('/nivel-inicial');
   const db = getDb();
-  const [datos, porCaja, temaActual] = await Promise.all([
+  const [datos, porCaja, temaActual, { actual }, evaluaciones] = await Promise.all([
     datosSemana(db, u.userId, new Date()),
     tarjetasPorCaja(db, u.userId),
     cookies().then((c) => temaDesdeCookie(c.get(COOKIE_TEMA)?.value)),
+    nivelesDelUsuario(db, u.userId, u.nivelInicial),
+    historial(db, u.userId),
   ]);
   const r = resumenSemana(datos);
 
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Perfil</h1>
-      <p className="text-texto-suave">Usuario: <span className="font-medium text-texto">{u.alias}</span> · Nivel inicial: {u.nivelInicial}</p>
+      <p className="text-texto-suave">Usuario: <span className="font-medium text-texto">{u.alias}</span> · Nivel: {actual}</p>
 
       <Tarjeta aria-labelledby="p-semana">
         <h2 id="p-semana" className="mb-3 text-lg font-semibold">Tu avance semanal</h2>
@@ -92,6 +97,19 @@ export default async function PerfilPage() {
           </fieldset>
           <Boton type="submit" className="self-start">Guardar tema</Boton>
         </form>
+      </Tarjeta>
+
+      <Tarjeta aria-labelledby="h-evaluaciones">
+        <h2 id="h-evaluaciones" className="text-lg font-semibold">Evaluaciones</h2>
+        {evaluaciones.length === 0
+          ? <p className="mt-1 text-texto-suave">Aún no has presentado ninguna.</p>
+          : (
+            <ul className="mt-2 flex flex-col gap-1">
+              {evaluaciones.map((e) => (
+                <li key={e.id}>{e.nivel} · {formatoFechaHora(e.iniciadoAt)} · {e.estado === 'aprobado' ? `Aprobada (${e.nota} %)` : e.estado === 'suspendido' ? `No aprobada (${e.nota} %)` : e.estado === 'caducado' ? 'Caducada' : 'En curso'}</li>
+              ))}
+            </ul>
+          )}
       </Tarjeta>
 
       <Tarjeta aria-labelledby="p-datos">

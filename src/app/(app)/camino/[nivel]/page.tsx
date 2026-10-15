@@ -8,20 +8,26 @@ import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { caminoDeNivel, getLeccion } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
+import { contextoEvaluacion } from '@/lib/evaluacion/contexto';
+import { respuestasDe } from '@/lib/evaluacion/evaluacion.repo';
 import { BarraProgreso } from '@/components/barra-progreso';
 import { EstadoVacioNivel } from '@/components/estado-vacio-nivel';
 import { Tarjeta } from '@/components/tarjeta';
+import { TarjetaEvaluacion } from './tarjeta-evaluacion';
 
 export default async function CaminoNivelPage({ params }: PageProps<'/camino/[nivel]'>) {
   const u = await requireUser();
   if (!u.nivelInicial) redirect('/nivel-inicial');
   const { nivel } = await params;
   if (!isNivel(nivel)) notFound();
-  const { estadoDe } = await nivelesDelUsuario(getDb(), u.userId, u.nivelInicial);
+  const db = getDb();
+  const { estadoDe } = await nivelesDelUsuario(db, u.userId, u.nivelInicial);
   if (estadoDe(nivel) === 'bloqueado') redirect('/camino');
   const items = caminoDeNivel(nivel);
-  const camino = estadoCamino(items, await itemsCompletados(getDb(), u.userId, nivel));
+  const camino = estadoCamino(items, await itemsCompletados(db, u.userId, nivel));
   const actual = camino.siguiente && getLeccion(camino.siguiente.id);
+  const ctx = await contextoEvaluacion(db, { userId: u.userId, nivelInicial: u.nivelInicial }, nivel, new Date());
+  const respondidas = ctx.abierto ? (await respuestasDe(db, ctx.abierto.id)).size : 0;
 
   return (
     <div className="flex flex-col gap-4">
@@ -60,6 +66,7 @@ export default async function CaminoNivelPage({ params }: PageProps<'/camino/[ni
               );
             })}
           </ol>
+          <TarjetaEvaluacion nivel={nivel} e={ctx.elegibilidad} iniciadoAt={ctx.abierto?.iniciadoAt} respondidas={respondidas} />
         </>
       )}
     </div>
