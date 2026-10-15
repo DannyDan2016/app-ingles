@@ -28,6 +28,6 @@ export async function contextoEvaluacion(db: Db, u: { userId: string; nivelInici
       estadoNivel: estadoDe(nivel), hayBanco: !!banco, lecciones: lecciones.length,
       hechas: lecciones.filter((l) => hechos.has(l.id)).length, abierto, aprobado, ultimo, ahora,
     }),
-    banco, abierto, ultimo,
+    banco, abierto, ultimo, aprobado,
   };
 }

@@ -7,6 +7,7 @@ import { datosSemana, tarjetasPorCaja } from '@/lib/avance/avance.repo';
 import { resumenSemana } from '@/lib/avance/semana';
 import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { historial } from '@/lib/evaluacion/evaluacion.repo';
+import { caducado } from '@/lib/evaluacion/elegibilidad';
 import { formatoFechaHora } from '@/lib/tiempo/bogota';
 import { COOKIE_TEMA, temaDesdeCookie, type TemaUI } from '@/lib/tema';
 import { Boton } from '@/components/boton';
@@ -30,6 +31,13 @@ const TEMAS: { valor: TemaUI; etiqueta: string }[] = [
   { valor: 'sistema', etiqueta: 'Sistema' },
 ];
 
+function etiquetaEvaluacion(e: { estado: string; nota: number | null; iniciadoAt: Date }, ahora: Date) {
+  if (e.estado === 'aprobado') return `Aprobada (${e.nota} %)`;
+  if (e.estado === 'suspendido') return `No aprobada (${e.nota} %)`;
+  if (e.estado === 'caducado' || (e.estado === 'en_curso' && caducado(e, ahora))) return 'Caducada';
+  return 'En curso';
+}
+
 export default async function PerfilPage() {
   const u = await requireUser();
   if (!u.nivelInicial) redirect('/nivel-inicial');
@@ -41,6 +49,7 @@ export default async function PerfilPage() {
     nivelesDelUsuario(db, u.userId, u.nivelInicial),
     historial(db, u.userId),
   ]);
+  const ahora = new Date();
   const r = resumenSemana(datos);
 
   return (
@@ -106,7 +115,7 @@ export default async function PerfilPage() {
           : (
             <ul className="mt-2 flex flex-col gap-1">
               {evaluaciones.map((e) => (
-                <li key={e.id}>{e.nivel} · {formatoFechaHora(e.iniciadoAt)} · {e.estado === 'aprobado' ? `Aprobada (${e.nota} %)` : e.estado === 'suspendido' ? `No aprobada (${e.nota} %)` : e.estado === 'caducado' ? 'Caducada' : 'En curso'}</li>
+                <li key={e.id}>{e.nivel} · {formatoFechaHora(e.iniciadoAt)} · {etiquetaEvaluacion(e, ahora)}</li>
               ))}
             </ul>
           )}

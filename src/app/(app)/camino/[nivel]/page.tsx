@@ -5,7 +5,7 @@ import { requireUser } from '@/lib/auth/current-user';
 import { getDb } from '@/lib/db/client';
 import { isNivel } from '@/lib/progreso/niveles';
 import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
-import { caminoDeNivel, getLeccion } from '@/lib/contenido/catalogo';
+import { caminoDeNivel, getLeccion, leccionesDeNivel } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
 import { contextoEvaluacion } from '@/lib/evaluacion/contexto';
@@ -66,7 +66,7 @@ export default async function CaminoNivelPage({ params }: PageProps<'/camino/[ni
               );
             })}
           </ol>
-          <TarjetaEvaluacion nivel={nivel} e={ctx.elegibilidad} iniciadoAt={ctx.abierto?.iniciadoAt} respondidas={respondidas} />
+          <TarjetaEvaluacion nivel={nivel} e={ctx.elegibilidad} iniciadoAt={ctx.abierto?.iniciadoAt} respondidas={respondidas} totalLecciones={leccionesDeNivel(nivel).length} notaAprobada={ctx.aprobado?.nota} />
         </>
       )}
     </div>
