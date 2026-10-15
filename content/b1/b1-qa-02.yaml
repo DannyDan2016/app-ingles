@@ -1,0 +1,72 @@
+tipo: leccion
+id: b1-qa-02
+nivel: B1
+tema: qa
+orden: 5
+titulo: The Tests Are Run Every Night
+objetivo: Puedo describir cómo y cuándo se ejecutan las pruebas automáticas y qué se arregló, sin decir quién lo hizo.
+gramatica: "Pasiva en presente y pasado simple (Tests are run every night; The failing test was fixed yesterday; The script is triggered by every pull request)"
+lectura: |
+  Welcome to the team! Let me explain how our [[automation]] works. The main [[test suite]] is run every night, and a shorter version is run whenever someone opens a pull request. The [[pipeline]] is [[triggered|trigger]] automatically, so nobody has to start it by hand.
+
+  The suite has two layers. Each [[unit test]] checks one small function, and every [[assertion]] is written to fail with a clear message. The [[integration tests|integration test]] check that several parts work together. External services are replaced by [[mocks|mock]], so the results are not affected by the network. After each run, a report is sent to the team chat. It shows the [[coverage]]: at the moment, about seventy percent of the code is covered by tests.
+
+  Last week, one [[flaky]] test was fixed. It passed on some days and failed on others, because it was waiting for a fixed time. The wait was replaced by a check for the real state of the page. Another test was [[skipped|skip]] temporarily, because that feature is changing this month. All the [[scripts|script]] are [[maintained|maintain]] by the whole team, so please update them when you change the application.
+video: { youtubeId: pf6Zhm-PDfQ, start: 26, end: 80, titulo: "Unit and Integration testing COMPARED", canal: "Jelvix | TECH IN 5 MINUTES" }
+terminos: [automation, test suite, assertion, coverage, flaky, pipeline, trigger, script, unit test, integration test, mock, skip, maintain]
+ejercicios:
+  - id: b1-qa-02-e1
+    tipo: completar
+    enunciado: Completa con la pasiva en presente de «run».
+    texto: "The tests ___ every night."
+    respuesta: are run
+    explicacion: "Pasiva en presente: am/is/are + participio. Aquí el sujeto es plural («tests») y «run» es irregular (run - ran - run), así que el participio no cambia."
+    terminos: [test suite]
+  - id: b1-qa-02-e2
+    tipo: completar
+    enunciado: Completa con la pasiva en pasado de «fix».
+    texto: "The flaky test ___ last week."
+    respuesta: was fixed
+    explicacion: "Pasiva en pasado: was/were + participio. El sujeto es singular («test»), por eso «was fixed». No sabemos o no importa quién lo arregló."
+    terminos: [flaky]
+  - id: b1-qa-02-e3
+    tipo: completar
+    enunciado: Completa con la pasiva en presente de «maintain».
+    texto: "Our automation scripts ___ by the whole team."
+    respuesta: are maintained
+    explicacion: "Sujeto plural + are + participio. El agente se añade con «by» solo cuando es útil: aquí, «by the whole team»."
+    terminos: [script, maintain, automation]
+  - id: b1-qa-02-e4
+    tipo: ordenar
+    enunciado: Ordena las piezas para formar la frase.
+    piezas: ["The pipeline", "is triggered", "by every", "pull request"]
+    explicacion: "En la pasiva, el sujeto es lo que recibe la acción («the pipeline») y el agente va al final con «by». Compara con la activa: «Every pull request triggers the pipeline»."
+    terminos: [pipeline, trigger]
+  - id: b1-qa-02-e5
+    tipo: opcion_multiple
+    enunciado: "Which sentence is in the passive voice?"
+    opciones: ["The team runs the suite every night.", "The suite is run every night.", "The suite runs automatically every night."]
+    correcta: 1
+    explicacion: "La pasiva usa «to be» + participio: «is run». En la opción 1 el equipo es quien actúa (voz activa) y la 3 es activa con «runs»."
+    terminos: [test suite]
+  - id: b1-qa-02-e6
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "The flaky test was fixed by adding more waiting time."
+    correcta: false
+    explicacion: "La lectura dice «The wait was replaced by a check for the real state of the page». Quitar esperas fijas es la forma habitual de arreglar una prueba inestable."
+    terminos: [flaky]
+  - id: b1-qa-02-e7
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "A mock replaces a real external service in some tests."
+    correcta: true
+    explicacion: "Se usa un mock para sustituir servicios externos y que el resultado no dependa de la red. «Are replaced by mocks» es pasiva en presente."
+    terminos: [mock]
+  - id: b1-qa-02-e8
+    tipo: emparejar
+    enunciado: Empareja cada término con su significado.
+    pares: [{ a: coverage, b: parte del código que prueban los tests }, { a: assertion, b: línea que comprueba un resultado }, { a: flaky, b: prueba que falla al azar }, { a: skip, b: no ejecutar una prueba a propósito }]
+    explicacion: "Vocabulario clave de la automatización. Ojo: «skip» no significa borrar la prueba, solo no ejecutarla por ahora."
+    terminos: [coverage, assertion, flaky, skip]
+revisado: false

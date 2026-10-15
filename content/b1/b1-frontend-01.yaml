@@ -1,0 +1,30 @@
+tipo: leccion
+id: b1-frontend-01
+nivel: B1
+tema: frontend
+orden: 10
+titulo: We Used to Build Pages with Tables
+objetivo: Puedo contar cómo ha cambiado una práctica de frontend con el tiempo y comparar el «antes» con el «ahora».
+gramatica: "Used to y would para hábitos pasados, frente al presente simple (We used to write all the HTML by hand; now we build components)"
+lectura: |
+  Carlos has worked in frontend for ten years. In a team talk, he looks back at how the job has changed.
+
+  "Ten years ago, we used to build every page by hand," he says. "We would put the whole layout inside HTML tables. We wrote one huge [[stylesheet]] and copied the same [[element]] into dozens of files. We didn't use a [[framework]], and we had no clear idea of [[state]]. When a user clicked a button, we would search the [[DOM|dom]] and change the page manually. Every [[event]] needed its own code, so bugs were common."
+
+  "Today it is different. We build small [[components|component]] and reuse them everywhere. We use a [[framework]] and a few good [[libraries|library]]. Each component has its own state, and the framework decides when to [[render]] it again, so we don't touch every element ourselves any more."
+
+  "We also care much more about [[accessibility]]. We used to forget it, but now we add an [[attribute]] such as alt or aria-label so that screen readers can describe the page. We used to design only for big desktop screens. Now we test every page in a small [[viewport]], like the screen of a phone, and set a [[breakpoint]] where the layout changes."
+
+  Carlos laughs. "Of course, old habits die hard. Last week I caught myself writing styles in one big file again. But I don't want to go back to the old way."
+video: { youtubeId: 20SHvU2PKsM, start: 15, end: 100, titulo: "Introduction to Web Accessibility and W3C Standards", canal: "W3C Web Accessibility Initiative (WAI)" }
+terminos: [component, framework, state, render, event, dom, accessibility, viewport, breakpoint, stylesheet, element, attribute, library]
+ejercicios:
+  - { id: b1-frontend-01-e1, tipo: opcion_multiple, enunciado: "Completa la frase sobre el pasado.", opciones: ["We use to build pages with tables.", "We used to build pages with tables.", "We were used build pages with tables."], correcta: 1, explicacion: "Para hábitos o situaciones pasadas que ya no existen usamos «used to» + verbo base. En afirmativas se escribe «used to» (con -d); «use to» solo aparece en negativas y preguntas con «did»." }
+  - { id: b1-frontend-01-e2, tipo: completar, enunciado: "Completa con la expresión que usa Carlos.", texto: "Ten years ago, we ___ build every page by hand.", respuesta: used to, aceptadas: [would], explicacion: "«Used to» describe un hábito del pasado que ya no se da. «Would» también sirve aquí porque es una acción repetida, pero no funciona con verbos de estado como «have» o «be»." }
+  - { id: b1-frontend-01-e3, tipo: ordenar, enunciado: "Ordena la frase según la lectura.", piezas: ["We", "used to", "forget", "accessibility"], explicacion: "Estructura: sujeto + used to + verbo base. Fíjate en que después de «used to» el verbo no cambia: «forget», no «forgot» ni «forgetting».", terminos: [accessibility] }
+  - { id: b1-frontend-01-e4, tipo: emparejar, enunciado: "Empareja cada término con su traducción.", pares: [{ a: component, b: componente }, { a: state, b: estado }, { a: render, b: renderizar }, { a: viewport, b: área visible }], explicacion: "Son términos que usarás a diario en cualquier equipo de frontend. «Render» es un verbo, los otros tres son sustantivos.", terminos: [component, state, render, viewport] }
+  - { id: b1-frontend-01-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Today, developers touch every element themselves when the state changes.", correcta: false, explicacion: "Es al revés: Carlos dice que ahora el framework decide cuándo volver a renderizar el componente, así que «we don't touch every element ourselves any more».", terminos: [state, render] }
+  - { id: b1-frontend-01-e6, tipo: opcion_multiple, enunciado: "¿Qué frase NO es correcta?", opciones: ["We would search the DOM after every click.", "We would have only one stylesheet.", "We used to have only one stylesheet."], correcta: 1, explicacion: "«Would» para el pasado solo se usa con acciones repetidas (search, copy, change). Con verbos de estado como «have» hay que usar «used to».", terminos: [dom] }
+  - { id: b1-frontend-01-e7, tipo: completar, enunciado: "Completa con el término correcto.", texto: "A ___ is the screen width at which the layout changes.", respuesta: breakpoint, explicacion: "El breakpoint (punto de ruptura) es el ancho de pantalla en el que el diseño se reorganiza, por ejemplo al pasar de móvil a escritorio.", terminos: [breakpoint] }
+  - { id: b1-frontend-01-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Last week, Carlos wrote styles in one big file again.", correcta: true, explicacion: "Carlos admite que «last week I caught myself writing styles in one big file again». Es un hecho puntual del pasado, por eso va en past simple; «used to» y «would» son para hábitos que se repetían.", terminos: [stylesheet] }
+revisado: false

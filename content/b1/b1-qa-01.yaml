@@ -1,0 +1,72 @@
+tipo: leccion
+id: b1-qa-01
+nivel: B1
+tema: qa
+orden: 4
+titulo: While I Was Testing, the Build Failed
+objetivo: Puedo narrar cómo encontré y reproduje un defecto, indicando qué pasaba mientras ocurría otra cosa.
+gramatica: "Past continuous vs past simple con while y when (While I was running the tests, the page crashed; When the build failed, we were deploying)"
+lectura: |
+  Last Tuesday, I was running the [[regression]] tests on a new [[build]] when the checkout page [[crashed|crash]]. At first I thought it was a one-time problem, but the same [[defect]] appeared again while I was testing on another browser. It was an [[intermittent]] failure: sometimes it happened, and sometimes it did not.
+
+  I started to [[investigate]] immediately. While I was [[reproducing|reproduce]] the problem, I noticed a pattern. The page crashed only when the cart was empty and a discount code was being applied. I wrote the steps in a bug report and set the [[severity]] to high, because customers could not pay. The bug was also a [[blocker]] for the release.
+
+  In the daily meeting, I explained what happened. While the developers were reading the report, one of them suggested a [[workaround]]: we could disable the discount field for empty carts. It was not a permanent fix, but it let us continue testing. Later, the team lead [[assigned|assign]] the ticket to Marta. She was checking the logs when she found the [[root cause]]: the code divided by zero. She fixed it the same afternoon. However, when I tested the next build, a similar crash appeared on the wishlist page, so I had to [[reopen]] the ticket.
+video: { youtubeId: AWX6WvYktwk, start: 29, end: 97, titulo: "Regression testing – What, Why, When, and How to Run It?", canal: "QA Madness" }
+terminos: [regression, reproduce, crash, defect, severity, intermittent, build, investigate, workaround, root cause, assign, reopen, blocker]
+ejercicios:
+  - id: b1-qa-01-e1
+    tipo: completar
+    enunciado: Completa con el past continuous de «run».
+    texto: "While I ___ the regression tests, the page crashed."
+    respuesta: was running
+    explicacion: "La acción larga y en progreso va en past continuous (was/were + -ing): «was running». La acción corta que la interrumpe va en past simple: «crashed»."
+    terminos: [regression, crash]
+  - id: b1-qa-01-e2
+    tipo: completar
+    enunciado: Completa con el past continuous de «deploy».
+    texto: "When the nightly build failed, we ___ the new version to the test server."
+    respuesta: were deploying
+    explicacion: "Con sujeto plural («we») usamos «were» + -ing. La construcción «when + past simple» marca la interrupción: la acción de fondo está en past continuous."
+    terminos: [build]
+  - id: b1-qa-01-e3
+    tipo: opcion_multiple
+    enunciado: "Which sentence is correct?"
+    opciones: ["While the developers was reading the report, Marta found the root cause.", "While the developers were reading the report, Marta found the root cause.", "While the developers were read the report, Marta found the root cause."]
+    correcta: 1
+    explicacion: "Después de «while» describimos la acción de fondo en past continuous: were + -ing («were reading»). La opción 1 falla en la concordancia («developers» es plural: were, no was) y la 3 mezcla «were» con el verbo sin -ing."
+    terminos: [root cause]
+  - id: b1-qa-01-e4
+    tipo: ordenar
+    enunciado: Ordena las piezas para formar la frase.
+    piezas: ["While I was", "reproducing the defect,", "the page", "crashed again"]
+    explicacion: "Estructura: While + sujeto + was/were + -ing, + sujeto + past simple. Cuando la cláusula con «while» va primero, se separa con coma."
+    terminos: [reproduce, defect, crash]
+  - id: b1-qa-01-e5
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "The crash happened every time the tester used the checkout page."
+    correcta: false
+    explicacion: "La lectura dice que fue un fallo «intermittent»: ocurría a veces y otras no. Por eso era difícil de reproducir."
+    terminos: [intermittent, crash]
+  - id: b1-qa-01-e6
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según la lectura?"
+    afirmacion: "The workaround was a permanent solution."
+    correcta: false
+    explicacion: "El texto afirma «It was not a permanent fix». Un workaround es una solución provisional que evita el problema sin resolver su causa raíz."
+    terminos: [workaround, root cause]
+  - id: b1-qa-01-e7
+    tipo: emparejar
+    enunciado: Empareja cada término con su significado.
+    pares: [{ a: workaround, b: solución provisional }, { a: root cause, b: causa raíz }, { a: reopen, b: volver a abrir un ticket }, { a: severity, b: gravedad del defecto }]
+    explicacion: "Son términos habituales de un informe de defectos. La severidad mide el impacto en los usuarios; la prioridad, en cambio, indica qué se arregla primero."
+    terminos: [workaround, root cause, reopen, severity]
+  - id: b1-qa-01-e8
+    tipo: opcion_multiple
+    enunciado: "What is an intermittent defect?"
+    opciones: ["A defect that happens sometimes, but not every time.", "A defect that happens only on the first day.", "A defect that is already fixed."]
+    correcta: 0
+    explicacion: "«Intermittent» significa que ocurre de forma irregular. Estos defectos son difíciles de reproducir, por eso conviene anotar el entorno y los pasos exactos."
+    terminos: [intermittent, defect, reproduce]
+revisado: false

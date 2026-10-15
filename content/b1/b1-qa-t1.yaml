@@ -1,0 +1,46 @@
+tipo: tramo
+id: b1-qa-t1
+nivel: B1
+tema: qa
+orden: 6
+# Fragmento 93-152 s contrastado con la transcripción automática pública: definición de regression testing, las tres preguntas (smoke, sanity, regression) y el orden «smoke first». Alternativo: roIode67TQE.
+fuente: { podcast: "Test Systems", youtubeId: Sd1xryTlyVI, start: 93, end: 152, titulo: "Smoke vs Sanity vs Regression Testing — Pick the Right Test", canal: "Test Systems" }
+preguntaGuia: When do we run a regression test?
+palabrasClave: [regression, smoke test, sanity test, build]
+preguntas:
+  - id: b1-qa-t1-e1
+    tipo: opcion_multiple
+    enunciado: "According to the speaker, which question does regression testing ask?"
+    opciones: ["Did the change damage behavior that already worked?", "Can useful testing begin?", "Does this focused change work?"]
+    correcta: 0
+    explicacion: "El video resume cada tipo con una pregunta: smoke = «Can useful testing begin?», sanity = «Does this focused change work?» y regression = «Did the change damage behavior that already worked?»."
+    terminos: [regression, smoke test, sanity test]
+  - id: b1-qa-t1-e2
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el fragmento?"
+    afirmacion: "Regression testing checks existing behavior that is connected to a change."
+    correcta: true
+    explicacion: "Es la definición del video: «Regression testing checks existing behavior connected to the change». Busca fallos nuevos en lo que antes funcionaba."
+    terminos: [regression]
+  - id: b1-qa-t1-e3
+    tipo: verdadero_falso
+    enunciado: "¿Verdadero o falso según el fragmento?"
+    afirmacion: "A regression set must always be very large."
+    correcta: false
+    explicacion: "El video dice que el conjunto puede ser pequeño o grande: su tamaño depende del riesgo, de las partes compartidas, de los caminos críticos y de los fallos recientes."
+    terminos: [regression]
+  - id: b1-qa-t1-e4
+    tipo: opcion_multiple
+    enunciado: "A new build arrives. Which checks do we run first?"
+    opciones: ["Smoke checks", "A full regression set", "Sanity checks"]
+    correcta: 0
+    explicacion: "Con un build o despliegue nuevo, primero van las pruebas de humo (smoke): si fallan, no tiene sentido seguir con pruebas más largas."
+    terminos: [smoke test, build]
+  - id: b1-qa-t1-e5
+    tipo: opcion_multiple
+    enunciado: "What should you do if the smoke checks fail?"
+    opciones: ["Stop dependent work and fix the basic problem.", "Run the full regression set anyway.", "Release the build and test it later."]
+    correcta: 0
+    explicacion: "El video lo dice claro: «If they fail, stop dependent work and fix the basic problem». Seguir probando solo repetiría el mismo fallo de base."
+    terminos: [smoke test]
+revisado: false
