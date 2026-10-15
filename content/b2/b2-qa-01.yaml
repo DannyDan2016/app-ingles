@@ -1,0 +1,34 @@
+tipo: leccion
+id: b2-qa-01
+nivel: B2
+tema: qa
+orden: 4
+titulo: We Should Have Caught It Earlier
+objetivo: Puedo participar en un postmortem, explicar qué habría pasado de otro modo y proponer mejoras sin culpar.
+gramatica: "Tercer condicional (If we had tested the edge case, the incident wouldn't have happened) y should/shouldn't have + participio (We shouldn't have skipped the exploratory session)"
+lectura: |
+  Postmortem: duplicate payments on 12 March
+
+  This [[postmortem]] follows a [[blameless]] format: we look for gaps in our process, not for guilty people.
+
+  On 12 March, a [[race condition]] in the checkout service charged about 300 customers twice. The [[incident]] lasted 90 minutes. At 15:40 we applied a [[hotfix]], but it did not solve the problem, so the on-call engineer decided to perform a [[rollback]] to the previous version. Payments were normal again at 16:30.
+
+  The root problem was simple: two payment requests from the same customer could arrive at almost the same time. If we had tested this [[edge case]], the incident wouldn't have happened. The scenario was not described in the [[acceptance criteria]], so nobody wrote a test for it. If the criteria had included concurrency, QA would have found the defect before the release.
+
+  We also shouldn't have skipped the [[exploratory testing]] session that was planned for that sprint. If we had run it, a tester might have tried to pay twice in a few seconds. In addition, the [[traceability]] between requirements and tests was weak. If we had kept a clear matrix, we would have noticed the missing test immediately.
+
+  The [[sign-off]] was given by one person under time pressure. We should have asked a second reviewer to approve the release, because the [[risk]] of a payment change is high. The [[stakeholders|stakeholder]] in finance and support should also have been informed earlier, and then they could have prepared a message for the affected customers.
+
+  Next steps: add concurrency scenarios to the acceptance criteria, make exploratory sessions mandatory for payment changes, and require two sign-offs for any release that touches money.
+terminos: [postmortem, incident, hotfix, rollback, edge case, race condition, exploratory testing, acceptance criteria, stakeholder, sign-off, traceability, risk, blameless]
+ejercicios:
+  - { id: b2-qa-01-e1, tipo: opcion_multiple, enunciado: "If we had tested the edge case, the incident ___.", opciones: ["wouldn't have happened", "wouldn't happen", "hadn't happened"], correcta: 0, explicacion: "Tercer condicional: if + past perfect (had tested), would have + participio (wouldn't have happened). Habla de una situación pasada que no ocurrió y de su resultado imaginario.", terminos: [edge case, incident] }
+  - { id: b2-qa-01-e2, tipo: completar, enunciado: "Completa el tercer condicional (if + past perfect).", texto: "If the criteria ___ included concurrency, QA would have found the problem.", respuesta: "had", explicacion: "En la cláusula con «if» del tercer condicional se usa «had» + participio (had included). No se usa «would have» después de «if».", terminos: [acceptance criteria] }
+  - { id: b2-qa-01-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "The hotfix solved the problem immediately.", correcta: false, explicacion: "El texto dice que el hotfix «did not solve the problem», así que el ingeniero de guardia decidió hacer un rollback a la versión anterior.", terminos: [hotfix, rollback] }
+  - { id: b2-qa-01-e4, tipo: emparejar, enunciado: "Empareja cada término con su significado.", pares: [{ a: postmortem, b: análisis posterior a un incidente }, { a: rollback, b: volver a la versión anterior }, { a: hotfix, b: corrección urgente en producción }, { a: race condition, b: condición de carrera }], explicacion: "Un postmortem analiza qué pasó y cómo mejorar. El rollback deshace un despliegue y vuelve a la versión anterior; el hotfix corrige un fallo urgente sin esperar a la siguiente versión; y la race condition es un fallo que depende del orden o el momento en que se ejecutan dos procesos a la vez.", terminos: [postmortem, rollback, hotfix, race condition] }
+  - { id: b2-qa-01-e5, tipo: ordenar, enunciado: "Ordena la frase (should have).", piezas: ["We", "shouldn't", "have", "skipped", "the", "exploratory", "session"], explicacion: "«Shouldn't have + participio» expresa una crítica sobre algo que sí se hizo y no era correcto. El participio de «skip» es «skipped».", terminos: [exploratory testing] }
+  - { id: b2-qa-01-e6, tipo: opcion_multiple, enunciado: "Which sentence describes the cause in a blameless way?", opciones: ["The process had no test for concurrency.", "The developer was careless.", "The tester forgot to do his job."], correcta: 0, explicacion: "Un postmortem sin culpables (blameless) describe fallos del proceso o del sistema, no de personas. Las otras opciones señalan a un individuo.", terminos: [blameless, postmortem] }
+  - { id: b2-qa-01-e7, tipo: completar, enunciado: "Completa con el modal del resultado hipotético en el pasado.", texto: "If a second reviewer had approved the release, we ___ have noticed the missing test.", respuesta: "would", explicacion: "En el tercer condicional, el resultado va con «would have + participio». Expresa lo que probablemente habría ocurrido si la condición pasada se hubiera cumplido.", terminos: [sign-off, traceability] }
+  - { id: b2-qa-01-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "QA found the defect before the release because the acceptance criteria included concurrency.", correcta: false, explicacion: "Es al revés: el escenario no estaba en los criterios de aceptación, así que nadie escribió la prueba. El texto usa el tercer condicional para decir que, si los criterios lo hubieran incluido, QA lo habría encontrado.", terminos: [acceptance criteria] }
+video: { youtubeId: Fv0nwb1Qn6A, start: 91, end: 172, titulo: "Blameless Postmortem Culture In Software Engineering", canal: "Clément Mihailescu" }
+revisado: false

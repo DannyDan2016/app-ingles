@@ -1,0 +1,34 @@
+tipo: leccion
+id: b2-qa-02
+nivel: B2
+tema: qa
+orden: 5
+titulo: Having Run the Suite, We Decided to Release
+objetivo: Puedo resumir en estilo indirecto lo que se acordó en una reunión de estrategia de pruebas y por qué.
+gramatica: "Reported speech con reporting verbs (suggested moving, admitted using, denied, insisted on adding, warned us not to) y participle clauses (Having run the suite, we decided to release)"
+lectura: |
+  Minutes of the test strategy meeting, 4 June
+
+  Lena, the QA lead, opened the meeting by saying that the current [[test strategy]] was too slow. She suggested moving many checks earlier in the process, an approach called [[shift left|shift left]], so that defects would be found while they were still cheap to fix.
+
+  Raúl, the backend developer, admitted relying too much on [[end-to-end tests|end-to-end test]]. He explained that the suite took fifty minutes to finish. Having reviewed the [[test pyramid]], the team agreed to write more unit and integration tests and to keep only a few end-to-end scenarios.
+
+  Mia, the product owner, insisted on adding a [[contract test]] between the API and the mobile app. She warned the team that a small change in the response could break the app without anyone noticing. Raúl denied that these tests would be hard to maintain, and he promised to start with the payment endpoints.
+
+  Lena complained that the [[test data]] was unreliable, because every test created its own records. Raúl recommended using a shared [[fixture]] so that each test would start from the same state. He also proposed to [[parallelize]] the suite, which would reduce the run time to about fifteen minutes.
+
+  Having analyzed the latest report, Lena pointed out a [[coverage gap]] in the discount module. She advised the team to try [[mutation testing]] there, because high coverage alone does not prove that the tests are strong. Finally, the group agreed on a [[quality gate]]: Lena warned everyone not to release a build if the [[smoke test]] failed, and Mia asked the team to include [[non-functional]] checks, such as response time, in the next sprint.
+
+  Risk accepted: until the contract tests are ready, the mobile app will be checked manually before each release.
+terminos: [test strategy, shift left, test pyramid, end-to-end test, contract test, test data, fixture, parallelize, coverage gap, mutation testing, quality gate, smoke test, non-functional]
+ejercicios:
+  - { id: b2-qa-02-e1, tipo: opcion_multiple, enunciado: "Lena suggested ___ the checks earlier in the process.", opciones: ["moving", "to move", "moved"], correcta: 0, explicacion: "El verbo «suggest» va seguido de gerundio (suggested moving) o de «that + sujeto + verbo». No se usa «suggest to + infinitivo».", terminos: [shift left] }
+  - { id: b2-qa-02-e2, tipo: completar, enunciado: "Completa con el verbo «use» en la forma correcta (admit + gerundio).", texto: "Raúl admitted ___ too many end-to-end tests.", respuesta: "using", aceptadas: ["having used"], explicacion: "«Admit» va seguido de gerundio: «admitted using» (o «having used» para dejar claro que fue antes). No se dice «admitted to use» en este sentido.", terminos: [end-to-end test] }
+  - { id: b2-qa-02-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "Mia insisted on adding a contract test between the API and the mobile app.", correcta: true, explicacion: "Mia «insisted on adding a contract test» y avisó de que un pequeño cambio en la respuesta podría romper la app sin que nadie lo notara. Después de «insist on» se usa gerundio.", terminos: [contract test] }
+  - { id: b2-qa-02-e4, tipo: emparejar, enunciado: "Empareja cada término con su significado.", pares: [{ a: shift left, b: probar antes en el proceso }, { a: fixture, b: estado o datos fijos de partida para una prueba }, { a: quality gate, b: condición mínima para poder avanzar }, { a: coverage gap, b: parte del código sin pruebas suficientes }], explicacion: "Shift left consiste en mover las pruebas hacia el inicio del desarrollo. Una fixture prepara el mismo punto de partida para cada prueba. Un quality gate bloquea el avance si no se cumple un criterio, y un coverage gap es una zona poco probada.", terminos: [shift left, fixture, quality gate, coverage gap] }
+  - { id: b2-qa-02-e5, tipo: ordenar, enunciado: "Ordena la frase (participle clause).", piezas: ["Having", "run", "the", "suite", "we", "decided", "to", "release"], explicacion: "«Having + participio» al inicio indica que la primera acción terminó antes de la segunda: primero se ejecutó la suite y después se decidió. El sujeto de las dos acciones es el mismo («we»).", terminos: [test strategy] }
+  - { id: b2-qa-02-e6, tipo: opcion_multiple, enunciado: "Direct speech: «I will parallelize the tests,» said Raúl. Choose the correct reported speech.", opciones: ["Raúl said he would parallelize the tests.", "Raúl said that I would parallelize the tests.", "Raúl said he parallelize the tests."], correcta: 0, explicacion: "En el estilo indirecto, «will» pasa a «would» y el pronombre cambia a la tercera persona («I» pasa a «he»). La segunda opción mantiene «I», que ya no es correcto, y la tercera no tiene forma verbal válida.", terminos: [parallelize] }
+  - { id: b2-qa-02-e7, tipo: completar, enunciado: "Completa con la forma negativa del infinitivo (warn + objeto + to).", texto: "Lena warned the team ___ release a build without a smoke test.", respuesta: "not to", explicacion: "«Warn» + objeto + «to + infinitivo» expresa una advertencia («warned us to check»). Para la forma negativa se coloca «not» antes de «to»: «not to release».", terminos: [smoke test] }
+  - { id: b2-qa-02-e8, tipo: opcion_multiple, enunciado: "___ the latest report, Lena found a coverage gap in the discount module.", opciones: ["Having read", "Have read", "Having been read"], correcta: 0, explicacion: "La cláusula de participio «Having read...» se usa cuando el sujeto de la cláusula principal (Lena) es quien realizó la primera acción. «Having been read» sería pasiva y no encaja: Lena leyó el informe, no al revés.", terminos: [coverage gap] }
+video: { youtubeId: GaNa_JCZlME, start: 17, end: 112, titulo: "Shift Left Testing Explained for QA - STOP Testing Late!", canal: "Testing Tech Talks" }
+revisado: false

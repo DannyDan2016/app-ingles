@@ -1,0 +1,16 @@
+tipo: tramo
+id: b2-qa-t1
+nivel: B2
+tema: qa
+orden: 6
+# Fragmento 402-498 s contrastado con la transcripción pública (subtítulos automáticos en inglés): el tool ejecuta los unit tests contra cada mutante; si falla al menos uno, el mutante «muere»; si todos pasan, el código no tiene significado o las pruebas son laxas. Charla de conferencia (JSConf Hawaii 2020); acento estadounidense, humor y metáforas de cómic. Alternativo: Mhe-quHWe60.
+fuente: { podcast: "JSConf Hawaii", youtubeId: yNMBOj7JUPs, start: 402, end: 498, titulo: "Kill All Mutants! (Introduction to Mutation Testing)", canal: "Dave Aronson" }
+preguntaGuia: Why can high code coverage still hide weak tests?
+palabrasClave: [mutation testing, coverage gap]
+preguntas:
+  - { id: b2-qa-t1-e1, tipo: opcion_multiple, enunciado: "What happens when one of the unit tests fails against a mutant?", opciones: ["The mutant is killed.", "The mutant survives.", "The whole project is deleted."], correcta: 0, explicacion: "Si un test falla al ejecutarse contra el mutante, se dice que el mutante ha sido «killed» (eliminado). Significa que el pequeño cambio tuvo un efecto visible y que la batería de pruebas fue lo bastante estricta para notarlo.", terminos: [mutation testing] }
+  - { id: b2-qa-t1-e2, tipo: opcion_multiple, enunciado: "How many failing tests does the tool need in order to kill a mutant?", opciones: ["At least one.", "All of them.", "Exactly ten."], correcta: 0, explicacion: "El ponente dice que cada cambio debe hacer fallar al menos un test. Cuando uno falla, la herramienta deja de ejecutar pruebas contra ese mutante y pasa al siguiente.", terminos: [mutation testing] }
+  - { id: b2-qa-t1-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "After the first test fails, the tool keeps running every other test against the same mutant.", correcta: false, explicacion: "Es falso: tras el primer fallo, la herramienta deja de probar ese mutante y pasa al siguiente, porque solo importa si falla al menos un test («we only care about ones and zeroes»)." }
+  - { id: b2-qa-t1-e4, tipo: opcion_multiple, enunciado: "According to the speaker, what usually explains a mutant that lets all the tests pass?", opciones: ["The code is meaningless, or the tests are lax, or both.", "The tool has a serious bug.", "The code is perfect."], correcta: 0, explicacion: "Si todos los tests pasan con el mutante, normalmente el código no tiene un efecto real (es redundante o inalcanzable) o las pruebas son demasiado laxas. Esa laxitud es justo lo que la alta cobertura no revela.", terminos: [coverage gap] }
+  - { id: b2-qa-t1-e5, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "Each mutant is created with just one change to the original function.", correcta: true, explicacion: "La herramienta crea un mutante por cada forma en que se puede cambiar la función, y cada uno contiene solo ese cambio. Así, si un test falla, se sabe qué cambio concreto detectó.", terminos: [mutation testing] }
+revisado: false
