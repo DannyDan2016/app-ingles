@@ -41,6 +41,7 @@ Modelo de amenazas y controles de app-ingles (SP1). La app es privada, de acceso
 ### Cabeceras y rutas
 
 - **`/favicon.ico`, `/_next/static` y `/_next/image` sin CSP**: están excluidos del matcher del proxy. Son ficheros públicos que no son HTML; el resto de cabeceras sí llegan desde `next.config`.
+- **Manifest e iconos de la PWA públicos** (`/manifest.webmanifest`, `/icono-*.png`, rutas exactas en `PUBLIC_PATHS`): sin datos de usuario; hacen falta para instalar la app desde `/login`.
 - **`Permissions-Policy microphone=()`**: se abrirá más adelante (micrófono solo para `self` en SP4).
 - **YouTube (SP2), ya abierto**: `frame-src https://www.youtube-nocookie.com` e `img-src https://i.ytimg.com` (miniaturas de la facade), solo con esos orígenes; `script-src` no cambia (la IFrame API entra por `strict-dynamic` solo tras el clic). Nunca añadir COEP (`Cross-Origin-Embedder-Policy`): bloquearía el iframe y las miniaturas. Spike de navegador pendiente de verificación por el controlador.
 

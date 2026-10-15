@@ -19,3 +19,5 @@ protegidas:
 publicas:
   - /login
   - /api/salud
+  - /manifest.webmanifest
+  - /icono-192.png
