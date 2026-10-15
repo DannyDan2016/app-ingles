@@ -18,7 +18,9 @@ export async function registrarRespuestaAction(input: { ejercicioId: string; cor
   const p = z.object({ ejercicioId: idSchema, correcta: z.boolean() }).safeParse(input);
   const ref = p.success ? getEjercicio(p.data.ejercicioId) : undefined;
   if (!p.success || !ref) return { ok: false as const };
+  if (!u.nivelInicial) return { ok: false as const, motivo: 'bloqueado' as const };
   const db = getDb();
+  if ((await nivelesDelUsuario(db, u.userId, u.nivelInicial)).estadoDe(ref.nivel) === 'bloqueado') return { ok: false as const, motivo: 'bloqueado' as const };
   const origen = getLeccion(ref.padreId) ? 'leccion' : 'tramo';
   const respuesta = { userId: u.userId, itemId: p.data.ejercicioId, correcta: p.data.correcta, origen } as const;
   const terminos = !p.data.correcta ? ref.ejercicio.terminos ?? [] : [];
@@ -51,6 +53,9 @@ export async function guardarTerminoAction(input: { termino: string; nivel: stri
   const p = z.object({ termino: z.string().max(60), nivel: z.enum(NIVELES) }).safeParse(input);
   const termino = p.success ? normalizarTermino(p.data.termino) : null;
   if (!p.success || !termino) return { ok: false as const };
-  const n = await agregarTarjetas(getDb(), u.userId, p.data.nivel, [termino], new Date());
+  if (!u.nivelInicial) return { ok: false as const };
+  const db = getDb();
+  if ((await nivelesDelUsuario(db, u.userId, u.nivelInicial)).estadoDe(p.data.nivel) === 'bloqueado') return { ok: false as const };
+  const n = await agregarTarjetas(db, u.userId, p.data.nivel, [termino], new Date());
   return { ok: true as const, nuevo: n > 0 };
 }
