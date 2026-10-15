@@ -27,4 +27,4 @@ ejercicios:
   - { id: b2-ia-01-e7, tipo: completar, enunciado: "Completa con un modal que exprese posibilidad (no certeza).", texto: "A customer ___ have used a prompt injection, because the answer ignored the system rules.", respuesta: "might", aceptadas: ["may", "could"], explicacion: "Might/may/could + have + participio expresan una posibilidad sobre el pasado (hay pruebas, pero no certeza). Es más débil que «must have», que expresa una deducción casi segura.", terminos: [prompt injection] }
   - { id: b2-ia-01-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "The team is completely sure that the benchmark caused the failure.", correcta: false, explicacion: "Es al revés: Tomás dice que el benchmark «can't have been the real problem». El texto usa varios modales de deducción porque el equipo aún no tiene certeza de la causa.", terminos: [benchmark] }
 video: { youtubeId: T-D1OfcDW1M, start: 95, end: 203, titulo: "What is Retrieval-Augmented Generation (RAG)?", canal: "IBM Technology" }
-revisado: false
+revisado: true

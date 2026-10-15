@@ -34,4 +34,4 @@ ejercicios:
   - { id: b2-ia-02-e7, tipo: completar, enunciado: "Completa con el conector de contraste.", texto: "A traditional script always gives the same result, ___ an assistant can give different answers.", respuesta: "whereas", aceptadas: ["while"], explicacion: "«Whereas» (y «while») contrapone dos hechos diferentes dentro de la misma frase, y se usa mucho para comparar. Aquí contrasta un script determinista con un asistente que no lo es.", terminos: [deterministic] }
   - { id: b2-ia-02-e8, tipo: opcion_multiple, enunciado: "Which sentence uses a reporting passive?", opciones: ["AI is said to reduce the time of code review.", "People say AI reduces the time of code review.", "AI said reducing the time of code review."], correcta: 0, explicacion: "El reporting passive se forma con sujeto + is/are said/expected/believed + to + infinitivo. Evita nombrar quién lo dice y suena más formal que «people say that...».", terminos: [adoption] }
 video: { youtubeId: yh-3WU1FKrk, start: 30, end: 134, titulo: "What is Responsible AI? A Guide to AI Governance", canal: "IBM Technology" }
-revisado: false
+revisado: true

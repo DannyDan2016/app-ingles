@@ -27,4 +27,4 @@ ejercicios:
   - { id: b2-frontend-01-e7, tipo: completar, enunciado: "Completa con la palabra que forma la inversión con «Rarely».", texto: "Rarely ___ a page feel professional if the buttons move.", respuesta: "does", explicacion: "Los adverbios negativos o restrictivos (never, rarely, seldom, hardly) al inicio de la frase provocan inversión: «Rarely does a page feel...». Se usa el auxiliar «does» porque el verbo principal va en presente simple.", terminos: [layout shift] }
   - { id: b2-frontend-01-e8, tipo: opcion_multiple, enunciado: "According to Elena, when should we use aria attributes?", opciones: ["Only when no native element exists.", "On every element of the page.", "Never, because they are obsolete."], correcta: 0, explicacion: "Elena recuerda que hay que preferir los elementos nativos y usar atributos aria solo cuando no hay un elemento HTML adecuado. El HTML semántico ya ofrece foco, teclado y significado para los lectores de pantalla.", terminos: [aria, semantic html] }
 video: { youtubeId: P6KFg10AuLA, start: 103, end: 203, titulo: "CSR vs SSR, and what hydration actually does", canal: "Beyond Localhost" }
-revisado: false
+revisado: true

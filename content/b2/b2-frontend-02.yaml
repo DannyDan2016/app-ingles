@@ -33,4 +33,4 @@ ejercicios:
   - { id: b2-frontend-02-e7, tipo: completar, enunciado: "Completa con el pronombre relativo de lugar.", texto: "I updated six pages in the monorepo, ___ all our front-end applications live.", respuesta: "where", aceptadas: ["in which"], explicacion: "«Where» se usa para añadir información sobre un lugar, incluido un lugar «técnico» como un repositorio. Aquí equivale a «in which».", terminos: [monorepo] }
   - { id: b2-frontend-02-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso? Considera la gramática de la frase.", afirmacion: "In a non-defining relative clause, we can replace «which» with «that».", correcta: false, explicacion: "Es falso: «that» solo se usa en defining relative clauses (sin comas). Con comas hay que usar «which» (cosas) o «who» (personas): «The linter, which runs in CI, reports no warnings».", terminos: [linter] }
 video: { youtubeId: Y9sp8gONv9M, start: 64, end: 170, titulo: "Code Review Tips (How I Review Code as a Staff Software Engineer)", canal: "Cody Engel" }
-revisado: false
+revisado: true

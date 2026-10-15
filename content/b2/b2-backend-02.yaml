@@ -31,4 +31,4 @@ ejercicios:
   - { id: b2-backend-02-e7, tipo: completar, enunciado: "Completa con el future perfect.", texto: "By June, we ___ finished moving every environment to infrastructure as code.", respuesta: "will have", aceptadas: ["'ll have"], explicacion: "«By + fecha futura» pide future perfect: will have + participio. La acción estará completada antes de junio.", terminos: [infrastructure as code] }
   - { id: b2-backend-02-e8, tipo: opcion_multiple, enunciado: "Which sentence describes an action in progress at a specific future moment?", opciones: ["At 10 a.m. tomorrow we'll be deploying the canary.", "By 10 a.m. tomorrow we'll have deployed the canary.", "We deployed the canary at 10 a.m."], correcta: 0, explicacion: "«Will be + -ing» (future continuous) muestra la acción en desarrollo a las 10 a.m. La segunda opción (future perfect) dice que ya habrá terminado antes de esa hora, y la tercera es pasado simple.", terminos: [canary release] }
 video: { youtubeId: H5z70EBtEow, start: 15, end: 128, titulo: "Deployment Strategies Explained: Blue-Green vs. Canary vs. Rolling", canal: "CodeLucky" }
-revisado: false
+revisado: true

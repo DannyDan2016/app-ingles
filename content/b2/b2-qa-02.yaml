@@ -31,4 +31,4 @@ ejercicios:
   - { id: b2-qa-02-e7, tipo: completar, enunciado: "Completa con la forma negativa del infinitivo (warn + objeto + to).", texto: "Lena warned the team ___ release a build without a smoke test.", respuesta: "not to", explicacion: "«Warn» + objeto + «to + infinitivo» expresa una advertencia («warned us to check»). Para la forma negativa se coloca «not» antes de «to»: «not to release».", terminos: [smoke test] }
   - { id: b2-qa-02-e8, tipo: opcion_multiple, enunciado: "___ the latest report, Lena found a coverage gap in the discount module.", opciones: ["Having read", "Have read", "Having been read"], correcta: 0, explicacion: "La cláusula de participio «Having read...» se usa cuando el sujeto de la cláusula principal (Lena) es quien realizó la primera acción. «Having been read» sería pasiva y no encaja: Lena leyó el informe, no al revés.", terminos: [coverage gap] }
 video: { youtubeId: GaNa_JCZlME, start: 17, end: 112, titulo: "Shift Left Testing Explained for QA - STOP Testing Late!", canal: "Testing Tech Talks" }
-revisado: false
+revisado: true

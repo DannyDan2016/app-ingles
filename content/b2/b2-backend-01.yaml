@@ -29,4 +29,4 @@ ejercicios:
   - { id: b2-backend-01-e7, tipo: completar, enunciado: "Completa con el auxiliar correcto (if only + past perfect).", texto: "If only we ___ planned sharding earlier!", respuesta: "had", explicacion: "«If only» tiene un valor parecido a «wish» y expresa un lamento intenso. Para el pasado se usa past perfect: «If only we had planned...».", terminos: [sharding] }
   - { id: b2-backend-01-e8, tipo: opcion_multiple, enunciado: "Which sentence is a mixed conditional (past condition, present result)?", opciones: ["If we had used a connection pool, the app wouldn't be slow now.", "If we use a connection pool, the app won't be slow.", "If we had used a connection pool, the app wouldn't have been slow."], correcta: 0, explicacion: "El condicional mixto combina una condición pasada (had used) con un resultado presente (wouldn't be slow now). La segunda opción es un primer condicional y la tercera es un tercer condicional puro, con resultado también en el pasado.", terminos: [connection pool] }
 video: { youtubeId: jLEp1XI_L6Q, start: 20, end: 128, titulo: "Database Replication & Sharding Explained", canal: "Hayk Simonyan" }
-revisado: false
+revisado: true
