@@ -17,3 +17,13 @@ Then('veo la respuesta modelo, las estructuras y el vocabulario', async ({ page 
     await expect(page.getByRole('heading', { name: h })).toBeVisible();
   }
 });
+When('abro la pestaña {string} y el set {string}', async ({ page }, pestana: string, set: string) => {
+  await page.getByRole('link', { name: pestana, exact: true }).click();
+  await page.getByRole('link', { name: new RegExp(set) }).click();
+});
+Then('veo {string}', async ({ page }, texto: string) => {
+  await expect(page.getByText(texto, { exact: true })).toBeVisible();
+});
+When('pulso {string}', async ({ page }, nombre: string) => {
+  await page.getByRole('button', { name: nombre, exact: true }).click();
+});
