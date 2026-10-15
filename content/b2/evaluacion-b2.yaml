@@ -12,7 +12,7 @@ recursos:
 
       During the postmortem, Carla, the QA lead, said that the team should have blocked the release until a manual check was done. Pablo admitted skipping the smoke test, and he explained that nobody had asked him to run it. Carla insisted that the goal was to improve the process, not to blame a person.
 
-      Three actions were agreed: add an automatic smoke test as a quality gate, prepare a rollback for every release, and send a short report to the stakeholders. Although this will add five minutes to each release, the team is sure that it will prevent similar incidents.
+      Three actions were agreed: add an automatic smoke test as a quality gate, prepare a rollback for every release, and send a short report to the stakeholders. Although this will add five minutes to each release, the team is confident that it will prevent similar incidents.
   - tipo: lectura
     id: b2-ev-l2
     titulo: Why We Moved to Server-Side Rendering

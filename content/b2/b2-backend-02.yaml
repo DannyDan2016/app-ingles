@@ -9,9 +9,9 @@ gramatica: "Future perfect y future continuous (By Q3 we will have defined an SL
 lectura: |
   Priya, the engineering manager, opens the reliability planning meeting for the next quarter.
 
-  "By the end of Q3, we will have defined an [[SLO|slo]] for every critical service," she says. "For checkout, the target is 99.9 percent. That gives us an [[error budget]] of about 43 minutes per month. If we spend it all, we will have stopped new features until the service is stable again."
+  "By the end of Q3, we will have defined an [[SLO|slo]] for every critical service," she says. "For checkout, the target is 99.9 percent. That gives us an [[error budget]] of about 43 minutes per month. If we use it all up, we will freeze new features until the service is stable again."
 
-  Dan, the platform engineer, explains the deployment plan. "This time next month, we'll be running [[canary releases|canary release]] for the payment service: only five percent of the users will receive the new version. By the end of the quarter, we'll have moved the main application to a [[blue-green deployment]], so a rollback will take seconds. We'll also have all environments described as [[infrastructure as code]], and we will have the platform team review every change."
+  Dan, the platform engineer, explains the deployment plan. "This time next month, we'll be running [[canary releases|canary release]] for the payment service: only five percent of the users will receive the new version. By the end of the quarter, we'll have moved the main application to a [[blue-green deployment]], so a rollback will take seconds. By then, all our environments will be defined as [[infrastructure as code]], and we will have the platform team review every change."
 
   Lucía, the SRE, talks about monitoring. "By June, we will have added [[tracing]] to every service, so our [[observability]] will be much better. At the moment, a slow request is almost impossible to follow. In two months, we'll be reading complete traces instead of guessing."
 

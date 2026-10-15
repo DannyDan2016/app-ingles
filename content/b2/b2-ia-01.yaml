@@ -13,7 +13,7 @@ lectura: |
 
   The team then examined the [[retrieval]] step. The assistant finds policy pages by comparing the [[embedding]] of each question with the embeddings of the documents. "Someone might have changed the refund policy without re-indexing the pages," Tomás said, "so the system may have retrieved an outdated one. And the data might have [[drifted|drift]] since we trained the model." Carla nodded. "We should have monitored the drift every week."
 
-  They also reviewed the way the model behaves at [[inference]] time. Some answers ignored the retrieved text completely, even though the [[context window]] was large enough to hold it. "A more [[robust]] system would have said «I don't know»," Tomás added. "We should have added a [[guardrail]] that blocks any answer without a source."
+  They also reviewed the way the model behaves at [[inference]] time. Some answers ignored the retrieved text completely, even though the [[context window]] was large enough to hold it. "A more [[robust]] system would have said 'I don't know'," Tomás added. "We should have added a [[guardrail]] that blocks any answer without a source."
 
   Finally, Sofía, the security engineer, raised a worrying point. One customer might have used a [[prompt injection]] to change the rules, and the [[agent]] that handles refunds shouldn't have had permission to approve payments on its own.
 terminos: [overfitting, inference, benchmark, embedding, guardrail, fine-tuning, retrieval, evaluation, robust, drift, prompt injection, agent, context window]

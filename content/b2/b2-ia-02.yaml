@@ -9,13 +9,15 @@ gramatica: "Concesión (although, even though, despite, in spite of, whereas) + 
 lectura: |
   Subject: Recommendation on AI coding assistants
 
-  Dear Ms Ortega, I am writing to summarize my recommendation about the [[adoption]] of AI assistants in the development team.
+  Dear Ms Ortega,
+
+  I am writing to summarize my recommendation about the [[adoption]] of AI assistants in the development team.
 
   Although the market is full of [[hype]], these tools are expected to make us faster at routine tasks. Many teams are said to save several hours per week, and our own pilot appears to confirm this. Despite these benefits, there is an important [[trade-off]]: speed can reduce the time we spend on careful review.
 
-  The main [[limitation]] is that a language model is not [[deterministic|deterministic]]. Even though we send the same request twice, the answers can be different, so the output tends to need human checking. Whereas a traditional script always gives the same result, an assistant is likely to make a plausible mistake from time to time. For that reason, I propose a clear [[oversight]] process: every suggestion must be reviewed by a developer before it is merged.
+  The main [[limitation]] is that a language model is not [[deterministic]]. Even though we sent identical requests during the pilot, the answers were sometimes different, so the output tends to need human checking. Whereas a traditional script always gives the same result, an assistant is likely to make a plausible mistake from time to time. For that reason, I propose a clear [[oversight]] process: every suggestion must be reviewed by a developer before it is merged.
 
-  The company also needs a proper [[governance]] framework. Someone must be [[accountable|accountable]] for the results, and we have to document how the tool is used. In spite of the extra work, this [[transparency]] will help us in audits and will support our [[compliance]] with data protection rules. We should also [[mitigate|mitigate]] ethical risks, for example by avoiding sensitive customer data in prompts. Questions about [[ethical|ethical]] use are likely to become more important in the next years.
+  The company also needs a proper [[governance]] framework. Someone must be [[accountable]] for the results, and we have to document how the tool is used. In spite of the extra work, this [[transparency]] will help us in audits and will support our [[compliance]] with data protection rules. We should also [[mitigate]] ethical risks, for example by avoiding sensitive customer data in prompts. Questions about [[ethical]] use are likely to become more important in the coming years.
 
   Finally, the solution must be [[scalable]]: if the pilot succeeds, we should be able to extend it to every team without rebuilding the process. In my view, we should adopt the assistants, although we must supervise them carefully.
 
