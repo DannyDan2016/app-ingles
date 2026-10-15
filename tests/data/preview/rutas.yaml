@@ -3,6 +3,8 @@ protegidas:
   - { ruta: /hoy, tipo: pagina }
   - { ruta: /camino, tipo: pagina }
   - { ruta: /camino/A2, tipo: pagina }
+  - { ruta: /evaluacion/A2, tipo: pagina }
+  - { ruta: /evaluacion/A2/refuerzo, tipo: pagina }
   - { ruta: /repaso, tipo: pagina }
   - { ruta: /escuchar, tipo: pagina }
   - { ruta: /perfil, tipo: pagina }
