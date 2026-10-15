@@ -29,14 +29,14 @@ describe('resetAvance', () => {
   it('sin confirmar solo cuenta y no borra nada', async () => {
     const r = await resetAvance(testDb, { confirmar: false });
     expect(r.aplicado).toBe(false);
-    expect(r.antes).toEqual({ usuarios: 2, progress: 2, respuestas: 2, tarjetas: 2, actividad_diaria: 2, sessions: 2 });
+    expect(r.antes).toEqual({ usuarios: 2, progress: 2, respuestas: 2, tarjetas: 2, actividad_diaria: 2, sessions: 2, evaluacion_intentos: 0 });
     expect(await testDb.select().from(progress)).toHaveLength(2);
   });
 
   it('confirmado vacía el avance, cierra sesiones y deja a todos en A2 sin tocar cuentas ni invitaciones', async () => {
     const r = await resetAvance(testDb, { confirmar: true });
     expect(r.aplicado).toBe(true);
-    expect(r.despues).toEqual({ usuarios: 2, progress: 0, respuestas: 0, tarjetas: 0, actividad_diaria: 0, sessions: 0 });
+    expect(r.despues).toEqual({ usuarios: 2, progress: 0, respuestas: 0, tarjetas: 0, actividad_diaria: 0, sessions: 0, evaluacion_intentos: 0 });
     const us = await testDb.select().from(users);
     expect(us.map((u) => u.nivelInicial)).toEqual(['A2', 'A2']);
     expect(us.find((u) => u.alias === 'ana')?.passwordHash).toBe('x');
@@ -46,7 +46,7 @@ describe('resetAvance', () => {
 
   it('con alias solo resetea a ese usuario', async () => {
     const r = await resetAvance(testDb, { confirmar: true, alias: 'beto' });
-    expect(r.despues).toEqual({ usuarios: 1, progress: 0, respuestas: 0, tarjetas: 0, actividad_diaria: 0, sessions: 0 });
+    expect(r.despues).toEqual({ usuarios: 1, progress: 0, respuestas: 0, tarjetas: 0, actividad_diaria: 0, sessions: 0, evaluacion_intentos: 0 });
     expect(await testDb.select().from(progress).where(eq(progress.userId, ana))).toHaveLength(1);
     const [a] = await testDb.select().from(users).where(eq(users.id, ana));
     expect(a.nivelInicial).toBe('B1');

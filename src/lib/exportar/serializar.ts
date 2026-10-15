@@ -11,6 +11,7 @@ export type DatosExportacion = {
   tarjetas: { termino: string; nivel: string; caja: number; proximaAt: Date; aciertos: number; fallos: number }[];
   actividad: { fecha: string; segundos: number }[];
   respuestas: { origen: string; total: number; correctas: number }[];
+  evaluaciones: { nivel: string; estado: string; nota: number | null; iniciadoAt: Date; terminadoAt: Date | null }[];
 };
 
 /**
@@ -28,6 +29,9 @@ export function serializarProgreso(d: DatosExportacion, ahora: Date) {
     })),
     actividad: d.actividad.map((a) => ({ fecha: a.fecha, segundos: a.segundos })),
     respuestas: d.respuestas.map((r) => ({ origen: r.origen, total: r.total, correctas: r.correctas })),
+    evaluaciones: d.evaluaciones.map((e) => ({
+      nivel: e.nivel, estado: e.estado, nota: e.nota, iniciadaEn: diaBogota(e.iniciadoAt), terminadaEn: e.terminadoAt ? diaBogota(e.terminadoAt) : null,
+    })),
   };
 }
 

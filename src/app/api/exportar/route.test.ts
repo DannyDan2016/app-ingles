@@ -13,7 +13,7 @@ import { GET } from './route';
 beforeEach(() => {
   getCurrentUser.mockReset().mockResolvedValue({ userId: 'u1' });
   datosExportacion.mockReset().mockResolvedValue({
-    alias: 'ana', nivelInicial: 'A2', metaDiariaMin: 10, lecciones: [], tarjetas: [], actividad: [], respuestas: [],
+    alias: 'ana', nivelInicial: 'A2', metaDiariaMin: 10, lecciones: [], tarjetas: [], actividad: [], respuestas: [], evaluaciones: [],
   });
 });
 
