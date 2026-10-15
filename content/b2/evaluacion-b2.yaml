@@ -178,11 +178,11 @@ preguntas:
     bloque: listening
     recurso: b2-ev-v2
     tipo: completar
-    enunciado: "Completa con la palabra correcta."
-    texto: "The ___ are the charts and graphs that you plot to observe the health of the system."
-    respuesta: metrics
-    aceptadas: [Metrics]
-    explicacion: "Metrics (métricas) son los valores medidos a lo largo del tiempo, como el uso de CPU o el tiempo de respuesta. Herramientas como Prometheus las recogen y Grafana las muestra en gráficos."
+    enunciado: "Completa con el nombre de la herramienta que el ponente recomienda junto a Prometheus."
+    texto: "Prometheus is a very popular tool, and it is usually used together with a visualizer called ___."
+    respuesta: Grafana
+    aceptadas: [grafana]
+    explicacion: "El ponente presenta Prometheus y Grafana como un dúo muy popular: Prometheus recoge las métricas y Grafana las visualiza en paneles. Solo se sabe cuál es el visualizador si se escucha ese tramo."
   - id: b2-ev-q19
     bloque: listening
     recurso: b2-ev-v2
