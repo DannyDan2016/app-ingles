@@ -5,6 +5,7 @@ import type { HoyPage } from '../pages/hoy.page';
 import type { NivelesPage } from '../pages/niveles.page';
 import { crearCuenta } from './comunes.steps';
 import { sinScrollHorizontal } from '../support/pantalla';
+import { completarLeccion } from '../support/db';
 
 // Contenido de la demo (content/_demo, solo imagen con CONTENT_DEMO=1): lección demo-01 y tramo demo-t1.
 type L = LeccionPage;
@@ -274,3 +275,27 @@ Then('veo el aviso {string} con enlace al camino A2', async ({ page }, texto: st
   await expect(main.getByRole('heading', { name: texto })).toBeVisible();
   await expect(main.getByRole('link', { name: 'Ir al camino A2' })).toBeVisible();
 });
+
+// --- Evaluación de nivel (solo local: usa la BD del stack Docker) -------------------------------------
+
+Given('que tengo una cuenta con nivel {string} y todas sus lecciones completadas', async ({ invitaciones, registro, page, ctx, niveles }, nivel: string) => {
+  await crearCuenta({ invitaciones, registro, page, ctx });
+  await niveles.empezar();
+  await expect(niveles.titulo()).toBeVisible();
+  // El ítem «actual» es el único enlace con aria-current="step": se marca como hecho y se recarga hasta que no quede ninguno.
+  for (let n = 0; n < 30; n++) {
+    await page.goto(`/camino/${nivel}`);
+    const actual = page.locator('a[aria-current="step"]');
+    if (!(await actual.count())) return;
+    const id = (await actual.getAttribute('href'))!.split('/').pop()!;
+    await completarLeccion(ctx.alias!, nivel, id);
+  }
+  throw new Error('Demasiadas lecciones');
+});
+When('abro la evaluación de {string}', async ({ evaluacion }, nivel: string) => { await evaluacion.abrir(nivel); });
+When('empiezo la evaluación', async ({ evaluacion }) => { await evaluacion.empezar(); });
+When('respondo todas las preguntas con {string}', async ({ evaluacion }, opcion: string) => { await evaluacion.responderTodas(opcion as 'Verdadero' | 'Falso'); });
+When('envío la evaluación', async ({ evaluacion }) => { await evaluacion.enviar(); });
+Then('veo el resultado {string}', async ({ evaluacion }, texto: string) => { await expect(evaluacion.resultado(texto)).toBeVisible(); });
+Then('veo el enlace {string}', async ({ page }, texto: string) => { await expect(page.getByRole('link', { name: texto })).toBeVisible(); });
+Then('el nivel {string} aparece {string}', async ({ niveles }, nivel: string, estado: string) => { await expect(niveles.tarjeta(nivel)).toContainText(estado); });

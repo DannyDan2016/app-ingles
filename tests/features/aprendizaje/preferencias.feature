@@ -14,7 +14,7 @@ Característica: Preferencias y niveles sin contenido
     Cuando elijo una meta diaria de 15 minutos y la guardo
     Entonces Hoy muestra "de 15 min"
 
-  Escenario: Un nivel sin contenido muestra un estado vacío claro
+  Escenario: Un nivel posterior sigue bloqueado hasta aprobar la evaluación
     Dado que tengo una cuenta con nivel "A2"
     Cuando abro la página "/camino/B1"
-    Entonces veo el aviso "El contenido de B1 llega pronto" con enlace al camino A2
+    Entonces el nivel "B1" aparece "Bloqueado"
