@@ -2,13 +2,14 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { House, Map, Headphones, User } from 'lucide-react';
+import { House, Map, Headphones, MessagesSquare, User } from 'lucide-react';
 
 const SECCIONES = [
   { href: '/hoy', etiqueta: 'Hoy', Icono: House },
   { href: '/camino', etiqueta: 'Camino', Icono: Map },
   { href: '/escuchar', etiqueta: 'Escuchar', Icono: Headphones },
   { href: '/perfil', etiqueta: 'Perfil', Icono: User },
+  { href: '/entrevistas', etiqueta: 'Entrevistas', Icono: MessagesSquare },
 ] as const;
 
 export function Navegacion() {
