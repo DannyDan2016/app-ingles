@@ -37,7 +37,7 @@ Preparar entrevistas técnicas en inglés. La práctica oral la hace el usuario 
 ## 4. Diseño
 
 ### 4.1 Esquemas (`src/lib/contenido/esquema.ts`)
-- `entrevistaSchema`: `tipo: 'entrevista'`, `id`, `rol` (`general|ia|qa|backend|frontend`), `nivel` (A2|B1|B2), `pregunta`, `respuesta` (texto en inglés al nivel de la pregunta), `estructuras` (4–6 textos), `vocabulario` (1–8 `{ termino, traduccion }`), `revisado`.
+- `bancoEntrevistasSchema` (un archivo por rol): `tipo: 'entrevistas'`, `rol` (`general|ia|qa|backend|frontend`), `revisado`, `preguntas`: lista de `{ id, nivel (A2|B1|B2), pregunta, respuesta (inglés al nivel de la pregunta), estructuras (4–6 textos), vocabulario (1–8 { termino, traduccion }) }`.
 - `shadowingSchema`: `tipo: 'shadowing'`, `id`, `rol`, `nivel` (B1|B2), `titulo`, `video` (`youtubeId`, `titulo`, `canal`), `frases` (exactamente 6 `{ texto, traduccion, start, end }`, `end > start`, ≤ 15 s por frase), `revisado`.
 - Las reglas del compilador (`reglas.ts`) los incorporan al catálogo con las mismas validaciones que el resto: ids únicos, `revisado: true` obligatorio en modo estricto, videos incluidos en `content:check-videos`.
 - Ubicación: `content/entrevistas/preguntas-<rol>.yaml` (lista de preguntas por rol) y `content/entrevistas/shadowing-<rol>.yaml`. Contenido demo mínimo para E2E en `content/_demo/`.
