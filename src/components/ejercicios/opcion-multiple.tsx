@@ -1,9 +1,9 @@
 'use client';
 import { useId } from 'react';
-import type { Ejercicio } from '@/lib/contenido/esquema';
+import type { EjercicioVista } from '@/lib/contenido/vista';
 import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 
-export function OpcionMultiple({ ejercicio, onResponder }: { ejercicio: Extract<Ejercicio, { tipo: 'opcion_multiple' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
+export function OpcionMultiple({ ejercicio, onResponder }: { ejercicio: Extract<EjercicioVista, { tipo: 'opcion_multiple' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
   const nombre = useId();
   return (
     <div className="flex flex-col gap-2">

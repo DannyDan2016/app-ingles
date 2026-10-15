@@ -1,13 +1,16 @@
-import { archivoSchema, type Catalogo, type Ejercicio, type EntradaGlosario, type Leccion, type Tramo } from './esquema';
+import { archivoSchema, BLOQUES, type Catalogo, type Ejercicio, type EntradaGlosario, type Evaluacion, type Leccion, type Tramo } from './esquema';
 import { terminosDeLectura } from './lectura';
 
 export type ArchivoCargado = { ruta: string; datos: unknown; demo: boolean; /** Mensaje si el archivo no se pudo leer o parsear (YAML mal formado). */ errorLectura?: string };
 
 /** El nivel debe coincidir con la carpeta (`content/a2/…`) y tema/id con el nombre (`a2-qa-01`, `glosario-qa`). */
-function reglasArchivo(ruta: string, d: { tipo: string; nivel: string; tema: string; id?: string }): string[] {
+function reglasArchivo(ruta: string, d: { tipo: string; nivel: string; tema?: string; id?: string }): string[] {
   const m = /^content\/([^/]+)\/([^/]+)\.yaml$/.exec(ruta);
   if (!m) return [];
   const [, carpeta, nombre] = m;
+  if (d.tipo === 'evaluacion') {
+    return d.nivel.toLowerCase() === carpeta && nombre === `evaluacion-${carpeta}` ? [] : [`${ruta}: el banco de ${d.nivel} debe estar en content/${d.nivel.toLowerCase()}/evaluacion-${d.nivel.toLowerCase()}.yaml`];
+  }
   const err: string[] = [];
   if (d.nivel.toLowerCase() !== carpeta) err.push(`${ruta}: nivel ${d.nivel} no coincide con la carpeta ${carpeta}`);
   if (d.tipo === 'glosario') {
@@ -32,10 +35,51 @@ function reglasEjercicio(e: Ejercicio, padreId: string): string[] {
   return err;
 }
 
+function reglasEvaluacion(ev: Evaluacion, demo: boolean, videosContenido: ReadonlySet<string>): string[] {
+  const err: string[] = [];
+  const pref = demo ? 'demo-ev' : `${ev.nivel.toLowerCase()}-ev`;
+  const nombre = `evaluación ${ev.nivel}`;
+  const recursos = new Map(ev.recursos.map((r) => [r.id, r]));
+  if (recursos.size !== ev.recursos.length) err.push(`${nombre}: id de recurso duplicado`);
+  for (const r of ev.recursos) {
+    if (!r.id.startsWith(`${pref}-`)) err.push(`${r.id}: el id debe empezar por ${pref}-`);
+    if (r.tipo === 'video') {
+      if (r.fuente.start >= r.fuente.end) err.push(`${r.id}: video con start >= end`);
+      if (videosContenido.has(r.fuente.youtubeId)) err.push(`${r.id}: el video ya se usa en una lección o tramo`);
+    }
+  }
+  const ids = new Set<string>();
+  const porRecurso = new Map<string, number>();
+  for (const p of ev.preguntas) {
+    if (ids.has(p.id)) err.push(`id de pregunta duplicado: ${p.id}`);
+    ids.add(p.id);
+    err.push(...reglasEjercicio(p, pref));
+    const necesita = p.bloque === 'lectura' ? 'lectura' : p.bloque === 'listening' ? 'video' : null;
+    if (necesita) {
+      const r = p.recurso ? recursos.get(p.recurso) : undefined;
+      if (!r || r.tipo !== necesita) err.push(`${p.id}: el bloque ${p.bloque} necesita un recurso de tipo ${necesita}`);
+      else porRecurso.set(r.id, (porRecurso.get(r.id) ?? 0) + 1);
+    } else if (p.recurso) err.push(`${p.id}: el bloque ${p.bloque} no lleva recurso`);
+  }
+  for (const b of BLOQUES) {
+    const n = ev.preguntas.filter((p) => p.bloque === b).length;
+    if (demo ? n < 5 : n !== 10) err.push(`${nombre}: el bloque ${b} tiene ${n} preguntas (${demo ? 'mínimo 5' : 'deben ser 10'})`);
+  }
+  if (!demo) {
+    for (const tipo of ['lectura', 'video'] as const) {
+      const rs = ev.recursos.filter((r) => r.tipo === tipo);
+      if (rs.length !== 2) err.push(`${nombre}: debe haber 2 recursos de tipo ${tipo} (hay ${rs.length})`);
+      for (const r of rs) if ((porRecurso.get(r.id) ?? 0) < 4) err.push(`${r.id}: necesita al menos 4 preguntas`);
+    }
+  }
+  return err;
+}
+
 export function validarCatalogo(archivos: ArchivoCargado[], opts: { estricto: boolean }) {
   const errores: string[] = [];
   const avisos: string[] = [];
   const lecciones: Leccion[] = []; const tramos: Tramo[] = []; const glosario: EntradaGlosario[] = [];
+  const evaluaciones: { ev: Evaluacion; demo: boolean }[] = [];
   const demoIds = new Set<string>();
 
   for (const a of archivos) {
@@ -47,6 +91,7 @@ export function validarCatalogo(archivos: ArchivoCargado[], opts: { estricto: bo
     }
     const d = r.data;
     if (!a.demo) errores.push(...reglasArchivo(a.ruta, d));
+    if (d.tipo === 'evaluacion') { evaluaciones.push({ ev: d, demo: a.demo }); continue; }
     if (d.tipo === 'glosario') glosario.push(...d.entradas);
     else {
       (d.tipo === 'leccion' ? lecciones : tramos).push(d as never);
@@ -98,6 +143,18 @@ export function validarCatalogo(archivos: ArchivoCargado[], opts: { estricto: bo
     }
   }
 
-  const catalogo: Catalogo = { lecciones, tramos, glosario };
+  const videosContenido = new Set([...lecciones.flatMap((l) => (l.video ? [l.video.youtubeId] : [])), ...tramos.map((t) => t.fuente.youtubeId)]);
+  const porNivel = new Map<string, { ev: Evaluacion; demo: boolean }>();
+  for (const x of evaluaciones) {
+    errores.push(...reglasEvaluacion(x.ev, x.demo, videosContenido));
+    if (!x.ev.revisado && !x.demo) (opts.estricto ? errores : avisos).push(`evaluacion-${x.ev.nivel.toLowerCase()}: revisado: false`);
+    const previa = porNivel.get(x.ev.nivel);
+    if (!previa) porNivel.set(x.ev.nivel, x);
+    else if (previa.demo !== x.demo) {
+      avisos.push(`evaluación ${x.ev.nivel}: se usa el banco de demo`);
+      if (x.demo) porNivel.set(x.ev.nivel, x);
+    } else errores.push(`evaluación ${x.ev.nivel} duplicada`);
+  }
+  const catalogo: Catalogo = { lecciones, tramos, glosario, evaluaciones: [...porNivel.values()].map((x) => x.ev) };
   return { errores, avisos, catalogo };
 }

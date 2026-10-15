@@ -3,7 +3,8 @@ import { redirect } from 'next/navigation';
 import { CircleCheck, CircleDot, Lock, SkipForward } from 'lucide-react';
 import { requireUser } from '@/lib/auth/current-user';
 import { getDb } from '@/lib/db/client';
-import { estadoNiveles, type EstadoNivel } from '@/lib/progreso/niveles';
+import type { EstadoNivel } from '@/lib/progreso/niveles';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { caminoDeNivel } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
@@ -16,7 +17,7 @@ const ICONO = { aprobado: CircleCheck, en_curso: CircleDot, omitido: SkipForward
 export default async function CaminoPage() {
   const u = await requireUser();
   if (!u.nivelInicial) redirect('/nivel-inicial');
-  const niveles = estadoNiveles({ nivelInicial: u.nivelInicial, aprobados: [] });
+  const { niveles } = await nivelesDelUsuario(getDb(), u.userId, u.nivelInicial);
   const actual = niveles.find((n) => n.estado === 'en_curso')?.nivel;
   const porcentaje = actual ? estadoCamino(caminoDeNivel(actual), await itemsCompletados(getDb(), u.userId, actual)).porcentaje : 0;
 

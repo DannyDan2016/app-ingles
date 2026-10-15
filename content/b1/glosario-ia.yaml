@@ -1,0 +1,31 @@
+tipo: glosario
+nivel: B1
+tema: ia
+entradas:
+  - { termino: model, categoria: noun, traduccion_es: modelo, definicion_en: A program trained on data to make predictions or create content., ejemplo_en: The model answers support tickets., nivel: B1, tema: ia }
+  - { termino: train, categoria: verb, traduccion_es: entrenar, definicion_en: To teach a model by showing it many examples., ejemplo_en: We train the model every weekend., nivel: B1, tema: ia }
+  - { termino: dataset, categoria: noun, traduccion_es: conjunto de datos, definicion_en: A collection of data used to train or test a model., ejemplo_en: The dataset has ten thousand tickets., nivel: B1, tema: ia }
+  - { termino: accuracy, categoria: noun, traduccion_es: exactitud (porcentaje de aciertos), definicion_en: The percentage of predictions that are correct., ejemplo_en: The accuracy is now 91 percent., nivel: B1, tema: ia }
+  - { termino: predict, categoria: verb, traduccion_es: predecir, definicion_en: To say what will probably happen or what the right answer is., ejemplo_en: The model predicts the category of each ticket., nivel: B1, tema: ia }
+  - { termino: improve, categoria: verb, traduccion_es: mejorar, definicion_en: To become better or to make something better., ejemplo_en: More data can improve the results., nivel: B1, tema: ia }
+  - { termino: generate, categoria: verb, traduccion_es: generar, definicion_en: To create new text, code or images., ejemplo_en: The model can generate a short summary., nivel: B1, tema: ia }
+  - { termino: bias, categoria: noun, traduccion_es: sesgo, definicion_en: An unfair or unbalanced tendency in data or results., ejemplo_en: The data has a bias towards English., nivel: B1, tema: ia }
+  - { termino: pattern, categoria: noun, traduccion_es: patrón, definicion_en: A regular structure that appears again and again in data., ejemplo_en: The model finds patterns in old tickets., nivel: B1, tema: ia }
+  - { termino: label, categoria: noun, traduccion_es: etiqueta (en aprendizaje automático), definicion_en: The correct answer attached to an example in the data., ejemplo_en: Each ticket has a label with its category., nivel: B1, tema: ia }
+  - { termino: output, categoria: noun, traduccion_es: salida (resultado del modelo), definicion_en: The result that a program or a model produces., ejemplo_en: The output of the model is a short text., nivel: B1, tema: ia }
+  - { termino: algorithm, categoria: noun, traduccion_es: algoritmo, definicion_en: A set of steps that a computer follows to solve a problem., ejemplo_en: This algorithm sorts the tickets by priority., nivel: B1, tema: ia }
+  - { termino: feedback, categoria: noun, traduccion_es: retroalimentación (comentarios), definicion_en: Comments about how good or bad something is., ejemplo_en: User feedback helps us improve the model., nivel: B1, tema: ia }
+  - { termino: context, categoria: noun, traduccion_es: contexto, definicion_en: The background information that helps you understand a request., ejemplo_en: Add more context to your prompt., nivel: B1, tema: ia }
+  - { termino: constraint, categoria: noun, traduccion_es: restricción, definicion_en: A limit or rule that the answer must follow., ejemplo_en: One constraint is a maximum of five lines., nivel: B1, tema: ia }
+  - { termino: format, categoria: noun, traduccion_es: formato, definicion_en: The way information is organised, for example a list or a table., ejemplo_en: Ask for the answer in a table format., nivel: B1, tema: ia }
+  - { termino: hallucination, categoria: noun, traduccion_es: alucinación (dato inventado por la IA), definicion_en: False information that an AI presents as if it were true., ejemplo_en: The summary contained a hallucination about the release date., nivel: B1, tema: ia }
+  - { termino: verify, categoria: verb, traduccion_es: verificar, definicion_en: To check that something is true or correct., ejemplo_en: Always verify the facts in the answer., nivel: B1, tema: ia }
+  - { termino: summarize, categoria: verb, traduccion_es: resumir, definicion_en: To give the main points of a long text in a short form., ejemplo_en: Please summarize this issue in three lines., nivel: B1, tema: ia }
+  - { termino: reliable, categoria: adjective, traduccion_es: fiable, definicion_en: Something you can trust to be correct and consistent., ejemplo_en: A reliable source gives correct facts., nivel: B1, tema: ia }
+  - { termino: vague, categoria: adjective, traduccion_es: vago (impreciso), definicion_en: Not clear or not detailed enough., ejemplo_en: A vague prompt gives a vague answer., nivel: B1, tema: ia }
+  - { termino: refine, categoria: verb, traduccion_es: refinar (afinar), definicion_en: To improve something by making small changes., ejemplo_en: I refine the prompt after each test., nivel: B1, tema: ia }
+  - { termino: template, categoria: noun, traduccion_es: plantilla, definicion_en: A ready-made structure that you fill in with new content., ejemplo_en: Use a template for every summary., nivel: B1, tema: ia }
+  - { termino: token, categoria: noun, traduccion_es: token (fragmento de texto que procesa el modelo), definicion_en: A small piece of text, like a word or part of a word, that a model reads., ejemplo_en: A long prompt uses many tokens., nivel: B1, tema: ia }
+  - { termino: assumption, categoria: noun, traduccion_es: suposición, definicion_en: Something you think is true without checking it., ejemplo_en: The AI made an assumption about the audience., nivel: B1, tema: ia }
+  - { termino: source, categoria: noun, traduccion_es: fuente, definicion_en: The place where information comes from., ejemplo_en: Compare the summary with the original source., nivel: B1, tema: ia }
+  - { termino: prompt, categoria: noun, traduccion_es: instrucción (prompt), definicion_en: The text you send to an AI to ask for something., ejemplo_en: My prompt includes an example and a limit., nivel: B1, tema: ia }

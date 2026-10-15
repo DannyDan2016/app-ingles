@@ -6,6 +6,8 @@ import { datosSemana } from '@/lib/avance/avance.repo';
 import { resumenSemana } from '@/lib/avance/semana';
 import { contarPendientes } from '@/lib/aprendizaje/tarjetas.repo';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
+import { contextoEvaluacion } from '@/lib/evaluacion/contexto';
 import { caminoDeNivel, getLeccion } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { Tarjeta } from '@/components/tarjeta';
@@ -18,9 +20,10 @@ const ENLACE = 'mt-3 inline-flex min-h-11 items-center rounded-md bg-primario px
 export default async function HoyPage() {
   const u = await requireUser();
   if (!u.nivelInicial) redirect('/nivel-inicial');
-  const nivel = u.nivelInicial;
   const db = getDb();
+  const { actual: nivel } = await nivelesDelUsuario(db, u.userId, u.nivelInicial);
   const ahora = new Date();
+  const ev = (await contextoEvaluacion(db, { userId: u.userId, nivelInicial: u.nivelInicial }, nivel, ahora)).elegibilidad;
   const [datos, pendientes, completados] = await Promise.all([
     datosSemana(db, u.userId, ahora),
     contarPendientes(db, u.userId, ahora),
@@ -35,6 +38,13 @@ export default async function HoyPage() {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-2xl font-bold">Hoy</h1>
+
+      {(ev.tipo === 'puede' || ev.tipo === 'reanudar') && (
+        <Tarjeta aria-labelledby="h-eval-hoy">
+          <h2 id="h-eval-hoy" className="text-lg font-semibold">{ev.tipo === 'puede' ? `Ya puedes presentar la evaluación de ${nivel}` : `Tienes la evaluación de ${nivel} a medias`}</h2>
+          <Link href={`/evaluacion/${nivel}`} className={ENLACE}>{ev.tipo === 'puede' ? 'Ver evaluación' : 'Continuar'}</Link>
+        </Tarjeta>
+      )}
 
       <Tarjeta aria-labelledby="h-meta">
         <h2 id="h-meta" className="text-lg font-semibold">Meta de hoy</h2>

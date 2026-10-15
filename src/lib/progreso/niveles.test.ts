@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { estadoNiveles, isNivel, NIVELES } from './niveles';
+import { estadoNiveles, isNivel, nivelActual, NIVELES } from './niveles';
 import { nivelEnum } from '@/lib/db/schema';
 
 const estados = (r: ReturnType<typeof estadoNiveles>) => r.map((x) => `${x.nivel}:${x.estado}`);
@@ -29,5 +29,11 @@ describe('estadoNiveles', () => {
 describe('nivelEnum consistency', () => {
   it('nivelEnum.enumValues debe coincidir con NIVELES', () => {
     expect(nivelEnum.enumValues).toEqual(NIVELES);
+  });
+});
+
+describe('nivelActual', () => {
+  it('tras aprobar A2 el nivel actual es B1', () => {
+    expect(nivelActual(estadoNiveles({ nivelInicial: 'A2', aprobados: ['A2'] }))).toBe('B1');
   });
 });

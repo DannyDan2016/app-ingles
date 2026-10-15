@@ -3,7 +3,7 @@ import { comprobarVideos, idsDeVideo } from './videos';
 
 describe('videos', () => {
   it('idsDeVideo junta lecciones y tramos sin repetir', () => {
-    const c = { lecciones: [{ video: { youtubeId: 'AAAAAAAAAAA' } }, {}], tramos: [{ fuente: { youtubeId: 'AAAAAAAAAAA' } }, { fuente: { youtubeId: 'BBBBBBBBBBB' } }], glosario: [] };
+    const c = { lecciones: [{ video: { youtubeId: 'AAAAAAAAAAA' } }, {}], tramos: [{ fuente: { youtubeId: 'AAAAAAAAAAA' } }, { fuente: { youtubeId: 'BBBBBBBBBBB' } }], glosario: [], evaluaciones: [] };
     expect(idsDeVideo(c as never)).toEqual(['AAAAAAAAAAA', 'BBBBBBBBBBB']);
   });
   it('comprobarVideos devuelve solo los que no dan 200, usando oEmbed', async () => {

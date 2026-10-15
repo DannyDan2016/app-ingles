@@ -129,6 +129,8 @@ Perezosa: al leer un intento `en_curso` con `iniciado_at` + 48 h < ahora, se mar
 ### 7.7 Refuerzo
 `armarRefuerzo(catalogo, nivel, bloques)` → 12 ejercicios de práctica (repartidos entre los bloques flojos; si un bloque no tiene suficientes, se completa con los demás flojos). Corrección en el cliente como en las lecciones; al terminar se llama a `completarRefuerzo`. Sin persistencia de respuestas del refuerzo.
 
+Nota (2026-10-14): las respuestas del refuerzo se registran como práctica normal (alimentan respuestas y tarjetas de repaso); decisión aceptada por beneficiar al repaso espaciado.
+
 ## 8. Pantallas
 
 | Ruta / lugar | Contenido |

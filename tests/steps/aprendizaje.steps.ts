@@ -5,6 +5,7 @@ import type { HoyPage } from '../pages/hoy.page';
 import type { NivelesPage } from '../pages/niveles.page';
 import { crearCuenta } from './comunes.steps';
 import { sinScrollHorizontal } from '../support/pantalla';
+import { completarLeccion, completarRefuerzo } from '../support/db';
 
 // Contenido de la demo (content/_demo, solo imagen con CONTENT_DEMO=1): lección demo-01 y tramo demo-t1.
 type L = LeccionPage;
@@ -267,10 +268,50 @@ Then('Hoy muestra {string}', async ({ hoy, niveles }, texto: string) => {
   await expect(hoy.textoMeta()).toContainText(texto);
 });
 
-// --- Nivel sin contenido ------------------------------------------------------------------------------
+Then('veo el encabezado {string}', async ({ page }, texto: string) => { await expect(page.getByRole('heading', { level: 1, name: texto })).toBeVisible(); });
 
-Then('veo el aviso {string} con enlace al camino A2', async ({ page }, texto: string) => {
-  const main = page.getByRole('main');
-  await expect(main.getByRole('heading', { name: texto })).toBeVisible();
-  await expect(main.getByRole('link', { name: 'Ir al camino A2' })).toBeVisible();
+// --- Evaluación de nivel (solo local: usa la BD del stack Docker) -------------------------------------
+
+Given('que tengo una cuenta con nivel {string} y todas sus lecciones completadas', async ({ invitaciones, registro, page, ctx, niveles }, nivel: string) => {
+  await crearCuenta({ invitaciones, registro, page, ctx });
+  await niveles.empezar();
+  await expect(niveles.titulo()).toBeVisible();
+  // El ítem «actual» es el único enlace con aria-current="step": se marca como hecho y se recarga hasta que no quede ninguno.
+  for (let n = 0; n < 30; n++) {
+    await page.goto(`/camino/${nivel}`);
+    const actual = page.locator('a[aria-current="step"]');
+    if (!(await actual.count())) return;
+    const id = (await actual.getAttribute('href'))!.split('/').pop()!;
+    await completarLeccion(ctx.alias!, nivel, id);
+  }
+  throw new Error('Demasiadas lecciones');
+});
+When('abro la evaluación de {string}', async ({ evaluacion }, nivel: string) => { await evaluacion.abrir(nivel); });
+When('empiezo la evaluación', async ({ evaluacion }) => { await evaluacion.empezar(); });
+When('respondo todas las preguntas con {string}', async ({ evaluacion }, opcion: string) => { await evaluacion.responderTodas(opcion as 'Verdadero' | 'Falso'); });
+When('envío la evaluación', async ({ evaluacion }) => { await evaluacion.enviar(); });
+Then('veo el resultado {string}', async ({ evaluacion }, texto: string) => { await expect(evaluacion.resultado(texto)).toBeVisible(); });
+Then('veo el enlace {string}', async ({ page }, texto: string) => { await expect(page.getByRole('link', { name: texto })).toBeVisible(); });
+Then('el nivel {string} aparece {string}', async ({ niveles }, nivel: string, estado: string) => { await expect(niveles.tarjeta(nivel)).toContainText(estado); });
+
+Then('la página no contiene las soluciones', async ({ evaluacion }) => {
+  const html = await evaluacion.html();
+  // Claves del modelo (con comillas, escapadas o no, para no confundir con texto de enunciados) y textos de explicación del banco demo.
+  expect(html).not.toMatch(/explicacion/);
+  expect(html).not.toMatch(/aceptadas/);
+  expect(html).not.toMatch(/correcta\\?"\s*:/);
+  expect(html).not.toContain('La lectura dice');
+  expect(html).not.toContain('Present simple con -s en tercera persona');
+});
+When('sigo el enlace {string}', async ({ page }, texto: string) => { await page.getByRole('link', { name: texto }).click(); });
+// Refuerzo: sus ejercicios salen de TODA la práctica de A2 (contenido real + demo, orden barajado por intento), así que no se
+// pueden resolver por la UI de forma determinista. Se comprueba que arranca y el cierre se registra por BD (misma escritura que la acción).
+Then('veo el primer ejercicio del refuerzo', async ({ page }) => {
+  await expect(page.getByRole('heading', { level: 1, name: 'Refuerzo de A2' })).toBeVisible();
+  await expect(page.getByText(/^Ejercicio 1 de \d+$/)).toBeVisible();
+});
+When('doy el refuerzo por completado', async ({ ctx }) => { await completarRefuerzo(ctx.alias!, 'A2'); });
+Then('el camino de {string} indica cuándo reintentar', async ({ page }, nivel: string) => {
+  await page.goto(`/camino/${nivel}`);
+  await expect(page.getByText(/Podrás reintentarla desde el/)).toBeVisible();
 });

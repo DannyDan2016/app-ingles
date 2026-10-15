@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, timestamp, pgEnum, index, primaryKey, smallint, integer, boolean, date, check } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, timestamp, pgEnum, index, primaryKey, smallint, integer, boolean, date, check, uniqueIndex } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
 
 export const rolEnum = pgEnum('rol', ['admin', 'aprendiz']);
@@ -106,4 +106,46 @@ export const actividadDiaria = pgTable(
     ventanaN: smallint('ventana_n').notNull().default(0),
   },
   (t) => [primaryKey({ columns: [t.userId, t.fecha] }), check('actividad_segundos', sql`${t.segundos} between 0 and 14400`)],
+);
+
+export const estadoIntentoEnum = pgEnum('estado_intento', ['en_curso', 'aprobado', 'suspendido', 'caducado']);
+
+export const evaluacionIntentos = pgTable(
+  'evaluacion_intentos',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    userId: uuid('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+    nivel: nivelEnum('nivel').notNull(),
+    estado: estadoIntentoEnum('estado').notNull().default('en_curso'),
+    preguntas: text('preguntas').array().notNull(),
+    iniciadoAt: ts('iniciado_at').notNull().defaultNow(),
+    terminadoAt: ts('terminado_at'),
+    nota: smallint('nota'),
+    notaLectura: smallint('nota_lectura'),
+    notaListening: smallint('nota_listening'),
+    notaVocabulario: smallint('nota_vocabulario'),
+    notaGramatica: smallint('nota_gramatica'),
+    refuerzoCompletadoAt: ts('refuerzo_completado_at'),
+  },
+  (t) => [
+    uniqueIndex('evaluacion_un_intento_abierto').on(t.userId, t.nivel).where(sql`${t.estado} = 'en_curso'`),
+    index('evaluacion_user_nivel_inicio').on(t.userId, t.nivel, t.iniciadoAt),
+    check('evaluacion_nota', sql`${t.nota} between 0 and 100`),
+    check('evaluacion_nota_lectura', sql`${t.notaLectura} between 0 and 100`),
+    check('evaluacion_nota_listening', sql`${t.notaListening} between 0 and 100`),
+    check('evaluacion_nota_vocabulario', sql`${t.notaVocabulario} between 0 and 100`),
+    check('evaluacion_nota_gramatica', sql`${t.notaGramatica} between 0 and 100`),
+    check('evaluacion_terminado', sql`${t.estado} not in ('aprobado', 'suspendido') or ${t.terminadoAt} is not null`),
+  ],
+);
+
+export const evaluacionRespuestas = pgTable(
+  'evaluacion_respuestas',
+  {
+    intentoId: uuid('intento_id').notNull().references(() => evaluacionIntentos.id, { onDelete: 'cascade' }),
+    preguntaId: text('pregunta_id').notNull(),
+    respuesta: text('respuesta').notNull(),
+    respondidaAt: ts('respondida_at').notNull().defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.intentoId, t.preguntaId] })],
 );

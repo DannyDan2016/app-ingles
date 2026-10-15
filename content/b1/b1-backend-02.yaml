@@ -1,0 +1,32 @@
+tipo: leccion
+id: b1-backend-02
+nivel: B1
+tema: backend
+orden: 8
+titulo: We Use a Queue to Avoid Losing Messages
+objetivo: Puedo explicar para qué sirve una solución técnica y recomendar o evitar una práctica de backend.
+gramatica: "Infinitive of purpose and -ing forms (to avoid losing, using a cache helps, I suggest adding, avoid blocking)"
+lectura: |
+  Yesterday the shop was down for ten minutes after a traffic peak. Now the team is talking in the chat about how to fix it.
+
+  Marta: "The main [[bottleneck]] is our single server. We need a [[load balancer]] to share the traffic, and then we can [[scale]] the service by adding more servers."
+
+  Dan: "I suggest using a [[queue]] to avoid losing orders. The API puts each order in the queue, and a worker saves it later. If the database is slow, the message just waits."
+
+  Marta: "Good idea. We should also add a [[retry]]: if a call fails, the system tries again after a few seconds. But avoid sending too many requests at once. We need a [[rate limit]] to protect the service."
+
+  Lena: "To measure the problem, we must [[monitor]] the [[latency]] and the [[throughput]]. Latency is the time that one request takes. Throughput is how many requests the system handles every second. I also want an [[alert]] to wake us up when latency is too high."
+
+  Dan: "We can put each part in a [[container]] and split the shop into small [[microservices|microservice]]. But each [[dependency]] between services is a new point of failure, so we must test them carefully."
+video: { youtubeId: bmUmBTVZmrY, start: 76, end: 130, titulo: "Load Balancing Explained in 3 minutes", canal: "Connected Cookie" }
+terminos: [bottleneck, load balancer, scale, queue, retry, rate limit, monitor, latency, throughput, alert, container, microservice, dependency]
+ejercicios:
+  - { id: b1-backend-02-e1, tipo: opcion_multiple, enunciado: "Elige la opción correcta: We use a queue ___ losing orders.", opciones: ["to avoid", "avoiding", "for avoid"], correcta: 0, explicacion: "Para expresar el propósito («para qué») usamos «to» + verbo en infinitivo. No se dice «for avoid».", terminos: [queue] }
+  - { id: b1-backend-02-e2, tipo: completar, enunciado: "Completa con la forma correcta del verbo add.", texto: "I suggest ___ a retry to the client.", respuesta: adding, explicacion: "Después de «suggest» usamos el gerundio (-ing): «I suggest adding». No decimos «I suggest to add».", terminos: [retry] }
+  - { id: b1-backend-02-e3, tipo: completar, enunciado: "Completa con el verbo en infinitivo.", texto: "Using a cache helps ___ the load on the database.", respuesta: reduce, aceptadas: ["to reduce"], explicacion: "«Using a cache» es el sujeto (un gerundio funciona como sustantivo). Después de «help» va un infinitivo, con o sin «to»: «helps reduce» o «helps to reduce». Una caché guarda respuestas para no repetir consultas.", terminos: [cache] }
+  - { id: b1-backend-02-e4, tipo: ordenar, enunciado: "Ordena la frase.", piezas: ["We", "use", "a load balancer", "to share", "the traffic"], explicacion: "El propósito va al final: sujeto + verbo + objeto + «to» + verbo. El balanceador reparte el tráfico entre varios servidores.", terminos: [load balancer] }
+  - { id: b1-backend-02-e5, tipo: emparejar, enunciado: "Empareja cada término con su significado.", pares: [{ a: latency, b: "the time one request takes" }, { a: throughput, b: "requests handled per second" }, { a: bottleneck, b: "the slowest part of a system" }, { a: alert, b: "a message that warns the team" }], explicacion: "Latencia mide cuánto tarda una petición; rendimiento (throughput) mide cuántas se procesan en un periodo. Son métricas distintas.", terminos: [latency, throughput, bottleneck, alert] }
+  - { id: b1-backend-02-e6, tipo: verdadero_falso, enunciado: "Según la lectura, ¿verdadero o falso?", afirmacion: "The team monitors latency to know how many requests the system handles every second.", correcta: false, explicacion: "Eso es el throughput. La latencia es el tiempo que tarda una sola petición. En la lectura aparecen las dos métricas por separado.", terminos: [monitor, latency, throughput] }
+  - { id: b1-backend-02-e7, tipo: opcion_multiple, enunciado: "Which sentence is correct?", opciones: ["Avoid to block the request.", "Avoid blocking the request.", "Avoid block the request."], correcta: 1, explicacion: "Después de «avoid» usamos siempre el gerundio (-ing): «avoid blocking». Es una de las estructuras más usadas en recomendaciones técnicas." }
+  - { id: b1-backend-02-e8, tipo: opcion_multiple, enunciado: "What is the purpose of a rate limit?", opciones: ["To protect the service from too many requests", "To make the database relational", "To split the service into containers"], correcta: 0, explicacion: "Un límite de peticiones (rate limit) restringe cuántas peticiones puede enviar un cliente en un periodo, para que no sature el servicio.", terminos: [rate limit] }
+revisado: true

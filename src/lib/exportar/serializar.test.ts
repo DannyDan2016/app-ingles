@@ -9,6 +9,7 @@ const BASE: DatosExportacion = {
   tarjetas: [{ termino: 'endpoint', nivel: 'A2', caja: 3, proximaAt: new Date('2026-10-10T12:00:00Z'), aciertos: 2, fallos: 1 }],
   actividad: [{ fecha: '2026-10-07', segundos: 300 }],
   respuestas: [{ origen: 'repaso', total: 4, correctas: 3 }],
+  evaluaciones: [],
 };
 const AHORA = new Date('2026-10-08T03:00:00Z'); // 2026-10-07 22:00 en Bogotá
 

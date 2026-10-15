@@ -22,7 +22,10 @@ services:
       E2E_ADMIN_ALIAS: ${E2E_ADMIN_ALIAS:-admin_e2e}
       E2E_ADMIN_PASSWORD: ${E2E_ADMIN_PASSWORD:?define E2E_ADMIN_PASSWORD}
       CI: ${CI:-}
+      # Solo dentro de la red de Docker (la BD del stack E2E no publica puertos): el helper de tests/support/db.ts la usa.
+      DATABASE_URL: postgres://app:app_local_only@db:5432/app_ingles
     volumes:
       - ./tests/playwright-report:/tests/playwright-report
     depends_on:
       web: { condition: service_healthy }
+      db: { condition: service_healthy }

@@ -1,14 +1,13 @@
 'use client';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import type { Ejercicio } from '@/lib/contenido/esquema';
-import { barajar } from '@/lib/aprendizaje/barajar';
+import { useEffect, useRef, useState } from 'react';
+import type { EjercicioVista } from '@/lib/contenido/vista';
 import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 
 const BOTON = 'min-h-11 min-w-11 rounded-md border border-borde bg-superficie px-3 text-texto';
 
-export function Ordenar({ ejercicio, onResponder }: { ejercicio: Extract<Ejercicio, { tipo: 'ordenar' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
+export function Ordenar({ ejercicio, onResponder }: { ejercicio: Extract<EjercicioVista, { tipo: 'ordenar' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
   // Se trabaja con índices de la lista barajada, para soportar piezas repetidas.
-  const barajadas = useMemo(() => barajar(ejercicio.piezas, ejercicio.id), [ejercicio]);
+  const barajadas = ejercicio.piezas;
   const [elegidas, setElegidas] = useState<number[]>([]);
   const raiz = useRef<HTMLDivElement>(null);
   const foco = useRef<{ idx: number; lista: 'frase' | 'disponibles' } | null>(null);

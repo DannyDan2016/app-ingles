@@ -1,0 +1,28 @@
+tipo: leccion
+id: b1-ia-02
+nivel: B1
+tema: ia
+orden: 2
+titulo: If You Give Context, the Answer Improves
+objetivo: Puedo explicar qué pasa si cambio las instrucciones que doy a una IA y cómo reducir las respuestas malas.
+gramatica: Zero y first conditional (if + presente, presente/will; unless)
+lectura: |
+  Daniel is writing a [[prompt]] so that an AI can [[summarize]] GitHub issues. His first version is short: "Summarize these issues." His colleague Marta reviews it and gives him some advice.
+
+  "If the prompt is [[vague]], the AI will guess," she explains. "It makes [[assumptions|assumption]] about what you want, and sometimes they are wrong." She tells him that when you give enough [[context]], the answer improves. For example, if you say who will read the summary, the model chooses the right level of detail. A clear [[constraint]] also helps: "Use a maximum of five lines." If you don't set a limit, the AI writes too much.
+
+  The [[format]] is important as well. If you ask for a specific format, the model follows it. When you give a [[template]] with an example, the output is more consistent.
+
+  Marta also warns him about a [[hallucination]]: the AI sometimes invents details that sound true. "It will not be a [[reliable]] summary unless you [[verify]] it," she says. "Always compare it with the original [[source]]." Daniel can [[refine]] the prompt step by step. Long texts also use many [[tokens|token]], and most AI services charge for every token, so he removes unnecessary words. If the prompt has fewer tokens, the request usually costs less.
+terminos: [prompt, summarize, vague, assumption, context, constraint, format, template, hallucination, reliable, verify, source, refine, token]
+ejercicios:
+  - { id: b1-ia-02-e1, tipo: opcion_multiple, enunciado: "If the prompt ___ vague, the AI will guess.", opciones: ["is", "will be", "was"], correcta: 0, explicacion: "En el first conditional, la parte con «if» va en present simple («is») y el resultado lleva «will» + verbo. Nunca se usa «will» justo después de «if» en este tipo de frase.", terminos: [vague, prompt] }
+  - { id: b1-ia-02-e2, tipo: completar, enunciado: "Completa con el verbo «give» (zero conditional: un hecho general).", texto: "If you ___ an example, the model follows the format.", respuesta: "give", explicacion: "El zero conditional usa present simple en las dos partes (if + present, present) para hechos que siempre ocurren. Aquí es una regla general del comportamiento de los modelos.", terminos: [format] }
+  - { id: b1-ia-02-e3, tipo: completar, enunciado: "Completa con «unless» o «if».", texto: "The summary will not be reliable ___ you verify it.", respuesta: "unless", explicacion: "«Unless» significa «if not» (a menos que). La frase equivale a «if you don't verify it, the summary will not be reliable». Con «unless» el verbo va en afirmativo.", terminos: [reliable, verify] }
+  - { id: b1-ia-02-e4, tipo: emparejar, enunciado: "Empareja cada término con su traducción.", pares: [{ a: hallucination, b: alucinación }, { a: constraint, b: restricción }, { a: template, b: plantilla }, { a: source, b: fuente }], explicacion: "Una «hallucination» es información inventada que la IA presenta como cierta. Una «constraint» es un límite que impones a la respuesta, y una «template» es una estructura reutilizable.", terminos: [hallucination, constraint, template, source] }
+  - { id: b1-ia-02-e5, tipo: ordenar, enunciado: "Ordena la frase (first conditional).", piezas: ["If", "you", "add", "context", "the", "answer", "will", "improve"], explicacion: "Orden: If + sujeto + present simple + resultado con will + verbo. La cláusula con «if» va primero, y el resultado, después.", terminos: [context] }
+  - { id: b1-ia-02-e6, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "The AI always tells you when it invents a detail.", correcta: false, explicacion: "Marta advierte justo lo contrario: la IA a veces inventa detalles que suenan verdaderos (hallucination), así que hay que compararlos con la fuente original.", terminos: [hallucination, source] }
+  - { id: b1-ia-02-e7, tipo: opcion_multiple, enunciado: "Which sentence describes a possible future result?", opciones: ["If the prompt is vague, the AI will guess.", "If you heat water, it boils.", "If I were you, I would add context."], correcta: 0, explicacion: "El first conditional (if + present, will) habla de un resultado futuro posible. «If you heat water, it boils» es zero conditional (hecho general) y «If I were you, I would...» es second conditional (situación imaginaria).", terminos: [vague] }
+  - { id: b1-ia-02-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "A prompt with fewer tokens usually costs less.", correcta: true, explicacion: "La lectura lo dice: «If the prompt has fewer tokens, the request usually costs less». Un token es un fragmento de texto que el modelo procesa, y la mayoría de servicios de IA cobran por token. Fíjate en el zero conditional: if + presente, presente.", terminos: [token, prompt] }
+video: { youtubeId: sW5xoicq5TY, start: 100, end: 188, titulo: "Zero-shot, One-shot and Few-shot Prompting Explained | Prompt Engineering 101", canal: "Analytics Vidhya" }
+revisado: true

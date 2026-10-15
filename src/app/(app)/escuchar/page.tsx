@@ -6,6 +6,7 @@ import { getDb } from '@/lib/db/client';
 import { tramosDeNivel, caminoDeNivel } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { EstadoVacioNivel } from '@/components/estado-vacio-nivel';
 import { Tarjeta } from '@/components/tarjeta';
 
@@ -14,7 +15,7 @@ const TEMAS: Record<string, string> = { ia: 'IA', qa: 'QA', backend: 'Backend', 
 export default async function EscucharPage() {
   const u = await requireUser();
   if (!u.nivelInicial) redirect('/nivel-inicial');
-  const nivel = u.nivelInicial;
+  const { actual: nivel } = await nivelesDelUsuario(getDb(), u.userId, u.nivelInicial);
   const tramos = tramosDeNivel(nivel);
   const hechos = new Set(
     estadoCamino(caminoDeNivel(nivel), await itemsCompletados(getDb(), u.userId, nivel)).items

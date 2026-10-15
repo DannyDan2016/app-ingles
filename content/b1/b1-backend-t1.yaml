@@ -1,0 +1,16 @@
+tipo: tramo
+id: b1-backend-t1
+nivel: B1
+tema: backend
+orden: 9
+# Fragmento 85-175 s contrastado con la transcripción pública (subtítulos manuales en-US): petición HTTP a un endpoint, verbos (POST, GET, PUT, DELETE), payload en JSON, respuesta con código de estado 200/400/500.
+fuente: { podcast: "ByteByteGo", youtubeId: "-mN3VyJuCjM", start: 85, end: 175, titulo: "What Is REST API?", canal: ByteByteGo }
+preguntaGuia: What does a REST API do when a client sends a request?
+palabrasClave: [payload, status code]
+preguntas:
+  - { id: b1-backend-t1-e1, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "A client works with a resource by sending a request to its endpoint over HTTP.", correcta: true, explicacion: "El video lo explica así: el cliente interactúa con un recurso haciendo una petición (request) al endpoint de ese recurso por HTTP." }
+  - { id: b1-backend-t1-e2, tipo: opcion_multiple, enunciado: "Which HTTP verb do we use to create a new resource?", opciones: ["POST", "GET", "DELETE"], correcta: 0, explicacion: "POST crea un recurso nuevo, GET lee datos, PUT actualiza y DELETE elimina. Juntos forman CRUD (create, read, update, delete)." }
+  - { id: b1-backend-t1-e3, tipo: opcion_multiple, enunciado: "Which part of a request can carry the data of a new order?", opciones: ["The payload in the request body", "The status code", "The HTTP verb"], correcta: 0, explicacion: "El cuerpo opcional de la petición puede llevar un payload de datos, normalmente en JSON: por ejemplo, el producto y la cantidad de un pedido nuevo.", terminos: [payload, status code] }
+  - { id: b1-backend-t1-e4, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según el fragmento?", afirmacion: "A 500-level status code means that the client sent a request with incorrect syntax.", correcta: false, explicacion: "Los códigos 400 indican un problema en la petición del cliente (por ejemplo, sintaxis incorrecta). Los 500 indican que algo falló en el servidor, por ejemplo, que el servicio no estaba disponible.", terminos: [status code] }
+  - { id: b1-backend-t1-e5, tipo: opcion_multiple, enunciado: "What does a 200-level status code mean?", opciones: ["The request was successful.", "The server is down.", "The request has a syntax error."], correcta: 0, explicacion: "Los códigos 200 significan éxito. La primera línea de la respuesta lleva el código de estado para decirle al cliente qué pasó con su petición.", terminos: [status code] }
+revisado: true

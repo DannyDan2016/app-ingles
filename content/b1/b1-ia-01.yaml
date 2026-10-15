@@ -1,0 +1,28 @@
+tipo: leccion
+id: b1-ia-01
+nivel: B1
+tema: ia
+orden: 1
+titulo: Has the Model Learned Enough?
+objetivo: Puedo contar en una reunión qué ha hecho y qué ha mejorado un modelo de IA hasta ahora.
+gramatica: Present perfect simple (have/has + participio; already, yet, just, for, since)
+lectura: |
+  It is Monday, and the team is in the stand-up. Lucía, a machine learning engineer, has a short update. "We have [[trained|train]] the [[model]] on a new [[dataset]] this week," she says. "It has already learned many useful [[patterns|pattern]]. For example, it has just started to [[predict]] the correct category for most support tickets, and it can [[generate]] a short draft reply for each one."
+
+  The [[accuracy]] has [[improved|improve]] from 82 to 91 percent since last Friday. However, the model hasn't learned to handle very short messages yet. Lucía has checked the results and has found a problem: the [[labels|label]] in the old data are not consistent. Some tickets have the wrong label, and no training [[algorithm]] can fix bad labels on its own, so the model has learned a few wrong rules.
+
+  She has also noticed a [[bias]] in the data. There are many more tickets in English than in Spanish, and the model has never seen enough Spanish examples. For that reason, its [[output]] in Spanish is weaker.
+
+  Iván, the team lead, asks, "Have you asked the support team for [[feedback]] yet?" "Not yet," Lucía answers. "I have sent them a message, but nobody has replied. We have worked on this problem for two weeks, and the replies in English are already good."
+terminos: [model, train, dataset, accuracy, predict, improve, generate, bias, pattern, label, output, algorithm, feedback]
+ejercicios:
+  - { id: b1-ia-01-e1, tipo: opcion_multiple, enunciado: "The model ___ to handle short messages yet.", opciones: ["hasn't learned", "didn't learned", "doesn't learned"], correcta: 0, explicacion: "Con «yet» en frases negativas usamos el present perfect: has/have + not + participio («hasn't learned»). «Learned» es el participio; después de «didn't» o «doesn't» el verbo iría en forma base («learn»), no en pasado.", terminos: [model] }
+  - { id: b1-ia-01-e2, tipo: completar, enunciado: "Completa con el verbo «send» en present perfect.", texto: "Lucía ___ a message to the support team, but nobody has replied.", respuesta: "has sent", aceptadas: ["'s sent"], explicacion: "El present perfect se forma con has/have + participio. «Send» es irregular: send – sent – sent. Se usa porque la acción pasada tiene un resultado ahora (todavía no hay respuesta)." }
+  - { id: b1-ia-01-e3, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "The model has already learned to handle very short messages.", correcta: false, explicacion: "La lectura dice que el modelo «hasn't learned to handle very short messages yet». Ojo: «already» va en frases afirmativas y «yet» en negativas y preguntas.", terminos: [model] }
+  - { id: b1-ia-01-e4, tipo: emparejar, enunciado: "Empareja cada término con su traducción.", pares: [{ a: dataset, b: conjunto de datos }, { a: label, b: etiqueta }, { a: bias, b: sesgo }, { a: accuracy, b: exactitud }], explicacion: "En IA, «label» no es una etiqueta de ropa: es la respuesta correcta asociada a cada ejemplo. «Bias» es un sesgo en los datos, y «accuracy» (exactitud) mide el porcentaje de aciertos del modelo; no la confundas con «precision», que es otra métrica.", terminos: [dataset, label, bias, accuracy] }
+  - { id: b1-ia-01-e5, tipo: ordenar, enunciado: "Ordena la frase (present perfect).", piezas: ["The", "model", "has", "learned", "a", "few", "wrong", "rules"], explicacion: "Estructura: sujeto + has/have + participio + complemento. Aquí «has learned» comunica un resultado actual: el modelo ahora aplica reglas equivocadas porque algunas etiquetas estaban mal.", terminos: [model] }
+  - { id: b1-ia-01-e6, tipo: opcion_multiple, enunciado: "Which sentence is correct for an action that started in the past and continues now?", opciones: ["We worked on this problem for two weeks now.", "We have worked on this problem for two weeks.", "We are worked on this problem for two weeks."], correcta: 1, explicacion: "Para una situación que empezó en el pasado y continúa hasta hoy usamos el present perfect con «for» (duración) o «since» (punto de inicio). El pasado simple se usaría solo si el periodo ya terminó." }
+  - { id: b1-ia-01-e7, tipo: completar, enunciado: "Completa con «for» o «since».", texto: "The accuracy has improved ___ last Friday.", respuesta: "since", explicacion: "«Since» va con un momento concreto de inicio (last Friday, 2020, Monday). «For» va con una duración (for two weeks, for three days).", terminos: [accuracy, improve] }
+  - { id: b1-ia-01-e8, tipo: verdadero_falso, enunciado: "¿Verdadero o falso según la lectura?", afirmacion: "There are more tickets in Spanish than in English in the data.", correcta: false, explicacion: "Es al revés: hay muchos más tickets en inglés, y eso crea un sesgo (bias) que hace que el modelo funcione peor en español.", terminos: [bias] }
+video: { youtubeId: qYNweeDHiyU, start: 173, end: 289, titulo: "AI, Machine Learning, Deep Learning and Generative AI Explained", canal: "IBM Technology" }
+revisado: true

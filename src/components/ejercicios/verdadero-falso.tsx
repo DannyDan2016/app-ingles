@@ -1,9 +1,9 @@
 'use client';
 import { useId } from 'react';
-import type { Ejercicio } from '@/lib/contenido/esquema';
+import type { EjercicioVista } from '@/lib/contenido/vista';
 import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 
-export function VerdaderoFalso({ ejercicio, onResponder }: { ejercicio: Extract<Ejercicio, { tipo: 'verdadero_falso' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
+export function VerdaderoFalso({ ejercicio, onResponder }: { ejercicio: Extract<EjercicioVista, { tipo: 'verdadero_falso' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
   const nombre = useId();
   return (
     <div className="flex flex-col gap-3">

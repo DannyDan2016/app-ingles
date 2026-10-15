@@ -32,7 +32,7 @@ test.describe('@api @seguridad GET /api/exportar', () => {
     const json = JSON.parse(texto);
     expect(json.version).toBe(1);
     expect(json.perfil.alias).toBe(env.E2E_ADMIN_ALIAS);
-    expect(Object.keys(json).sort()).toEqual(['actividad', 'exportadoEn', 'lecciones', 'perfil', 'respuestas', 'tarjetas', 'version']);
+    expect(Object.keys(json).sort()).toEqual(['actividad', 'evaluaciones', 'exportadoEn', 'lecciones', 'perfil', 'respuestas', 'tarjetas', 'version']);
     expect(texto).not.toMatch(/password|argon|hash|token/i);
   });
 });

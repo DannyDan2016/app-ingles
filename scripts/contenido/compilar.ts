@@ -19,4 +19,4 @@ const salida = join(RAIZ, 'src', 'content', 'generado');
 if (!existsSync(salida)) mkdirSync(salida, { recursive: true });
 writeFileSync(join(salida, 'catalogo.ts'),
   `// GENERADO por scripts/contenido/compilar.ts. No editar.\nimport 'server-only';\nimport type { Catalogo } from '@/lib/contenido/esquema';\n\nexport const catalogo: Catalogo = ${JSON.stringify(catalogo, null, 2)};\n`);
-console.log(`contenido: ${catalogo.lecciones.length} lecciones, ${catalogo.tramos.length} tramos, ${catalogo.glosario.length} entradas${opts.incluirDemo ? ' (con demo)' : ''}${opts.estricto ? ' [estricto]' : ''}`);
+console.log(`contenido: ${catalogo.lecciones.length} lecciones, ${catalogo.tramos.length} tramos, ${catalogo.glosario.length} entradas, ${catalogo.evaluaciones.length} evaluaciones${opts.incluirDemo ? ' (con demo)' : ''}${opts.estricto ? ' [estricto]' : ''}`);

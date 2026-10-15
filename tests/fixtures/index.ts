@@ -8,12 +8,13 @@ import { LeccionPage } from '../pages/leccion.page';
 import { HoyPage } from '../pages/hoy.page';
 import { RepasoPage } from '../pages/repaso.page';
 import { EscucharPage } from '../pages/escuchar.page';
+import { EvaluacionPage } from '../pages/evaluacion.page';
 
 export type Ctx = { enlace?: string; idInvitacion?: string; alias?: string; clave?: string; peticiones?: string[]; actividad?: number[] };
 
 export const test = base.extend<{
   login: LoginPage; registro: RegistroPage; niveles: NivelesPage;
-  invitaciones: InvitacionesPage; leccion: LeccionPage; hoy: HoyPage; repaso: RepasoPage; escuchar: EscucharPage; ctx: Ctx; axe: () => AxeBuilder;
+  invitaciones: InvitacionesPage; leccion: LeccionPage; hoy: HoyPage; repaso: RepasoPage; escuchar: EscucharPage; evaluacion: EvaluacionPage; ctx: Ctx; axe: () => AxeBuilder;
 }>({
   login: async ({ page }, use) => use(new LoginPage(page)),
   registro: async ({ page }, use) => use(new RegistroPage(page)),
@@ -22,6 +23,7 @@ export const test = base.extend<{
   hoy: async ({ page }, use) => use(new HoyPage(page)),
   repaso: async ({ page }, use) => use(new RepasoPage(page)),
   escuchar: async ({ page }, use) => use(new EscucharPage(page)),
+  evaluacion: async ({ page }, use) => use(new EvaluacionPage(page)),
   invitaciones: async ({ browser, baseURL, extraHTTPHeaders }, use) => {
     // El admin opera en su propio contexto para no mezclar cookies con el aprendiz.
     // Un contexto manual no hereda `use`: se pasan baseURL y cabeceras (bypass) de forma explícita.

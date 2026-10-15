@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
-import type { Ejercicio } from '@/lib/contenido/esquema';
+import type { EjercicioVista } from '@/lib/contenido/vista';
 import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 
-export function Completar({ ejercicio, onResponder }: { ejercicio: Extract<Ejercicio, { tipo: 'completar' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
+export function Completar({ ejercicio, onResponder }: { ejercicio: Extract<EjercicioVista, { tipo: 'completar' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
   const [antes, ...resto] = ejercicio.texto.split('___');
   const despues = resto.join('___');
   const [valor, setValor] = useState('');

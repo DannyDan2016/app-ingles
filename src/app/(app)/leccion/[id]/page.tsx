@@ -5,6 +5,7 @@ import { getLeccion, glosarioPara, caminoDeNivel } from '@/lib/contenido/catalog
 import { segmentarLectura, terminosDeLectura } from '@/lib/contenido/lectura';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { FlujoLeccion } from './flujo-leccion';
 
 export default async function LeccionPage({ params }: PageProps<'/leccion/[id]'>) {
@@ -13,6 +14,7 @@ export default async function LeccionPage({ params }: PageProps<'/leccion/[id]'>
   const { id } = await params;
   const leccion = getLeccion(id);
   if (!leccion) notFound();
+  if ((await nivelesDelUsuario(getDb(), u.userId, u.nivelInicial)).estadoDe(leccion.nivel) === 'bloqueado') redirect('/camino');
   const estado = estadoCamino(caminoDeNivel(leccion.nivel), await itemsCompletados(getDb(), u.userId, leccion.nivel)).items.find((i) => i.id === id)?.estado;
   if (estado === 'bloqueado') redirect(`/camino/${leccion.nivel}`);
   const terminos = [...terminosDeLectura(leccion.lectura), ...leccion.terminos];

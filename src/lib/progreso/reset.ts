@@ -1,6 +1,6 @@
 import { count, eq, inArray } from 'drizzle-orm';
 import type { Db } from '@/lib/db/client';
-import { users, sessions, progress, respuestas, tarjetas, actividadDiaria } from '@/lib/db/schema';
+import { users, sessions, progress, respuestas, tarjetas, actividadDiaria, evaluacionIntentos } from '@/lib/db/schema';
 import { NIVEL_POR_DEFECTO } from './niveles';
 
 type Tx = Parameters<Parameters<Db['transaction']>[0]>[0];
@@ -12,9 +12,10 @@ export type Conteo = {
   tarjetas: number;
   actividad_diaria: number;
   sessions: number;
+  evaluacion_intentos: number;
 };
 
-const TABLAS = { progress, respuestas, tarjetas, actividad_diaria: actividadDiaria, sessions } as const;
+const TABLAS = { progress, respuestas, tarjetas, actividad_diaria: actividadDiaria, sessions, evaluacion_intentos: evaluacionIntentos } as const;
 
 async function contar(tx: Tx, ids: string[]): Promise<Conteo> {
   const c = { usuarios: ids.length } as Conteo;

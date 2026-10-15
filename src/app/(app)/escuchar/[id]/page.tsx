@@ -1,6 +1,7 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { requireUser } from '@/lib/auth/current-user';
 import { getDb } from '@/lib/db/client';
+import { nivelesDelUsuario } from '@/lib/progreso/nivel-actual';
 import { getTramo, glosarioPara, caminoDeNivel } from '@/lib/contenido/catalogo';
 import { estadoCamino } from '@/lib/contenido/camino';
 import { itemsCompletados } from '@/lib/aprendizaje/progreso.repo';
@@ -11,6 +12,8 @@ export default async function TramoPage({ params }: PageProps<'/escuchar/[id]'>)
   const { id } = await params;
   const tramo = getTramo(id);
   if (!tramo) notFound();
+  if (!u.nivelInicial) redirect('/nivel-inicial');
+  if ((await nivelesDelUsuario(getDb(), u.userId, u.nivelInicial)).estadoDe(tramo.nivel) === 'bloqueado') redirect('/camino');
   const hecho = estadoCamino(caminoDeNivel(tramo.nivel), await itemsCompletados(getDb(), u.userId, tramo.nivel)).items.find((i) => i.id === id)?.estado === 'hecho';
   return <FlujoTramo tramo={tramo} glosario={glosarioPara(tramo.nivel, tramo.tema, tramo.palabrasClave)} yaCompletado={hecho} />;
 }
