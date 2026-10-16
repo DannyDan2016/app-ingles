@@ -81,7 +81,7 @@ Contra un preview: `cd tests; npm.cmd run test:preview` con `BASE_URL` y `E2E_AD
 
 - Cobertura exhaustiva de ramas, estilos o textos: solo flujo feliz y seguridad.
 - Pruebas de carga y rendimiento (app de ≤10 usuarios).
-- Voz y micrófono: fuera de alcance por ahora (`Permissions-Policy` mantiene `microphone=()`, ver [../seguridad.md](../seguridad.md)).
+- Voz y micrófono: fuera de alcance por decisión (2026-10-15, la práctica oral se hace con otra persona; ver [spec SP4](../superpowers/specs/2026-10-15-sp4-entrevistas-design.md)). `Permissions-Policy` mantiene `microphone=()` ([../seguridad.md](../seguridad.md)).
 - Subtítulos de YouTube: YouTube los bloquea desde automatización; el contenido de listening se valida a mano (muestreo).
 - ZAP activo o ataques destructivos: solo el baseline pasivo sobre `/login`.
 - Bloqueo por 5 intentos contra el preview (`@local-only`): dejaría bloqueado al alias en un entorno compartido.
