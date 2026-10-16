@@ -289,6 +289,12 @@ Given('que tengo una cuenta con nivel {string} y todas sus lecciones completadas
 When('abro la evaluación de {string}', async ({ evaluacion }, nivel: string) => { await evaluacion.abrir(nivel); });
 When('empiezo la evaluación', async ({ evaluacion }) => { await evaluacion.empezar(); });
 When('respondo todas las preguntas con {string}', async ({ evaluacion }, opcion: string) => { await evaluacion.responderTodas(opcion as 'Verdadero' | 'Falso'); });
+Then('veo el progreso de los 4 bloques', async ({ evaluacion }) => {
+  const bloques = evaluacion.progresoPorBloque();
+  await expect(bloques).toHaveCount(4);
+  await expect(bloques.first()).toContainText(/Lectura: \d+ de 5/);
+});
+When('respondo la primera pregunta con {string} y compruebo que se conserva al recargar', async ({ evaluacion }, opcion: string) => { await evaluacion.respuestaSobreviveARecarga(opcion as 'Verdadero' | 'Falso'); });
 When('envío la evaluación', async ({ evaluacion }) => { await evaluacion.enviar(); });
 Then('veo el resultado {string}', async ({ evaluacion }, texto: string) => { await expect(evaluacion.resultado(texto)).toBeVisible(); });
 Then('veo el enlace {string}', async ({ page }, texto: string) => { await expect(page.getByRole('link', { name: texto })).toBeVisible(); });

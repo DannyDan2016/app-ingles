@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { CircleCheck, CircleDashed } from 'lucide-react';
 import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 import { crearColaRegistro } from '@/lib/aprendizaje/cola-registro';
+import { progresoPorBloque } from '@/lib/evaluacion/progreso-bloques';
 import { ETIQUETA_BLOQUE, type PreguntaExamen } from '@/lib/evaluacion/tipos';
 import { CamposEjercicio } from '@/components/ejercicios/campos-ejercicio';
 import { VideoFacade } from '@/components/video-facade';
@@ -101,10 +102,21 @@ export function FlujoEvaluacion({ nivel, intentoId, preguntas, previas }: { nive
 
   const p = preguntas[i];
   const ya = confirmadas.has(p.vista.id);
+  const porBloque = progresoPorBloque(preguntas.map((q) => ({ id: q.vista.id, bloque: q.bloque })), confirmadas);
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-texto-suave">Pregunta {i + 1} de {total} · {ETIQUETA_BLOQUE[p.bloque]}</p>
       {progreso}
+      <ul aria-label="Progreso por bloque" className="grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-4">
+        {porBloque.map((b) => (
+          <li key={b.bloque} aria-current={b.bloque === p.bloque ? 'step' : undefined} className="flex flex-col gap-1 text-sm">
+            <span className={b.bloque === p.bloque ? 'font-semibold' : 'text-texto-suave'}>
+              {ETIQUETA_BLOQUE[b.bloque]}: {b.guardadas} de {b.total}{b.guardadas === b.total ? ' · completo' : ''}
+            </span>
+            <progress value={b.guardadas} max={b.total} aria-label={`${ETIQUETA_BLOQUE[b.bloque]}: ${b.guardadas} de ${b.total} guardadas`} className="barra-progreso h-2 w-full" />
+          </li>
+        ))}
+      </ul>
       {p.recurso?.tipo === 'lectura' && (
         <article lang="en" className="max-w-[68ch] whitespace-pre-line rounded-xl bg-lectura-fondo p-4 text-[18px] leading-[1.7] text-lectura-texto">
           <h2 className="mb-2 font-semibold">{p.recurso.titulo}</h2>
