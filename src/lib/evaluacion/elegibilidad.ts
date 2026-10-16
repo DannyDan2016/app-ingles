@@ -16,6 +16,18 @@ export type Elegibilidad =
 
 export const caducado = (i: { iniciadoAt: Date }, ahora: Date) => i.iniciadoAt.getTime() + CADUCIDAD_MS <= ahora.getTime();
 
+/** Por qué debe caducar un intento abierto: pasó el tiempo o el banco ya no contiene alguna de sus preguntas. */
+export function motivoCaducidad(abierto: { iniciadoAt: Date; preguntas: readonly string[] }, idsBanco: ReadonlySet<string>, ahora: Date): 'tiempo' | 'banco' | null {
+  if (caducado(abierto, ahora)) return 'tiempo';
+  if (abierto.preguntas.some((id) => !idsBanco.has(id))) return 'banco';
+  return null;
+}
+
+export const MENSAJE_CADUCIDAD = {
+  tiempo: 'Tu intento anterior caducó. Puedes empezar otro.',
+  banco: 'El contenido de la evaluación cambió y tu intento anterior ya no se puede continuar. Puedes empezar otro cuando esté disponible.',
+} as const;
+
 export function elegibilidad(x: {
   estadoNivel: EstadoNivel; hayBanco: boolean; lecciones: number; hechas: number;
   abierto: IntentoResumen | null; aprobado: IntentoResumen | null; ultimo: IntentoResumen | null; ahora: Date;

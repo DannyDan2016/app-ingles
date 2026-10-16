@@ -66,7 +66,7 @@ export default async function CaminoNivelPage({ params }: PageProps<'/camino/[ni
               );
             })}
           </ol>
-          <TarjetaEvaluacion nivel={nivel} e={ctx.elegibilidad} iniciadoAt={ctx.abierto?.iniciadoAt} respondidas={respondidas} totalLecciones={leccionesDeNivel(nivel).length} notaAprobada={ctx.aprobado?.nota} caducadoAhora={ctx.caducadoAhora} />
+          <TarjetaEvaluacion nivel={nivel} e={ctx.elegibilidad} iniciadoAt={ctx.abierto?.iniciadoAt} respondidas={respondidas} totalLecciones={leccionesDeNivel(nivel).length} notaAprobada={ctx.aprobado?.nota} motivoCaducidad={ctx.motivoCaducidad} />
         </>
       )}
     </div>
