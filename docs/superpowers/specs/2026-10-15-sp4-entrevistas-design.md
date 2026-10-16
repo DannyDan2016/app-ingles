@@ -30,7 +30,7 @@ Preparar entrevistas técnicas en inglés. La práctica oral la hace el usuario 
 | D1 | Sin grabación ni evaluación de voz en la app |
 | D2 | Cada pregunta: respuesta modelo + 4–6 estructuras + vocabulario con traducción |
 | D3 | Banco inicial: 4 preguntas por rol (ia, qa, backend, frontend) y nivel (A2, B1, B2) = 48 + 6 generales (rol `general`, nivel B1) = 54 |
-| D4 | Shadowing dentro de Entrevistas, con videos reales de entrevistas técnicas: 5 sets (general + 4 roles) de 6 frases, nivel B1/B2 | **Aplazado (2026-10-15):** los 5 sets de contenido se posponen por decisión del usuario (subtítulos de YouTube no disponibles); la pestaña muestra «Aún no hay sets de shadowing» hasta un PR posterior.
+| D4 | Shadowing dentro de Entrevistas, con videos reales de entrevistas técnicas: 5 sets (general + 4 roles) de 6 frases, nivel B1/B2. **Aplazado (2026-10-15):** los 5 sets de contenido se posponen por decisión del usuario (subtítulos de YouTube no disponibles); la pestaña muestra «Aún no hay sets de shadowing» hasta un PR posterior. |
 | D5 | Cada frase = tramo `start`/`end` del video con el `VideoFacade` existente (youtube-nocookie; se para solo al final). Reutiliza lo que ya usa Escuchar; sin cambios de CSP |
 | D6 | Todo el material visible sin depender del nivel del usuario (es de consulta); protegido por sesión |
 
