@@ -6,6 +6,8 @@ import { isNivel } from '@/lib/progreso/niveles';
 import { aVista } from '@/lib/contenido/vista';
 import { contextoEvaluacion } from '@/lib/evaluacion/contexto';
 import { respuestasDe } from '@/lib/evaluacion/evaluacion.repo';
+import { parsearRespuesta } from '@/lib/evaluacion/respuesta';
+import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 import type { PreguntaExamen } from '@/lib/evaluacion/tipos';
 import { Boton } from '@/components/boton';
 import { Tarjeta } from '@/components/tarjeta';
@@ -29,8 +31,13 @@ export default async function EvaluacionPage({ params }: PageProps<'/evaluacion/
       const p = porId.get(id)!;
       return { bloque: p.bloque, vista: aVista(p, `${crypto.randomUUID()}:${p.id}`), recurso: p.recurso ? recursos.get(p.recurso) : undefined };
     });
-    const respondidas = [...(await respuestasDe(db, ctx.abierto.id)).keys()];
-    return <FlujoEvaluacion nivel={nivel} intentoId={ctx.abierto.id} preguntas={preguntas} respondidas={respondidas} />;
+    // Respuestas ya guardadas en servidor: son del propio usuario y se precargan al volver o recargar.
+    const previas: Record<string, RespuestaUsuario> = {};
+    for (const [id, json] of await respuestasDe(db, ctx.abierto.id)) {
+      const r = parsearRespuesta(json);
+      if (r) previas[id] = r;
+    }
+    return <FlujoEvaluacion nivel={nivel} intentoId={ctx.abierto.id} preguntas={preguntas} previas={previas} />;
   }
   if (e.tipo !== 'puede') redirect(`/camino/${nivel}`);
   return (

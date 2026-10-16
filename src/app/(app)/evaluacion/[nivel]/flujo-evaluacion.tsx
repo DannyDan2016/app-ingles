@@ -13,9 +13,12 @@ import { finalizarEvaluacionAction, guardarRespuestaAction } from '../actions';
 
 type Envio = { intentoId: string; preguntaId: string; respuesta: RespuestaUsuario };
 
-export function FlujoEvaluacion({ nivel, intentoId, preguntas, respondidas }: { nivel: string; intentoId: string; preguntas: PreguntaExamen[]; respondidas: string[] }) {
+export function FlujoEvaluacion({ nivel, intentoId, preguntas, previas }: { nivel: string; intentoId: string; preguntas: PreguntaExamen[]; previas: Record<string, RespuestaUsuario> }) {
   const router = useRouter();
   const total = preguntas.length;
+  const respondidas = useMemo(() => Object.keys(previas), [previas]);
+  // Últimas respuestas conocidas (servidor + cambios de esta sesión), para precargarlas al navegar.
+  const [guardadas, setGuardadas] = useState(previas);
   const [i, setI] = useState(() => { const k = preguntas.findIndex((p) => !respondidas.includes(p.vista.id)); return k === -1 ? total : k; });
   const [resp, setResp] = useState<RespuestaUsuario | null>(null);
   const [confirmadas, setConfirmadas] = useState(() => new Set(respondidas));
@@ -34,10 +37,14 @@ export function FlujoEvaluacion({ nivel, intentoId, preguntas, respondidas }: { 
   useEffect(() => { titulo.current?.focus(); }, [i]);
 
   function ir(k: number) { setResp(null); setConfirmar(false); setI(k); }
-  function guardarYSeguir() {
-    if (resp) cola.encolar({ intentoId, preguntaId: preguntas[i].vista.id, respuesta: resp });
-    ir(i + 1);
+  function guardarActual() {
+    if (!resp) return;
+    const id = preguntas[i].vista.id;
+    cola.encolar({ intentoId, preguntaId: id, respuesta: resp });
+    setGuardadas((g) => ({ ...g, [id]: resp }));
   }
+  function guardarYSeguir() { guardarActual(); ir(i + 1); }
+  function volver() { guardarActual(); ir(i - 1); }
   async function enviar() {
     setEnviando(true);
     setError('');
@@ -108,11 +115,11 @@ export function FlujoEvaluacion({ nivel, intentoId, preguntas, respondidas }: { 
       <form onSubmit={(ev) => { ev.preventDefault(); guardarYSeguir(); }} className="flex flex-col gap-4">
         <fieldset className="min-w-0 border-0 p-0" aria-labelledby="enunciado">
           <h1 id="enunciado" ref={titulo} tabIndex={-1} className="mb-3 text-lg font-semibold outline-offset-4">{p.vista.enunciado}</h1>
-          <CamposEjercicio key={p.vista.id} vista={p.vista} onResponder={setResp} />
+          <CamposEjercicio key={p.vista.id} vista={p.vista} onResponder={setResp} inicial={guardadas[p.vista.id]} />
         </fieldset>
         {ya && <p className="text-sm text-texto-suave">Ya guardaste una respuesta. Si eliges otra, se reemplaza.</p>}
         <div className="flex flex-col gap-2 sm:flex-row">
-          {i > 0 && <Boton type="button" variante="secundario" onClick={() => ir(i - 1)}>Anterior</Boton>}
+          {i > 0 && <Boton type="button" variante="secundario" onClick={volver}>Anterior</Boton>}
           <Boton type="submit" disabled={!resp && !ya}>Guardar y seguir</Boton>
         </div>
       </form>
