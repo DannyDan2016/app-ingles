@@ -70,6 +70,7 @@ Se automatiza por riesgo, no por cobertura (resumen de `docs/requisitos.md` §7)
 - Responsive y accesibilidad: tres viewports, axe en las páginas del MVP y navegación con teclado.
 - Framework de portfolio: Page Objects, datos en YAML por entorno, BDD en español, Docker y GitHub Actions.
 - Manual, con checklist en el repo: pruebas en dispositivos reales (`docs/qa/checklist-sp1.md`) y sesión exploratoria por subproyecto (`docs/qa/exploratoria-sp1.md`).
+- Resumen consolidado de la estrategia de QA y de seguridad: [docs/qa/estrategia.md](docs/qa/estrategia.md).
 
 ## Seguridad
 
