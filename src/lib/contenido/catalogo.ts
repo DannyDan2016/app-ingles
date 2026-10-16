@@ -1,6 +1,6 @@
 import 'server-only';
 import { catalogo } from '@/content/generado/catalogo';
-import type { EntradaGlosario, Ejercicio, Evaluacion, Leccion, Nivel, Tema, Tramo } from './esquema';
+import type { EntradaGlosario, Ejercicio, Evaluacion, Leccion, Nivel, PreguntaEntrevista, Shadowing, Tema, Tramo } from './esquema';
 import type { ItemCamino } from './camino';
 
 const lecciones = new Map(catalogo.lecciones.map((l) => [l.id, l]));
@@ -32,3 +32,10 @@ export const buscarEntrada = (nivel: Nivel, termino: string): EntradaGlosario | 
 const evaluaciones = new Map(catalogo.evaluaciones.map((e) => [e.nivel, e]));
 export const getEvaluacion = (nivel: Nivel): Evaluacion | undefined => evaluaciones.get(nivel);
 export const leccionesDeNivel = (nivel: Nivel): Leccion[] => catalogo.lecciones.filter((l) => l.nivel === nivel).sort((a, b) => a.orden - b.orden);
+
+const preguntasPorId = new Map(catalogo.entrevistas.map((p) => [p.id, p]));
+const shadowingPorId = new Map(catalogo.shadowing.map((s) => [s.id, s]));
+export const preguntasEntrevista = (): PreguntaEntrevista[] => catalogo.entrevistas;
+export const getPreguntaEntrevista = (id: string): PreguntaEntrevista | undefined => preguntasPorId.get(id);
+export const setsShadowing = (): Shadowing[] => catalogo.shadowing;
+export const getShadowing = (id: string): Shadowing | undefined => shadowingPorId.get(id);

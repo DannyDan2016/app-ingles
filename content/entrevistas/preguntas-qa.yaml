@@ -1,0 +1,76 @@
+tipo: entrevistas
+rol: qa
+revisado: true
+preguntas:
+  - id: ent-qa-01
+    nivel: A2
+    pregunta: "What is a test case?"
+    respuesta: "A test case is a list of steps to check one thing in an application. It has a name, some steps, and an expected result. For example, I test the login page. Step one: I open the page. Step two: I type a correct email and password. Step three: I click the button. The expected result is that I see the home page. If I see an error, the test fails. I write clear test cases, so other people can repeat them."
+    estructuras: ["A ... is a list of ... to check ...", "It has a name, ..., and ...", "For example, I test ...", "The expected result is that ...", "I write clear ..., so other people can ..."]
+    vocabulario: [{ termino: "test case", traduccion: "caso de prueba" }, { termino: "step", traduccion: "paso" }, { termino: "expected result", traduccion: "resultado esperado" }, { termino: "login", traduccion: "inicio de sesión" }]
+  - id: ent-qa-02
+    nivel: A2
+    pregunta: "What do you write in a bug report?"
+    respuesta: "I write a short title that explains the problem. Then I write the steps to reproduce the bug. I also write what I expected and what happened. For example: I click the save button, and nothing happens. I add the browser, the device and the version of the app. A screenshot is very useful, so I always add one. I do not write long texts. The developer must understand the problem quickly and fix it."
+    estructuras: ["I write a short title that ...", "Then I write the steps to reproduce ...", "I also write what I expected and what ...", "For example: I click ..., and nothing happens.", "The developer must understand ..."]
+    vocabulario: [{ termino: "bug report", traduccion: "informe de error" }, { termino: "steps to reproduce", traduccion: "pasos para reproducir" }, { termino: "screenshot", traduccion: "captura de pantalla" }, { termino: "browser", traduccion: "navegador" }]
+  - id: ent-qa-03
+    nivel: A2
+    pregunta: "What is the difference between manual testing and automated testing?"
+    respuesta: "In manual testing, a person uses the application and checks the results. In automated testing, a program runs the tests. Manual tests are good for new features, because I can see small problems with my eyes. Automated tests are good for tasks that we repeat many times. For example, we run the login test every day with a script. It is fast and it does not get tired. I think we need both types. Automation does not replace people."
+    estructuras: ["In manual testing, ... In automated testing, ...", "... are good for ..., because ...", "For example, we run ... every day.", "It is fast and it does not ...", "I think we need both."]
+    vocabulario: [{ termino: "manual testing", traduccion: "pruebas manuales" }, { termino: "automated testing", traduccion: "pruebas automatizadas" }, { termino: "script", traduccion: "script, guion de código" }, { termino: "feature", traduccion: "funcionalidad" }]
+  - id: ent-qa-04
+    nivel: A2
+    pregunta: "What do you do when an automated test fails?"
+    respuesta: "First, I read the error message. Then I run the test again, because sometimes the problem is the network. If it fails again, I check the screenshot or the video from the test. I look at the last code changes too. Sometimes the application has a bug, and I write a bug report. Other times the test is old, and I update it. Yesterday a button had a new name, so the test could not find it. I fixed the test in five minutes."
+    estructuras: ["First, I read ... Then I ...", "..., because sometimes the problem is ...", "If it fails again, I check ...", "Sometimes ..., and I ... Other times ...", "Yesterday ..., so ..."]
+    vocabulario: [{ termino: "error message", traduccion: "mensaje de error" }, { termino: "network", traduccion: "red" }, { termino: "button", traduccion: "botón" }, { termino: "update", traduccion: "actualizar" }]
+  - id: ent-qa-05
+    nivel: B1
+    pregunta: "Can you explain the test pyramid?"
+    respuesta: "The test pyramid is a way to decide how many tests of each type we need. At the bottom, we have many unit tests, which are fast and cheap. In the middle, there are fewer integration tests, which check that parts of the system work together. At the top, we have a small number of end-to-end tests, which are slower and break more easily. In my last project, we had too many end-to-end tests, so the pipeline took forty minutes. We moved many checks to unit and API level, and it dropped to twelve minutes."
+    estructuras: ["... is a way to decide ...", "At the bottom, we have ..., which are ...", "In my last project, we had too many ..., so ...", "We moved ... to ..., and it dropped to ...", "..., which check that ... work together"]
+    vocabulario: [{ termino: "unit test", traduccion: "prueba unitaria" }, { termino: "integration test", traduccion: "prueba de integración" }, { termino: "end-to-end test", traduccion: "prueba de extremo a extremo" }, { termino: "pipeline", traduccion: "pipeline de CI/CD (cadena automatizada de pasos)" }]
+  - id: ent-qa-06
+    nivel: B1
+    pregunta: "What is a flaky test, and how do you find the cause?"
+    respuesta: "A flaky test is a test that sometimes passes and sometimes fails without any change in the code. It is a problem because the team stops trusting the results. When I find one, I first run it many times to see how often it fails. Then I check the usual causes: fixed waits, shared data between tests, or slow network responses. Last year, one of our tests failed only in the pipeline. The reason was that it clicked a button before the page finished loading. I replaced the fixed wait with a proper condition, and the problem disappeared."
+    estructuras: ["A ... is a test that sometimes ... and sometimes ...", "It is a problem because ...", "When I find one, I first ...", "The reason was that ...", "I replaced ... with ..., and the problem disappeared."]
+    vocabulario: [{ termino: "flaky test", traduccion: "prueba inestable" }, { termino: "fixed wait", traduccion: "espera fija" }, { termino: "shared data", traduccion: "datos compartidos" }, { termino: "pipeline", traduccion: "pipeline de CI/CD (cadena automatizada de pasos)" }]
+  - id: ent-qa-07
+    nivel: B1
+    pregunta: "How do you test an API?"
+    respuesta: "First, I read the documentation to understand the endpoints, the parameters and the possible responses. Then I test the normal case, for example creating a user with valid data and checking that the status code is 201. After that, I try the error cases, such as missing fields, wrong types or requests without a token, and I check that the API returns 400 or 401 with a clear message. I also check the response body, not only the status code. In my last job, I automated these checks with a collection of requests, and they ran after every deployment. That way we found a broken endpoint before the customers did."
+    estructuras: ["First, I read ... to understand ...", "Then I test the normal case, for example ...", "After that, I try the error cases, such as ..., and I check that ...", "I also check ..., not only ...", "That way we found ... before ... did."]
+    vocabulario: [{ termino: "status code", traduccion: "código de estado (HTTP)" }, { termino: "response body", traduccion: "cuerpo de la respuesta" }, { termino: "authentication", traduccion: "autenticación" }, { termino: "request", traduccion: "petición" }]
+  - id: ent-qa-08
+    nivel: B1
+    pregunta: "What is regression testing, and when do you automate it?"
+    respuesta: "Regression testing checks that old features still work after we change the code. It is important because a small change can break something that nobody expected. I automate regression tests when they are stable and repeated often, for example the checkout process in an online shop. I do not automate things that change every week, because the maintenance is too expensive. Last quarter, our regression suite caught a bug in the discount calculation just before a release. Without it, we would have lost money."
+    estructuras: ["... checks that ... still work after ...", "It is important because ...", "I automate ... when they are ... and ...", "I do not automate ..., because ...", "Without it, we would have ..."]
+    vocabulario: [{ termino: "regression", traduccion: "regresión" }, { termino: "test suite", traduccion: "conjunto de pruebas" }, { termino: "checkout", traduccion: "proceso de pago" }, { termino: "maintenance", traduccion: "mantenimiento" }]
+  - id: ent-qa-09
+    nivel: B2
+    pregunta: "How would you reduce flaky tests in a large CI pipeline?"
+    respuesta: "I would approach it systematically. First, I would measure the problem: which tests fail most often and how much time the team loses. Tests that are known to be unstable should be moved to a quarantine, so they do not block releases, but they must be fixed within an agreed time, for example two weeks. Then I would address the root causes, such as shared state, hard-coded waits and dependencies on external services, which can be replaced by mocks. I would also be careful with automatic retries: if a test only passed after a retry, that should be reported, not hidden. Finally, a dashboard with the failure rate keeps everyone accountable."
+    estructuras: ["I would approach it systematically.", "First, I would measure ...", "Tests that are known to be ... should be moved to ...", "I would also be careful with ...: if ..., that should be reported, not hidden.", "Finally, ... keeps everyone accountable."]
+    vocabulario: [{ termino: "quarantine", traduccion: "cuarentena (aislar pruebas inestables)" }, { termino: "root cause", traduccion: "causa raíz" }, { termino: "mock", traduccion: "simulación de una dependencia" }, { termino: "failure rate", traduccion: "tasa de fallos" }]
+  - id: ent-qa-10
+    nivel: B2
+    pregunta: "You have two days to test a new feature before the release. How do you prioritize?"
+    respuesta: "I would use a risk-based approach. First, I would ask the team what the feature does and which parts would hurt the business most if they failed, for example payments or personal data. Those areas should be tested first and in more depth. For lower-risk parts, a quick exploratory session would probably be enough. If I found a serious defect, I would report it immediately instead of waiting until the end. I would also make clear which areas had not been covered, so the decision to release is made with full information."
+    estructuras: ["I would use a ... approach.", "First, I would ask ... which parts would ... if they failed", "Those areas should be tested first and in more depth.", "If I found ..., I would report it immediately instead of ...", "I would also make clear which areas had not been covered, so ..."]
+    vocabulario: [{ termino: "risk-based", traduccion: "basado en riesgo" }, { termino: "exploratory testing", traduccion: "pruebas exploratorias" }, { termino: "coverage", traduccion: "cobertura" }, { termino: "defect", traduccion: "defecto" }]
+  - id: ent-qa-11
+    nivel: B2
+    pregunta: "How do you manage test data so that automated tests stay reliable?"
+    respuesta: "Reliable tests should not depend on data that someone else may have changed. My preference is that each test creates the data it needs, usually through an API, and removes it afterwards. That way tests can run in parallel without affecting each other. For larger scenarios, I would use a database snapshot that is restored before each run. Real customer data must never be used; it should be anonymized or replaced by generated values. In one project, shared accounts caused random failures, until we gave every test its own user."
+    estructuras: ["Reliable tests should not depend on ...", "My preference is that each test ...", "That way tests can ... without ...", "... must never be used; it should be ...", "..., until we gave every test ..."]
+    vocabulario: [{ termino: "test data", traduccion: "datos de prueba" }, { termino: "in parallel", traduccion: "en paralelo" }, { termino: "snapshot", traduccion: "instantánea" }, { termino: "anonymized", traduccion: "anonimizado" }]
+  - id: ent-qa-12
+    nivel: B2
+    pregunta: "What are quality gates in a CI/CD pipeline, and how would you set them up?"
+    respuesta: "A quality gate is a condition that a change must satisfy before it moves to the next stage. For example, a pull request cannot be merged if the unit tests do not pass, if coverage on the new code drops below an agreed level, or if a security scan finds a critical issue. I would start with a few strict rules instead of many, because too many gates slow the team down and people begin to ignore them. Fast checks should run on every change, while slower ones, like the full end-to-end suite, could run nightly or before a release. If a flaky test kept blocking a gate, I would fix or quarantine the test rather than remove the gate."
+    estructuras: ["A ... is a condition that ... must satisfy before ...", "For example, ... cannot be merged if ...", "I would start with ... instead of ..., because ...", "... should run on every change, while slower ones could run ...", "If ... kept ..., I would fix ... rather than remove ..."]
+    vocabulario: [{ termino: "quality gate", traduccion: "puerta de calidad (control obligatorio)" }, { termino: "merge", traduccion: "fusionar, integrar cambios en la rama principal" }, { termino: "coverage", traduccion: "cobertura (de pruebas)" }, { termino: "security scan", traduccion: "análisis de seguridad" }, { termino: "critical issue", traduccion: "problema crítico" }]

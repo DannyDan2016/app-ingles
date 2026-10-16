@@ -12,7 +12,7 @@ export class NivelesPage {
     if (!(await salir.isVisible())) await this.irA('Perfil');
     await salir.click();
   }
-  async irA(seccion: 'Hoy' | 'Camino' | 'Escuchar' | 'Perfil') {
+  async irA(seccion: 'Hoy' | 'Camino' | 'Escuchar' | 'Perfil' | 'Entrevistas') {
     await this.page.getByRole('navigation', { name: 'Principal' }).getByRole('link', { name: seccion }).click();
     await this.page.getByRole('heading', { level: 1, name: seccion }).waitFor();
   }

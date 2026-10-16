@@ -9,6 +9,10 @@ protegidas:
   - { ruta: /leccion/demo-01, tipo: pagina }
   - { ruta: /repaso, tipo: pagina }
   - { ruta: /escuchar, tipo: pagina }
+  - { ruta: /entrevistas, tipo: pagina }
+  - { ruta: /entrevistas/ent-qa-demo-01, tipo: pagina }
+  - { ruta: /entrevistas/shadowing, tipo: pagina }
+  - { ruta: /entrevistas/shadowing/shadowing-demo, tipo: pagina }
   - { ruta: /perfil, tipo: pagina }
   - { ruta: /nivel-inicial, tipo: pagina }
   - { ruta: /admin/invitaciones, tipo: pagina }

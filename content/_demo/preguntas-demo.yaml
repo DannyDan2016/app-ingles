@@ -1,0 +1,10 @@
+tipo: entrevistas
+rol: qa
+revisado: false
+preguntas:
+  - id: ent-qa-demo-01
+    nivel: B2
+    pregunta: "How do you decide what to automate first?"
+    respuesta: "I usually start with the tests that run most often and protect the most critical flows, such as login and checkout."
+    estructuras: ["I usually start with ...", "The main reason is that ...", "For example, ...", "As a result, ..."]
+    vocabulario: [{ termino: "critical flow", traduccion: "flujo crítico" }]

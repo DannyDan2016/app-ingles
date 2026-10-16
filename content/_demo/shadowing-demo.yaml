@@ -1,0 +1,14 @@
+tipo: shadowing
+id: shadowing-demo
+rol: qa
+nivel: B2
+titulo: "Demo shadowing"
+revisado: false
+video: { youtubeId: Ecu_7juyU0Q, titulo: "Demo", canal: "Demo" }
+frases:
+  - { texto: "Sentence one.", traduccion: "Frase uno.", start: 10, end: 14 }
+  - { texto: "Sentence two.", traduccion: "Frase dos.", start: 14, end: 18 }
+  - { texto: "Sentence three.", traduccion: "Frase tres.", start: 18, end: 22 }
+  - { texto: "Sentence four.", traduccion: "Frase cuatro.", start: 22, end: 26 }
+  - { texto: "Sentence five.", traduccion: "Frase cinco.", start: 26, end: 30 }
+  - { texto: "Sentence six.", traduccion: "Frase seis.", start: 30, end: 34 }

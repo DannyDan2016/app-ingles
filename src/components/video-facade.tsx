@@ -4,8 +4,8 @@ import { Play, VideoOff } from 'lucide-react';
 import type { Video } from '@/lib/contenido/esquema';
 import { cargarApiYouTube, urlEmbed, urlMiniatura, type YTPlayer } from '@/lib/youtube';
 
-export function VideoFacade({ video, api = false, onPlayer, onError }: { video: Video; api?: boolean; onPlayer?: (p: YTPlayer) => void; onError?: () => void }) {
-  const [estado, setEstado] = useState<'facade' | 'video' | 'error'>('facade');
+export function VideoFacade({ video, api = false, iniciado = false, onIniciar, onPlayer, onError }: { video: Video; api?: boolean; iniciado?: boolean; onIniciar?: () => void; onPlayer?: (p: YTPlayer) => void; onError?: () => void }) {
+  const [estado, setEstado] = useState<'facade' | 'video' | 'error'>(iniciado ? 'video' : 'facade');
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const fallo = () => { setEstado('error'); onError?.(); };
 
@@ -47,14 +47,14 @@ export function VideoFacade({ video, api = false, onPlayer, onError }: { video: 
   }
   return (
     <figure>
-      <button type="button" onClick={() => setEstado('video')} className="relative block w-full overflow-hidden rounded-xl" aria-label={`Reproducir video: ${video.titulo}`}>
+      <button type="button" onClick={() => { setEstado('video'); onIniciar?.(); }} className="relative block w-full overflow-hidden rounded-xl" aria-label={`Reproducir video: ${video.titulo}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={urlMiniatura(video.youtubeId)} alt="" loading="lazy" onError={fallo} className="aspect-video w-full object-cover" />
         <span className="absolute inset-0 m-auto flex size-16 items-center justify-center rounded-full bg-primario text-sobre-primario">
           <Play aria-hidden="true" className="size-8" />
         </span>
       </button>
-      <figcaption className="mt-1 text-sm text-texto-suave">{video.titulo} · {video.canal}</figcaption>
+      <figcaption className="mt-1 text-sm text-texto-suave"><span lang="en">{video.titulo}</span> · <span lang="en">{video.canal}</span></figcaption>
     </figure>
   );
 }

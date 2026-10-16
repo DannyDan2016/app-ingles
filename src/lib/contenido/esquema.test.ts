@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { archivoSchema } from './esquema';
+import { archivoSchema, bancoEntrevistasSchema, shadowingSchema } from './esquema';
 
 const ej = { id: 'a2-qa-01-e1', enunciado: 'Elige', explicacion: 'Porque…' };
 const leccion = {
@@ -33,5 +33,19 @@ describe('archivoSchema', () => {
       { termino: 'Bug', categoria: 'noun', traduccion_es: 'e', definicion_en: 'd', ejemplo_en: 'e', nivel: 'A2', tema: 'qa' },
     ] };
     expect(archivoSchema.safeParse(g).success).toBe(false);
+  });
+});
+
+describe('entrevistas y shadowing', () => {
+  it('acepta un banco de entrevistas y un set de shadowing válidos', () => {
+    expect(bancoEntrevistasSchema.safeParse({
+      tipo: 'entrevistas', rol: 'qa', revisado: true,
+      preguntas: [{ id: 'ent-qa-01', nivel: 'B2', pregunta: 'How do you test an API?', respuesta: 'I start by…', estructuras: ['First, I…', 'Then, I…', 'As a result…', 'What I learned…'], vocabulario: [{ termino: 'endpoint', traduccion: 'endpoint (punto de acceso)' }] }],
+    }).success).toBe(true);
+    expect(shadowingSchema.safeParse({
+      tipo: 'shadowing', id: 'shadowing-qa', rol: 'qa', nivel: 'B2', titulo: 'QA interview', revisado: true,
+      video: { youtubeId: 'AWX6WvYktwk', titulo: 'T', canal: 'C' },
+      frases: Array.from({ length: 6 }, (_, i) => ({ texto: `Sentence ${i}`, traduccion: `Frase ${i}`, start: i * 10, end: i * 10 + 5 })),
+    }).success).toBe(true);
   });
 });
