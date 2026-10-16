@@ -7,6 +7,8 @@ Característica: Evaluación de nivel
     Cuando abro la evaluación de "A2"
     Y empiezo la evaluación
     Y la página no contiene las soluciones
+    Y veo el progreso de los 4 bloques
+    Y respondo la primera pregunta con "Verdadero" y compruebo que se conserva al recargar
     Y respondo todas las preguntas con "Verdadero"
     Y envío la evaluación
     Entonces veo el resultado "Aprobado"

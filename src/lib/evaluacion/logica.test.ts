@@ -2,10 +2,9 @@ import { describe, it, expect } from 'vitest';
 import { BLOQUES, type Pregunta } from '@/lib/contenido/esquema';
 import { calcularNota } from './nota';
 import { seleccionarPreguntas } from './seleccionar';
-import { elegibilidad, ESPERA_MS } from './elegibilidad';
+import { caducaEn, elegibilidad, ESPERA_MS, motivoCaducidad } from './elegibilidad';
 import { armarRefuerzo } from './refuerzo';
 import { parsearRespuesta } from './respuesta';
-
 /** Banco realista: lectura y listening con 2 recursos de 4 y 6 preguntas; vocabulario y gramática sueltas. */
 function banco(): Pregunta[] {
   return BLOQUES.flatMap((bloque) => Array.from({ length: 10 }, (_, i) => ({
@@ -24,6 +23,27 @@ describe('calcularNota', () => {
     expect(r.nota).toBe(80);
     expect(r.aprobado).toBe(true);
     expect(r.aReforzar).toEqual(['gramatica']);
+  });
+});
+
+describe('caducaEn', () => {
+  it('caduca 48 h después de iniciar', () => {
+    expect(caducaEn(new Date('2026-10-14T10:00:00Z')).toISOString()).toBe('2026-10-16T10:00:00.000Z');
+  });
+});
+
+describe('motivoCaducidad', () => {
+  const ini = new Date('2026-10-14T10:00:00Z');
+  const intento = { iniciadoAt: ini, preguntas: ['a', 'b'] };
+  it('null si está vigente y el banco conserva sus preguntas', () => {
+    expect(motivoCaducidad(intento, new Set(['a', 'b', 'c']), new Date(ini.getTime() + 3600_000))).toBeNull();
+  });
+  it('banco si falta alguna pregunta (contenido cambiado)', () => {
+    expect(motivoCaducidad(intento, new Set(['a']), new Date(ini.getTime() + 3600_000))).toBe('banco');
+    expect(motivoCaducidad(intento, new Set(), new Date(ini.getTime() + 3600_000))).toBe('banco');
+  });
+  it('tiempo si pasaron 48 h', () => {
+    expect(motivoCaducidad(intento, new Set(['a', 'b']), new Date(ini.getTime() + 49 * 3600_000))).toBe('tiempo');
   });
 });
 

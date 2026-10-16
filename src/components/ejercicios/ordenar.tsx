@@ -1,14 +1,15 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { indicesDeOrden } from '@/lib/aprendizaje/restaurar';
 import type { EjercicioVista } from '@/lib/contenido/vista';
 import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 
 const BOTON = 'min-h-11 min-w-11 rounded-md border border-borde bg-superficie px-3 text-texto';
 
-export function Ordenar({ ejercicio, onResponder }: { ejercicio: Extract<EjercicioVista, { tipo: 'ordenar' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
+export function Ordenar({ ejercicio, onResponder, inicial }: { ejercicio: Extract<EjercicioVista, { tipo: 'ordenar' }>; onResponder: (r: RespuestaUsuario | null) => void; inicial?: RespuestaUsuario | null }) {
   // Se trabaja con índices de la lista barajada, para soportar piezas repetidas.
   const barajadas = ejercicio.piezas;
-  const [elegidas, setElegidas] = useState<number[]>([]);
+  const [elegidas, setElegidas] = useState<number[]>(() => (inicial?.tipo === 'ordenar' ? indicesDeOrden(barajadas, inicial.orden) : []));
   const raiz = useRef<HTMLDivElement>(null);
   const foco = useRef<{ idx: number; lista: 'frase' | 'disponibles' } | null>(null);
 

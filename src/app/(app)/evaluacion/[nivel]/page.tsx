@@ -5,7 +5,10 @@ import { getDb } from '@/lib/db/client';
 import { isNivel } from '@/lib/progreso/niveles';
 import { aVista } from '@/lib/contenido/vista';
 import { contextoEvaluacion } from '@/lib/evaluacion/contexto';
+import { MENSAJE_CADUCIDAD } from '@/lib/evaluacion/elegibilidad';
 import { respuestasDe } from '@/lib/evaluacion/evaluacion.repo';
+import { parsearRespuesta } from '@/lib/evaluacion/respuesta';
+import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 import type { PreguntaExamen } from '@/lib/evaluacion/tipos';
 import { Boton } from '@/components/boton';
 import { Tarjeta } from '@/components/tarjeta';
@@ -29,15 +32,33 @@ export default async function EvaluacionPage({ params }: PageProps<'/evaluacion/
       const p = porId.get(id)!;
       return { bloque: p.bloque, vista: aVista(p, `${crypto.randomUUID()}:${p.id}`), recurso: p.recurso ? recursos.get(p.recurso) : undefined };
     });
-    const respondidas = [...(await respuestasDe(db, ctx.abierto.id)).keys()];
-    return <FlujoEvaluacion nivel={nivel} intentoId={ctx.abierto.id} preguntas={preguntas} respondidas={respondidas} />;
+    // Respuestas ya guardadas en servidor: son del propio usuario y se precargan al volver o recargar.
+    const previas: Record<string, RespuestaUsuario> = {};
+    for (const [id, json] of await respuestasDe(db, ctx.abierto.id)) {
+      const r = parsearRespuesta(json);
+      if (r) previas[id] = r;
+    }
+    return <FlujoEvaluacion nivel={nivel} intentoId={ctx.abierto.id} preguntas={preguntas} previas={previas} />;
   }
-  if (e.tipo !== 'puede') redirect(`/camino/${nivel}`);
+  const volver = <p><Link href={`/camino/${nivel}`} className="inline-flex min-h-11 items-center text-primario underline">Volver al camino</Link></p>;
+  if (e.tipo !== 'puede') {
+    // Intento abierto cuyo contenido ya no existe (banco cambiado): explicarlo en vez de redirigir sin más.
+    if (ctx.motivoCaducidad === 'banco') {
+      return (
+        <div className="flex flex-col gap-4">
+          {volver}
+          <h1 className="text-2xl font-bold">Evaluación de {nivel}</h1>
+          <p role="status" className="text-aviso">{MENSAJE_CADUCIDAD.banco}</p>
+        </div>
+      );
+    }
+    redirect(`/camino/${nivel}`);
+  }
   return (
     <div className="flex flex-col gap-4">
-      <p><Link href={`/camino/${nivel}`} className="inline-flex min-h-11 items-center text-primario underline">Volver al camino</Link></p>
+      {volver}
       <h1 className="text-2xl font-bold">Evaluación de {nivel}</h1>
-      {ctx.caducadoAhora && <p role="status" className="text-aviso">Tu intento anterior caducó. Puedes empezar otro.</p>}
+      {ctx.motivoCaducidad && <p role="status" className="text-aviso">{MENSAJE_CADUCIDAD[ctx.motivoCaducidad]}</p>}
       <Tarjeta>
         <ul className="flex list-disc flex-col gap-1 pl-5">
           <li>20 preguntas en 4 bloques: lectura, listening, vocabulario y gramática.</li>

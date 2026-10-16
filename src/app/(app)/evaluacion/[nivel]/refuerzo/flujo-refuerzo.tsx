@@ -41,5 +41,14 @@ export function FlujoRefuerzo({ nivel, intentoId, ejercicios, reintento }: { niv
       </Tarjeta>
     );
   }
+  if (ejercicios.length === 0) {
+    // Sin ejercicios de práctica para esos bloques: no se bloquea al alumno; el refuerzo se registra al confirmar.
+    return (
+      <Tarjeta>
+        <p>Aún no hay ejercicios de práctica para estos bloques, así que no necesitas hacer nada más.</p>
+        <Boton type="button" className="mt-3" disabled={guardando} onClick={completar}>Continuar</Boton>
+      </Tarjeta>
+    );
+  }
   return <SecuenciaEjercicios ejercicios={ejercicios} onCompletada={completar} />;
 }

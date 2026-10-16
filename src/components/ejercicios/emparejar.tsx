@@ -3,10 +3,10 @@ import { useId, useState } from 'react';
 import type { EjercicioVista } from '@/lib/contenido/vista';
 import type { RespuestaUsuario } from '@/lib/aprendizaje/corregir';
 
-export function Emparejar({ ejercicio, onResponder }: { ejercicio: Extract<EjercicioVista, { tipo: 'emparejar' }>; onResponder: (r: RespuestaUsuario | null) => void }) {
+export function Emparejar({ ejercicio, onResponder, inicial }: { ejercicio: Extract<EjercicioVista, { tipo: 'emparejar' }>; onResponder: (r: RespuestaUsuario | null) => void; inicial?: RespuestaUsuario | null }) {
   const base = useId();
   const opciones = ejercicio.derecha;
-  const [asig, setAsig] = useState<Record<string, string>>({});
+  const [asig, setAsig] = useState<Record<string, string>>(() => (inicial?.tipo === 'emparejar' ? { ...inicial.asignacion } : {}));
   function elegir(a: string, b: string) {
     const next = { ...asig, [a]: b };
     if (!b) delete next[a];
