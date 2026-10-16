@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { BLOQUES, type Pregunta } from '@/lib/contenido/esquema';
 import { calcularNota } from './nota';
 import { seleccionarPreguntas } from './seleccionar';
-import { elegibilidad, ESPERA_MS } from './elegibilidad';
+import { caducaEn, elegibilidad, ESPERA_MS } from './elegibilidad';
 import { armarRefuerzo } from './refuerzo';
 import { parsearRespuesta } from './respuesta';
 
@@ -24,6 +24,12 @@ describe('calcularNota', () => {
     expect(r.nota).toBe(80);
     expect(r.aprobado).toBe(true);
     expect(r.aReforzar).toEqual(['gramatica']);
+  });
+});
+
+describe('caducaEn', () => {
+  it('caduca 48 h después de iniciar', () => {
+    expect(caducaEn(new Date('2026-10-14T10:00:00Z')).toISOString()).toBe('2026-10-16T10:00:00.000Z');
   });
 });
 

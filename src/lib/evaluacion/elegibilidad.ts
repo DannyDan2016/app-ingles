@@ -32,3 +32,6 @@ export function elegibilidad(x: {
   }
   return { tipo: 'puede' };
 }
+
+/** Momento en que caduca un intento abierto (48 h desde que empezó). */
+export const caducaEn = (iniciadoAt: Date) => new Date(iniciadoAt.getTime() + CADUCIDAD_MS);

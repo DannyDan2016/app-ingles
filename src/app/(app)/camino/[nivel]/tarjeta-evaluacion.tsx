@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Elegibilidad } from '@/lib/evaluacion/elegibilidad';
-import { CADUCIDAD_MS } from '@/lib/evaluacion/elegibilidad';
+import { caducaEn } from '@/lib/evaluacion/elegibilidad';
 import { formatoFechaHora } from '@/lib/tiempo/bogota';
 import { Tarjeta } from '@/components/tarjeta';
 import { BarraProgreso } from '@/components/barra-progreso';
@@ -28,7 +28,7 @@ export function TarjetaEvaluacion({ nivel, e, iniciadoAt, respondidas, totalLecc
         <Link href={`/evaluacion/${nivel}`} className={ENLACE}>Empezar</Link>
       </>)}
       {e.tipo === 'reanudar' && (<>
-        <p className="mt-1 text-texto-suave">Llevas {respondidas ?? 0} de 20.{iniciadoAt ? ` Caduca el ${formatoFechaHora(new Date(iniciadoAt.getTime() + CADUCIDAD_MS))}.` : ''}</p>
+        <p className="mt-1 text-texto-suave">Llevas {respondidas ?? 0} de 20.{iniciadoAt ? ` Caduca el ${formatoFechaHora(caducaEn(iniciadoAt))}.` : ''}</p>
         <Link href={`/evaluacion/${nivel}`} className={ENLACE}>Continuar</Link>
       </>)}
       {e.tipo === 'falta_refuerzo' && (<>
