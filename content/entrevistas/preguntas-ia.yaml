@@ -1,6 +1,6 @@
 tipo: entrevistas
 rol: ia
-revisado: false
+revisado: true
 preguntas:
   - id: ent-ia-01
     nivel: A2

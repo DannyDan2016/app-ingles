@@ -1,6 +1,6 @@
 tipo: entrevistas
 rol: general
-revisado: false
+revisado: true
 preguntas:
   - id: ent-general-01
     nivel: B1

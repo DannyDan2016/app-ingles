@@ -1,6 +1,6 @@
 tipo: entrevistas
 rol: qa
-revisado: false
+revisado: true
 preguntas:
   - id: ent-qa-01
     nivel: A2

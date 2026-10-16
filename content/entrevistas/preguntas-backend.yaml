@@ -1,6 +1,6 @@
 tipo: entrevistas
 rol: backend
-revisado: false
+revisado: true
 preguntas:
   - id: ent-backend-01
     nivel: A2

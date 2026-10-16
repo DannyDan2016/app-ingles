@@ -1,6 +1,6 @@
 tipo: entrevistas
 rol: frontend
-revisado: false
+revisado: true
 preguntas:
   - id: ent-frontend-01
     nivel: A2
