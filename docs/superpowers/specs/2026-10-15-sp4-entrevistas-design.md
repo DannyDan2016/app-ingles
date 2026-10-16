@@ -1,6 +1,6 @@
 # SP4 — Entrevistas: banco de preguntas y shadowing con video
 
-- **Fecha:** 2026-10-15 · **Estado:** borrador, pendiente de revisión del usuario
+- **Fecha:** 2026-10-15 · **Estado:** aprobado (2026-10-15)
 - **Depende de:** SP3 y B2 en producción (`75caa9e`).
 - **Insumos:** [requisitos](../../requisitos.md) EP9-HU01/HU02 (entrevistas) y EP8 (speaking), reducidos por decisión del usuario (§3).
 - **Enfoque:** spec corto de flujo feliz. Pruebas solo de happy path + seguridad importante.
@@ -13,7 +13,7 @@ Preparar entrevistas técnicas en inglés. La práctica oral la hace el usuario 
 
 ## 2. Alcance
 
-**Incluye:** tipos de contenido `entrevista` y `shadowing` (YAML validado, `server-only`), sección «Entrevistas» con banco filtrable y detalle, pestaña «Shadowing» con lista y detalle, 54 preguntas y 5 sets de shadowing.
+**Incluye:** tipos de contenido `entrevista` y `shadowing` (YAML validado, `server-only`), sección «Entrevistas» con banco filtrable y detalle, pestaña «Shadowing» con lista y detalle, 54 preguntas y 5 sets de shadowing. **Aplazado:** los 5 sets de shadowing se difieren por decisión del usuario (subtítulos de YouTube no disponibles el 2026-10-15); la pestaña «Shadowing» muestra el estado vacío «Aún no hay sets de shadowing» hasta un PR posterior.
 
 **Fuera (YAGNI):**
 | Qué | Motivo |
@@ -30,7 +30,7 @@ Preparar entrevistas técnicas en inglés. La práctica oral la hace el usuario 
 | D1 | Sin grabación ni evaluación de voz en la app |
 | D2 | Cada pregunta: respuesta modelo + 4–6 estructuras + vocabulario con traducción |
 | D3 | Banco inicial: 4 preguntas por rol (ia, qa, backend, frontend) y nivel (A2, B1, B2) = 48 + 6 generales (rol `general`, nivel B1) = 54 |
-| D4 | Shadowing dentro de Entrevistas, con videos reales de entrevistas técnicas: 5 sets (general + 4 roles) de 6 frases, nivel B1/B2 |
+| D4 | Shadowing dentro de Entrevistas, con videos reales de entrevistas técnicas: 5 sets (general + 4 roles) de 6 frases, nivel B1/B2 | **Aplazado (2026-10-15):** los 5 sets de contenido se posponen por decisión del usuario (subtítulos de YouTube no disponibles); la pestaña muestra «Aún no hay sets de shadowing» hasta un PR posterior.
 | D5 | Cada frase = tramo `start`/`end` del video con el `VideoFacade` existente (youtube-nocookie; se para solo al final). Reutiliza lo que ya usa Escuchar; sin cambios de CSP |
 | D6 | Todo el material visible sin depender del nivel del usuario (es de consulta); protegido por sesión |
 
@@ -57,7 +57,7 @@ Preparar entrevistas técnicas en inglés. La práctica oral la hace el usuario 
 
 ### 4.4 Contenido
 - **Preguntas:** redacción (Sonnet) siguiendo D2/D3 → revisión Opus → muestreo del usuario (2 preguntas por rol) → `revisado: true`.
-- **Shadowing:** búsqueda de videos reales de entrevistas técnicas en inglés (Claude; verificación oEmbed; título/canal sin patrones de `check:no-pc`), frases y tiempos desde subtítulos públicos (solo lectura, sin descargar video ni instalar herramientas) → revisión Opus → muestreo del usuario (los 5 sets, tiempos de frase) → `revisado: true`.
+- **Shadowing:** búsqueda de videos reales de entrevistas técnicas en inglés (Claude; verificación oEmbed; título/canal sin patrones de `check:no-pc`), frases y tiempos desde subtítulos públicos (solo lectura, sin descargar video ni instalar herramientas) → revisión Opus → muestreo del usuario (los 5 sets, tiempos de frase) → `revisado: true`. **Aplazado por decisión del usuario (subtítulos de YouTube no disponibles el 2026-10-15):** esta parte no se ejecuta en este PR; la pestaña muestra el estado vacío «Aún no hay sets de shadowing» hasta un PR posterior.
 
 ## 5. Pruebas (happy path + seguridad)
 - **Unit:** esquemas `entrevista` y `shadowing` aceptan un ejemplo válido; el filtro de preguntas por rol/nivel devuelve solo coincidencias.
