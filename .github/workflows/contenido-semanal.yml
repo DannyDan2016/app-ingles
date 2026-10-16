@@ -20,4 +20,11 @@ jobs:
         run: npm run content:check-videos > videos.log 2>&1 || echo "fallo=1" >> "$GITHUB_OUTPUT"
       - if: steps.check.outputs.fallo == '1'
         env: { GH_TOKEN: "${{ github.token }}" }
-        run: gh issue create --repo "$GITHUB_REPOSITORY" --title "Videos del contenido no disponibles ($(date -u +%F))" --body-file videos.log
+        run: |
+          titulo="Videos del contenido no disponibles"
+          existente=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "$titulo in:title" --json number,title --jq "[.[] | select(.title | startswith(\"$titulo\"))][0].number // empty")
+          if [ -n "$existente" ]; then
+            gh issue comment "$existente" --repo "$GITHUB_REPOSITORY" --body-file videos.log
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$titulo ($(date -u +%F))" --body-file videos.log
+          fi
