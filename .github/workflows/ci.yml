@@ -13,7 +13,7 @@ concurrency:
 # Solo runners alojados por GitHub (ubuntu-latest); nunca runners propios.
 jobs:
   calidad:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # fijado: ubuntu-latest pasa a Ubuntu 26 el 2026-10-19; migrar de forma controlada
     timeout-minutes: 20
     env:
       # En main, un contenido con `revisado: false` rompe el build.
@@ -45,7 +45,7 @@ jobs:
             ghcr.io/gitleaks/gitleaks@sha256:c00b6bd0aeb3071cbcb79009cb16a60dd9e0a7c60e2be9ab65d25e6bc8abbb7f git /repo --redact --config /repo/.gitleaks.toml
 
   integracion:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
       postgres:
@@ -71,7 +71,7 @@ jobs:
       - run: npm run test:int
 
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     needs: [calidad]
     env:
@@ -123,7 +123,7 @@ jobs:
   reporte:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main' && always()
     needs: [e2e]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     continue-on-error: true
     permissions:
