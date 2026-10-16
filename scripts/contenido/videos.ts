@@ -15,4 +15,7 @@ async function main() {
   console.log(`videos: ${ids.length} comprobados, ${fallos.length} caídos, ${noVerificables.length} no verificables`);
   if (fallos.length) process.exit(1);
 }
-main();
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
