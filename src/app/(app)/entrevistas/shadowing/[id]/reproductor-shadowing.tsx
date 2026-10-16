@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { Shadowing } from '@/lib/contenido/esquema';
 import { VideoFacade } from '@/components/video-facade';
 import { Boton } from '@/components/boton';
@@ -11,10 +11,16 @@ export function ReproductorShadowing({ set }: { set: Shadowing }) {
   const [verTexto, setVerTexto] = useState(false);
   const f = set.frases[i];
   const video = { youtubeId: set.video.youtubeId, titulo: set.video.titulo, canal: set.video.canal, start: f.start, end: f.end };
-  const ir = (n: number) => { setI(n); setVerTexto(false); };
+  const indicador = useRef<HTMLParagraphElement>(null);
+  const ir = (n: number) => {
+    setI(n);
+    setVerTexto(false);
+    // Si el botón pulsado queda deshabilitado (extremo), el foco caería al body: lo llevamos al indicador.
+    if (n === 0 || n === set.frases.length - 1) indicador.current?.focus();
+  };
   return (
     <div className="flex flex-col gap-3">
-      <p aria-live="polite" className="font-semibold">Frase {i + 1} de {set.frases.length}</p>
+      <p ref={indicador} tabIndex={-1} aria-live="polite" className="font-semibold outline-none">Frase {i + 1} de {set.frases.length}</p>
       <VideoFacade key={`${i}-${intento}`} video={video} iniciado={iniciado} onIniciar={() => setIniciado(true)} />
       <div className="flex flex-wrap gap-2">
         <Boton type="button" onClick={() => { setIniciado(true); setIntento((x) => x + 1); }}>Escuchar frase</Boton>
